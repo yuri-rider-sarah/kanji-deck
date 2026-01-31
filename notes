@@ -1,0 +1,32 @@
+The format should be self-explanatory aside from the way multiple spellings for a word can be represented. If multiple spellings are provided, the last one is an example of the reading of the kanji. If it's not the most common spelling, the most common spelling and the most common kanji spelling (if different) are prepended for reference. Each spelling except the most common has a rough frequency given – I've used around 5% of spellings in the corpus as the threshold between "common" and "rare".
+
+This is very important to understand, and can easily lead to confusion if misinterpreted. Consider an example like this, from the examples for 画:
+```
+(secondary-spelling 絵 (common 画))
+```
+This does NOT say that 絵 is a secondary spelling! The `secondary-spelling` tag applies to the whole example, so it's actually referring to the *last* spelling in the list. The spellings are given in order of frequency, so 絵, being first, is the most common spelling. Then 画 is the secondary spelling referred to by the tag. The additional `common` tag specifies that it's used more than 5% of the time, so it's still relatively common despite not being the primary spelling.
+
+Another example, this one from 隠:
+```
+(secondary-kanji-spelling こもる (common 籠もる) (rare 隠る))
+```
+Here, 隠る is the spelling being described. `secondary-kanji-spelling` means that the word is usually written in kana and that there's also another, more common, kanji spelling. After the tag comes the most common spelling of the word – こもる, indeed, written in kana. It doesn't get a frequency tag, since it wouldn't make sense for the most common spelling to be `rare` at the same time, so `common` is implied. Then we have `(common 籠もる)`, which describes the most common kanji spelling. It's marked as `common`, since it still accounts for over 5% of uses. Then finally we have `(rare 隠る)`, which is the actual spelling under consideration. Since it's fairly rare (under 5%), it's marked as such.
+
+Common types of errors:
+E1. Spellings that are not actually used in practice, for example 行る for *yaru*. Many of these came about as a result of incorrectly splitting words in the corpus. Single-character words are especially prone to this.
+E2. Cases where a given spelling could be misleading for how a word is read in practice, especially cases where a given reading is not the usual way to read a word. For example, standalone 兵 is usually read as *hei*, so presenting a kun-reading of *tsuwamono* at all is misleading. When giving examples of words falling under this category, please also tell me what the most common reading of the spelled word is.
+E3. Cases where a spelling that does get some use, but less than 5% of the time, is mistakenly marked as `primary` or `common`.
+E4. A compound word being used instead of a simpler standalone word, for example 隙間 being used to represent the reading *ma* of 間, when 間 alone is a better choice. This applies especially to kun-readings.
+E5. Common proper names that got misinterpreted as obscure common nouns, for example 光一 *Kōichi* being interpreted as the rare word *pikaichi*, or 本郷 *Hongō*, usually a place name, being interpreted as a word meaning "hometown".
+E6. Words that are virtually used only as part of an expression should be given as such, for example 科 as *shina* in 科を作る should not be presented as a standalone word.
+E7. Cases where a better example is available to represent the usage of a kanji. A more common word is usually better as an example, as long as it represents the sound and meaning of kanji well.
+E8. Excessively broad or narrow definitions, for example 停める for just "to stop" instead of "to stop (a vehicle)".
+E9. Terms that are humble, honorofic, sensitive, derogatory, archaic, or historical not being properly marked as such.
+E10. Note that other kinds of errors are still possible. I've only listed the most common types.
+
+Things that are not errors:
+N1. Missing standalone words where the compound word is far more common. This applies especially to on-readings.
+N2. Cases where a common word is not given as an example, but it's not a good example of how a character is used. For example, 用意 is a very common word, but it's not good to illustrate the meaning of either 用 or 意. For 用, 利用 is a much better example, since it means "use".
+N3. Rare words being included to demonstrate a rare reading of kanji, unless they fall under another type of error. This deck is not intended for beginner learners, so including rare readings is fine, as long as they're not presented in a misleading way.
+N4. Missing readings that can be inferred from other readings, for example 刺 *sashi* in 刺身 *sashimi* can be straighforwardly read as a nominalization of 刺す *sasu*.
+N5. Errors due to misunderstanding spelling syntax, as described at the beginning of the document.
