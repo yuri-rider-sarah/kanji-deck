@@ -422,7 +422,7 @@
                 (primary-spelling 上海)
                 *シャン*ハイ
                 "Shanghai"
-                (special chinese))))
+                (special asian))))
     (part "kun2"
         (kun
             (secondary-reading
@@ -1072,7 +1072,7 @@
             (primary-spelling 苦力)
             クー*リー*
             "coolie (Asian low-wage laborer) (historical)"
-            (special chinese))))
+            (special asian))))
 (kanji-split 人
     (part "kun"
         (kun
@@ -1156,12 +1156,12 @@
                 (primary-spelling 餃子)
                 ギョー*ザ*
                 "gyōza"
-                (special chinese))
+                (special asian))
             (secondary-reading
                 (primary-spelling 面子)
                 メン*ツ*
                 "honor"
-                (special chinese)))))
+                (special asian)))))
 (kanji-split 女
     (part "kun"
         (kun
@@ -1531,7 +1531,7 @@
             (primary-kanji-spelling メートル (rare 米))
             *メートル*
             "meter (unit)"
-            (special english))))
+            (special european))))
 (kanji 肉
     (kun
         (secondary-reading
@@ -1613,7 +1613,7 @@
                 (primary-spelling 飲茶)
                 *ヤム*チャ
                 "yum cha"
-                (special chinese)))))
+                (special asian)))))
 (kanji 酒
     (kun
         (primary-reading
@@ -3318,7 +3318,7 @@
                 (primary-spelling 明)
                 *ミン*
                 "Ming (dynasty)"
-                (special chinese))))
+                (special asian))))
     (part "kun2"
         (kun
             (primary-reading
@@ -3697,7 +3697,7 @@
                 (primary-kanji-spelling ニーハオ (common 你好))
                 ニー*ハオ*
                 "hi (Chinese)"
-                (special chinese))))
+                (special asian))))
     (part "kun2"
         (kun
             (secondary-reading
@@ -5397,7 +5397,7 @@
             (primary-spelling 広東)
             カン*トン*
             "Guangdong, Canton"
-            (special chinese))))
+            (special asian))))
 (combined
     (primary-reading
         (primary-spelling 東風)
@@ -6594,7 +6594,7 @@
             (primary-spelling 上海)
             シャン*ハイ*
             "Shanghai"
-            (special chinese))))
+            (special asian))))
 (combined
     (primary-reading
         (primary-spelling 海人)
@@ -6635,7 +6635,7 @@
             (primary-spelling 北京)
             ペ*キン*
             "Beijing"
-            (special chinese))))
+            (special asian))))
 (kanji 電
     (on
         (primary-reading
@@ -7758,7 +7758,7 @@
                 (primary-spelling 苦力)
                 *クー*リー
                 "coolie (Asian low-wage laborer) (historical)"
-                (special chinese)))))
+                (special asian)))))
 (kanji 買
     (kun
         (primary-reading
@@ -7838,7 +7838,7 @@
                 (primary-spelling 平壌)
                 *ピョン*ヤン
                 "Pyongyang"
-                (special chinese)))))
+                (special asian)))))
 (kanji 任
     (kun
         (primary-reading
@@ -8820,7 +8820,7 @@
                 (primary-spelling 広東)
                 *カン*トン
                 "Guangdong, Canton"
-                (special chinese)))))
+                (special asian)))))
 (kanji 計
     (kun
         (primary-reading
@@ -9405,7 +9405,7 @@
             (primary-kanji-spelling シュウマイ (common 焼売))
             シュウ*マイ*
             "shumai (food)"
-            (special chinese))))
+            (special asian))))
 (kanji 有
     (kun
         (primary-reading
@@ -9628,12 +9628,12 @@
             (primary-spelling 北京)
             *ペ*キン
             "Beijing"
-            (special chinese))
+            (special asian))
         (secondary-reading
             (primary-spelling 台北)
             タイ*ペイ*
             "Taipei"
-            (special chinese))))
+            (special asian))))
 (kanji 段
     (on
         (primary-reading
@@ -11975,7 +11975,7 @@
             (primary-kanji-spelling シュウマイ (common 焼売))
             *シュウ*マイ
             "shumai (food)"
-            (special chinese))))
+            (special asian))))
 (kanji 辺
     (kun
         (primary-reading
@@ -12142,7 +12142,7 @@
             (primary-spelling 謝謝)
             *シェ*シェ
             "thanks (Chinese)"
-            (special chinese))))
+            (special asian))))
 (kanji 越
     (kun
         (primary-reading
@@ -14398,7 +14398,7 @@
                 (primary-spelling 香港)
                 *ホン*コン
                 "Hong Kong"
-                (special chinese)))))
+                (special asian)))))
 (combined
     (primary-reading
         (secondary-spelling 鮎 (common 香魚))
@@ -17297,7 +17297,7 @@
             (primary-spelling 包子)
             *パオ*ズ
             "baozi (bun)"
-            (special chinese))))
+            (special asian))))
 (kanji 液
     (on
         (primary-reading
@@ -18807,7 +18807,7 @@
             (primary-spelling 香港)
             ホン*コン*
             "Hong Kong"
-            (special chinese))))
+            (special asian))))
 (kanji 樹
     (kun
         (primary-reading
@@ -20113,7 +20113,7 @@
                 (primary-spelling 清)
                 *シン*
                 "Qing dynasty"
-                (special chinese))))
+                (special asian))))
     (part "2"
         (kun
             (secondary-reading
@@ -21730,7 +21730,7 @@
             (secondary-spelling 画竜点睛 (rare 画龍点睛))
             ガ*リョウ*テンセイ
             "putting on the finishing touches"
-            (special chinese))))
+            (special asian))))
 (kanji 奏
     (kun
         (primary-reading
@@ -22487,7 +22487,7 @@
             (primary-spelling 麻雀)
             *マー*ジャン
             "mahjong"
-            (special chinese))))
+            (special asian))))
 (kanji 陛
     (on
         (primary-reading
@@ -23766,7 +23766,7 @@
         (primary-kanji-spelling ミイラ (common 木乃伊))
         みいら
         "mummy"
-        (special english)))
+        (special european)))
 (kanji-split 尊
     (part "kun"
         (kun
@@ -24351,7 +24351,7 @@
             (primary-spelling 豆板醤)
             *トー*バンジャン
             "doubanjiang (paste)"
-            (special chinese)))
+            (special asian)))
     (from-combined
         (secondary-reading
             (primary-spelling 小豆)
@@ -25249,7 +25249,7 @@
             (primary-kanji-spelling カノン砲 (rare 加農砲))
             カ*ノン*ホウ
             "cannon"
-            (special english))))
+            (special european))))
 (kanji 忠
     (on
         (primary-reading
@@ -26165,7 +26165,7 @@
             (primary-spelling 韓流)
             *ハン*リュウ
             "Korean Wave"
-            (special chinese))))
+            (special asian))))
 (kanji 寧
     (kun
         (primary-reading
@@ -27254,7 +27254,7 @@
                 (primary-spelling 小籠包)
                 ショウ*ロン*ポウ
                 "xiaolongbao (Chinese dumpling)"
-                (special chinese)))))
+                (special asian)))))
 (combined
     (primary-reading
         (primary-kanji-spelling びく (common 魚籠))
@@ -27896,7 +27896,7 @@
             (primary-spelling 旗袍)
             *チー*パオ
             "qipao"
-            (special chinese))))
+            (special asian))))
 (kanji 惨
     (kun
         (primary-reading
@@ -28500,7 +28500,7 @@
             (primary-kanji-spelling コンクリート (rare 混凝土))
             コン*クリー*ト
             "concrete"
-            (special english))))
+            (special european))))
 (kanji 欺
     (kun
         (primary-reading
@@ -30313,7 +30313,7 @@
             (primary-spelling 麻婆豆腐)
             マー*ボー*ドウフ
             "mapo tofu"
-            (special chinese))))
+            (special asian))))
 (kanji 乏
     (kun
         (primary-reading
@@ -30802,7 +30802,7 @@
             (primary-kanji-spelling 連チャン (common 連荘))
             レン*チャン*
             "repeated events"
-            (special chinese))))
+            (special asian))))
 (kanji 牢
     (on
         (primary-reading
@@ -32191,7 +32191,7 @@
             (primary-spelling 麻雀)
             マー*ジャン*
             "mahjong"
-            (special chinese))
+            (special asian))
         (secondary-reading
             (primary-spelling 朱雀)
             ス*ザク*
@@ -33136,7 +33136,7 @@
             (primary-kanji-spelling ウーロン茶 (common 烏龍茶))
             *ウー*ロンチャ
             "oolong tea"
-            (special chinese))))
+            (special asian))))
 (combined
     (primary-reading
         (primary-kanji-spelling イカ (common 烏賊))
@@ -34229,7 +34229,7 @@
             (primary-kanji-spelling ミサ (rare 弥撒))
             ミ*サ*
             "Mass"
-            (special english))))
+            (special european))))
 (kanji 孔
     (kun
         (primary-reading
@@ -35068,7 +35068,7 @@
             (primary-spelling 釜山)
             *プ*サン
             "Busan"
-            (special chinese))))
+            (special asian))))
 (kanji 逐
     (kun
         (primary-reading
@@ -35807,7 +35807,7 @@
             (primary-spelling 豆板醤)
             トーバン*ジャン*
             "doubanjiang (paste)"
-            (special chinese))))
+            (special asian))))
 (kanji 賄
     (kun
         (primary-reading
@@ -36367,7 +36367,7 @@
         (primary-kanji-spelling マッチ (rare 燐寸))
         まっち
         "match (to light fire)"
-        (special english)))
+        (special european)))
 (kanji 彷
     (on
         (primary-reading
@@ -36549,7 +36549,7 @@
             (primary-kanji-spelling チャーハン (common 炒飯))
             *チャー*ハン
             "Chinese-style fried rice"
-            (special chinese))))
+            (special asian))))
 (kanji 榊
     (kun
         (primary-reading
@@ -36876,7 +36876,7 @@
             (primary-kanji-spelling コーヒー (common 珈琲))
             *コー*ヒー
             "coffee"
-            (special english))))
+            (special european))))
 (kanji 嗚
     (on
         (primary-reading
@@ -36905,7 +36905,7 @@
             (primary-kanji-spelling コーヒー (common 珈琲))
             コー*ヒー*
             "coffee"
-            (special english))))
+            (special european))))
 (kanji 庄
     (on
         (primary-reading
@@ -40444,7 +40444,7 @@
             (primary-spelling 牌)
             *パイ*
             "mahjong tile"
-            (special chinese))))
+            (special asian))))
 (kanji 髏
     (on
         (primary-reading
@@ -41700,7 +41700,7 @@
             (primary-spelling 平壌)
             ピョン*ヤン*
             "Pyongyang"
-            (special chinese))))
+            (special asian))))
 (kanji 舶
     (on
         (primary-reading
@@ -48219,7 +48219,7 @@
             (primary-kanji-spelling ボタン (rare 釦))
             *ボタン*
             "button"
-            (special english))))
+            (special european))))
 (kanji 鉦
     (kun
         (primary-reading
@@ -48254,7 +48254,7 @@
             (primary-kanji-spelling ドル (rare 弗))
             *ドル*
             "dollar"
-            (special english))))
+            (special european))))
 (kanji 牆
     (kun
         (primary-reading
@@ -48577,7 +48577,7 @@
             (primary-spelling 旗袍)
             チー*パオ*
             "qipao"
-            (special chinese))))
+            (special asian))))
 (kanji 蹊
     (on
         (primary-reading
@@ -48783,7 +48783,7 @@
             (primary-kanji-spelling ニーハオ (common 你好))
             *ニー*ハオ
             "hi (Chinese)"
-            (special chinese))))
+            (special asian))))
 (kanji 谺
     (kun
         (primary-reading
@@ -49237,7 +49237,7 @@
             (primary-kanji-spelling マイル (common 哩))
             *マイル*
             "mile"
-            (special english))))
+            (special european))))
 (kanji 尠
     (kun
         (primary-reading
@@ -51258,7 +51258,7 @@
             (primary-kanji-spelling インチ (common 吋))
             *インチ*
             "inch"
-            (special english))))
+            (special european))))
 (kanji 貉
     (kun
         (primary-reading
@@ -52093,7 +52093,7 @@
             (primary-kanji-spelling ヤード (rare 碼))
             *ヤード*
             "yard (unit)"
-            (special english))))
+            (special european))))
 (kanji 杼
     (kun
         (primary-reading
