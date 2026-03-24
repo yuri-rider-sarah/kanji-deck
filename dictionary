@@ -659,7 +659,7 @@
             (secondary-reading
                 (primary-spelling 石女)
                 *うまず*め
-                "barren woman (sensitive)")))
+                "barren woman (discriminatory)")))
     (part "on"
         (on
             (primary-reading
@@ -1067,7 +1067,7 @@
         (secondary-reading
             (primary-spelling 苦力)
             クー*リー*
-            "coolie (Asian low-wage laborer) (historical, sensitive)"
+            "coolie (Asian low-wage laborer) (historical, discriminatory)"
             (special asian))))
 (kanji-split 人
     (part "kun"
@@ -7750,7 +7750,7 @@
             (secondary-reading
                 (primary-spelling 苦力)
                 *クー*リー
-                "coolie (Asian low-wage laborer) (historical, sensitive)"
+                "coolie (Asian low-wage laborer) (historical, discriminatory)"
                 (special asian)))))
 (kanji 買
     (kun
@@ -20706,7 +20706,7 @@
             (secondary-reading
                 (secondary-spelling 気違い (common 気狂い))
                 き*ちが*い
-                "madness (sensitive)")
+                "madness (discriminatory)")
             (secondary-reading
                 (primary-kanji-spelling 気がふれる (rare 気が狂れる))
                 きが*ふ*れる
@@ -21303,7 +21303,7 @@
         (primary-reading
             (primary-spelling 痴呆)
             チ*ホウ*
-            "stupidity, dementia (sensitive)")
+            "stupidity, dementia (discriminatory)")
         (secondary-reading
             (primary-kanji-spelling アホ (common 阿呆))
             ア*ホ*
@@ -33433,7 +33433,7 @@
         (primary-reading
             (primary-spelling 百姓)
             ヒャク*ショウ*
-            "farmer (sensitive)")
+            "farmer (discriminatory)")
         (secondary-reading
             (secondary-spelling 素性 (common 素姓))
             ス*ジョウ*
@@ -35557,7 +35557,7 @@
         (primary-reading
             (primary-spelling 乞食)
             *コ*ジキ
-            "beggar (sensitive)")))
+            "beggar (discriminatory)")))
 (kanji 峙
     (on
         (primary-reading
@@ -37011,7 +37011,7 @@
         (primary-reading
             (primary-spelling 盲)
             *めくら*
-            "blindness (sensitive)"))
+            "blindness (discriminatory)"))
     (on
         (primary-reading
             (primary-spelling 盲目)
@@ -37758,7 +37758,7 @@
         (primary-reading
             (primary-spelling 唖)
             *おし*
-            "muteness (sensitive)"))
+            "muteness (discriminatory)"))
     (on
         (primary-reading
             (primary-spelling 唖然)
@@ -47406,7 +47406,7 @@
         (primary-reading
             (primary-spelling 聾)
             *つんぼ*
-            "deafness, deaf person (sensitive)"))
+            "deafness, deaf person (discriminatory)"))
     (on
         (primary-reading
             (primary-spelling 聾者)
@@ -49547,7 +49547,7 @@
         (primary-reading
             (primary-spelling 癩病)
             *ライ*ビョウ
-            "leprosy (dated, sensitive)")))
+            "leprosy (dated, discriminatory)")))
 (kanji 埓
     (on
         (primary-reading
@@ -49655,7 +49655,7 @@
         (primary-reading
             (primary-spelling 跛)
             *びっこ*
-            "cripple (sensitive)"))
+            "cripple (discriminatory)"))
     (on
         (primary-reading
             (primary-spelling 跛行)
@@ -50039,7 +50039,7 @@
         (primary-reading
             (primary-spelling 瘋癲)
             フウ*テン*
-            "insanity (sensitive)")))
+            "insanity (discriminatory)")))
 (kanji 枉
     (kun
         (primary-reading
@@ -51000,7 +51000,7 @@
         (primary-reading
             (primary-spelling 侏儒)
             *シュ*ジュ
-            "dwarf (person) (archaic, sensitive)")))
+            "dwarf (person) (archaic, discriminatory)")))
 (kanji 瑾
     (on
         (primary-reading
@@ -51507,7 +51507,7 @@
         (primary-reading
             (primary-spelling 瘋癲)
             *フウ*テン
-            "insanity (sensitive)")))
+            "insanity (discriminatory)")))
 (kanji 獗
     (on
         (primary-reading
@@ -51817,7 +51817,7 @@
         (primary-reading
             (primary-spelling 蹇)
             *あしなえ*
-            "cripple (sensitive)")))
+            "cripple (discriminatory)")))
 (kanji 筬
     (kun
         (primary-reading
