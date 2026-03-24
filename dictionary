@@ -1985,7 +1985,7 @@
         (secondary-reading
             (primary-spelling 今古)
             *キン*コ
-            "now and antiquity (literary)")))
+            "now and antiquity")))
 (combined
     (primary-reading
         (primary-spelling 今日)
@@ -2060,7 +2060,7 @@
                 (related-reading
                     (primary-kanji-spelling おぼしい (common 思しい))
                     *おぼ*しい
-                    "seeming to be (literary)")))))
+                    "seeming to be")))))
 (kanji 事
     (kun
         (primary-reading
@@ -2259,7 +2259,7 @@
         (secondary-reading
             (primary-spelling 本意ない)
             *ホ*イナイ
-            "reluctant (literary)")))
+            "reluctant")))
 (kanji-split 来
     (part "kun"
         (kun
@@ -4237,7 +4237,7 @@
             (related-reading
                 (primary-spelling 用うる)
                 *もち*うる
-                "to use (literary)")))
+                "to use")))
     (on
         (primary-reading
             (primary-spelling 利用)
@@ -5130,7 +5130,7 @@
             (secondary-reading
                 (primary-spelling 殺める)
                 *あや*める
-                "to kill (literary)")
+                "to kill")
             (secondary-reading
                 (primary-spelling 殺る)
                 *や*る
@@ -5395,7 +5395,7 @@
     (primary-reading
         (primary-spelling 東風)
         こち
-        "east wind (literary)"))
+        "east wind"))
 (kanji 緒
     (kun
         (primary-reading
@@ -12015,7 +12015,7 @@
             (secondary-reading
                 (secondary-spelling 如く (common 若く))
                 *し*く
-                "to match, to equal (formal)")))
+                "to match, to equal")))
     (part "on"
         (on
             (primary-reading
@@ -15177,7 +15177,7 @@
         (primary-reading
             (primary-kanji-spelling あらず (common 非ず))
             *あら*ず
-            "not (formal)"))
+            "not"))
     (on
         (primary-reading
             (primary-spelling 非常)
@@ -15387,7 +15387,7 @@
         (primary-reading
             (primary-spelling 妙なる)
             *たえ*なる
-            "exquisite (literary)"))
+            "exquisite"))
     (on
         (primary-reading
             (primary-spelling 妙)
@@ -16218,7 +16218,7 @@
         (secondary-reading
             (primary-spelling 従容)
             *ショウ*ヨウ
-            "calm (literary)")))
+            "calm")))
 (combined
     (primary-reading
         (primary-kanji-spelling いとこ (common 従兄弟))
@@ -16432,7 +16432,7 @@
         (primary-reading
             (primary-spelling 希う)
             *こいねが*う
-            "to strongly desire (formal)")
+            "to strongly desire")
         (secondary-reading
             (secondary-kanji-spelling まれ (common 稀) (common 希))
             *まれ*
@@ -20647,7 +20647,7 @@
         (secondary-reading
             (primary-spelling 油然)
             *ユウ*ゼン
-            "welling up vigorously (literary)")))
+            "welling up vigorously")))
 (kanji 候
     (kun
         (primary-reading
@@ -21616,7 +21616,7 @@
         (secondary-reading
             (primary-spelling 如く)
             *し*く
-            "to match, to equal (formal)"))
+            "to match, to equal"))
     (on
         (primary-reading
             (primary-spelling 突如)
@@ -22303,7 +22303,7 @@
     (primary-reading
         (primary-kanji-spelling なかんずく (common 就中))
         なかんずく
-        "especially (literary)"))
+        "especially"))
 (kanji 飾
     (kun
         (primary-reading
@@ -31093,7 +31093,7 @@
         (secondary-reading
             (primary-spelling 吾子)
             *あ*こ
-            "my child (literary)")))
+            "my child")))
 (kanji 郵
     (on
         (primary-reading
@@ -31650,7 +31650,7 @@
         (primary-reading
             (primary-spelling 稚い)
             *いとけな*い
-            "very young (literary)"))
+            "very young"))
     (on
         (primary-reading
             (primary-spelling 幼稚)
@@ -35829,7 +35829,7 @@
         (primary-reading
             (primary-spelling 勲)
             *いさお*
-            "meritorious service (literary)"))
+            "meritorious service"))
     (on
         (primary-reading
             (primary-spelling 勲章)
@@ -35996,7 +35996,7 @@
         (primary-reading
             (primary-spelling 浩然)
             *コウ*ゼン
-            "vast and calm (of spirit) (literary)")))
+            "vast and calm (of spirit)")))
 (kanji 媒
     (kun
         (primary-reading
@@ -39631,7 +39631,7 @@
         (primary-reading
             (primary-kanji-spelling かく (common 斯く))
             *か*く
-            "like this (literary)")
+            "like this")
         (primary-reading
             (secondary-kanji-spelling この (rare 此の) (rare 斯の))
             *こ*の
@@ -39643,7 +39643,7 @@
         (primary-reading
             (primary-kanji-spelling かよう (rare 斯様))
             *か*よう
-            "this kind of (literary)"))
+            "this kind of"))
     (on
         (primary-reading
             (primary-spelling 斯界)
@@ -50568,7 +50568,7 @@
         (primary-reading
             (secondary-spelling 希う (rare 冀う))
             *こいねが*う
-            "to strongly desire (formal)"))
+            "to strongly desire"))
     (on
         (primary-reading
             (secondary-spelling 希望 (rare 冀望))
@@ -50591,7 +50591,7 @@
         (primary-reading
             (primary-kanji-spelling みぎり (common 砌))
             *みぎり*
-            "time (literary)")))
+            "time")))
 (kanji 馥
     (on
         (primary-reading
