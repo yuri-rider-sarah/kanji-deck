@@ -2323,7 +2323,7 @@
             (primary-spelling 自然)
             *シ*ゼン
             "nature")))
-(kanji-split 笑
+(kanji 笑
     (kun
         (primary-reading
             (primary-spelling 笑う)
@@ -3361,11 +3361,11 @@
     (primary-reading
         (primary-spelling 明後日)
         あさって
-        "day after tomorrow")
+        "day after tomorrow"
         (related-reading
             (primary-spelling 明後日)
             ミョウゴニチ
-            "day after tomorrow"))
+            "day after tomorrow")))
 (combined
     (primary-reading
         (primary-spelling 明々後日)
@@ -3457,7 +3457,7 @@
             (primary-spelling 知的)
             チ*テキ*
             "intellectual")))
-(kanji-split 向
+(kanji 向
     (kun
         (primary-reading
             (primary-spelling 向く)
@@ -9990,7 +9990,7 @@
 (kanji 服
     (kun
         (primary-reading
-            (primary-spelling 飲む (rare 服む))
+            (secondary-spelling 飲む (rare 服む))
             *の*む
             "to take (medicine)"))
     (on
@@ -11257,7 +11257,7 @@
             *あかし*
             "proof"
             (related-reading
-                (primary-spelling 明かす (rare 証す))
+                (secondary-spelling 明かす (rare 証す))
                 *あか*す
                 "to prove")))
     (on
@@ -11862,7 +11862,7 @@
             *むすめ*
             "daughter, girl")
         (secondary-reading
-            (primary-spelling 子 (rare 娘))
+            (secondary-spelling 子 (rare 娘))
             *こ*
             "daughter, girl")))
 (kanji 投
@@ -15139,7 +15139,7 @@
             *イン*ショウ
             "impression")
         (primary-reading
-            (primary-spelling インド (rare 印度))
+            (primary-kanji-spelling インド (rare 印度))
             *イン*ド
             "India")))
 (kanji 誘
@@ -15370,7 +15370,7 @@
 (kanji 検
     (kun
         (primary-reading
-            (primary-spelling 改める (rare 検める))
+            (secondary-spelling 改める (rare 検める))
             *あらた*める
             "to inspect"))
     (on
@@ -17441,7 +17441,7 @@
             (primary-spelling 窃盗)
             セッ*トウ*
             "theft")))
-(kanji-split 衣
+(kanji 衣
     (kun
         (primary-reading
             (primary-spelling 衣)
@@ -25975,11 +25975,11 @@
 (kanji 還
     (kun
         (primary-reading
-            (secondary-spelling 帰る 還る)
+            (secondary-spelling 帰る (rare 還る))
             *かえ*る
             "to return home"
             (related-reading
-                (secondary-spelling 帰す 還す)
+                (secondary-spelling 帰す (common 還す))
                 *かえ*す
                 "to send home")))
     (on
@@ -26682,7 +26682,7 @@
             "Buddhist priest")
         (secondary-reading
             (primary-spelling 小僧)
-            コ*ゾウ
+            コ*ゾウ*
             "young monk, brat")))
 (kanji 湿
     (kun
@@ -30445,7 +30445,7 @@
             "to meet"
             (related-reading
                 (primary-spelling 逢瀬)
-                *オウ*セ
+                *おう*せ
                 "(lovers') meeting")))
     (on
         (primary-reading
@@ -32701,7 +32701,7 @@
 (kanji 涯
     (kun
         (primary-reading
-            (primary-spelling 果て (rare 涯))
+            (secondary-spelling 果て (rare 涯))
             *はて*
             "the end, the limit"))
     (on
@@ -33008,11 +33008,11 @@
 (kanji 穫
     (kun
         (primary-reading
-            (primary-spelling 取れる (rare 穫れる))
+            (secondary-spelling 取れる (rare 穫れる))
             *と*れる
             "to be harvested"
             (related-reading
-                (primary-spelling 取る (rare 穫る))
+                (secondary-spelling 取る (rare 穫る))
                 *と*る
                 "to harvest")))
     (on
@@ -37925,7 +37925,7 @@
 (kanji 煎
     (kun
         (primary-reading
-            (secondary-spelling 煎る)
+            (primary-spelling 煎る)
             *い*る
             "to roast"))
     (on
@@ -41654,7 +41654,7 @@
 (kanji 寡
     (kun
         (primary-reading
-            (primary-kanji-spelling (common 寡))
+            (primary-kanji-spelling やもめ (common 寡))
             *やもめ*
             "widow")
         (secondary-reading
@@ -42815,7 +42815,7 @@
             *やぐら*
             "yagura (watchtower)"))
     (on
-        (primary-meaning
+        (primary-reading
             (primary-spelling 櫓)
             *ロ*
             "scull")))
@@ -47555,8 +47555,9 @@
 (combined
     (primary-reading
         (primary-kanji-spelling ビロード (common 天鵞絨))
-        びろーど
-        "velvet"))
+        ビロード
+        "velvet"
+        (special european)))
 (kanji 駱
     (on
         (primary-reading
