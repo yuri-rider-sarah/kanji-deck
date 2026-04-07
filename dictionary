@@ -674,7 +674,7 @@
             (secondary-reading
                 (primary-spelling 盤石)
                 バン*ジャク*
-                "huge rock")
+                "huge rock; firmness")
             (secondary-reading
                 (primary-spelling 石)
                 *コク*
@@ -1143,7 +1143,7 @@
                 ドウ*ジ*
                 "child")
             (secondary-reading
-                (primary-kanji-spelling ユズ (common 柚子))
+                (primary-kanji-spelling ゆず (common 柚子))
                 ユ*ズ*
                 "yuzu (fruit)")
             (secondary-reading
@@ -1475,7 +1475,7 @@
         (secondary-reading
             (primary-spelling 刀自)
             *ト*ジ
-            "matron (archaic)")))
+            "lady, matron (archaic)")))
 (kanji 車
     (kun
         (primary-reading
@@ -1963,7 +1963,7 @@
         (secondary-reading
             (primary-spelling 意気地)
             イ*ク*ジ
-            "self-confidence"))
+            "willpower, courage"))
     (from-combined
         (secondary-reading
             (primary-kanji-spelling かぶれる (rare 気触れる))
@@ -2026,7 +2026,7 @@
         (secondary-reading
             (primary-spelling 前栽)
             *セン*ザイ
-            "garden (archaic)")))
+            "senzai (garden)")))
 (kanji 俺
     (kun
         (primary-reading
@@ -2261,7 +2261,7 @@
             (related-reading
                 (primary-spelling 本意ない)
                 *ホ*イナイ
-                "reluctant"))))
+                "regrettable, disappointing"))))
 (kanji-split 来
     (part "kun"
         (kun
@@ -2292,11 +2292,7 @@
             (primary-reading
                 (primary-spelling 将来)
                 ショウ*ライ*
-                "future")
-            (secondary-reading
-                (primary-spelling 出来)
-                シュッ*タイ*
-                "occurrence"))))
+                "future"))))
 (kanji 自
     (kun
         (primary-reading
@@ -3027,7 +3023,7 @@
         (secondary-reading
             (secondary-kanji-spelling おののく (common 慄く) (common 戦く))
             *おのの*く
-            "to shiver")
+            "to tremble")
         (secondary-reading
             (primary-kanji-spelling そよぐ (common 戦ぐ))
             *そよ*ぐ
@@ -15742,7 +15738,7 @@
         (primary-reading
             (primary-spelling 子弟)
             シ*テイ*
-            "children")
+            "young people of a family")
         (secondary-reading
             (primary-spelling 兄弟)
             キョウ*ダイ*
@@ -15860,9 +15856,9 @@
             タン*ドク*
             "single")
         (primary-reading
-            (primary-spelling 独国)
-            *ドク*コク
-            "Germany")
+            (primary-spelling 日独)
+            ニチ*ドク*
+            "Japan and Germany")
         (secondary-reading
             (primary-spelling 独歩)
             *ドッ*ポ
@@ -16151,9 +16147,13 @@
     (part "1"
         (kun
             (primary-reading
-                (primary-spelling 亡い)
-                *な*い
-                "dead"
+                (primary-spelling 亡くなる)
+                *な*くなる
+                "to die"
+                (related-reading
+                    (primary-spelling 亡い)
+                    *な*い
+                    "dead")
                 (related-reading
                     (primary-spelling 亡き)
                     *な*き
@@ -17039,11 +17039,11 @@
         (primary-reading
             (primary-spelling 盛る)
             *さか*る
-            "to prosper"
+            "to prosper, to become lively"
             (related-reading
                 (primary-spelling 盛ん)
                 *さか*ん
-                "prosperous")))
+                "prosperous, lively")))
     (on
         (primary-reading
             (primary-spelling 盛況)
@@ -17323,7 +17323,7 @@
         (primary-reading
             (primary-spelling 冒す)
             *おか*す
-            "to brave, to face; to desecrate"))
+            "to brave, to face"))
     (on
         (primary-reading
             (primary-spelling 冒険)
@@ -17350,7 +17350,7 @@
         (secondary-reading
             (primary-spelling 御手洗)
             みたらし
-            "font of purifying water placed at the entrance of a shrine"
+            "place for washing hands and mouth before entering a shrine"
             (related-reading
                 (secondary-spelling お手洗い (rare 御手洗))
                 おてあらい
@@ -17460,7 +17460,7 @@
         (secondary-reading
             (primary-spelling 衣紋)
             *エ*モン
-            "wearing clothes properly; part of a kimono collar that meets the chest"))
+            "wearing clothes properly; kimono collar"))
     (from-combined
         (secondary-reading
             (primary-spelling 黒衣)
@@ -19622,7 +19622,7 @@
         (primary-reading
             (primary-spelling 含有)
             *ガン*ユウ
-            "containing (an ingredient)")))
+            "containing (e.g. an ingredient)")))
 (kanji-split 載
     (part "kun"
         (kun
@@ -20887,9 +20887,9 @@
                 "to connect")))
     (on
         (primary-reading
-            (primary-spelling 繋縛)
-            *ケイ*バク
-            "restraint")))
+            (secondary-spelling 連係 (common 連繋))
+            レン*ケイ*
+            "connection")))
 (kanji 噂
     (kun
         (primary-reading
@@ -22246,7 +22246,7 @@
 (kanji 看
     (kun
         (primary-reading
-            (primary-spelling 看る)
+            (secondary-spelling 見る (common 看る))
             *み*る
             "to look after"))
     (on
@@ -24295,12 +24295,7 @@
         (secondary-reading
             (primary-kanji-spelling エンドウ (common 豌豆))
             エン*ドウ*
-            "pea")
-        (secondary-reading
-            (primary-spelling 豆板醤)
-            *トー*バンジャン
-            "doubanjiang (paste)"
-            (special asian)))
+            "pea"))
     (from-combined
         (secondary-reading
             (primary-spelling 小豆)
@@ -29071,12 +29066,7 @@
         (primary-reading
             (primary-spelling 遠征)
             エン*セイ*
-            "expedition"))
-    (from-combined
-        (secondary-reading
-            (primary-spelling 征矢)
-            *そ*や
-            "arrow for battle")))
+            "expedition")))
 (kanji 胃
     (on
         (primary-reading
@@ -29175,11 +29165,7 @@
         (primary-reading
             (primary-spelling 唾)
             *つば*
-            "saliva"
-            (related-reading
-                (primary-spelling 唾吐く)
-                *つ*ばく
-                "to spit"))
+            "saliva")
         (secondary-reading
             (primary-spelling 固唾)
             かた*ず*
@@ -29378,7 +29364,7 @@
         (secondary-reading
             (primary-spelling 胞衣)
             えな
-            "placenta")))
+            "placenta (archaic)")))
 (kanji 滝
     (kun
         (primary-reading
@@ -29504,7 +29490,7 @@
         (secondary-reading
             (primary-spelling 弄う)
             *いら*う
-            "to play with (Kansai dialect)"))
+            "to play with (Western Japanese dialect)"))
     (on
         (primary-reading
             (primary-spelling 翻弄)
@@ -30163,7 +30149,7 @@
             (primary-spelling 顧みる)
             *かえり*みる
             "to look back on, to reflect on"
-            (variant (common 顧る))))
+            (variant (rare 顧る))))
     (on
         (primary-reading
             (primary-spelling 回顧)
@@ -30477,7 +30463,7 @@
         (secondary-reading
             (primary-spelling 冊立)
             *サク*リツ
-            "imperial investiture")
+            "imperial investiture (historical)")
         (secondary-reading
             (primary-spelling 短冊)
             タン*ザク*
@@ -36001,7 +35987,7 @@
 (kanji 媒
     (kun
         (primary-reading
-            (secondary-spelling 仲立ち (common 媒))
+            (secondary-spelling 仲立ち (rare 媒))
             *なかだち*
             "mediator"))
     (on
@@ -36040,7 +36026,7 @@
         (primary-reading
             (primary-spelling 擁立)
             *ヨウ*リツ
-            "supporting")))
+            "supporting someone for a position")))
 (kanji 彰
     (on
         (primary-reading
@@ -36634,7 +36620,7 @@
 (kanji 謁
     (kun
         (primary-reading
-            (secondary-kanji-spelling まみえる (common 見える) (rare 謁える))
+            (secondary-kanji-spelling まみえる (rare 見える) (rare 謁える))
             *まみ*える
             "to meet (humble), to have an audience"))
     (on
@@ -36749,7 +36735,7 @@
         (primary-reading
             (primary-spelling 灼熱)
             *シャク*ネツ
-            "scorching heat, passion")))
+            "scorching heat; passion")))
 (kanji 腑
     (on
         (primary-reading
@@ -37029,7 +37015,7 @@
         (primary-reading
             (primary-spelling 汲々)
             *キュウ*キュウ
-            "absorbed (in something)")))
+            "scrambling, focused (on something)")))
 (kanji 侶
     (on
         (primary-reading
@@ -37052,12 +37038,12 @@
         (primary-reading
             (primary-kanji-spelling おののく (common 慄く))
             *おのの*く
-            "to shiver"))
+            "to tremble"))
     (on
         (primary-reading
             (primary-spelling 戦慄)
             セン*リツ*
-            "shiver"))
+            "trembling"))
     (from-combined
         (secondary-reading
             (primary-kanji-spelling わななく (common 戦慄く))
@@ -37094,7 +37080,7 @@
         (primary-reading
             (primary-kanji-spelling あたかも (common 恰も))
             *あたか*も
-            "as if, just when"))
+            "as if"))
     (on
         (primary-reading
             (primary-spelling 恰幅)
@@ -37124,7 +37110,7 @@
         (secondary-reading
             (primary-spelling 満遍)
             マン*ベン*
-            "entirety")))
+            "thoroughness, completeness")))
 (kanji 践
     (kun
         (primary-reading
@@ -37141,7 +37127,7 @@
         (primary-reading
             (primary-kanji-spelling ネギ (common 葱))
             *ねぎ*
-            "leek, onion"
+            "Welsh onion"
             (related-reading
                 (primary-spelling 浅葱)
                 あさ*ぎ*
@@ -37224,7 +37210,7 @@
             (related-reading
                 (primary-kanji-spelling めんどり (common 雌鶏))
                 *めん*どり
-                "female bird")))
+                "hen")))
     (on
         (primary-reading
             (primary-spelling 雌雄)
@@ -37493,7 +37479,7 @@
             ロウ*オウ*
             "old man")
         (secondary-reading
-            (primary-spelling 玄翁)
+            (secondary-spelling 玄能 (common 玄翁))
             ゲン*ノウ*
             "sledgehammer")))
 (kanji 鮎
@@ -37672,12 +37658,12 @@
     (on
         (primary-reading
             (primary-spelling 口腔)
-            コウ*コウ*
-            "mouth")
-        (secondary-reading
-            (primary-spelling 口腔)
             コウ*クウ*
-            "mouth (pronunciation used in medicine)")))
+            "mouth, oral cavity")
+        (secondary-reading
+            (primary-spelling 満腔)
+            マン*コウ*
+            "throughout the body; heartfelt")))
 (kanji 儘
     (kun
         (primary-reading
@@ -37961,7 +37947,7 @@
         (secondary-reading
             (primary-spelling 前栽)
             セン*ザイ*
-            "garden")))
+            "garden (archaic)")))
 (kanji 沫
     (kun
         (primary-reading
@@ -50044,7 +50030,7 @@
         (primary-reading
             (secondary-spelling 紐解く (common 繙く))
             *ひもと*く
-            "to read (a book)")))
+            "to read (a book); to investigate")))
 (kanji 髻
     (kun
         (primary-reading
@@ -50073,7 +50059,7 @@
         (primary-reading
             (primary-spelling 諄々)
             *ジュン*ジュン
-            "earnestly")))
+            "(explaining) patiently and repeatedly")))
 (kanji 眄
     (on
         (primary-reading
@@ -50107,7 +50093,7 @@
         (primary-reading
             (primary-spelling 喞筒)
             *ソク*トウ
-            "pump")))
+            "pump (archaic)")))
 (kanji 笄
     (kun
         (primary-reading
@@ -50721,7 +50707,7 @@
         (primary-reading
             (primary-spelling 苞)
             *つと*
-            "straw-wrapped item, souvenir"))
+            "straw-wrapped item; souvenir"))
     (on
         (primary-reading
             (primary-spelling 苞)
