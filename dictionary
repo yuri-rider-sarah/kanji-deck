@@ -1513,7 +1513,7 @@
         (primary-reading
             (primary-spelling 米穀)
             *ベイ*コク
-            "rice")
+            "rice; grains")
         (primary-reading
             (primary-spelling 米国)
             *ベイ*コク
@@ -2406,11 +2406,7 @@
             (related-reading
                 (primary-spelling 話)
                 *はなし*
-                "talk")
-            (related-reading
-                (primary-spelling マジ話)
-                まじ*ばな*
-                "real talk (slang)")))
+                "talk")))
     (on
         (primary-reading
             (primary-spelling 会話)
@@ -19699,7 +19695,7 @@
             (related-reading
                 (secondary-spelling 脅かす (rare 威かす))
                 *おど*かす
-                "to threaten")))
+                "to threaten; to frighten")))
     (on
         (primary-reading
             (primary-spelling 威力)
@@ -23257,7 +23253,7 @@
             (related-reading
                 (primary-spelling 脅かす)
                 *おど*かす
-                "to threaten"))
+                "to threaten; to frighten"))
         (primary-reading
             (primary-spelling 脅かす)
             *おびや*かす
@@ -35985,11 +35981,6 @@
             *コウ*ゼン
             "vast and calm (of spirit)")))
 (kanji 媒
-    (kun
-        (primary-reading
-            (secondary-spelling 仲立ち (rare 媒))
-            *なかだち*
-            "mediator"))
     (on
         (primary-reading
             (primary-spelling 媒体)
@@ -36158,9 +36149,9 @@
             "rod, pole"))
     (on
         (primary-reading
-            (primary-spelling 竿頭)
-            *カン*トウ
-            "top of a pole")))
+            (primary-spelling 一竿)
+            イッ*カン*
+            "one pole")))
 (kanji 陳
     (kun
         (primary-reading
@@ -37555,7 +37546,7 @@
         (primary-reading
             (secondary-spelling 脅かす (rare 嚇かす))
             *おど*かす
-            "to threaten"))
+            "to threaten; to frighten"))
     (on
         (primary-reading
             (primary-spelling 威嚇)
@@ -37581,11 +37572,7 @@
         (primary-reading
             (secondary-spelling 補佐 (rare 輔佐))
             *ホ*サ
-            "aid, assistant")
-        (secondary-reading
-            (primary-spelling 大輔)
-            タ*ユウ*
-            "vice-minister (historical court rank)")))
+            "aid, assistant")))
 (kanji 碑
     (kun
         (primary-reading
