@@ -23797,7 +23797,7 @@
 (kanji 魅
     (kun
         (primary-reading
-            (primary-spelling 引かれる (rare 魅かれる))
+            (secondary-spelling 引かれる (rare 魅かれる))
             *ひ*かれる
             "to be charmed by")
         (primary-reading
@@ -34040,7 +34040,7 @@
 (kanji 惹
     (kun
         (primary-reading
-            (primary-spelling 引く (common 惹く))
+            (secondary-spelling 引く (common 惹く))
             *ひ*く
             "to attract (e.g. interest)"))
     (on
