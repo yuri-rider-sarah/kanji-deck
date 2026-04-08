@@ -1,0 +1,84 @@
+.card {
+    font-family: 'Noto Sans CJK JP';
+}
+
+.part, td:nth-child(4) {
+    font-family: 'Bitstream Vera Sans', 'Verdana', sans-serif;
+}
+
+.q-kanji {
+    font-size: 80pt;
+    text-align: center;
+}
+
+.part {
+    font-size: 40pt;
+    text-align: center;
+}
+
+.part:not(:empty)::before {
+    content: '(';
+}
+
+.part:not(:empty)::after {
+    content: ')';
+}
+
+.question .kanji {
+    color: #0000;
+    background-color: #bbb;
+    border-bottom: 2px solid black;
+}
+
+.kana, .kanji {
+    font-weight: bold;
+}
+
+.rare {
+    font-size: 80%;
+}
+
+table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14pt;
+    border-bottom: 1px solid black;
+    margin-top: 1em;
+}
+
+td {
+    padding: 4pt 4pt 0;
+}
+
+tr:has(+ .primary) td, tr:has(+ .secondary) td, tr:last-child td {
+    padding-bottom: 4pt;
+}
+
+tr.primary td, tr.secondary td {
+    border-top: 1px solid black;
+}
+
+tr.primary td:nth-child(4) {
+    font-weight: bold;
+}
+
+tr.variant td {
+    font-size: 80%;
+}
+
+tr.combined td:nth-child(4) {
+    font-style: italic;
+}
+
+tr.european td {
+    background-color: #00F2;
+}
+
+tr.asian td {
+    background-color: #F002;
+}
+
+span.particle {
+    color: #666;
+}
