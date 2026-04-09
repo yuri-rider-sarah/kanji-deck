@@ -43,4 +43,4 @@ for entry in json.load(sys.stdin):
     note = genanki.Note(model=model, fields=[entry_id, entry['kanji'], entry['part'], entry['content']])
     deck.add_note(note)
 
-genanki.Package(deck).write_to_file('kanji.apkg')
+genanki.Package(deck, media_files=['_NotoSansJP.ttf']).write_to_file('kanji.apkg')

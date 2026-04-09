@@ -1,5 +1,10 @@
+@font-face {
+    font-family: 'Noto Sans JP';
+    src: url('_NotoSansJP.ttf');
+}
+
 .card {
-    font-family: 'Noto Sans CJK JP';
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 .part, td:nth-child(4) {
