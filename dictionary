@@ -4263,10 +4263,10 @@
                 *ま*っしろ
                 "pure white"
                 (variant (common 真白))))
-            (secondary-reading
-                (secondary-spelling 誠に (common 真に))
-                *まこと*に
-                "truly"))
+        (secondary-reading
+            (secondary-spelling 誠に (common 真に))
+            *まこと*に
+            "truly"))
     (on
         (primary-reading
             (primary-spelling 真実)
@@ -4743,10 +4743,10 @@
 (kanji 教
     (kun
         (primary-reading
-	    (primary-spelling 教える)
-	    *おし*える
-	    "to teach"
-	    (secondary-reading
+            (primary-spelling 教える)
+            *おし*える
+            "to teach"
+            (secondary-reading
                 (primary-spelling 教わる)
                 *おそ*わる
                 "to be taught")))
@@ -7381,7 +7381,7 @@
             (primary-spelling 急かす)
             *せ*かす
             "to hurry (tr.)"
-            (secondary-spelling
+            (secondary-reading
                 (primary-spelling 急く)
                 *せ*く
                 "to hurry (intr.)")))
@@ -12388,7 +12388,7 @@
                 (primary-spelling 弾ける)
                 *はじ*ける
                 "to burst"
-                (secondary-spelling
+                (secondary-reading
                     (primary-kanji-spelling はじく (common 弾く))
                     *はじ*く
                     "to flick"))))
@@ -12457,7 +12457,7 @@
             (secondary-spelling 裂く (common 割く))
             *さ*く
             "to split (tr.)"
-            (secondary-spelling
+            (secondary-reading
                 (secondary-spelling 裂ける (common 割ける))
                 *さ*ける
                 "to split (intr.)")))
@@ -12876,7 +12876,7 @@
             (secondary-spelling 備える (rare 具える))
             *そな*える
             "to equip"
-            (secondary-spelling
+            (secondary-reading
                 (secondary-spelling 備わる (rare 具わる))
                 *そな*わる
                 "to be equipped"))
@@ -15570,7 +15570,7 @@
         (primary-reading
             (primary-spelling 脱ぐ)
             *ぬ*ぐ
-            "to take off")
+            "to take off"
             (primary-reading
                 (primary-spelling 脱がす)
                 *ぬ*がす
@@ -17148,11 +17148,11 @@
             (primary-reading
                 (primary-spelling 照る)
                 *て*る
-                "to shine"
+                "to shine")
             (primary-reading
                 (primary-spelling 照れる)
                 *て*れる
-                "to be shy"))))
+                "to be shy")))
     (on
         (primary-reading
             (primary-spelling 照明)
@@ -20518,11 +20518,11 @@
                     (primary-kanji-spelling きなこ (rare 黄粉))
                     *きな*こ
                     "kinako (food)"
-                    (special genitive))
-                (secondary-reading
-                    (primary-spelling 黄金色)
-                    *こ*がねいろ
-                    "golden"))))
+                    (special genitive)))
+            (secondary-reading
+                (primary-spelling 黄金色)
+                *こ*がねいろ
+                "golden")))
     (on
         (primary-reading
             (primary-spelling 黄砂)
@@ -21061,7 +21061,7 @@
             (primary-reading
                 (primary-spelling 匂う)
                 *にお*う
-                "to smell good"
+                "to smell good")
             (secondary-reading
                 (primary-spelling 匂わす)
                 *にお*わす
@@ -23630,7 +23630,7 @@
             (primary-reading
                 (primary-spelling 縮む)
                 *ちぢ*む
-                "to shrink (intr.)"
+                "to shrink (intr.)")
             (primary-reading
                 (primary-spelling 縮まる)
                 *ちぢ*まる
@@ -49050,7 +49050,7 @@
     (on
         (primary-reading
             (secondary-spelling 矛 (rare 戈))
-            *ほこ*
+            *カ*
             "dagger-axe (ancient Chinese weapon)")
         (primary-reading
             (primary-spelling 干戈)
