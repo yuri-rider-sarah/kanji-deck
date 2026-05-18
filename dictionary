@@ -6849,14 +6849,14 @@
             (primary-spelling 振る)
             *ふ*る
             "to swing (tr.)"
+            (variant-reading
+                (secondary-spelling 振る舞う (common 振舞う))
+                *ふる*まう
+                "to behave")
             (primary-reading
                 (primary-spelling 振れる)
                 *ふ*れる
-                "to swing (intr.)"
-                (variant-reading
-                    (secondary-spelling 振る舞う (common 振舞う))
-                    *ふる*まう
-                    "to behave"))
+                "to swing (intr.)")
             (primary-reading
                 (primary-spelling 振るう)
                 *ふ*るう
@@ -9381,11 +9381,11 @@
                 (primary-spelling 押さえる)
                 *お*さえる
                 "to hold down"
-                (variant (rare 押える))
-                (variant-reading
-                    (primary-spelling 押っ取り刀)
-                    *お*っとりがたな
-                    "making great haste"))))
+                (variant (rare 押える)))
+            (secondary-reading
+                (primary-spelling 押っ取り刀)
+                *お*っとりがたな
+                "making great haste")))
     (on
         (secondary-reading
             (primary-spelling 押印)
@@ -13454,11 +13454,7 @@
         (primary-reading
             (primary-spelling 舞う)
             *ま*う
-            "to dance"
-            (variant-reading
-                (primary-spelling 舞)
-                *まい*
-                "dance")))
+            "to dance"))
     (on
         (primary-reading
             (primary-spelling 舞踊)
@@ -13543,11 +13539,11 @@
             (primary-reading
                 (primary-spelling 届ける)
                 *とど*ける
-                "to deliver"
-                (variant-reading
-                    (primary-spelling 届)
-                    *とどけ*
-                    "report")))))
+                "to deliver")
+            (secondary-reading
+                (primary-spelling 届)
+                *とどけ*
+                "report"))))
 (kanji 巻
     (kun
         (primary-reading
@@ -16262,11 +16258,11 @@
             (primary-reading
                 (primary-spelling 折る)
                 *お*る
-                "to fold, to break (tr.)"
-                (variant-reading
-                    (primary-spelling 折)
-                    *おり*
-                    "opportunity"))))
+                "to fold, to break (tr.)")
+            (secondary-reading
+                (primary-spelling 折)
+                *おり*
+                "opportunity")))
     (on
         (primary-reading
             (primary-spelling 屈折)
@@ -20969,13 +20965,13 @@
 (kanji 富
     (kun
         (primary-reading
-            (primary-spelling 富む)
-            *と*む
-            "to be rich in"
-            (variant-reading
-                (primary-spelling 富)
-                *とみ*
-                "riches")
+            (primary-spelling 富)
+            *とみ*
+            "riches"
+            (primary-reading
+                (primary-spelling 富む)
+                *と*む
+                "to be rich in")
             (secondary-reading
                 (primary-spelling 富める)
                 *と*める
@@ -22800,11 +22796,7 @@
                 (primary-reading
                     (primary-spelling 灯す)
                     *とも*す
-                    "to light"
-                    (variant-reading
-                        (primary-spelling 灯火)
-                        *ともし*び
-                        "lamp")))
+                    "to light"))
             (primary-reading
                 (secondary-spelling 明かり (common 灯り))
                 *あか*り
@@ -23685,7 +23677,7 @@
             *ナイ*シ
             "from ... to ...")))
 (combined
-    (secondary-reading
+    (primary-reading
         (primary-kanji-spelling ミイラ (common 木乃伊))
         みいら
         "mummy"
@@ -29290,7 +29282,7 @@
             (primary-spelling 畳む)
             *たた*む
             "to fold"
-            (variant-reading
+            (primary-reading
                 (primary-spelling 畳)
                 *たたみ*
                 "tatami mat")
@@ -31101,14 +31093,14 @@
             (primary-spelling 沸く)
             *わ*く
             "to boil (intr.)"
-            (variant-reading
-                (secondary-spelling 湯沸かし (common 湯沸し))
-                ゆ*わか*し
-                "kettle")
             (primary-reading
                 (primary-spelling 沸かす)
                 *わ*かす
-                "to boil (tr.)")))
+                "to boil (tr.)"
+                (variant-reading
+                    (secondary-spelling 湯沸かし (common 湯沸し))
+                    ゆ*わか*し
+                    "kettle"))))
     (on
         (primary-reading
             (primary-spelling 沸騰)
@@ -33682,7 +33674,7 @@
             (primary-spelling 肥える)
             *こ*える
             "to become fat, to become fertile (of land)"
-            (variant-reading
+            (secondary-reading
                 (primary-spelling 肥)
                 *こえ*
                 "manure")
@@ -36226,7 +36218,7 @@
             *リン*
             "phosphorus")))
 (combined
-    (secondary-reading
+    (primary-reading
         (primary-kanji-spelling マッチ (rare 燐寸))
         マッチ
         "match (to light fire)"
@@ -48827,13 +48819,13 @@
 (kanji 篩
     (kun
         (primary-reading
-            (primary-spelling 篩う)
-            *ふる*う
-            "to sieve"
-            (variant-reading
-                (primary-spelling 篩)
-                *ふるい*
-                "sieve"))))
+            (primary-spelling 篩)
+            *ふるい*
+            "sieve"
+            (primary-reading
+                (primary-spelling 篩う)
+                *ふる*う
+                "to sieve"))))
 (kanji 艫
     (kun
         (primary-reading
