@@ -68,14 +68,16 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
             when European { 'european' }
         });
     }
+    if $reading ~~ MainReading {
+        @classes.push('main');
+    }
     @classes.push(do given $reading {
-        when MainReading {
+        when MainReading | RelatedReading {
             given $reading.type {
                 when PrimaryReading { 'primary' }
                 when SecondaryReading { 'secondary' }
             }
         }
-        when RelatedReading { 'related' }
         when VariantReading { 'variant' }
     });
     if $combined {

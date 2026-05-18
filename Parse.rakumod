@@ -33,12 +33,12 @@ grammar Dictionary {
         <special>* ')'
     }
     rule related-reading(KanaType $type) {
-        '(' 'related-reading' <spelling> <kana($type)> <string>
+        '(' <reading-type> <spelling> <kana($type)> <string>
         <variant>* <variant-reading($type)>* <special>* ')'
     }
-    token main-reading-type { 'primary-reading' | 'secondary-reading' }
+    token reading-type { 'primary-reading' | 'secondary-reading' }
     rule main-reading(KanaType $type) {
-        '(' <main-reading-type> <spelling> <kana($type)> <string>
+        '(' <reading-type> <spelling> <kana($type)> <string>
         <variant>* <variant-reading($type)>* <related-reading($type)>* <special>* ')'
     }
     rule kun-list { '(' 'kun' <main-reading(KunReading)>+ ')' }
@@ -135,6 +135,7 @@ class DictionaryActions {
     }
     method related-reading($/ --> RelatedReading) {
         make RelatedReading.new(
+            type => $<reading-type>.made,
             spelling => $<spelling>.made,
             kana => $<kana>.made,
             definition => $<string>.made,
@@ -143,7 +144,7 @@ class DictionaryActions {
             variant-readings => @<variant-reading>».made,
         )
     }
-    method main-reading-type($/ --> MainReadingType) {
+    method reading-type($/ --> ReadingType) {
         given ~$/ {
             when 'primary-reading' { make PrimaryReading }
             when 'secondary-reading' { make SecondaryReading }
@@ -151,7 +152,7 @@ class DictionaryActions {
     }
     method main-reading($/ --> MainReading) {
         make MainReading.new(
-            type => $<main-reading-type>.made,
+            type => $<reading-type>.made,
             spelling => $<spelling>.made,
             kana => $<kana>.made,
             definition => $<string>.made,

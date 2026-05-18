@@ -56,11 +56,11 @@ td {
     padding: 4pt 4pt 0;
 }
 
-tr:has(+ .primary) td, tr:has(+ .secondary) td, tr:last-child td {
+tr:has(+ .main) td, tr:last-child td {
     padding-bottom: 4pt;
 }
 
-tr.primary td, tr.secondary td {
+tr.main td {
     border-top: 1px solid black;
 }
 

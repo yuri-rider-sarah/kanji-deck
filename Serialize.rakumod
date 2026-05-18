@@ -66,7 +66,7 @@ multi to-str(ReadingAttr $attr --> Str) {
     }
 }
 
-multi to-str(MainReadingType $type --> Str) {
+multi to-str(ReadingType $type --> Str) {
     given $type {
         when PrimaryReading { 'primary-reading' }
         when SecondaryReading { 'secondary-reading' }
@@ -75,8 +75,7 @@ multi to-str(MainReadingType $type --> Str) {
 
 multi serialize(Reading $reading) {
     my $type = do given $reading {
-        when MainReading { to-str($reading.type) }
-        when RelatedReading { 'related-reading' }
+        when MainReading | RelatedReading { to-str($reading.type) }
         when VariantReading { 'variant-reading' }
     };
     se-open $type;
