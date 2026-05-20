@@ -37,8 +37,8 @@ sub cell-from-freq-word(FreqWord $fw, Bool $is-orig --> Str) {
 sub cell-from-other-spelling(Spelling $spelling --> Str) {
     given $spelling.type {
         when PrimarySpelling { '' }
-        when PrimaryKanjiSpelling | SecondarySpelling { cell-from-freq-word($spelling.described, True) }
-        when SecondaryKanjiSpelling { cell-from-freq-word($spelling.described, True) ~ ' / ' ~ cell-from-freq-word($spelling.main-kanji, True) }
+        when PrimaryKanjiSpelling | SecondarySpelling { cell-from-freq-word($spelling.described, False) }
+        when SecondaryKanjiSpelling { cell-from-freq-word($spelling.described, False) ~ ' / ' ~ cell-from-freq-word($spelling.main-kanji, True) }
     }
 }
 
@@ -85,7 +85,7 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
     }
     my $class-attr = @classes ?? ' class="' ~ @classes.join(' ') ~ '"' !! '';
     my $is-genitive = so $reading.attrs.grep(Genitive);
-    my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main, False)}</td><td>{cell-from-kana($reading.kana, $is-genitive)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
+    my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main, $reading.spelling.type != PrimarySpelling)}</td><td>{cell-from-kana($reading.kana, $is-genitive)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
     if ($reading ~~ NonVariantReading) {
         for $reading.variants -> $variant {
             $result ~= tr-from-variant($variant, $combined);
