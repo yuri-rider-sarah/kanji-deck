@@ -34,11 +34,11 @@ sub cell-from-freq-word(FreqWord $fw, Bool $is-orig --> Str) {
     }
 }
 
-sub cell-from-orig-spelling(Spelling $spelling --> Str) {
+sub cell-from-other-spelling(Spelling $spelling --> Str) {
     given $spelling.type {
         when PrimarySpelling { '' }
-        when PrimaryKanjiSpelling | SecondarySpelling { html-from-word($spelling.main, True) }
-        when SecondaryKanjiSpelling { html-from-word($spelling.main, True) ~ ' / ' ~ cell-from-freq-word($spelling.main-kanji, True) }
+        when PrimaryKanjiSpelling | SecondarySpelling { cell-from-freq-word($spelling.described, True) }
+        when SecondaryKanjiSpelling { cell-from-freq-word($spelling.described, True) ~ ' / ' ~ cell-from-freq-word($spelling.main-kanji, True) }
     }
 }
 
@@ -56,7 +56,7 @@ multi cell-from-kana(UnsplitKana $kana, Bool $is-genitive --> Str) {
 
 sub tr-from-variant(FreqWord $variant, Bool $combined --> Str) {
     my $combined-attr = $combined ?? ' combined' !! '';
-    "<tr class=\"variant$combined-attr\"><td></td><td>{cell-from-freq-word($variant, False)}</td><td></td><td></td></tr>\n"
+    "<tr class=\"variant$combined-attr\"><td>{cell-from-freq-word($variant, False)}</td><td></td><td></td><td></td></tr>\n"
 }
 
 sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
@@ -85,7 +85,7 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
     }
     my $class-attr = @classes ?? ' class="' ~ @classes.join(' ') ~ '"' !! '';
     my $is-genitive = so $reading.attrs.grep(Genitive);
-    my $result = "<tr$class-attr><td>{cell-from-orig-spelling($reading.spelling)}</td><td>{cell-from-freq-word($reading.spelling.described, False)}</td><td>{cell-from-kana($reading.kana, $is-genitive)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
+    my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main, False)}</td><td>{cell-from-kana($reading.kana, $is-genitive)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
     if ($reading ~~ NonVariantReading) {
         for $reading.variants -> $variant {
             $result ~= tr-from-variant($variant, $combined);
