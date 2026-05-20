@@ -40,7 +40,7 @@ for entry in json.load(sys.stdin):
     entry_id = entry['kanji']
     if entry['part']:
         entry_id += ' (' + entry['part'] + ')'
-    note = genanki.Note(model=model, fields=[entry_id, entry['kanji'], entry['part'], entry['content']])
+    note = genanki.Note(model=model, guid=entry_id, fields=[entry_id, entry['kanji'], entry['part'], entry['content']])
     deck.add_note(note)
 
 genanki.Package(deck, media_files=['_NotoSansJP.ttf']).write_to_file('kanji.apkg')
