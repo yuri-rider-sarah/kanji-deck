@@ -300,15 +300,7 @@
         (primary-reading
             (primary-spelling 当日)
             トウ*ジツ*
-            "that day")
-        (secondary-reading
-            (primary-spelling 日本)
-            *ニ*ホン
-            "Japan")
-        (secondary-reading
-            (primary-spelling 日本)
-            *ニッ*ポン
-            "Japan")))
+            "that day")))
 (combined
     (primary-reading
         (primary-spelling 一日)
@@ -574,11 +566,7 @@
             (secondary-reading
                 (primary-spelling 木陰)
                 *こ*かげ
-                "tree shade"
-                (variant-reading
-                    (secondary-spelling 木っ端 (common 木端))
-                    *こっ*ぱ
-                    "wood chip"))))
+                "tree shade")))
     (on
         (primary-reading
             (primary-spelling 木材)
@@ -621,11 +609,7 @@
         (primary-reading
             (primary-spelling 石)
             *いし*
-            "stone"
-            (secondary-reading
-                (primary-kanji-spelling 重し (common 重石))
-                おも*し*
-                "stone weight")))
+            "stone"))
     (on
         (primary-reading
             (primary-spelling 岩石)
@@ -722,11 +706,7 @@
         (secondary-reading
             (primary-spelling 口調)
             *ク*チョウ
-            "tone of voice")
-        (secondary-reading
-            (primary-kanji-spelling ちょこ (common 猪口))
-            チョ*コ*
-            "sake cup")))
+            "tone of voice")))
 (kanji 手
     (kun
         (primary-reading
@@ -736,11 +716,7 @@
             (secondary-reading
                 (primary-spelling 手綱)
                 *た*づな
-                "reins")
-            (secondary-reading
-                (primary-spelling 手甲)
-                *てっ*こう
-                "covering for the back of the hand and wrist")))
+                "reins")))
     (on
         (primary-reading
             (primary-spelling 手段)
@@ -963,11 +939,7 @@
         (primary-reading
             (primary-spelling 心)
             *こころ*
-            "heart, mind"
-            (secondary-reading
-                (primary-spelling 心地)
-                *ここ*ち
-                "feeling")))
+            "heart, mind"))
     (on
         (primary-reading
             (primary-spelling 心臓)
@@ -1081,44 +1053,33 @@
                 メン*ツ*
                 "honor"
                 (special asian)))))
-(kanji-split 女
-    (part "kun"
-        (kun
-            (primary-reading
-                (primary-spelling 女)
-                *おんな*
-                "woman")
-            (secondary-reading
-                (primary-spelling 女神)
-                *め*がみ
-                "goddess")
-            (secondary-reading
-                (primary-spelling 湯女)
-                ゆ*な*
-                "woman assisting bathers in a hot spring (historical)")))
-    (part "on"
-        (on
-            (primary-reading
-                (primary-spelling 女性)
-                *ジョ*セイ
-                "woman")
-            (secondary-reading
-                (primary-spelling 女房)
-                *ニョウ*ボウ
-                "(one's) wife")
-            (secondary-reading
-                (primary-spelling 女人)
-                *ニョ*ニン
-                "woman (archaic)"))
-        (from-combined
-            (secondary-reading
-                (primary-spelling 売女)
-                バイ*タ*
-                "prostitute (derogatory)"))))
+(kanji 女
+    (kun
+        (primary-reading
+            (primary-spelling 女)
+            *おんな*
+            "woman")
+        (secondary-reading
+            (primary-spelling 女神)
+            *め*がみ
+            "goddess"))
+    (on
+        (primary-reading
+            (primary-spelling 女性)
+            *ジョ*セイ
+            "woman")
+        (secondary-reading
+            (primary-spelling 女房)
+            *ニョウ*ボウ
+            "(one's) wife")
+        (secondary-reading
+            (primary-spelling 女人)
+            *ニョ*ニン
+            "woman (archaic)")))
 (combined
     (primary-reading
         (primary-spelling 石女)
-        *うまず*め
+        うまずめ
         "barren woman (discriminatory)"))
 (kanji 男
     (kun
@@ -1204,11 +1165,7 @@
             (secondary-reading
                 (primary-spelling 鳥屋)
                 *と*や
-                "chicken coop")
-            (secondary-reading
-                (primary-spelling 鳥取)
-                *とっ*とり
-                "Tottori (city, prefecture)")))
+                "chicken coop")))
     (on
         (primary-reading
             (primary-spelling 鳥類)
@@ -1261,11 +1218,7 @@
                 (secondary-reading
                     (primary-spelling 鼻白む)
                     はな*じろ*む
-                    "to look daunted")
-                (secondary-reading
-                    (primary-spelling 白湯)
-                    *さ*ゆ
-                    "plain hot water"))))
+                    "to look daunted"))))
     (part "on"
         (on
             (primary-reading
@@ -1500,11 +1453,7 @@
         (primary-reading
             (primary-spelling 飲む)
             *の*む
-            "to drink"
-            (secondary-reading
-                (primary-spelling 飲兵衛)
-                *のん*べえ
-                "heavy drinker")))
+            "to drink"))
     (on
         (primary-reading
             (primary-spelling 飲酒)
@@ -1513,12 +1462,7 @@
         (secondary-reading
             (primary-spelling 飲酒)
             *オン*ジュ
-            "drinking alcohol (Buddhism)")
-        (secondary-reading
-            (primary-spelling 飲茶)
-            *ヤム*チャ
-            "yum cha"
-            (special asian))))
+            "drinking alcohol (Buddhism)")))
 (kanji 酒
     (kun
         (primary-reading
@@ -1638,65 +1582,46 @@
         (primary-reading
             (primary-spelling 田)
             *た*
-            "rice field"
-            (variant-reading
-                (secondary-spelling 田んぼ (common 田圃))
-                *たん*ぼ
-                "rice paddy"
-                (special genitive))))
+            "rice field"))
     (on
         (primary-reading
             (primary-spelling 水田)
             スイ*デン*
             "rice paddy")))
-(kanji-split 行
-    (part "kun"
-        (kun
-            (primary-reading
+(kanji 行
+    (kun
+        (primary-reading
+            (primary-spelling 行く)
+            *い*く
+            "to go"
+            (secondary-reading
                 (primary-spelling 行く)
-                *い*く
-                "to go"
-                (secondary-reading
-                    (primary-spelling 行く手)
-                    *ゆ*くて
-                    "one's way ahead"
-                    (variant-reading
-                        (primary-spelling 行方)
-                        *ゆく*え
-                        "whereabouts")))
-            (secondary-reading
-                (primary-spelling 行う)
-                *おこな*う
-                "to perform"
-                (variant (rare 行なう)))
-            (secondary-reading
-                (primary-spelling 三行半)
-                み*くだり*はん
-                "letter of divorce (historical)")))
-    (part "on"
-        (on
-            (primary-reading
-                (primary-spelling 行動)
-                *コウ*ドウ
-                "action")
-            (secondary-reading
-                (primary-spelling 行事)
-                *ギョウ*ジ
-                "event")
-            (secondary-reading
-                (primary-spelling 行脚)
-                *アン*ギャ
-                "pilgrimage"))))
+                *ゆ*く
+                "to go"))
+        (secondary-reading
+            (primary-spelling 行う)
+            *おこな*う
+            "to perform"
+            (variant (rare 行なう))))
+    (on
+        (primary-reading
+            (primary-spelling 行動)
+            *コウ*ドウ
+            "action")
+        (secondary-reading
+            (primary-spelling 行事)
+            *ギョウ*ジ
+            "event")
+        (secondary-reading
+            (primary-spelling 行脚)
+            *アン*ギャ
+            "pilgrimage")))
 (kanji 走
     (kun
         (primary-reading
             (primary-spelling 走る)
             *はし*る
-            "to run"
-            (secondary-reading
-                (primary-spelling 師走)
-                し*わす*
-                "twelfth lunar month")))
+            "to run"))
     (on
         (primary-reading
             (primary-spelling 走行)
@@ -1740,37 +1665,29 @@
             (primary-spelling 門)
             *モン*
             "gate")))
-(kanji-split 何
-    (part "1"
-        (kun
-            (primary-reading
-                (primary-spelling 何)
-                *なに*
-                "what"
-                (secondary-reading
-                    (primary-spelling 何人)
-                    *なん*にん
-                    "how many people"))))
-    (part "2"
-        (kun
+(kanji 何
+    (kun
+        (primary-reading
+            (primary-spelling 何)
+            *なに*
+            "what"
             (secondary-reading
-                (primary-kanji-spelling どこ (rare 何処))
-                *ど*こ
-                "where")
-            (secondary-reading
-                (primary-kanji-spelling いずれ (rare 何れ))
-                *いず*れ
-                "which"))
-        (on
-            (secondary-reading
-                (primary-spelling 幾何学)
-                キ*カ*ガク
-                "geometry"))
-        (from-combined
-            (secondary-reading
-                (secondary-kanji-spelling いくばく (common 幾許) (rare 幾何))
-                いく*ばく*
-                "how much"))))
+                (primary-spelling 何人)
+                *なん*にん
+                "how many people"))
+        (secondary-reading
+            (primary-kanji-spelling どこ (rare 何処))
+            *ど*こ
+            "where")
+        (secondary-reading
+            (primary-kanji-spelling いずれ (rare 何れ))
+            *いず*れ
+            "which"))
+    (on
+        (secondary-reading
+            (primary-spelling 幾何学)
+            キ*カ*ガク
+            "geometry")))
 (kanji 出
     (kun
         (primary-reading
@@ -1820,11 +1737,7 @@
                     (primary-spelling 分かつ)
                     *わ*かつ
                     "to divide (tr.)"
-                    (variant (common 分つ)))
-                (secondary-reading
-                    (primary-spelling 野分)
-                    の*わき*
-                    "typhoon in early autumn (archaic)"))))
+                    (variant (common 分つ))))))
     (part "on"
         (on
             (primary-reading
@@ -1865,16 +1778,7 @@
         (secondary-reading
             (primary-spelling 湯気)
             ユ*ゲ*
-            "steam")
-        (secondary-reading
-            (primary-spelling 意気地)
-            イ*ク*ジ
-            "willpower, courage"))
-    (from-combined
-        (secondary-reading
-            (primary-kanji-spelling かぶれる (rare 気触れる))
-            *か*ぶれる
-            "to develop a rash")))
+            "steam")))
 (kanji 今
     (kun
         (primary-reading
@@ -1919,11 +1823,7 @@
         (primary-reading
             (primary-spelling 前)
             *まえ*
-            "before"
-            (secondary-reading
-                (primary-kanji-spelling てめえ (rare 手前))
-                て*めえ*
-                "you (derogatory)")))
+            "before"))
     (on
         (primary-reading
             (primary-spelling 以前)
@@ -1933,6 +1833,15 @@
             (primary-spelling 前栽)
             *セン*ザイ
             "senzai (garden)")))
+(combined
+    (primary-reading
+        (primary-spelling 手前)
+        てまえ
+        "before oneself"
+        (primary-reading
+            (primary-kanji-spelling てめえ (rare 手前))
+            てめえ
+            "you (derogatory)")))
 (kanji 俺
     (kun
         (primary-reading
@@ -1948,11 +1857,7 @@
             (secondary-reading
                 (primary-spelling 思える)
                 *おも*える
-                "to seem")
-            (secondary-reading
-                (primary-spelling 思惑)
-                *おも*わく
-                "expectation"))
+                "to seem"))
         (secondary-reading
             (primary-kanji-spelling おぼしめす (common 思し召す))
             *おぼ*しめす
@@ -2055,11 +1960,11 @@
             (secondary-reading
                 (primary-spelling 生える)
                 *は*える
-                "to grow"
+                "to grow (intr.)"
                 (secondary-reading
                     (primary-spelling 生やす)
                     *は*やす
-                    "to grow"))
+                    "to grow (tr.)"))
             (primary-reading
                 (primary-spelling 生)
                 *なま*
@@ -2067,11 +1972,7 @@
             (secondary-reading
                 (primary-spelling 生地)
                 *き*じ
-                "raw cloth"
-                (secondary-reading
-                    (primary-spelling 生粋)
-                    *きっ*すい
-                    "pure, genuine"))))
+                "raw cloth")))
     (part "kun3"
         (kun
             (secondary-reading
@@ -2085,30 +1986,15 @@
                 (secondary-reading
                     (primary-spelling 生す)
                     *な*す
-                    "to have a child"))
+                    "to have (a child)"))
             (secondary-reading
                 (primary-spelling 生す)
                 *む*す
-                "to grow")))
-    (part "kun4"
-        (kun
-            (secondary-reading
-                (secondary-spelling 産毛 (rare 生毛))
-                *うぶ*げ
-                "soft hair")
+                "to grow (intr.)")
             (secondary-reading
                 (primary-spelling 芝生)
                 しば*ふ*
-                "lawn")
-            (secondary-reading
-                (primary-kanji-spelling あいにく (common 生憎))
-                *あい*にく
-                "unfortunately"))
-        (from-combined
-            (secondary-reading
-                (primary-spelling 弥生)
-                や*よい*
-                "third lunar month; Yayoi (period)"))))
+                "lawn"))))
 (kanji 時
     (kun
         (primary-reading
@@ -2119,11 +2005,7 @@
         (primary-reading
             (primary-spelling 時間)
             *ジ*カン
-            "time")
-        (secondary-reading
-            (primary-spelling 時計)
-            *ト*ケイ
-            "clock")))
+            "time")))
 (combined
     (primary-reading
         (primary-kanji-spelling いつ (rare 何時))
@@ -2143,55 +2025,58 @@
         (secondary-reading
             (secondary-spelling 元 (rare 本))
             *もと*
-            "origin")
-        (secondary-reading
-            (primary-spelling 旗本)
-            はた*もと*
-            "shogun's retainer (historical)"))
+            "origin"
+            (secondary-reading
+                (primary-spelling 旗本)
+                はた*もと*
+                "shogun's retainer (historical)")))
     (on
         (primary-reading
             (primary-spelling 本)
             *ホン*
-            "book")
-        (primary-reading
-            (primary-spelling 基本)
-            キ*ホン*
-            "basis"
+            "book"
             (secondary-reading
-                (primary-spelling 本意ない)
-                *ホ*イナイ
-                "regrettable, disappointing"))))
-(kanji-split 来
-    (part "kun"
-        (kun
-            (primary-reading
-                (primary-spelling 来る)
-                *く*る
-                "to come"
-                (secondary-reading
-                    (primary-kanji-spelling できる (common 出来る))
-                    で*き*る
-                    "to be able")
-                (secondary-reading
-                    (primary-spelling 出来す)
-                    で*か*す
-                    "to accomplish")
-                (secondary-reading
-                    (primary-spelling 来たる)
-                    *き*たる
-                    "next"
-                    (variant (common 来る)))
-                (secondary-reading
-                    (primary-spelling 来す)
-                    *きた*す
-                    "to cause"
-                    (variant (common 来たす))))))
-    (part "on"
-        (on
-            (primary-reading
-                (primary-spelling 将来)
-                ショウ*ライ*
-                "future"))))
+                (primary-spelling 基本)
+                キ*ホン*
+                "basis"))))
+(combined
+    (primary-reading
+        (primary-spelling 日本)
+        *ニ*ホン
+        "Japan"
+        (primary-reading
+            (primary-spelling 日本)
+            *ニッ*ポン
+            "Japan")))
+(kanji 来
+    (kun
+        (primary-reading
+            (primary-spelling 来る)
+            *く*る
+            "to come"
+            (secondary-reading
+                (primary-kanji-spelling できる (common 出来る))
+                で*き*る
+                "to be able")
+            (secondary-reading
+                (primary-spelling 出来す)
+                で*か*す
+                "to accomplish")
+            (secondary-reading
+                (primary-spelling 来たる)
+                *き*たる
+                "next"
+                (variant (common 来る)))
+            (secondary-reading
+                (primary-spelling 来す)
+                *きた*す
+                "to cause"
+                (variant (common 来たす)))))
+    (on
+        (primary-reading
+            (primary-spelling 将来)
+            ショウ*ライ*
+            "future")))
 (kanji 自
     (kun
         (primary-reading
@@ -2206,11 +2091,7 @@
             (secondary-reading
                 (primary-kanji-spelling おのずから (common 自ずから))
                 *おの*ずから
-                "on its own")
-            (secondary-reading
-                (primary-spelling 自惚れる)
-                *うぬ*ぼれる
-                "to be conceited")))
+                "on its own")))
     (on
         (primary-reading
             (primary-spelling 自分)
@@ -2243,44 +2124,34 @@
             (primary-spelling 苦笑)
             ク*ショウ*
             "bitter smile")))
-(kanji-split 方
-    (part "kun"
-        (kun
-            (primary-reading
-                (primary-spelling 方)
-                *かた*
-                "person (honorific); direction")
-            (secondary-reading
-                (primary-spelling 行方)
-                ゆく*え*
-                "whereabouts")
-            (secondary-reading
-                (primary-kanji-spelling そちら (rare 其方))
-                そ*ちら*
-                "that way")
-            (secondary-reading
-                (primary-spelling 四方山話)
-                よ*も*やまばなし
-                "talk about various topics")))
-    (part "on"
-        (on
-            (primary-reading
-                (primary-spelling 方向)
-                *ホウ*コウ
-                "direction")
+(kanji 方
+    (kun
+        (primary-reading
+            (primary-spelling 方)
+            *かた*
+            "person (honorific); direction")
+        (secondary-reading
+            (primary-kanji-spelling そちら (rare 其方))
+            そ*ちら*
+            "that way"))
+    (on
+        (primary-reading
+            (primary-spelling 方向)
+            *ホウ*コウ
+            "direction"
             (primary-reading
                 (primary-spelling 方法)
                 *ホウ*ホウ
-                "method")
-            (secondary-reading
-                (primary-spelling 三方)
-                サン*ボウ*
-                "sanbō (offering stand)"))
-        (from-combined
-            (secondary-reading
-                (primary-spelling 方舟)
-                *はこ*ぶね
-                "ark"))))
+                "method"))
+        (secondary-reading
+            (primary-spelling 三方)
+            サン*ボウ*
+            "sanbō (offering stand)")))
+(combined
+    (primary-reading
+        (primary-spelling 行方)
+        ゆくえ
+        "whereabouts"))
 (kanji 様
     (kun
         (primary-reading
@@ -2311,6 +2182,11 @@
             (primary-spelling 会話)
             カイ*ワ*
             "conversation")))
+(combined
+    (secondary-reading
+        (primary-spelling 四方山話)
+        よ*も*やまばなし
+        "talk about various topics"))
 (kanji-split 入
     (part "kun"
         (kun
@@ -2366,19 +2242,12 @@
             (secondary-reading
                 (primary-spelling 先んじる)
                 *さき*んじる
-                "to precede")
-            (secondary-reading
-                (primary-spelling 先んずる)
-                *さき*んずる
                 "to precede"))
         (secondary-reading
             (primary-kanji-spelling まず (rare 先ず))
             *ま*ず
             "first of all"
-            (variant-reading
-                (secondary-kanji-spelling ひとまず (common 一先ず) (rare 一先))
-                ひと*まず*
-                "for now")))
+            (variant (rare 先))))
     (on
         (primary-reading
             (primary-spelling 優先)
@@ -2404,11 +2273,7 @@
         (primary-reading
             (primary-spelling 会う)
             *あ*う
-            "to meet"
-            (secondary-reading
-                (primary-spelling 会わす)
-                *あ*わす
-                "to make meet")))
+            "to meet"))
     (on
         (primary-reading
             (primary-spelling 会議)
@@ -2475,11 +2340,11 @@
         (primary-reading
             (primary-spelling 本当)
             ホン*トウ*
-            "truth")
-        (primary-reading
-            (primary-spelling 当時)
-            *トウ*ジ
-            "that time")
+            "truth"
+            (primary-reading
+                (primary-spelling 当時)
+                *トウ*ジ
+                "that time"))
         (secondary-reading
             (primary-spelling 勘当)
             カン*ドウ*
@@ -2514,39 +2379,30 @@
             (primary-spelling 部分)
             *ブ*ブン
             "part")))
-(kanji-split 後
-    (part "kun"
-        (kun
-            (primary-reading
-                (primary-spelling 後)
-                *あと*
-                "behind, after")
-            (primary-reading
-                (primary-spelling 後ろ)
-                *うし*ろ
-                "behind"
-                (variant-reading
-                    (secondary-spelling 後ろ姿 (common 後姿))
-                    *うしろ*すがた
-                    "person seen from the back"))
-            (secondary-reading
-                (primary-kanji-spelling のち (rare 後))
-                *のち*
-                "afterwards")
-            (secondary-reading
-                (secondary-spelling 遅れる (rare 後れる))
-                *おく*れる
-                "to be late")))
-    (part "on"
-        (on
-            (primary-reading
-                (primary-spelling 以後)
-                イ*ゴ*
-                "after")
-            (primary-reading
-                (primary-spelling 後悔)
-                *コウ*カイ
-                "regret"))))
+(kanji 後
+    (kun
+        (primary-reading
+            (primary-spelling 後)
+            *あと*
+            "behind, after")
+        (primary-reading
+            (primary-spelling 後ろ)
+            *うし*ろ
+            "behind"
+            (variant (common 後)))
+        (secondary-reading
+            (secondary-spelling 遅れる (rare 後れる))
+            *おく*れる
+            "to be late"))
+    (on
+        (primary-reading
+            (primary-spelling 以後)
+            イ*ゴ*
+            "after")
+        (primary-reading
+            (primary-spelling 後悔)
+            *コウ*カイ
+            "regret")))
 (kanji 全
     (kun
         (primary-reading
@@ -2557,11 +2413,11 @@
             (primary-kanji-spelling まったく (common 全く))
             *まった*く
             "completely"
-            (primary-reading
+            (secondary-reading
                 (primary-spelling 全うする)
                 *まっと*うする
                 "to accomplish")
-            (primary-reading
+            (secondary-reading
                 (primary-kanji-spelling まったい (common 全い))
                 *まった*い
                 "complete")))
@@ -2595,10 +2451,6 @@
             (primary-kanji-spelling ない (common 無い))
             *な*い
             "not being"
-            (variant-reading
-                (primary-kanji-spelling くない (common 苦無))
-                く*ない*
-                "kunai (ninja knife)")
             (secondary-reading
                 (primary-kanji-spelling なし (common 無し))
                 *な*し
@@ -2621,11 +2473,7 @@
         (primary-reading
             (primary-spelling 持つ)
             *も*つ
-            "to hold"
-            (secondary-reading
-                (primary-spelling 持たす)
-                *も*たす
-                "to make hold")))
+            "to hold"))
     (on
         (primary-reading
             (primary-spelling 維持)
@@ -2640,7 +2488,7 @@
         (primary-reading
             (primary-spelling 度)
             *たび*
-            "time"))
+            "time, occurrence"))
     (on
         (primary-reading
             (primary-spelling 程度)
@@ -2653,12 +2501,12 @@
         (secondary-reading
             (primary-spelling 法度)
             ハッ*ト*
-            "ban"))
-    (from-combined
-        (secondary-reading
-            (primary-kanji-spelling めでたい (common 目出度い))
-            めで*た*い
-            "happy")))
+            "ban")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling めでたい (common 目出度い))
+        めで*た*い
+        "happy"))
 (kanji-split 彼
     (part "1"
         (kun
@@ -2723,15 +2571,11 @@
         (primary-reading
             (primary-spelling 動く)
             *うご*く
-            "to move"
+            "to move (intr.)"
             (primary-reading
                 (primary-spelling 動かす)
                 *うご*かす
-                "to move"))
-        (secondary-reading
-            (primary-kanji-spelling 身じろぐ (common 身動ぐ))
-            み*じろ*ぐ
-            "to move"))
+                "to move (tr.)")))
     (on
         (primary-reading
             (primary-spelling 移動)
@@ -2783,15 +2627,7 @@
                 (primary-spelling 聞こえる)
                 *き*こえる
                 "to be audible"
-                (variant (rare 聞える)))
-            (primary-reading
-                (primary-spelling 聞かす)
-                *き*かす
-                "to let hear"))
-        (secondary-reading
-            (primary-spelling 聞こし召す)
-            *き*こしめす
-            "to hear (honorific)"))
+                (variant (rare 聞える)))))
     (on
         (primary-reading
             (primary-spelling 新聞)
@@ -2817,11 +2653,11 @@
         (primary-reading
             (primary-spelling 悪魔)
             アク*マ*
-            "demon")
-        (primary-reading
-            (primary-spelling 魔法)
-            *マ*ホウ
-            "magic")))
+            "demon"
+            (primary-reading
+                (primary-spelling 魔法)
+                *マ*ホウ
+                "magic"))))
 (kanji 長
     (kun
         (primary-reading
@@ -2831,19 +2667,11 @@
             (secondary-reading
                 (primary-spelling 長らく)
                 *なが*らく
-                "for a long time")
-            (secondary-reading
-                (primary-spelling 長らえる)
-                *なが*らえる
-                "to live long"))
+                "for a long time"))
         (secondary-reading
             (primary-spelling 長ける)
             *た*ける
-            "to excel")
-        (secondary-reading
-            (primary-spelling 長)
-            *おさ*
-            "leader"))
+            "to excel"))
     (on
         (primary-reading
             (primary-spelling 成長)
@@ -2870,22 +2698,28 @@
         (primary-reading
             (primary-spelling 同じ)
             *おな*じ
-            "same"
-            (secondary-reading
-                (primary-spelling 同い年)
-                *おな*いどし
-                "the same age")))
+            "same"))
     (on
         (primary-reading
             (primary-spelling 同様)
             *ドウ*ヨウ
             "same")))
+(combined
+    (primary-reading
+        (primary-spelling 同い年)
+        *おな*いどし
+        "the same age"))
 (kanji 意
     (on
         (primary-reading
             (primary-spelling 意味)
             *イ*ミ
             "meaning")))
+(combined
+    (primary-reading
+        (primary-spelling 本意ない)
+        *ホ*イナイ
+        "regrettable, disappointing"))
 (kanji 僕
     (kun
         (secondary-reading
@@ -2896,11 +2730,11 @@
         (primary-reading
             (primary-spelling 僕)
             *ボク*
-            "I")
-        (primary-reading
-            (primary-spelling 下僕)
-            ゲ*ボク*
-            "manservant")))
+            "I"
+            (primary-reading
+                (primary-spelling 下僕)
+                ゲ*ボク*
+                "manservant"))))
 (kanji 戦
     (kun
         (primary-reading
@@ -2957,18 +2791,14 @@
             (primary-spelling 立つ)
             *た*つ
             "to stand up"
-            (variant-reading
-                (primary-spelling 出立)
-                しゅっ*たつ*
-                "departure")
             (primary-reading
                 (primary-spelling 立てる)
                 *た*てる
                 "to put up")
             (secondary-reading
-                (primary-spelling 苛立たしい)
-                いら*だ*たしい
-                "irritating")))
+                (primary-spelling 出立)
+                しゅっ*たつ*
+                "departure")))
     (on
         (primary-reading
             (primary-spelling 成立)
@@ -2988,11 +2818,7 @@
             (primary-spelling 少ない)
             *すく*ない
             "few"
-            (variant (rare 少い))
-            (secondary-reading
-                (primary-spelling 言葉少な)
-                ことば*ずく*な
-                "laconic")))
+            (variant (rare 少い))))
     (on
         (primary-reading
             (primary-spelling 少数)
@@ -3017,6 +2843,11 @@
             (primary-spelling 取得)
             *シュ*トク
             "obtaining")))
+(combined
+    (primary-reading
+        (primary-spelling 鳥取)
+        *とっ*とり
+        "Tottori (city, prefecture)"))
 (kanji 地
     (on
         (primary-reading
@@ -3027,6 +2858,16 @@
             (primary-spelling 地面)
             *ジ*メン
             "earth")))
+(combined
+    (primary-reading
+        (primary-spelling 心地)
+        *ここ*ち
+        "feeling"))
+(combined
+    (primary-reading
+        (primary-spelling 意気地)
+        イ*ク*ジ
+        "willpower, courage"))
 (kanji 学
     (kun
         (primary-reading
@@ -3043,12 +2884,12 @@
         (primary-reading
             (primary-spelling 変わる)
             *か*わる
-            "to change"
+            "to change (intr.)"
             (variant (rare 変る))
             (primary-reading
                 (primary-spelling 変える)
                 *か*える
-                "to change")))
+                "to change (tr.)")))
     (on
         (primary-reading
             (primary-spelling 変化)
@@ -3110,11 +2951,7 @@
         (secondary-reading
             (primary-spelling 融通)
             ユウ*ズウ*
-            "flexibility, versatility; lending")
-        (secondary-reading
-            (primary-spelling 通夜)
-            *ツ*ヤ
-            "all-night vigil")))
+            "flexibility, versatility; lending")))
 (kanji 作
     (kun
         (primary-reading
@@ -3143,11 +2980,11 @@
             (secondary-reading
                 (primary-spelling 違える)
                 *ちが*える
-                "to change"))
+                "to change (tr.)"))
         (secondary-reading
             (primary-spelling 違う)
             *たが*う
-            "to differ"
+            "to differ, to go against"
             (secondary-reading
                 (primary-spelling 違える)
                 *たが*える
@@ -3224,15 +3061,7 @@
                 (secondary-reading
                     (primary-spelling 明かす)
                     *あ*かす
-                    "to spend the night")
-                (secondary-reading
-                    (secondary-spelling 開く (rare 明く))
-                    *あ*く
-                    "to open")
-                (secondary-reading
-                    (primary-spelling 明くる)
-                    *あ*くる
-                    "next"))
+                    "to spend the night"))
             (secondary-reading
                 (primary-kanji-spelling さやか (common 明か))
                 *さや*か
@@ -3245,20 +3074,12 @@
         (secondary-reading
             (primary-spelling 明日)
             あす
-            "tomorrow")
-        (secondary-reading
-            (primary-spelling 明日)
-            ミョウニチ
             "tomorrow")))
 (combined
     (primary-reading
         (primary-spelling 明後日)
         あさって
-        "day after tomorrow"
-        (secondary-reading
-            (primary-spelling 明後日)
-            ミョウゴニチ
-            "day after tomorrow")))
+        "day after tomorrow"))
 (combined
     (primary-reading
         (primary-spelling 明々後日)
@@ -3278,11 +3099,11 @@
         (primary-reading
             (primary-spelling 期待)
             キ*タイ*
-            "anticipation")
-        (primary-reading
-            (primary-spelling 待遇)
-            *タイ*グウ
-            "reception, treatment")))
+            "anticipation"
+            (primary-reading
+                (primary-spelling 待遇)
+                *タイ*グウ
+                "reception, treatment"))))
 (kanji 実
     (kun
         (secondary-reading
@@ -3294,17 +3115,13 @@
             *みの*る
             "to bear fruit")
         (secondary-reading
-            (secondary-spelling 誠 (rare 実))
-            *まこと*
-            "truth"
-            (secondary-reading
-                (primary-spelling 実しやか)
-                *まこと*しやか
-                "plausible"))
+            (primary-spelling 実しやか)
+            *まこと*しやか
+            "plausible")
         (secondary-reading
-            (primary-spelling 瓜実顔)
-            うり*ざね*がお
-            "oval face"))
+            (primary-spelling 実)
+            *さね*
+            "seed, pit"))
     (on
         (primary-reading
             (primary-spelling 事実)
@@ -3315,12 +3132,7 @@
         (primary-reading
             (primary-spelling 身)
             *み*
-            "body"
-            (variant-reading
-                (primary-spelling 身代金)
-                *みの*しろきん
-                "ransom"
-                (special genitive))))
+            "body"))
     (on
         (primary-reading
             (primary-spelling 自身)
@@ -3335,6 +3147,11 @@
         (secondary-spelling 体 (common 身体))
         からだ
         "body"))
+(combined
+    (primary-reading
+        (primary-kanji-spelling 身じろぐ (common 身動ぐ))
+        み*じろ*ぐ
+        "to move"))
 (kanji 的
     (kun
         (secondary-reading
@@ -3345,11 +3162,11 @@
         (primary-reading
             (primary-spelling 目的)
             モク*テキ*
-            "purpose")
-        (primary-reading
-            (primary-spelling 知的)
-            チ*テキ*
-            "intellectual")))
+            "purpose"
+            (primary-reading
+                (primary-spelling 知的)
+                チ*テキ*
+                "intellectual"))))
 (kanji 向
     (kun
         (primary-reading
@@ -3359,7 +3176,7 @@
             (primary-reading
                 (primary-spelling 向ける)
                 *む*ける
-                "to turn towards")
+                "to turn towards (tr.)")
             (primary-reading
                 (primary-spelling 向かう)
                 *む*かう
@@ -3369,33 +3186,24 @@
                 (primary-spelling 向こう)
                 *む*こう
                 "other side"
-                (variant-reading
-                    (secondary-spelling 向こう側 (rare 向う側))
-                    *むこ*うがわ
-                    "other side")
-                (variant-reading
-                    (secondary-spelling 向こう側 (rare 向側))
-                    *むこう*がわ
-                    "other side")))
-        (secondary-reading
-            (primary-spelling 日向)
-            ひ*なた*
-            "place in the sun"))
+                (variant (rare 向う))
+                (variant (rare 向)))))
     (on
         (primary-reading
             (primary-spelling 方向)
             ホウ*コウ*
             "direction")))
+(combined
+    (primary-reading
+        (primary-spelling 日向)
+        ひ*なた*
+        "place in the sun"))
 (kanji 達
     (kun
         (primary-reading
             (primary-kanji-spelling 人たち (common 人達))
             ひと*たち*
-            "people"
-            (secondary-reading
-                (secondary-spelling 用足し (common 用達))
-                よう*たし*
-                "running errands")))
+            "people"))
     (on
         (primary-reading
             (primary-spelling 発達)
@@ -3404,15 +3212,12 @@
         (secondary-reading
             (primary-spelling 先達)
             セン*ダツ*
-            "pioneer"
-            (secondary-reading
-                (primary-kanji-spelling 先だって (rare 先達て))
-                セン*ダッ*テ
-                "some time ago"))
-        (secondary-reading
-            (primary-kanji-spelling だるま (common 達磨))
-            *ダル*マ
-            "daruma (doll)")))
+            "pioneer")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling 先だって (rare 先達て))
+        セン*ダッ*テ
+        "some time ago"))
 (kanji 不
     (on
         (primary-reading
@@ -3456,68 +3261,52 @@
             (primary-spelling 高度)
             *コウ*ド
             "altitude")))
-(kanji-split 悪
-    (part "kun"
-        (kun
-            (primary-reading
-                (primary-spelling 悪い)
-                *わる*い
-                "bad")
+(kanji 悪
+    (kun
+        (primary-reading
+            (primary-spelling 悪い)
+            *わる*い
+            "bad")
+        (secondary-reading
+            (secondary-spelling 憎む (rare 悪む))
+            *にく*む
+            "to hate")
+        (secondary-reading
+            (primary-spelling 悪しき)
+            *あ*しき
+            "bad"))
+    (on
+        (primary-reading
+            (primary-spelling 悪)
+            *アク*
+            "evil")
+        (secondary-reading
+            (primary-spelling 嫌悪)
+            ケン*オ*
+            "disgust")))
+(kanji 所
+    (kun
+        (primary-reading
+            (primary-kanji-spelling ところ (common 所))
+            *ところ*
+            "place"
             (secondary-reading
-                (secondary-spelling 憎む (rare 悪む))
-                *にく*む
-                "to hate")
-            (secondary-reading
-                (primary-spelling 悪しき)
-                *あ*しき
-                "bad"
-                (secondary-reading
-                    (primary-spelling 良し悪し)
-                    よし*あ*し
-                    "good or bad"))))
-    (part "on"
-        (on
-            (primary-reading
-                (primary-spelling 悪)
-                *アク*
-                "evil")
-            (secondary-reading
-                (primary-spelling 嫌悪)
-                ケン*オ*
-                "disgust"))))
-(kanji-split 所
-    (part "kun"
-        (kun
-            (primary-reading
-                (primary-kanji-spelling ところ (common 所))
-                *ところ*
-                "place"
-                (secondary-reading
-                    (primary-kanji-spelling とこ (common 所))
-                    *とこ*
-                    "place"))
-            (secondary-reading
-                (secondary-kanji-spelling どこ (rare 何処) (rare 何所))
-                ど*こ*
-                "where"
-                (secondary-reading
-                    (primary-spelling 臥所)
-                    ふし*ど*
-                    "bedroom"))))
-    (part "on"
-        (on
-            (primary-reading
-                (primary-spelling 場所)
-                バ*ショ*
-                "place")
-            (secondary-reading
-                (primary-spelling 近所)
-                キン*ジョ*
-                "neighborhood")
-            (secondary-reading
-                (primary-kanji-spelling せい (rare 所為))
-                *セ*イ
-                "cause, reason"))))
+                (primary-spelling 臥所)
+                ふし*ど*
+                "bedroom"))
+        (secondary-reading
+            (secondary-kanji-spelling どこ (rare 何処) (rare 何所))
+            ど*こ*
+            "where"))
+    (on
+        (primary-reading
+            (primary-spelling 場所)
+            バ*ショ*
+            "place")
+        (secondary-reading
+            (primary-spelling 近所)
+            キン*ジョ*
+            "neighborhood")))
 (kanji 味
     (kun
         (primary-reading
@@ -3532,11 +3321,11 @@
         (primary-reading
             (primary-spelling 味覚)
             *ミ*カク
-            "taste")
-        (secondary-reading
-            (primary-spelling 意味)
-            イ*ミ*
-            "meaning")))
+            "taste"
+            (secondary-reading
+                (primary-spelling 意味)
+                イ*ミ*
+                "meaning"))))
 (combined
     (primary-reading
         (primary-kanji-spelling まずい (common 不味い))
@@ -3556,30 +3345,17 @@
             (primary-reading
                 (primary-spelling 好む)
                 *この*む
-                "to like"
-                (secondary-reading
-                    (primary-spelling 好ましい)
-                    *この*ましい
-                    "likable"))))
+                "to like")))
     (part "on"
         (on
             (primary-reading
                 (primary-spelling 良好)
                 リョウ*コウ*
-                "good"
-                (secondary-reading
-                    (primary-kanji-spelling カッコイイ (common 格好良い))
-                    カッ*コ*イイ
-                    "cool"))
+                "good")
             (secondary-reading
                 (primary-spelling 相好)
                 ソウ*ゴウ*
-                "appearance")
-            (secondary-reading
-                (primary-kanji-spelling ニーハオ (common 你好))
-                ニー*ハオ*
-                "hi (Chinese)"
-                (special asian))))
+                "appearance")))
     (part "kun2"
         (kun
             (secondary-reading
@@ -4132,6 +3908,11 @@
             (primary-spelling 利用)
             リ*ヨウ*
             "use")))
+(combined
+    (primary-reading
+        (secondary-spelling 用足し (common 用達))
+        ようたし
+        "running errands"))
 (kanji 屋
     (kun
         (primary-reading
@@ -4346,11 +4127,7 @@
         (primary-reading
             (primary-spelling 葉)
             *は*
-            "leaf"
-            (secondary-reading
-                (secondary-spelling 木っ端 (common 木葉))
-                こ*っぱ*
-                "wood chip")))
+            "leaf"))
     (on
         (primary-reading
             (primary-spelling 紅葉)
@@ -4596,6 +4373,11 @@
                 (primary-spelling 交代)
                 コウ*タイ*
                 "taking turns"))))
+(combined
+    (primary-reading
+        (primary-spelling 身代金)
+        *みの*しろきん
+        "ransom"))
 (kanji-split 然
     (part "on"
         (on
@@ -6101,6 +5883,11 @@
             (primary-spelling 平野)
             ヘイ*ヤ*
             "plain")))
+(combined
+    (primary-reading
+        (primary-spelling 野分)
+        のわき
+        "typhoon in early autumn (archaic)"))
 (kanji 調
     (kun
         (primary-reading
@@ -6386,6 +6173,11 @@
                 (primary-spelling 貴重)
                 キ*チョウ*
                 "precious"))))
+(combined
+    (primary-reading
+        (primary-kanji-spelling 重し (common 重石))
+        おも*し*
+        "stone weight"))
 (kanji 頼
     (kun
         (primary-reading
@@ -6429,6 +6221,11 @@
         (primary-spelling 十六夜)
         いざよい
         "sixteen-day-old moon"))
+(combined
+    (primary-reading
+        (primary-spelling 通夜)
+        *ツ*ヤ
+        "all-night vigil"))
 (kanji 応
     (kun
         (primary-reading
@@ -7620,6 +7417,11 @@
         クーリー
         "coolie (Asian low-wage laborer) (historical, discriminatory)"
         (special asian)))
+(combined
+    (primary-reading
+        (primary-kanji-spelling くない (common 苦無))
+        く*ない*
+        "kunai (ninja knife)"))
 (kanji 買
     (kun
         (primary-reading
@@ -8154,6 +7956,11 @@
             (secondary-spelling 法被 (rare 半被))
             *ハッ*ピ
             "happi (coat)")))
+(combined
+    (primary-reading
+        (primary-spelling 三行半)
+        み*くだり*はん
+        "letter of divorce (historical)"))
 (kanji 送
     (kun
         (primary-reading
@@ -8516,6 +8323,11 @@
             (primary-spelling 格子)
             *コウ*シ
             "lattice")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling カッコイイ (common 格好良い))
+        カッ*コ*イイ
+        "cool"))
 (kanji 血
     (kun
         (primary-reading
@@ -8608,6 +8420,11 @@
             (primary-spelling 禅師)
             ゼン*ジ*
             "high-ranking Zen monk")))
+(combined
+    (primary-reading
+        (primary-spelling 師走)
+        し*わす*
+        "twelfth lunar month"))
 (kanji 礼
     (on
         (primary-reading
@@ -8692,6 +8509,11 @@
             (primary-spelling 計画)
             *ケイ*カク
             "plan")))
+(combined
+    (primary-reading
+        (primary-spelling 時計)
+        *ト*ケイ
+        "clock"))
 (kanji 望
     (kun
         (primary-reading
@@ -9174,11 +8996,7 @@
     (primary-reading
         (primary-spelling 一昨日)
         おととい
-        "day before yesterday"
-        (secondary-reading
-            (primary-spelling 一昨日)
-            イッサクジツ
-            "day before yesterday")))
+        "day before yesterday"))
 (combined
     (primary-reading
         (primary-spelling 一昨年)
@@ -9188,11 +9006,7 @@
     (primary-reading
         (primary-spelling 昨日)
         きのう
-        "yesterday"
-        (secondary-reading
-            (primary-spelling 昨日)
-            サクジツ
-            "yesterday")))
+        "yesterday"))
 (combined
     (primary-reading
         (primary-spelling 一昨々日)
@@ -9245,6 +9059,11 @@
             シュウ*マイ*
             "shumai (food)"
             (special asian))))
+(combined
+    (primary-reading
+        (primary-spelling 売女)
+        バイ*タ*
+        "prostitute (derogatory)"))
 (kanji 有
     (kun
         (primary-reading
@@ -9618,6 +9437,11 @@
             (primary-spelling 接触)
             セッ*ショク*
             "touch")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling かぶれる (rare 気触れる))
+        *か*ぶれる
+        "to develop a rash"))
 (kanji 恐
     (kun
         (primary-reading
@@ -11108,6 +10932,12 @@
             (primary-spelling 喫茶店)
             キッ*サ*テン
             "cafe")))
+(combined
+    (primary-reading
+        (primary-spelling 飲茶)
+        *ヤム*チャ
+        "yum cha"
+        (special asian)))
 (kanji 証
     (kun
         (primary-reading
@@ -11480,6 +11310,11 @@
         (primary-spelling 産土神)
         うぶ*すな*がみ
         "birthplace's guardian deity (Shinto)"))
+(combined
+    (primary-reading
+        (secondary-spelling 産毛 (rare 生毛))
+        *うぶ*げ
+        "soft hair"))
 (kanji-split 徒
     (part "kun"
         (kun
@@ -12460,6 +12295,11 @@
             (primary-spelling 極端)
             キョク*タン*
             "extreme")))
+(combined
+    (primary-reading
+        (secondary-spelling 木っ端 (common 木端))
+        *こっ*ぱ
+        "wood chip"))
 (kanji 夏
     (kun
         (primary-reading
@@ -12544,6 +12384,11 @@
             (primary-spelling 困惑)
             コン*ワク*
             "bewilderment")))
+(combined
+    (primary-reading
+        (primary-spelling 思惑)
+        *おも*わく
+        "expectation"))
 (kanji 聖
     (kun
         (secondary-reading
@@ -13795,6 +13640,11 @@
             "act")))
 (combined
     (primary-reading
+        (primary-kanji-spelling せい (rare 所為))
+        *セ*イ
+        "cause, reason"))
+(combined
+    (primary-reading
         (secondary-spelling 体たらく (rare 為体))
         ていたらく
         "predicament"))
@@ -14455,6 +14305,11 @@
             (primary-spelling 近衛)
             コノ*エ*
             "imperial guards")))
+(combined
+    (primary-reading
+        (primary-spelling 飲兵衛)
+        のんべえ
+        "heavy drinker (colloquial)"))
 (kanji 昼
     (kun
         (primary-reading
@@ -17680,6 +17535,11 @@
             (primary-spelling 純粋)
             *ジュン*スイ
             "pure")))
+(combined
+    (primary-reading
+        (primary-spelling 生粋)
+        きっすい
+        "pure, genuine"))
 (kanji 規
     (on
         (primary-reading
@@ -17827,6 +17687,11 @@
                 (primary-spelling 甲冑)
                 *カッ*チュウ
                 "armor and helmet"))))
+(combined
+    (secondary-reading
+        (primary-spelling 手甲)
+        *てっ*こう
+        "covering for the back of the hand and wrist"))
 (kanji 老
     (kun
         (primary-reading
@@ -20272,11 +20137,7 @@
             (secondary-reading
                 (secondary-spelling 長らく (common 永らく))
                 *なが*らく
-                "for a long time")
-            (secondary-reading
-                (secondary-spelling 長らえる (common 永らえる))
-                *なが*らえる
-                "to live long")))
+                "for a long time")))
     (on
         (primary-reading
             (primary-spelling 永遠)
@@ -20818,6 +20679,11 @@
             "public bath")))
 (combined
     (primary-reading
+        (primary-spelling 白湯)
+        *さ*ゆ
+        "plain hot water"))
+(combined
+    (primary-reading
         (secondary-kanji-spelling ぬるい (common 温い) (rare 微温い))
         ぬるい
         "lukewarm"
@@ -20825,6 +20691,11 @@
             (primary-kanji-spelling ぬるま湯 (rare 微温湯))
             ぬるまゆ
             "lukewarm water")))
+(combined
+    (primary-reading
+        (primary-spelling 湯女)
+        ゆ*な*
+        "woman assisting bathers in a hot spring (historical)"))
 (kanji 称
     (kun
         (primary-reading
@@ -22447,6 +22318,11 @@
             (primary-spelling 憎悪)
             *ゾウ*オ
             "hatred")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling あいにく (common 生憎))
+        あいにく
+        "unfortunately"))
 (kanji 災
     (kun
         (primary-reading
@@ -26169,6 +26045,11 @@
                 (secondary-spelling 遊び呆ける (common 遊び惚ける))
                 あそび*ほう*ける
                 "to spend all time in idle amusement"))))
+(combined
+    (primary-reading
+        (primary-spelling 自惚れる)
+        うぬぼれる
+        "to be conceited"))
 (kanji 幽
     (kun
         (secondary-reading
@@ -26587,6 +26468,11 @@
             (primary-spelling 研磨)
             ケン*マ*
             "polishing")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling だるま (common 達磨))
+        *ダル*マ
+        "daruma (doll)"))
 (kanji 淡
     (kun
         (primary-reading
@@ -28494,6 +28380,11 @@
             (primary-spelling 弥縫)
             *ビ*ホウ
             "patching up")))
+(combined
+    (primary-reading
+        (primary-spelling 弥生)
+        やよい
+        "third lunar month; Yayoi (period)"))
 (kanji 駒
     (kun
         (primary-reading
@@ -33203,6 +33094,11 @@
             (primary-spelling 舟艇)
             *シュウ*テイ
             "boat")))
+(combined
+    (primary-reading
+        (primary-spelling 方舟)
+        *はこ*ぶね
+        "ark"))
 (kanji 瓦
     (kun
         (primary-reading
@@ -35793,6 +35689,11 @@
             (primary-spelling 猪突)
             *チョ*トツ
             "recklessness")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling ちょこ (common 猪口))
+        チョ*コ*
+        "sake cup"))
 (kanji 槽
     (kun
         (secondary-reading
@@ -46105,6 +46006,11 @@
             (secondary-spelling 田んぼ (common 田圃))
             タン*ボ*
             "rice paddy")))
+(combined
+    (primary-reading
+        (secondary-spelling 田んぼ (common 田圃))
+        タン*ボ*
+        "rice paddy"))
 (kanji 聊
     (kun
         (primary-reading
@@ -48502,6 +48408,12 @@
             *ニー*ハオ
             "hi (Chinese)"
             (special asian))))
+(combined
+    (primary-reading
+        (primary-kanji-spelling ニーハオ (common 你好))
+        ニー*ハオ*
+        "hi (Chinese)"
+        (special asian)))
 (kanji 谺
     (kun
         (primary-reading
