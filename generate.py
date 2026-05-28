@@ -18,6 +18,7 @@ model = genanki.Model(
         {'name': 'Kanji'},
         {'name': 'Part'},
         {'name': 'Content'},
+        {'name': 'Ordinal'},
     ],
     templates=[
         {
@@ -36,11 +37,16 @@ model = genanki.Model(
 
 deck = genanki.Deck(KANJI_DECK_ID, 'Kanji')
 
-for entry in json.load(sys.stdin):
+for entry_ord, entry in enumerate(json.load(sys.stdin)):
     entry_id = entry['kanji']
     if entry['part']:
         entry_id += ' (' + entry['part'] + ')'
-    note = genanki.Note(model=model, guid=entry_id, fields=[entry_id, entry['kanji'], entry['part'], entry['content']])
+    note = genanki.Note(
+        model=model,
+        guid=entry_id,
+        fields=[entry_id, entry['kanji'], entry['part'], entry['content'], f'{entry_ord:04d}'],
+        due=entry_ord,
+    )
     deck.add_note(note)
 
 genanki.Package(deck, media_files=['_NotoSansJP.ttf']).write_to_file('kanji.apkg')
