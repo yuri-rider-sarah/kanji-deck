@@ -7,7 +7,11 @@ use Generate;
 
 my $dict = slurp 'dictionary';
 my Entry @entries = parse-file($dict);
-say "Warning: Serialized file does not match original!" if serialize-entries(@entries) ne $dict;
+my $serialized-dict = serialize-entries(@entries);
+if $serialized-dict ne $dict {
+    spurt 'dictionary2', $serialized-dict;
+    say 'Warning: Serialized file does not match original!';
+}
 my $json = json-from-entries(@entries);
 my $proc = run('./generate.py', :in);
 $proc.in.print($json);
