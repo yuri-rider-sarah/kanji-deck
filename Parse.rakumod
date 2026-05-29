@@ -39,13 +39,13 @@ grammar Dictionary {
     }
     rule kun-list { '(' 'kun' <main-reading(KunReading)>+ ')' }
     rule on-list { '(' 'on' <main-reading(OnReading)>+ ')' }
-    rule combined-list { '(' 'from-combined' <main-reading(CombinedReading)>+ ')' }
+    rule combined-list { '(' 'combined' <main-reading(CombinedReading)>+ ')' }
     rule reading-list { <kun-list>? <on-list>? <combined-list>? }
     rule part { '(' 'part' <string> <reading-list> ')' }
     proto rule entry {*}
     rule entry:sym<kanji> { '(' 'kanji' <word> <reading-list> ')' }
     rule entry:sym<kanji-split> { '(' 'kanji-split' <word> <part>+ ')' }
-    rule entry:sym<combined> { '(' 'combined' <main-reading(CombinedReading)>+ ')' }
+    rule entry:sym<word> { '(' 'word' <main-reading(CombinedReading)>+ ')' }
     rule TOP { <entry>* [ $ || <.entry-error> ] }
 
     method entry-error() {
@@ -190,8 +190,8 @@ class DictionaryActions {
             parts => @<part>».made,
         )
     }
-    method entry:sym<combined>($/ --> CombinedEntry) {
-        make CombinedEntry.new(readings => @<main-reading>».made)
+    method entry:sym<word>($/ --> WordEntry) {
+        make WordEntry.new(readings => @<main-reading>».made)
     }
     method TOP($/ --> Array[Entry]) {
         make Array[Entry].new(@<entry>».made)

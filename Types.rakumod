@@ -84,6 +84,6 @@ class KanjiEntry does Entry is export {
     has KanjiPart @.parts;
 }
 
-class CombinedEntry does Entry is export {
+class WordEntry does Entry is export {
     has MainReading @.readings;
 }

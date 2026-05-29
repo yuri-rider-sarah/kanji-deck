@@ -102,7 +102,7 @@ sub table-from-kanji-part(KanjiPart $part --> Str) {
     $result
 }
 
-sub table-from-combined-entry(CombinedEntry $entry --> Str) {
+sub table-from-word-entry(WordEntry $entry --> Str) {
     my $result = "<table>\n";
     for $entry.readings -> $reading {
         $result ~= trs-from-reading($reading, False);
@@ -121,10 +121,10 @@ multi json-from-entry(KanjiEntry $entry --> Str) {
     $entry.parts».&{ json-from-part($_, $entry.kanji) }.join(',')
 }
 
-multi json-from-entry(CombinedEntry $entry --> Str) {
+multi json-from-entry(WordEntry $entry --> Str) {
     my $*kanji = '';
     '{"kanji":' ~ json-string($entry.readings[0].spelling.described.word)
-    ~ ',"part":"","content":' ~ json-string(table-from-combined-entry($entry)) ~ '}'
+    ~ ',"part":"","content":' ~ json-string(table-from-word-entry($entry)) ~ '}'
 }
 
 sub json-from-entries(Entry @entries --> Str) is export {

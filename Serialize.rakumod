@@ -107,7 +107,7 @@ multi serialize(KanjiPart $part) {
         se-close;
     }
     if $part.combined-readings {
-        se-open 'from-combined';
+        se-open 'combined';
         for $part.combined-readings -> $reading {
             serialize $reading;
         }
@@ -131,8 +131,8 @@ multi serialize(KanjiEntry $entry) {
     }
 }
 
-multi serialize(CombinedEntry $entry) {
-    se-open 'combined';
+multi serialize(WordEntry $entry) {
+    se-open 'word';
     for $entry.readings -> $reading {
         serialize $reading;
     }
