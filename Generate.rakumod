@@ -17,28 +17,26 @@ sub json-string(Str $str --> Str) {
         .subst("\t", '\t', :g) ~ '"'
 }
 
-sub html-from-word(Str $word, Bool $is-orig --> Str) {
+sub html-from-word(Str $word --> Str) {
     if $*kanji {
         $word.split($*kanji)».&html-escape.join("<span class=\"kanji\">{$*kanji}</span>")
-    } elsif $is-orig {
-        html-escape($word)
     } else {
         "<span class=\"kanji\">{html-escape($word)}</span>"
     }
 }
 
-sub cell-from-freq-word(FreqWord $fw, Bool $is-orig --> Str) {
+sub cell-from-freq-word(FreqWord $fw --> Str) {
     given $fw.freq {
-        when Common { html-from-word($fw.word, $is-orig) }
-        when Rare { "<span class=\"rare\">{html-from-word($fw.word, $is-orig)}</span>" }
+        when Common { html-from-word($fw.word) }
+        when Rare { "<span class=\"rare\">{html-from-word($fw.word)}</span>" }
     }
 }
 
 sub cell-from-other-spelling(Spelling $spelling --> Str) {
     given $spelling.type {
         when PrimarySpelling { '' }
-        when PrimaryKanjiSpelling | SecondarySpelling { cell-from-freq-word($spelling.described, False) }
-        when SecondaryKanjiSpelling { cell-from-freq-word($spelling.described, False) ~ ' / ' ~ cell-from-freq-word($spelling.main-kanji, True) }
+        when PrimaryKanjiSpelling | SecondarySpelling { cell-from-freq-word($spelling.described) }
+        when SecondaryKanjiSpelling { cell-from-freq-word($spelling.described) ~ ' / ' ~ cell-from-freq-word($spelling.main-kanji) }
     }
 }
 
@@ -51,7 +49,7 @@ multi cell-from-kana(UnsplitKana $kana --> Str) {
 }
 
 sub tr-from-variants(FreqWord @variants, Bool $under-primary --> Str) {
-    my $variants_text = @variants».&{ cell-from-freq-word($_, False) }.join(', ');
+    my $variants_text = @variants».&{ cell-from-freq-word($_) }.join(', ');
     if $under-primary {
         "<tr class=\"variant\"><td></td><td>~ {$variants_text}</td><td></td><td></td></tr>\n"
     } else {
@@ -77,7 +75,7 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
         @classes.push('combined');
     }
     my $class-attr = @classes ?? ' class="' ~ @classes.join(' ') ~ '"' !! '';
-    my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main, $reading.spelling.type != PrimarySpelling)}</td><td>{cell-from-kana($reading.kana)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
+    my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main)}</td><td>{cell-from-kana($reading.kana)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
     if $reading.variants.elems > 0 {
         $result ~= tr-from-variants($reading.variants, $reading.spelling.type ~~ PrimarySpelling);
     }
