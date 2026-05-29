@@ -42,15 +42,11 @@ sub cell-from-other-spelling(Spelling $spelling --> Str) {
     }
 }
 
-multi cell-from-kana(SplitKana $kana, Bool $is-genitive --> Str) {
-    if $is-genitive {
-        "{html-escape($kana.pre)}<span class=\"kana\">{html-escape($kana.mid.substr(0, *-1))}<span class=\"particle\">{html-escape($kana.mid.substr(*-1))}</span></span>{html-escape($kana.post)}"
-    } else {
-        "{html-escape($kana.pre)}<span class=\"kana\">{html-escape($kana.mid)}</span>{html-escape($kana.post)}"
-    }
+multi cell-from-kana(SplitKana $kana --> Str) {
+    "{html-escape($kana.pre)}<span class=\"kana\">{html-escape($kana.mid)}</span>{html-escape($kana.post)}"
 }
 
-multi cell-from-kana(UnsplitKana $kana, Bool $is-genitive --> Str) {
+multi cell-from-kana(UnsplitKana $kana --> Str) {
     "<span class=\"kana\">{html-escape($kana.kana)}</span>"
 }
 
@@ -63,7 +59,6 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
     my @classes;
     for $reading.attrs -> $attr {
         @classes.push(do given $attr {
-            when Genitive { 'genitive' }
             when Asian { 'asian' }
             when European { 'european' }
         });
@@ -71,28 +66,16 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
     if $reading ~~ MainReading {
         @classes.push('main');
     }
-    @classes.push(do given $reading {
-        when MainReading | RelatedReading {
-            given $reading.type {
-                when PrimaryReading { 'primary' }
-                when SecondaryReading { 'secondary' }
-            }
-        }
-        when VariantReading { 'variant' }
-    });
+    if $reading.type ~~ PrimaryReading {
+        @classes.push('primary');
+    }
     if $combined {
         @classes.push('combined');
     }
     my $class-attr = @classes ?? ' class="' ~ @classes.join(' ') ~ '"' !! '';
-    my $is-genitive = so $reading.attrs.grep(Genitive);
-    my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main, $reading.spelling.type != PrimarySpelling)}</td><td>{cell-from-kana($reading.kana, $is-genitive)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
-    if ($reading ~~ NonVariantReading) {
-        for $reading.variants -> $variant {
-            $result ~= tr-from-variant($variant, $combined);
-        }
-        for $reading.variant-readings -> $variant-reading {
-            $result ~= trs-from-reading($variant-reading, $combined);
-        }
+    my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main, $reading.spelling.type != PrimarySpelling)}</td><td>{cell-from-kana($reading.kana)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
+    for $reading.variants -> $variant {
+        $result ~= tr-from-variant($variant, $combined);
     }
     if ($reading ~~ MainReading) {
         for $reading.related-readings -> $related-reading {

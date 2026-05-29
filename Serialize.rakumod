@@ -60,7 +60,6 @@ multi serialize(UnsplitKana $kana) {
 
 multi to-str(ReadingAttr $attr --> Str) {
     given $attr {
-        when Genitive { 'genitive' }
         when Asian { 'asian' }
         when European { 'european' }
     }
@@ -74,24 +73,15 @@ multi to-str(ReadingType $type --> Str) {
 }
 
 multi serialize(Reading $reading) {
-    my $type = do given $reading {
-        when MainReading | RelatedReading { to-str($reading.type) }
-        when VariantReading { 'variant-reading' }
-    };
-    se-open $type;
+    se-open(to-str($reading.type));
     serialize $reading.spelling;
     serialize $reading.kana;
     se-line '"' ~ $reading.definition ~ '"';
     for $reading.attrs -> $attr {
         se-line "(special {to-str($attr)})";
     }
-    if $reading ~~ NonVariantReading {
-        for $reading.variants -> $variant {
-            se-line "(variant {to-str($variant)})";
-        }
-        for $reading.variant-readings -> $variant {
-            serialize $variant;
-        }
+    for $reading.variants -> $variant {
+        se-line "(variant {to-str($variant)})";
     }
     if $reading ~~ MainReading {
         for $reading.related-readings -> $related {

@@ -51,7 +51,7 @@ class UnsplitKana does ReadingKana is export {
     method joined(--> Str) { $.kana }
 }
 
-enum ReadingAttr is export <Genitive Asian European>;
+enum ReadingAttr is export <Asian European>;
 
 enum ReadingType is export <PrimaryReading SecondaryReading>;
 
@@ -60,19 +60,13 @@ role Reading is export {
     has ReadingKana $.kana is required;
     has Str $.definition is required;
     has ReadingAttr @.attrs;
-}
-
-class VariantReading does Reading is export {}
-
-role NonVariantReading does Reading is export {
     has ReadingType $.type is required;
     has FreqWord @.variants;
-    has VariantReading @.variant-readings;
 }
 
-class RelatedReading does NonVariantReading is export {}
+class RelatedReading does Reading is export {}
 
-class MainReading does NonVariantReading is export {
+class MainReading does Reading is export {
     has RelatedReading @.related-readings;
 }
 

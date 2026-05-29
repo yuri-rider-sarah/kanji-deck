@@ -25,21 +25,17 @@ grammar Dictionary {
         || <?{ $type != KunReading }> $<pre>=([<:Katakana>|ー]*) '*' $<mid>=([<:Katakana>|ー]+) '*' $<post>=([<:Katakana>|ー]*)
         || <?{ $type == CombinedReading }> $<kana>=(<:Hiragana>+ | [<:Katakana>|ー]+)
     }
-    token special-attr { 'genitive' | 'asian' | 'european' }
+    token special-attr { 'asian' | 'european' }
     rule special { '(' 'special' <special-attr> ')' }
     rule variant { '(' 'variant' <freq-word> ')' }
-    rule variant-reading(KanaType $type) {
-        '(' 'variant-reading' <spelling> <kana($type)> <string>
-        <special>* ')'
-    }
     rule related-reading(KanaType $type) {
         '(' <reading-type> <spelling> <kana($type)> <string>
-        <variant>* <variant-reading($type)>* <special>* ')'
+        <variant>* <special>* ')'
     }
     token reading-type { 'primary-reading' | 'secondary-reading' }
     rule main-reading(KanaType $type) {
         '(' <reading-type> <spelling> <kana($type)> <string>
-        <variant>* <variant-reading($type)>* <related-reading($type)>* <special>* ')'
+        <variant>* <related-reading($type)>* <special>* ')'
     }
     rule kun-list { '(' 'kun' <main-reading(KunReading)>+ ')' }
     rule on-list { '(' 'on' <main-reading(OnReading)>+ ')' }
@@ -114,7 +110,6 @@ class DictionaryActions {
     }
     method special-attr($/ --> ReadingAttr) {
         given ~$/ {
-            when 'genitive' { make Genitive }
             when 'european' { make European }
             when 'asian' { make Asian }
         }
@@ -125,14 +120,6 @@ class DictionaryActions {
     method variant($/ --> FreqWord) {
         make $<freq-word>.made
     }
-    method variant-reading($/ --> VariantReading) {
-        make VariantReading.new(
-            spelling => $<spelling>.made,
-            kana => $<kana>.made,
-            definition => $<string>.made,
-            attrs => @<special>».made,
-        )
-    }
     method related-reading($/ --> RelatedReading) {
         make RelatedReading.new(
             type => $<reading-type>.made,
@@ -141,7 +128,6 @@ class DictionaryActions {
             definition => $<string>.made,
             attrs => @<special>».made,
             variants => @<variant>».made,
-            variant-readings => @<variant-reading>».made,
         )
     }
     method reading-type($/ --> ReadingType) {
@@ -158,7 +144,6 @@ class DictionaryActions {
             definition => $<string>.made,
             attrs => @<special>».made,
             variants => @<variant>».made,
-            variant-readings => @<variant-reading>».made,
             related-readings => @<related-reading>».made,
         )
     }

@@ -84,10 +84,6 @@ tr.asian td {
     background-color: #F002;
 }
 
-span.particle {
-    color: #666;
-}
-
 td:not(:empty):nth-child(1), td:not(:empty):nth-child(2), td:not(:empty):nth-child(3) {
     white-space: nowrap;
 }

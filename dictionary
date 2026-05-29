@@ -49,11 +49,11 @@
             (secondary-reading
                 (primary-spelling 三つ編み)
                 *み*つあみ
-                "braid"
-                (variant-reading
-                    (primary-spelling 三葉)
-                    *みつ*ば
-                    "mitsuba (plant); three-leaved"))
+                "braid")
+            (secondary-reading
+                (primary-spelling 三葉)
+                *みつ*ば
+                "mitsuba (plant); three-leaved")
             (secondary-reading
                 (primary-spelling 三日)
                 *みっ*か
@@ -80,11 +80,11 @@
             (secondary-reading
                 (primary-spelling 四つん這い)
                 *よ*つんばい
-                "crawling on all fours"
-                (variant-reading
-                    (primary-spelling 四辻)
-                    *よつ*つじ
-                    "crossroads"))
+                "crawling on all fours")
+            (secondary-reading
+                (primary-spelling 四辻)
+                *よつ*つじ
+                "crossroads")
             (secondary-reading
                 (primary-spelling 四日)
                 *よっ*か
@@ -176,11 +176,11 @@
             (secondary-reading
                 (primary-spelling 八つ当たり)
                 *や*つあたり
-                "taking out one's anger"
-                (variant-reading
-                    (primary-spelling 八橋)
-                    *やつ*はし
-                    "yatsuhashi (confection)"))
+                "taking out one's anger")
+            (secondary-reading
+                (primary-spelling 八橋)
+                *やつ*はし
+                "yatsuhashi (confection)")
             (secondary-reading
                 (primary-spelling 八日)
                 *よう*か
@@ -589,12 +589,11 @@
             (secondary-reading
                 (secondary-spelling 澪 (rare 水尾))
                 *み*お
-                "waterway"
-                (variant-reading
-                    (primary-spelling 水上)
-                    *みな*かみ
-                    "headwaters"
-                    (special genitive)))))
+                "waterway")
+            (secondary-reading
+                (primary-spelling 水上)
+                *みな*かみ
+                "headwaters")))
     (on
         (primary-reading
             (primary-spelling 水分)
@@ -830,12 +829,11 @@
             (secondary-reading
                 (primary-spelling 目の当たり)
                 *ま*のあたり
-                "before one's eyes"
-                (variant-reading
-                    (secondary-spelling 眼差し (rare 目差し))
-                    *まな*ざし
-                    "look, gaze"
-                    (special genitive)))))
+                "before one's eyes")
+            (secondary-reading
+                (secondary-spelling 眼差し (rare 目差し))
+                *まな*ざし
+                "look, gaze")))
     (on
         (primary-reading
             (primary-spelling 目的)
@@ -2517,11 +2515,7 @@
                 (secondary-reading
                     (primary-kanji-spelling かの (rare 彼の))
                     *か*の
-                    "that"
-                    (variant-reading
-                        (primary-spelling 彼女)
-                        *かの*じょ
-                        "she"))
+                    "that")
                 (secondary-reading
                     (primary-kanji-spelling 何もかも (rare 何も彼も))
                     なにも*か*も
@@ -2550,6 +2544,11 @@
                 (primary-spelling 彼岸)
                 *ヒ*ガン
                 "equinoctial week"))))
+(combined
+    (primary-reading
+        (primary-spelling 彼女)
+        *かの*じょ
+        "she"))
 (combined
     (primary-reading
         (primary-spelling 彼方)
@@ -3583,10 +3582,6 @@
             (primary-kanji-spelling つく (common 付く))
             *つ*く
             "to be attached"
-            (variant-reading
-                (primary-spelling 付喪神)
-                *つく*もがみ
-                "tsukumogami (spirit)")
             (primary-reading
                 (primary-kanji-spelling つける (common 付ける))
                 *つ*ける
@@ -3703,11 +3698,11 @@
                 (secondary-reading
                     (primary-spelling 切っ先)
                     *き*っさき
-                    "point (e.g. of a sword)"
-                    (variant-reading
-                        (primary-spelling 切符)
-                        *きっ*ぷ
-                        "ticket")))))
+                    "point (e.g. of a sword)")
+                (secondary-reading
+                    (primary-spelling 切符)
+                    *きっ*ぷ
+                    "ticket"))))
     (part "on"
         (on
             (primary-reading
@@ -3829,11 +3824,6 @@
                 (primary-spelling 神社)
                 *ジン*ジャ
                 "Shinto shrine"))))
-(combined
-    (primary-reading
-        (secondary-spelling 付喪神 (common 九十九神))
-        つくもがみ
-        "tsukumogami (spirit)"))
 (combined
     (primary-reading
         (primary-spelling 神酒)
@@ -4018,14 +4008,14 @@
             (primary-spelling 勝つ)
             *か*つ
             "to win"
-            (variant-reading
-                (primary-spelling 無手勝流)
-                むて*かつ*りゅう
-                "winning without fighting")
             (secondary-reading
                 (primary-spelling 勝手)
                 *かっ*て
-                "own convenience, selfish"))
+                "own convenience, selfish")
+            (secondary-reading
+                (primary-spelling 無手勝流)
+                むて*かつ*りゅう
+                "winning without fighting"))
         (secondary-reading
             (primary-spelling 勝る)
             *まさ*る
@@ -4149,10 +4139,7 @@
             (primary-spelling 情け)
             *なさ*け
             "pity"
-            (variant-reading
-                (secondary-spelling 情けない (rare 情ない))
-                *なさけ*ない
-                "miserable")))
+            (variant (rare 情))))
     (on
         (primary-reading
             (primary-spelling 感情)
@@ -4245,10 +4232,7 @@
                 (primary-spelling 引っ張る)
                 *ひ*っぱる
                 "to pull"
-                (variant-reading
-                    (secondary-spelling 引っ越し (common 引越し))
-                    *ひっ*こし
-                    "moving"))
+                (variant (rare 引張る)))
             (secondary-reading
                 (primary-spelling 引ける)
                 *ひ*ける
@@ -4877,10 +4861,7 @@
                 (primary-kanji-spelling すぐ (rare 直ぐ))
                 *す*ぐ
                 "immediately"
-                (variant-reading
-                    (secondary-kanji-spelling まっすぐ (common 真っ直ぐ) (rare 真っ直))
-                    まっ*すぐ*
-                    "straight ahead"))
+                (variant (rare 直)))
             (secondary-reading
                 (primary-kanji-spelling ひたむき (common 直向き))
                 *ひた*むき
@@ -5562,10 +5543,6 @@
             (primary-kanji-spelling なる (rare 成る))
             *な*る
             "to become"
-            (variant-reading
-                (primary-kanji-spelling なるほど (rare 成程))
-                *なる*ほど
-                "I see")
             (secondary-reading
                 (primary-kanji-spelling なす (common 成す))
                 *な*す
@@ -5968,11 +5945,11 @@
             (secondary-reading
                 (primary-spelling 我が)
                 *わ*が
-                "my"
-                (variant-reading
-                    (primary-kanji-spelling わがまま (common 我儘))
-                    *わが*まま
-                    "selfish"))))
+                "my")
+            (secondary-reading
+                (primary-kanji-spelling わがまま (common 我儘))
+                *わが*まま
+                "selfish")))
     (on
         (primary-reading
             (primary-spelling 我慢)
@@ -6007,17 +5984,11 @@
                 (secondary-reading
                     (primary-spelling 天の川)
                     *あま*のがわ
-                    "Milky Way"
-                    (variant-reading
-                        (primary-spelling 天邪鬼)
-                        *あまの*じゃく
-                        "contrarian"
-                        (special genitive))
-                    (variant-reading
-                        (primary-spelling 高天原)
-                        たか*まが*はら
-                        "Heaven (Shinto)"
-                        (special genitive)))
+                    "Milky Way")
+                (secondary-reading
+                    (primary-spelling 天邪鬼)
+                    *あまの*じゃく
+                    "contrarian")
                 (secondary-reading
                     (primary-kanji-spelling あっぱれ (common 天晴れ))
                     *あっ*ぱれ
@@ -6163,12 +6134,7 @@
             (primary-reading
                 (primary-spelling 重量)
                 *ジュウ*リョウ
-                "weight"
-                (variant-reading
-                    (primary-spelling 五重塔)
-                    ゴ*ジュウノ*トウ
-                    "five-storied pagoda"
-                    (special genitive)))
+                "weight")
             (secondary-reading
                 (primary-spelling 貴重)
                 キ*チョウ*
@@ -6372,11 +6338,11 @@
                 (secondary-reading
                     (primary-spelling 伝)
                     *つて*
-                    "connections, influence"
-                    (variant-reading
-                        (secondary-kanji-spelling 人づて (common 人伝) (rare 人伝て))
-                        ひと*づ*て
-                        "hearsay")))))
+                    "connections, influence")
+                (secondary-reading
+                    (secondary-kanji-spelling 人づて (common 人伝) (rare 人伝て))
+                    ひと*づ*て
+                    "hearsay"))))
     (part "on"
         (on
             (primary-reading
@@ -6408,7 +6374,7 @@
             (primary-spelling 突く)
             *つ*く
             "to poke"
-            (variant-reading
+            (secondary-reading
                 (primary-spelling 剣突)
                 けん*つく*
                 "rough scolding")
@@ -6421,10 +6387,7 @@
                 (primary-kanji-spelling つつく (common 突つく))
                 *つ*つく
                 "to poke"
-                (variant-reading
-                    (primary-spelling 突き回す)
-                    *つつ*きまわす
-                    "to poke around"))))
+                (variant (common 突く)))))
     (on
         (primary-reading
             (primary-spelling 突入)
@@ -6545,10 +6508,6 @@
             (primary-spelling 振る)
             *ふ*る
             "to swing (tr.)"
-            (variant-reading
-                (secondary-spelling 振る舞う (common 振舞う))
-                *ふる*まう
-                "to behave")
             (primary-reading
                 (primary-spelling 振れる)
                 *ふ*れる
@@ -6780,11 +6739,7 @@
             (primary-reading
                 (primary-spelling 逃がす)
                 *に*がす
-                "to let escape"
-                (variant-reading
-                    (secondary-spelling 逃がす (common 取り逃す))
-                    とり*にが*す
-                    "to miss (capturing)")))
+                "to let escape"))
         (primary-reading
             (primary-spelling 逃れる)
             *のが*れる
@@ -6794,10 +6749,7 @@
                 (primary-spelling 逃す)
                 *のが*す
                 "to let escape"
-                (variant-reading
-                    (secondary-spelling 逃す (rare 見逃がす))
-                    み*の*がす
-                    "to overlook"))))
+                (variant (rare 逃がす)))))
     (on
         (primary-reading
             (primary-spelling 逃避)
@@ -6888,7 +6840,7 @@
             (primary-spelling 光る)
             *ひか*る
             "to shine"
-            (variant-reading
+            (primary-reading
                 (primary-spelling 光)
                 *ひかり*
                 "light")
@@ -7890,7 +7842,7 @@
             (primary-spelling 素)
             *ス*
             "plain"
-            (variant-reading
+            (secondary-reading
                 (secondary-spelling 素っ裸 (common 素裸))
                 *スッ*パダカ
                 "naked"))
@@ -7926,6 +7878,11 @@
             (primary-spelling 原因)
             *ゲン*イン
             "cause")))
+(combined
+    (primary-reading
+        (primary-spelling 高天原)
+        たか*まが*はら
+        "Heaven (Shinto)"))
 (kanji 友
     (kun
         (primary-reading
@@ -10087,6 +10044,11 @@
             (primary-spelling 過程)
             カ*テイ*
             "process")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling なるほど (rare 成程))
+        *なる*ほど
+        "I see"))
 (kanji 腕
     (kun
         (primary-reading
@@ -10605,10 +10567,6 @@
             (primary-spelling 鳴る)
             *な*る
             "to sound"
-            (variant-reading
-                (primary-spelling 鳴子)
-                *なる*こ
-                "clapper")
             (primary-reading
                 (primary-spelling 鳴らす)
                 *な*らす
@@ -10616,7 +10574,11 @@
             (primary-reading
                 (primary-spelling 鳴く)
                 *な*く
-                "to make sound (of an animal)")))
+                "to make sound (of an animal)")
+            (secondary-reading
+                (primary-spelling 鳴子)
+                *なる*こ
+                "clapper")))
     (on
         (primary-reading
             (primary-spelling 悲鳴)
@@ -11122,11 +11084,11 @@
             (secondary-reading
                 (primary-spelling 世迷い言)
                 よ*ま*いごと
-                "grumbling"
-                (variant-reading
-                    (primary-spelling 迷子)
-                    *まい*ご
-                    "lost child"))
+                "grumbling")
+            (secondary-reading
+                (primary-spelling 迷子)
+                *まい*ご
+                "lost child")
             (secondary-reading
                 (primary-spelling 迷わす)
                 *まよ*わす
@@ -12055,7 +12017,7 @@
             (primary-spelling 増す)
             *ま*す
             "to increase (tr.)"
-            (variant-reading
+            (secondary-reading
                 (secondary-kanji-spelling ますます (common 益々) (rare 増々))
                 *ます*ます
                 "more and more")
@@ -12679,10 +12641,7 @@
                 (secondary-spelling 決まる (rare 極る))
                 *きま*る
                 "to be decided"
-                (variant-reading
-                    (secondary-spelling 決まり (rare 極まり))
-                    *き*まり
-                    "rule")
+                (variant (rare 極まる))
                 (secondary-reading
                     (secondary-spelling 決める (rare 極める))
                     *き*める
@@ -12697,7 +12656,7 @@
                 (primary-spelling 至極)
                 シ*ゴク*
                 "extremely"
-                (variant-reading
+                (secondary-reading
                     (secondary-kanji-spelling ごく (common 極) (rare 極く))
                     *ゴ*ク
                     "very")))))
@@ -13203,6 +13162,11 @@
             (primary-spelling 舞踊)
             *ブ*ヨウ
             "dance")))
+(combined
+    (primary-reading
+        (secondary-spelling 振る舞う (common 振舞う))
+        *ふる*まう
+        "to behave"))
 (kanji 職
     (on
         (primary-reading
@@ -14223,12 +14187,11 @@
             (secondary-reading
                 (secondary-spelling 目の当たり (rare 眼の当り))
                 *ま*のあたり
-                "before one's eyes"
-                (variant-reading
-                    (primary-spelling 眼差し)
-                    *まな*ざし
-                    "look, gaze"
-                    (special genitive)))))
+                "before one's eyes")
+            (secondary-reading
+                (primary-spelling 眼差し)
+                *まな*ざし
+                "look, gaze")))
     (on
         (primary-reading
             (primary-spelling 眼球)
@@ -14567,14 +14530,14 @@
             (primary-spelling 刺す)
             *さ*す
             "to pierce"
-            (variant-reading
-                (primary-kanji-spelling さすまた (common 刺股))
-                *さす*また
-                "sasumata (weapon)")
             (primary-reading
                 (primary-spelling 刺さる)
                 *さ*さる
-                "to stick into"))
+                "to stick into")
+            (secondary-reading
+                (primary-kanji-spelling さすまた (common 刺股))
+                *さす*また
+                "sasumata (weapon)"))
         (secondary-reading
             (secondary-spelling 棘 (common 刺))
             *とげ*
@@ -15242,10 +15205,7 @@
             (primary-spelling 詰まる)
             *つ*まる
             "to be packed with"
-            (variant-reading
-                (secondary-spelling 行き詰まる (common 行き詰る))
-                いき*づま*る
-                "to come to a dead end")
+            (variant (rare 詰る))
             (primary-reading
                 (primary-spelling 詰める)
                 *つ*める
@@ -15284,10 +15244,7 @@
                 (primary-spelling 晴らす)
                 *は*らす
                 "to clear away"
-                (variant-reading
-                    (secondary-spelling 見晴らす (common 見晴す))
-                    み*はら*す
-                    "to look out over"))
+                (variant (rare 晴す)))
             (secondary-reading
                 (primary-kanji-spelling 見はるかす (common 見晴るかす))
                 み*は*るかす
@@ -15872,11 +15829,7 @@
                 (secondary-reading
                     (primary-spelling 亡き)
                     *な*き
-                    "the late"
-                    (variant-reading
-                        (primary-spelling 亡骸)
-                        *なき*がら
-                        "corpse"))
+                    "the late")
                 (secondary-reading
                     (primary-spelling 亡くす)
                     *な*くす
@@ -16256,16 +16209,16 @@
         (primary-reading
             (primary-spelling 絵)
             *エ*
-            "picture"
-            (variant-reading
-                (secondary-spelling 絵の具 (common 絵具))
-                *エノ*グ
-                "paint"
-                (special genitive)))
+            "picture")
         (secondary-reading
             (primary-spelling 絵画)
             *カイ*ガ
             "picture")))
+(combined
+    (primary-reading
+        (secondary-spelling 絵の具 (common 絵具))
+        *エノ*グ
+        "paint"))
 (kanji 底
     (kun
         (primary-reading
@@ -16895,10 +16848,6 @@
             (primary-spelling 照らす)
             *て*らす
             "to illuminate"
-            (variant-reading
-                (primary-spelling 天照大神)
-                あま*てらす*おおかみ
-                "Amaterasu Ōmikami (goddess)")
             (primary-reading
                 (primary-spelling 照る)
                 *て*る
@@ -16912,6 +16861,11 @@
             (primary-spelling 照明)
             *ショウ*メイ
             "illumination")))
+(combined
+    (primary-reading
+        (primary-spelling 天照大神)
+        あま*てらす*おおかみ
+        "Amaterasu Ōmikami (goddess)"))
 (kanji 録
     (kun
         (secondary-reading
@@ -18522,11 +18476,11 @@
             (secondary-reading
                 (primary-spelling 寂)
                 *さび*
-                "quiet simplicity"
-                (variant-reading
-                    (primary-kanji-spelling わびさび (common 侘び寂び))
-                    わび*さ*び
-                    "wabi-sabi"))))
+                "quiet simplicity")
+            (secondary-reading
+                (primary-kanji-spelling わびさび (common 侘び寂び))
+                わび*さ*び
+                "wabi-sabi")))
     (on
         (primary-reading
             (primary-spelling 静寂)
@@ -19822,11 +19776,7 @@
                 (secondary-reading
                     (secondary-spelling 澄ます (rare 清ます))
                     *す*ます
-                    "to make clear"
-                    (variant-reading
-                        (primary-spelling 清し)
-                        *すま*し
-                        "primness")))
+                    "to make clear"))
             (secondary-reading
                 (secondary-kanji-spelling さやか (common 明か) (rare 清か))
                 *さや*か
@@ -20278,12 +20228,7 @@
             (primary-reading
                 (primary-spelling 黄色い)
                 *き*いろい
-                "yellow"
-                (variant-reading
-                    (primary-kanji-spelling きなこ (rare 黄粉))
-                    *きな*こ
-                    "kinako (food)"
-                    (special genitive)))
+                "yellow")
             (secondary-reading
                 (primary-spelling 黄金色)
                 *こ*がねいろ
@@ -22897,7 +22842,7 @@
             (primary-spelling 濃い)
             *こ*い
             "strong, deep"
-            (variant-reading
+            (secondary-reading
                 (primary-spelling 濃茶)
                 *こい*ちゃ
                 "koicha (type of matcha)")
@@ -23834,11 +23779,7 @@
         (primary-reading
             (primary-spelling 釣る)
             *つ*る
-            "to fish"
-            (variant-reading
-                (primary-spelling 釣瓶)
-                *つる*べ
-                "well bucket")))
+            "to fish"))
     (on
         (secondary-reading
             (primary-spelling 釣果)
@@ -24326,6 +24267,11 @@
             (primary-spelling 白粉)
             おしろい
             "white makeup powder")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling きなこ (rare 黄粉))
+        *きな*こ
+        "kinako (food)"))
 (kanji 呑
     (kun
         (primary-reading
@@ -25755,6 +25701,11 @@
             (primary-spelling 塔頭)
             *タッ*チュウ
             "small Zen temple built to commemorate the death of a high priest")))
+(combined
+    (primary-reading
+        (primary-spelling 五重塔)
+        ゴ*ジュウノ*トウ
+        "five-storied pagoda"))
 (kanji 爪
     (kun
         (primary-reading
@@ -27376,12 +27327,7 @@
         (secondary-reading
             (secondary-spelling 巷 (rare 岐))
             *ちまた*
-            "forked road"
-            (variant-reading
-                (primary-kanji-spelling ヤマタノオロチ (common 八岐大蛇))
-                や*またの*おろち
-                "Yamata no Orochi (legendary serpent)"
-                (special genitive))))
+            "forked road"))
     (on
         (primary-reading
             (primary-spelling 分岐)
@@ -27391,6 +27337,11 @@
             (primary-spelling 岐阜)
             *ギ*フ
             "Gifu (city, prefecture)")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling ヤマタノオロチ (common 八岐大蛇))
+        や*またの*おろち
+        "Yamata no Orochi (legendary serpent)"))
 (kanji 勧
     (kun
         (primary-reading
@@ -27887,11 +27838,7 @@
             (secondary-reading
                 (primary-kanji-spelling この (rare 此の))
                 *こ*の
-                "this"
-                (variant-reading
-                    (primary-kanji-spelling この度 (common 此度))
-                    *この*たび
-                    "this occasion"))
+                "this")
             (secondary-reading
                 (primary-kanji-spelling ここ (rare 此処))
                 *こ*こ
@@ -27901,6 +27848,11 @@
             (primary-spelling 此岸)
             *シ*ガン
             "this world (Buddhism)")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling この度 (common 此度))
+        *この*たび
+        "this occasion"))
 (kanji 侯
     (on
         (primary-reading
@@ -29488,10 +29440,7 @@
                     (primary-spelling 眩ます)
                     *くら*ます
                     "to dazzle"
-                    (variant-reading
-                        (secondary-kanji-spelling 目くらまし (common 目眩まし) (rare 目眩し))
-                        め*くらま*し
-                        "deception, distraction")))
+                    (variant (rare 眩す))))
             (secondary-reading
                 (primary-spelling 眩く)
                 *くるめ*く
@@ -29795,11 +29744,11 @@
             (secondary-reading
                 (primary-kanji-spelling その (rare 其の))
                 *そ*の
-                "that"
-                (variant-reading
-                    (primary-kanji-spelling その後 (rare 其後))
-                    *その*あと
-                    "after that"))
+                "that")
+            (secondary-reading
+                (primary-kanji-spelling その後 (rare 其後))
+                *その*あと
+                "after that")
             (secondary-reading
                 (primary-kanji-spelling そこ (rare 其処))
                 *そ*こ
@@ -30222,16 +30171,17 @@
         (primary-reading
             (primary-spelling 骸)
             *むくろ*
-            "corpse")
-        (secondary-reading
-            (primary-spelling 亡骸)
-            なき*がら*
             "corpse"))
     (on
         (primary-reading
             (primary-spelling 死骸)
             シ*ガイ*
             "corpse")))
+(combined
+    (primary-reading
+        (primary-spelling 亡骸)
+        *なき*がら
+        "corpse"))
 (kanji 羊
     (kun
         (primary-reading
@@ -30825,15 +30775,16 @@
             (secondary-reading
                 (secondary-spelling 我が (rare 吾が))
                 *わ*が
-                "my"
-                (variant-reading
-                    (secondary-spelling 我輩 (common 吾輩))
-                    *わが*はい
-                    "I (archaic)")))
+                "my"))
         (secondary-reading
             (primary-spelling 吾子)
             *あ*こ
             "my child (archaic)")))
+(combined
+    (primary-reading
+        (secondary-spelling 我輩 (common 吾輩))
+        *わが*はい
+        "I (archaic)"))
 (kanji 郵
     (on
         (primary-reading
@@ -30901,10 +30852,7 @@
                 (primary-spelling 沸かす)
                 *わ*かす
                 "to boil (tr.)"
-                (variant-reading
-                    (secondary-spelling 湯沸かし (common 湯沸し))
-                    ゆ*わか*し
-                    "kettle"))))
+                (variant (rare 沸す)))))
     (on
         (primary-reading
             (primary-spelling 沸騰)
@@ -31293,10 +31241,7 @@
                 (primary-spelling 枯らす)
                 *か*らす
                 "to make wither"
-                (variant-reading
-                    (secondary-spelling 木枯らし (common 木枯し))
-                    こ*がら*し
-                    "cold wintry wind"))))
+                (variant (rare 枯す)))))
     (on
         (primary-reading
             (primary-spelling 枯死)
@@ -31815,6 +31760,15 @@
             (primary-spelling 喪失)
             *ソウ*シツ
             "loss")))
+(combined
+    (primary-reading
+        (primary-spelling 付喪神)
+        *つく*もがみ
+        "tsukumogami (spirit)"
+        (secondary-reading
+            (secondary-spelling 付喪神 (common 九十九神))
+            つくもがみ
+            "tsukumogami (spirit)")))
 (kanji 捻
     (kun
         (primary-reading
@@ -33491,10 +33445,7 @@
                 (primary-spelling 肥やす)
                 *こ*やす
                 "to fertilize"
-                (variant-reading
-                    (secondary-spelling 肥やし (rare 肥し))
-                    *こや*し
-                    "manure")))
+                (variant (rare 肥す))))
         (secondary-reading
             (secondary-spelling 太る (rare 肥る))
             *ふと*る
@@ -34156,17 +34107,17 @@
         (primary-reading
             (primary-spelling 薙ぐ)
             *な*ぐ
-            "to mow down"
-            (variant-reading
-                (primary-spelling 草薙剣)
-                くさ*なぎの*つるぎ
-                "Kusanagi no Tsurugi (legendary sword)"
-                (special genitive)))))
+            "to mow down")))
 (combined
     (primary-reading
         (primary-spelling 薙刀)
         なぎなた
         "naginata (polearm)"))
+(combined
+    (primary-reading
+        (primary-spelling 草薙剣)
+        くさ*なぎの*つるぎ
+        "Kusanagi no Tsurugi (legendary sword)"))
 (kanji 恒
     (kun
         (secondary-reading
@@ -35602,7 +35553,7 @@
             (primary-kanji-spelling こじる (common 抉る))
             *こじ*る
             "to pry"
-            (variant-reading
+            (secondary-reading
                 (primary-kanji-spelling こじ開ける (rare 抉じ開ける))
                 *こ*じあける
                 "to pry open"))
@@ -35674,12 +35625,11 @@
             (secondary-reading
                 (primary-spelling 猪首)
                 *い*くび
-                "bullneck"
-                (variant-reading
-                    (primary-kanji-spelling いのこ (common 猪子))
-                    *いの*こ
-                    "young wild boar"
-                    (special genitive))))
+                "bullneck")
+            (secondary-reading
+                (primary-kanji-spelling いのこ (common 猪子))
+                *いの*こ
+                "young wild boar"))
         (secondary-reading
             (primary-spelling 猪鍋)
             *しし*なべ
@@ -38893,7 +38843,7 @@
             (primary-kanji-spelling ただし (rare 但し))
             *ただ*し
             "however"
-            (variant-reading
+            (secondary-reading
                 (secondary-spelling 但し書き (common 但書))
                 *ただし*がき
                 "proviso")
@@ -44100,12 +44050,12 @@
         (primary-reading
             (primary-spelling 簀)
             *す*
-            "bamboo mat"
-            (variant-reading
-                (primary-kanji-spelling すのこ (common 簀子))
-                *すの*こ
-                "duckboard"
-                (special genitive)))))
+            "bamboo mat")))
+(combined
+    (primary-reading
+        (primary-kanji-spelling すのこ (common 簀子))
+        *すの*こ
+        "duckboard"))
 (kanji 莢
     (kun
         (primary-reading
@@ -44564,17 +44514,17 @@
             (secondary-reading
                 (primary-spelling 八咫)
                 や*た*
-                "large"
-                (variant-reading
-                    (primary-spelling 八咫鏡)
-                    や*たの*かがみ
-                    "Yata no Kagami (legendary mirror)"
-                    (special genitive)))))
+                "large")))
     (on
         (primary-reading
             (primary-spelling 咫尺)
             *シ*セキ
             "very short distance")))
+(combined
+    (primary-reading
+        (primary-spelling 八咫鏡)
+        や*たの*かがみ
+        "Yata no Kagami (legendary mirror)"))
 (kanji 衾
     (kun
         (primary-reading
