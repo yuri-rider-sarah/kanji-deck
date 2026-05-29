@@ -107,7 +107,7 @@ sub table-from-kanji-part(KanjiPart $part --> Str) {
 sub table-from-combined-entry(CombinedEntry $entry --> Str) {
     my $result = "<table>\n";
     for $entry.readings -> $reading {
-        $result ~= trs-from-reading($reading, True);
+        $result ~= trs-from-reading($reading, False);
     }
     $result ~= '</table>';
     $result
