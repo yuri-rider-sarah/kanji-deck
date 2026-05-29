@@ -50,9 +50,13 @@ multi cell-from-kana(UnsplitKana $kana --> Str) {
     "<span class=\"kana\">{html-escape($kana.kana)}</span>"
 }
 
-sub tr-from-variant(FreqWord $variant, Bool $combined --> Str) {
-    my $combined-attr = $combined ?? ' combined' !! '';
-    "<tr class=\"variant$combined-attr\"><td>{cell-from-freq-word($variant, False)}</td><td></td><td></td><td></td></tr>\n"
+sub tr-from-variants(FreqWord @variants, Bool $under-primary --> Str) {
+    my $variants_text = @variants».&{ cell-from-freq-word($_, False) }.join(', ');
+    if $under-primary {
+        "<tr class=\"variant\"><td></td><td>~ {$variants_text}</td><td></td><td></td></tr>\n"
+    } else {
+        "<tr class=\"variant\"><td>~ {$variants_text}</td><td></td><td></td><td></td></tr>\n"
+    }
 }
 
 sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
@@ -74,8 +78,8 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
     }
     my $class-attr = @classes ?? ' class="' ~ @classes.join(' ') ~ '"' !! '';
     my $result = "<tr$class-attr><td>{cell-from-other-spelling($reading.spelling)}</td><td>{html-from-word($reading.spelling.main, $reading.spelling.type != PrimarySpelling)}</td><td>{cell-from-kana($reading.kana)}</td><td>{html-escape($reading.definition)}</td></tr>\n";
-    for $reading.variants -> $variant {
-        $result ~= tr-from-variant($variant, $combined);
+    if $reading.variants.elems > 0 {
+        $result ~= tr-from-variants($reading.variants, $reading.spelling.type ~~ PrimarySpelling);
     }
     if ($reading ~~ MainReading) {
         for $reading.related-readings -> $related-reading {
