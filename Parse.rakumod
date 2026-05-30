@@ -2,7 +2,7 @@ unit module Parse;
 
 use Types;
 
-enum KanaType <KunReading OnReading CombinedReading>;
+enum KanaType <KunReading OnReading WordReading CombinedReading>;
 
 class ReadingList {
     has MainReading @.kun;
@@ -21,9 +21,9 @@ grammar Dictionary {
     rule spelling:sym<secondary> { '(' 'secondary-spelling' <word> <freq-word> ')' }
     rule spelling:sym<secondary-kanji> { '(' 'secondary-kanji-spelling' <word> <kanji=.freq-word> <desc=.freq-word> ')' }
     token kana(KanaType $type) {
-        || <?{ $type != OnReading }> $<pre>=(<:Hiragana>*) '*' $<mid>=(<:Hiragana>+) '*' $<post>=(<:Hiragana>*)
-        || <?{ $type != KunReading }> $<pre>=([<:Katakana>|ー]*) '*' $<mid>=([<:Katakana>|ー]+) '*' $<post>=([<:Katakana>|ー]*)
-        || <?{ $type == CombinedReading }> $<kana>=(<:Hiragana>+ | [<:Katakana>|ー]+)
+        || <?{ $type == KunReading || $type == CombinedReading }> $<pre>=(<:Hiragana>*) '*' $<mid>=(<:Hiragana>+) '*' $<post>=(<:Hiragana>*)
+        || <?{ $type == OnReading || $type == CombinedReading }> $<pre>=([<:Katakana>|ー]*) '*' $<mid>=([<:Katakana>|ー]+) '*' $<post>=([<:Katakana>|ー]*)
+        || <?{ $type == WordReading || $type == CombinedReading }> $<kana>=(<:Hiragana>+ | [<:Katakana>|ー]+)
     }
     token special-attr { 'asian' | 'european' }
     rule special { '(' 'special' <special-attr> ')' }
@@ -45,7 +45,7 @@ grammar Dictionary {
     proto rule entry {*}
     rule entry:sym<kanji> { '(' 'kanji' <word> <reading-list> ')' }
     rule entry:sym<kanji-split> { '(' 'kanji-split' <word> <part>+ ')' }
-    rule entry:sym<word> { '(' 'word' <main-reading(CombinedReading)>+ ')' }
+    rule entry:sym<word> { '(' 'word' <main-reading(WordReading)>+ ')' }
     rule TOP { <entry>* [ $ || <.entry-error> ] }
 
     method entry-error() {
