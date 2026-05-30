@@ -27,6 +27,9 @@ sub check-entries(Entry @entries) is export {
                 $kanji-set.set($entry.kanji);
             }
             when WordEntry {
+                if $entry.readings[0].type != PrimaryReading {
+                    say "Warning: first reading in word entry {$entry.readings[0].spelling.main} is not primary";
+                }
                 for $entry.readings -> $main_reading {
                     check-reading($main_reading, $kanji-set);
                     for $main_reading.related-readings -> $related-reading {

@@ -2181,7 +2181,7 @@
             カイ*ワ*
             "conversation")))
 (word
-    (secondary-reading
+    (primary-reading
         (primary-spelling 四方山話)
         よ*も*やまばなし
         "talk about various topics"))
@@ -17586,7 +17586,7 @@
                 *カッ*チュウ
                 "armor and helmet"))))
 (word
-    (secondary-reading
+    (primary-reading
         (primary-spelling 手甲)
         *てっ*こう
         "covering for the back of the hand and wrist"))
