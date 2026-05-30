@@ -304,12 +304,12 @@
 (word
     (primary-reading
         (primary-spelling 一日)
-        ついたち
-        "first day of the month"
+        イチニチ
+        "one day"
         (primary-reading
             (primary-spelling 一日)
-            イチニチ
-            "one day")))
+            ついたち
+            "first day of the month")))
 (kanji 月
     (kun
         (primary-reading
@@ -1752,13 +1752,13 @@
                 "minute"))))
 (word
     (primary-reading
-        (primary-spelling 大分)
-        おおいた
-        "Ōita (city, prefecture)"
+        (primary-kanji-spelling だいぶ (common 大分))
+        ダイブ
+        "greatly, considerably"
         (primary-reading
-            (primary-kanji-spelling だいぶ (common 大分))
-            ダイブ
-            "greatly, considerably")))
+            (primary-spelling 大分)
+            おおいた
+            "Ōita (city, prefecture)")))
 (kanji 気
     (on
         (primary-reading
@@ -2006,13 +2006,13 @@
             "time")))
 (word
     (primary-reading
-        (primary-kanji-spelling いつ (rare 何時))
-        いつ
-        "when"
+        (primary-spelling 何時)
+        ナンジ
+        "what time"
         (primary-reading
-            (primary-spelling 何時)
-            ナンジ
-            "what time")))
+            (primary-kanji-spelling いつ (rare 何時))
+            いつ
+            "when")))
 (word
     (primary-reading
         (primary-spelling 時雨)
@@ -2676,11 +2676,6 @@
             (primary-spelling 成長)
             セイ*チョウ*
             "growth")))
-(word
-    (primary-reading
-        (secondary-spelling 薙刀 (common 長刀))
-        なぎなた
-        "naginata (polearm)"))
 (kanji 君
     (kun
         (primary-reading
@@ -3231,11 +3226,7 @@
     (primary-reading
         (secondary-spelling 親知らず (common 親不知))
         おやしらず
-        "wisdom tooth"
-        (primary-reading
-            (primary-spelling 不知)
-            フチ
-            "ignorance")))
+        "wisdom tooth"))
 (word
     (primary-reading
         (primary-spelling 不知火)
@@ -5483,11 +5474,7 @@
     (primary-reading
         (primary-kanji-spelling おかしい (common 可笑しい))
         おかしい
-        "funny, strange"
-        (secondary-reading
-            (primary-kanji-spelling おかしな (rare 可笑しな))
-            おかしな
-            "funny, strange")))
+        "funny, strange"))
 (kanji 始
     (kun
         (primary-reading
@@ -6311,11 +6298,7 @@
     (primary-reading
         (primary-spelling 流行る)
         はやる
-        "to be popular"
-        (secondary-reading
-            (primary-spelling 流行らす)
-            はやらす
-            "to popularize")))
+        "to be popular"))
 (kanji-split 伝
     (part "kun"
         (kun
@@ -10736,12 +10719,12 @@
 (word
     (primary-reading
         (primary-spelling 気質)
-        かたぎ
-        "disposition, nature (as suffix)"
+        キシツ
+        "disposition, nature"
         (primary-reading
             (primary-spelling 気質)
-            キシツ
-            "disposition, nature")))
+            かたぎ
+            "disposition, nature (as suffix)")))
 (kanji 異
     (kun
         (primary-reading
@@ -11706,15 +11689,6 @@
             (primary-spelling 住宅)
             *ジュウ*タク
             "housing")))
-(word
-    (primary-reading
-        (secondary-spelling 住まい (rare 住居))
-        すまい
-        "dwelling"
-        (primary-reading
-            (primary-spelling 住居)
-            ジュウキョ
-            "dwelling")))
 (kanji 驚
     (kun
         (primary-reading
@@ -12174,13 +12148,13 @@
             "restoration")))
 (word
     (primary-reading
-        (primary-spelling 復習う)
-        さらう
-        "to rehearse"
+        (primary-spelling 復習)
+        フクシュウ
+        "review (of learned material)"
         (primary-reading
-            (primary-spelling 復習)
-            フクシュウ
-            "review (of learned material)")))
+            (primary-spelling 復習う)
+            さらう
+            "to rehearse")))
 (kanji 悲
     (kun
         (primary-reading
@@ -13367,11 +13341,6 @@
             (primary-spelling 先途)
             セン*ド*
             "critical moment")))
-(word
-    (primary-reading
-        (secondary-spelling 門出 (rare 首途))
-        かどで
-        "setting off"))
 (kanji 派
     (on
         (primary-reading
@@ -14747,11 +14716,6 @@
             (primary-spelling 科学)
             *カ*ガク
             "science")))
-(word
-    (primary-reading
-        (secondary-kanji-spelling セリフ (common 台詞) (rare 科白))
-        せりふ
-        "spoken line"))
 (kanji 基
     (kun
         (primary-reading
@@ -15421,15 +15385,11 @@
             "disciple")))
 (word
     (primary-reading
-        (secondary-spelling 兄弟 (rare 姉妹))
-        きょうだい
-        "siblings"
+        (primary-spelling 姉妹)
+        シマイ
+        "sisters"
         (primary-reading
-            (primary-spelling 姉妹)
-            シマイ
-            "sisters")
-        (primary-reading
-            (secondary-spelling 兄弟 (rare 兄妹))
+            (secondary-spelling 兄弟 (rare 姉妹))
             きょうだい
             "siblings")
         (primary-reading
@@ -15437,13 +15397,17 @@
             ケイマイ
             "older brother and younger sister")
         (primary-reading
-            (secondary-spelling 兄弟 (rare 姉弟))
+            (secondary-spelling 兄弟 (rare 兄妹))
             きょうだい
             "siblings")
         (primary-reading
             (primary-spelling 姉弟)
             シテイ
-            "older sister and younger brother")))
+            "older sister and younger brother")
+        (primary-reading
+            (secondary-spelling 兄弟 (rare 姉弟))
+            きょうだい
+            "siblings")))
 (kanji 崎
     (kun
         (primary-reading
@@ -20245,20 +20209,20 @@
 (word
     (primary-reading
         (primary-spelling 紅葉)
-        もみじ
-        "autumn leaves"
+        コウヨウ
+        "red autumn leaves"
         (primary-reading
             (primary-spelling 紅葉)
-            コウヨウ
-            "red autumn leaves")
-        (primary-reading
-            (secondary-spelling 紅葉 (rare 黄葉))
             もみじ
             "autumn leaves")
         (primary-reading
             (primary-spelling 黄葉)
             コウヨウ
-            "yellow autumn leaves")))
+            "yellow autumn leaves")
+        (primary-reading
+            (secondary-spelling 紅葉 (rare 黄葉))
+            もみじ
+            "autumn leaves")))
 (word
     (primary-reading
         (primary-spelling 黄泉)
@@ -21339,11 +21303,6 @@
         (primary-spelling 如月)
         きさらぎ
         "second lunar month"))
-(word
-    (primary-reading
-        (primary-kanji-spelling どう (rare 如何))
-        どう
-        "how"))
 (kanji 侵
     (kun
         (primary-reading
@@ -23928,7 +23887,11 @@
     (primary-reading
         (primary-kanji-spelling セリフ (common 台詞))
         せりふ
-        "spoken line"))
+        "spoken line"
+        (primary-reading
+            (secondary-kanji-spelling セリフ (common 台詞) (rare 科白))
+            せりふ
+            "spoken line")))
 (word
     (primary-reading
         (primary-spelling 祝詞)
@@ -24776,10 +24739,6 @@
             *わらべ*
             "child"
             (secondary-reading
-                (primary-spelling 座敷童)
-                ざしき*わらし*
-                "zashiki-warashi (spirit)")
-            (secondary-reading
                 (primary-kanji-spelling 大わらわ (common 大童))
                 おお*わらわ*
                 "working feverishly")
@@ -24802,9 +24761,13 @@
             "child")))
 (word
     (primary-reading
-        (secondary-spelling 座敷童 (common 座敷童子))
-        ざしきわらし
-        "zashiki-warashi (spirit)"))
+        (primary-spelling 座敷童)
+        ざしき*わらし*
+        "zashiki-warashi (spirit)"
+        (primary-reading
+            (secondary-spelling 座敷童 (common 座敷童子))
+            ざしきわらし
+            "zashiki-warashi (spirit)")))
 (kanji 岸
     (kun
         (primary-reading
@@ -26925,13 +26888,13 @@
             "book")))
 (word
     (primary-reading
-        (secondary-spelling 引かす (rare 落籍す))
-        ひかす
-        "to redeem debts of a geisha"
+        (primary-spelling 落籍)
+        ラクセキ
+        "being removed from the family register; redeeming a geisha's debts"
         (primary-reading
-            (primary-spelling 落籍)
-            ラクセキ
-            "being removed from the family register; redeeming a geisha's debts")))
+            (secondary-spelling 引かす (rare 落籍す))
+            ひかす
+            "to redeem debts of a geisha")))
 (kanji 暖
     (kun
         (primary-reading
@@ -29423,13 +29386,7 @@
             (secondary-reading
                 (primary-spelling 眩い)
                 *まばゆ*い
-                "dazzling"))
-        (combined
-            (secondary-reading
-                (primary-kanji-spelling めまい (common 目眩))
-                め*まい*
-                "dizziness"
-                (variant (rare 目眩い)))))
+                "dazzling")))
     (part "2"
         (kun
             (secondary-reading
@@ -34112,7 +34069,11 @@
     (primary-reading
         (primary-spelling 薙刀)
         なぎなた
-        "naginata (polearm)"))
+        "naginata (polearm)"
+        (primary-reading
+            (secondary-spelling 薙刀 (common 長刀))
+            なぎなた
+            "naginata (polearm)")))
 (word
     (primary-reading
         (primary-spelling 草薙剣)
@@ -34529,11 +34490,7 @@
     (primary-reading
         (primary-spelling 鍛冶)
         かじ
-        "smithing; blacksmith"
-        (secondary-reading
-            (secondary-spelling 鍛冶 (rare 鍛治))
-            かじ
-            "smithing; blacksmith")))
+        "smithing; blacksmith"))
 (kanji 畏
     (kun
         (primary-reading
@@ -40675,12 +40632,12 @@
 (word
     (primary-reading
         (primary-spelling 蝦夷)
-        えみし
-        "Emishi (historical ethnic group)"
+        えぞ
+        "Ezo (historical name for Hokkaidō and its people)"
         (primary-reading
             (primary-spelling 蝦夷)
-            えぞ
-            "Ezo (historical name for Hokkaidō and its people)")))
+            えみし
+            "Emishi (historical ethnic group)")))
 (kanji 漸
     (kun
         (primary-reading
@@ -40935,9 +40892,14 @@
             "areola")))
 (word
     (primary-reading
-        (secondary-kanji-spelling めまい (common 目眩) (common 眩暈))
-        めまい
-        "dizziness"))
+        (primary-kanji-spelling めまい (common 目眩))
+        め*まい*
+        "dizziness"
+        (variant (rare 目眩い))
+        (primary-reading
+            (secondary-kanji-spelling めまい (common 目眩) (common 眩暈))
+            めまい
+            "dizziness")))
 (kanji 董
     (on
         (primary-reading
@@ -42338,7 +42300,7 @@
     (primary-reading
         (primary-spelling 葦原中国)
         あしはらのなかつくに
-        "Japan"))
+        "Japan (in mythology)"))
 (kanji 肴
     (kun
         (primary-reading
@@ -42667,11 +42629,7 @@
     (primary-reading
         (primary-kanji-spelling びっくり (rare 吃驚))
         びっくり
-        "surprise"
-        (primary-reading
-            (primary-spelling 吃驚)
-            キッキョウ
-            "surprise")))
+        "surprise"))
 (kanji 彿
     (on
         (primary-reading
