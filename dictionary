@@ -3224,11 +3224,6 @@
             "eerie")))
 (word
     (primary-reading
-        (secondary-spelling 親知らず (common 親不知))
-        おやしらず
-        "wisdom tooth"))
-(word
-    (primary-reading
         (primary-spelling 不知火)
         しらぬい
         "mysterious lights on the sea"))
@@ -5724,11 +5719,6 @@
             (primary-spelling 安全)
             *アン*ゼン
             "safe")))
-(word
-    (primary-reading
-        (primary-spelling 安土桃山時代)
-        あずちももやまじだい
-        "Azuchi-Momoyama period"))
 (kanji 呼
     (kun
         (primary-reading
@@ -5807,6 +5797,11 @@
             (primary-spelling 親戚)
             *シン*セキ
             "relative")))
+(word
+    (primary-reading
+        (secondary-spelling 親知らず (common 親不知))
+        おやしらず
+        "wisdom tooth"))
 (kanji 起
     (kun
         (primary-reading
@@ -6084,11 +6079,6 @@
         (primary-spelling 飛鳥時代)
         あすかじだい
         "Asuka period"))
-(word
-    (primary-reading
-        (secondary-spelling 絣 (common 飛白))
-        かすり
-        "kasuri (dyeing technique)"))
 (kanji-split 重
     (part "kun"
         (kun
@@ -6640,12 +6630,6 @@
         (secondary-spelling 人様 (common 他人様))
         ひとさま
         "other people"))
-(word
-    (primary-reading
-        (primary-kanji-spelling よそ (common 他所))
-        よそ
-        "somewhere else"
-        (variant (common 余所))))
 (kanji 県
     (on
         (primary-reading
@@ -9330,11 +9314,6 @@
             (primary-spelling 寄生虫)
             *キ*セイチュウ
             "parasite")))
-(word
-    (primary-reading
-        (secondary-kanji-spelling ヤドリギ (common 宿り木) (rare 寄生木))
-        やどりぎ
-        "mistletoe"))
 (kanji 深
     (kun
         (primary-reading
@@ -10294,6 +10273,12 @@
             (primary-spelling 余裕)
             *ヨ*ユウ
             "margin, leeway; composure")))
+(word
+    (primary-reading
+        (primary-kanji-spelling よそ (common 他所))
+        よそ
+        "somewhere else"
+        (variant (common 余所))))
 (kanji 参
     (kun
         (primary-reading
@@ -11255,11 +11240,6 @@
         (primary-spelling 産土神)
         うぶ*すな*がみ
         "birthplace's guardian deity (Shinto)"))
-(word
-    (primary-reading
-        (secondary-spelling 産毛 (rare 生毛))
-        *うぶ*げ
-        "soft hair"))
 (kanji-split 徒
     (part "kun"
         (kun
@@ -12767,6 +12747,11 @@
             (primary-spelling 野宿)
             ノ*ジュク*
             "sleeping outdoors")))
+(word
+    (primary-reading
+        (secondary-kanji-spelling ヤドリギ (common 宿り木) (rare 寄生木))
+        やどりぎ
+        "mistletoe"))
 (kanji 演
     (kun
         (secondary-reading
@@ -14002,11 +13987,6 @@
                 *ホン*コン
                 "Hong Kong"
                 (special asian)))))
-(word
-    (primary-reading
-        (secondary-spelling 鮎 (common 香魚))
-        あゆ
-        "sweetfish"))
 (word
     (primary-reading
         (primary-spelling 香具師)
@@ -16933,6 +16913,11 @@
             (primary-spelling 毛髪)
             *モウ*ハツ
             "hair")))
+(word
+    (primary-reading
+        (secondary-spelling 産毛 (rare 生毛))
+        *うぶ*げ
+        "soft hair"))
 (kanji 遺
     (kun
         (primary-reading
@@ -17453,11 +17438,6 @@
             (primary-spelling 純粋)
             *ジュン*スイ
             "pure")))
-(word
-    (primary-reading
-        (primary-spelling 生粋)
-        きっすい
-        "pure, genuine"))
 (kanji 規
     (on
         (primary-reading
@@ -23538,11 +23518,6 @@
             (primary-spelling 勲章)
             クン*ショウ*
             "medal")))
-(word
-    (primary-reading
-        (secondary-kanji-spelling タコ (common 蛸) (rare 章魚))
-        たこ
-        "octopus"))
 (kanji 築
     (kun
         (primary-reading
@@ -26451,6 +26426,11 @@
             (primary-spelling 純粋)
             ジュン*スイ*
             "pure")))
+(word
+    (primary-reading
+        (primary-spelling 生粋)
+        きっすい
+        "pure, genuine"))
 (kanji 隅
     (kun
         (primary-reading
@@ -26974,6 +26954,11 @@
             (primary-spelling 白桃)
             ハク*トウ*
             "white peach")))
+(word
+    (primary-reading
+        (primary-spelling 安土桃山時代)
+        あずちももやまじだい
+        "Azuchi-Momoyama period"))
 (kanji 却
     (kun
         (secondary-reading
@@ -30702,11 +30687,6 @@
             (primary-spelling 果敢)
             カ*カン*
             "bold")))
-(word
-    (primary-reading
-        (secondary-spelling 儚い (rare 果敢ない))
-        はかない
-        "fleeting"))
 (kanji 舗
     (on
         (primary-reading
@@ -36967,6 +36947,11 @@
                 (primary-spelling 儚む)
                 *はかな*む
                 "to see the vanity of"))))
+(word
+    (primary-reading
+        (secondary-spelling 儚い (rare 果敢ない))
+        はかない
+        "fleeting"))
 (kanji 蕎
     (combined
         (primary-reading
@@ -37141,6 +37126,11 @@
             (primary-spelling 鮎)
             *あゆ*
             "sweetfish")))
+(word
+    (primary-reading
+        (secondary-spelling 鮎 (common 香魚))
+        あゆ
+        "sweetfish"))
 (kanji 叡
     (on
         (primary-reading
@@ -48751,6 +48741,11 @@
             (primary-spelling 絣)
             *かすり*
             "kasuri (dyeing technique)")))
+(word
+    (primary-reading
+        (secondary-spelling 絣 (common 飛白))
+        かすり
+        "kasuri (dyeing technique)"))
 (kanji 踝
     (kun
         (primary-reading
