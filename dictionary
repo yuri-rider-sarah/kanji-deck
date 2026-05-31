@@ -5,9 +5,9 @@
             *ひと*つ
             "one"
             (secondary-reading
-                (primary-spelling 一人)
-                *ひと*り
-                "one person")))
+                (primary-spelling 一)
+                *ひと*
+                "one (as prefix)")))
     (on
         (primary-reading
             (primary-spelling 一)
@@ -24,9 +24,9 @@
             *ふた*つ
             "two"
             (secondary-reading
-                (primary-spelling 二人)
+                (primary-spelling 二)
                 *ふた*り
-                "two people")
+                "two (as prefix)")
             (secondary-reading
                 (primary-spelling 二日)
                 *ふつ*か
@@ -47,21 +47,18 @@
             *みっ*つ
             "three"
             (secondary-reading
-                (primary-spelling 三つ編み)
-                *み*つあみ
-                "braid")
+                (primary-spelling 三つ)
+                *み*つ
+                "three (as prefix)"
+                (variant (rare 三)))
             (secondary-reading
-                (primary-spelling 三葉)
-                *みつ*ば
-                "mitsuba (plant); three-leaved")
+                (primary-spelling 三)
+                *み*
+                "three (as prefix)")
             (secondary-reading
                 (primary-spelling 三日)
                 *みっ*か
-                "three days")
-            (secondary-reading
-                (primary-spelling 三日月)
-                *み*かづき
-                "crescent")))
+                "three days")))
     (on
         (primary-reading
             (primary-spelling 三)
@@ -78,21 +75,18 @@
             *よっ*つ
             "four"
             (secondary-reading
-                (primary-spelling 四つん這い)
-                *よ*つんばい
-                "crawling on all fours")
+                (primary-spelling 四つ)
+                *よ*つ
+                "four (as prefix)"
+                (variant (rare 四)))
             (secondary-reading
-                (primary-spelling 四辻)
-                *よつ*つじ
-                "crossroads")
+                (primary-spelling 四)
+                *よ*
+                "four (as prefix)")
             (secondary-reading
                 (primary-spelling 四日)
                 *よっ*か
                 "four days")
-            (secondary-reading
-                (primary-spelling 四人)
-                *よ*にん
-                "four people")
             (secondary-reading
                 (primary-spelling 四)
                 *よん*
@@ -108,6 +102,10 @@
             (primary-spelling 五つ)
             *いつ*つ
             "five"
+            (secondary-reading
+                (primary-spelling 五)
+                *いつ*
+                "five (as prefix)")
             (secondary-reading
                 (primary-spelling 五日)
                 *いつ*か
@@ -128,9 +126,13 @@
             *むっ*つ
             "six"
             (secondary-reading
-                (primary-spelling 六つ子)
-                *む*つご
-                "sextuplets")
+                (primary-spelling 六つ)
+                *む*つ
+                "six (as prefix)")
+            (secondary-reading
+                (primary-spelling 六)
+                *む*
+                "six (as prefix)")
             (secondary-reading
                 (primary-spelling 六日)
                 *むい*か
@@ -155,13 +157,13 @@
             *なな*つ
             "seven"
             (secondary-reading
+                (primary-spelling 七)
+                *なな*
+                "seven")
+            (secondary-reading
                 (primary-spelling 七日)
                 *なの*か
-                "seven days")
-            (secondary-reading
-                (primary-spelling 七色)
-                *なな*いろ
-                "seven colors")))
+                "seven days")))
     (on
         (primary-reading
             (primary-spelling 七)
@@ -174,21 +176,18 @@
             *やっ*つ
             "eight"
             (secondary-reading
-                (primary-spelling 八つ当たり)
-                *や*つあたり
-                "taking out one's anger")
+                (primary-spelling 八つ)
+                *や*つ
+                "eight (as prefix)"
+                (variant (rare 八)))
             (secondary-reading
-                (primary-spelling 八橋)
-                *やつ*はし
-                "yatsuhashi (confection)")
+                (primary-spelling 八)
+                *や*
+                "eight (as prefix)")
             (secondary-reading
                 (primary-spelling 八日)
                 *よう*か
-                "eight days")
-            (secondary-reading
-                (primary-spelling 八重)
-                *や*え
-                "multilayered")))
+                "eight days")))
     (on
         (primary-reading
             (primary-spelling 八)
@@ -204,6 +203,10 @@
             (primary-spelling 九つ)
             *ここの*つ
             "nine"
+            (secondary-reading
+                (primary-spelling 九)
+                *ここの*
+                "nine (as prefix)")
             (secondary-reading
                 (primary-spelling 九日)
                 *ここの*か
@@ -230,7 +233,7 @@
         (secondary-reading
             (primary-spelling 三十路)
             み*そ*じ
-            "one's thirties"))
+            "age thirty"))
     (on
         (primary-reading
             (primary-spelling 十)
@@ -10291,9 +10294,9 @@
             *サン*カ
             "participation")
         (secondary-reading
-            (primary-spelling 参)
+            (secondary-spelling 三 (rare 参))
             *サン*
-            "three (document)")
+            "three (used in documents)")
         (secondary-reading
             (primary-spelling 新参)
             シン*ザン*
@@ -17545,9 +17548,9 @@
             *リク*
             "land")
         (secondary-reading
-            (primary-spelling 陸)
+            (secondary-spelling 六 (rare 陸))
             *ロク*
-            "six (document)")))
+            "six (used in documents)")))
 (kanji-split 甲
     (part "kun"
         (kun
@@ -33524,7 +33527,7 @@
         (secondary-reading
             (secondary-spelling 七 (rare 漆))
             *シチ*
-            "seven (in documents)")))
+            "seven (used in documents)")))
 (kanji 渚
     (kun
         (primary-reading
@@ -37292,7 +37295,7 @@
         (primary-reading
             (secondary-spelling 一 (rare 壱))
             *イチ*
-            "one")))
+            "one (used in documents)")))
 (kanji 腔
     (on
         (primary-reading
@@ -37901,9 +37904,9 @@
             "to drain"))
     (on
         (secondary-reading
-            (primary-spelling 捌)
+            (secondary-spelling 八 (rare 捌))
             *ハチ*
-            "eight (document)")))
+            "eight (used in documents)")))
 (kanji 捲
     (kun
         (primary-reading
@@ -39908,7 +39911,7 @@
         (primary-reading
             (secondary-spelling 二 (rare 弐))
             *ニ*
-            "two")))
+            "two (used in documents)")))
 (kanji 祀
     (kun
         (primary-reading
@@ -39925,7 +39928,7 @@
         (primary-reading
             (secondary-spelling 九 (rare 玖))
             *キュウ*
-            "nine")))
+            "nine (used in documents)")))
 (kanji 矜
     (on
         (primary-reading
@@ -40136,7 +40139,7 @@
         (primary-reading
             (secondary-spelling 五 (rare 伍))
             *ゴ*
-            "five (document)")))
+            "five (used in documents)")))
 (kanji 泌
     (kun
         (secondary-reading
@@ -45235,7 +45238,7 @@
         (primary-reading
             (secondary-spelling 四 (rare 肆))
             *シ*
-            "four (document)")))
+            "four (used in documents)")))
 (kanji 梵
     (on
         (primary-reading
@@ -48636,7 +48639,7 @@
         (primary-reading
             (secondary-spelling 二 (rare 貳))
             *ニ*
-            "two")))
+            "two (used in documents)")))
 (kanji 撚
     (kun
         (primary-reading
@@ -51944,7 +51947,7 @@
         (primary-reading
             (secondary-spelling 二 (rare 弍))
             *ニ*
-            "two")))
+            "two (used in documents)")))
 (kanji 佰
     (on
         (primary-reading
@@ -52193,7 +52196,7 @@
         (primary-reading
             (secondary-spelling 七 (rare 柒))
             *シチ*
-            "seven")))
+            "seven (used in documents)")))
 (kanji 𠮟
     (kun
         (primary-reading
