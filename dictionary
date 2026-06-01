@@ -39563,7 +39563,7 @@
         (primary-reading
             (secondary-spelling 淵 (common 渕))
             *ふち*
-            "depths, abyss")))
+            "depths, abyss [1]")))
 (kanji 麟
     (on
         (primary-reading
@@ -39913,7 +39913,7 @@
         (primary-reading
             (secondary-spelling 二 (rare 弐))
             *ニ*
-            "two (used in documents)")))
+            "two (used in documents) [1]")))
 (kanji 祀
     (kun
         (primary-reading
@@ -42141,7 +42141,7 @@
         (primary-reading
             (secondary-spelling 箱 (rare 匣))
             *はこ*
-            "box")))
+            "box [1]")))
 (kanji 鵺
     (kun
         (primary-reading
@@ -42286,11 +42286,11 @@
         (primary-reading
             (secondary-spelling 芦 (common 葦))
             *あし*
-            "reed")
+            "reed [1]")
         (primary-reading
             (secondary-spelling 芦 (common 葦))
             *よし*
-            "reed")))
+            "reed [1]")))
 (word
     (primary-reading
         (primary-spelling 葦原中国)
@@ -43102,7 +43102,7 @@
         (primary-reading
             (secondary-kanji-spelling わたる (common 渡る) (common 亘る))
             *わた*る
-            "to range")))
+            "to range [1]")))
 (kanji 哺
     (on
         (primary-reading
@@ -44886,7 +44886,7 @@
         (primary-reading
             (secondary-spelling 槍 (rare 鑓))
             *やり*
-            "spear")))
+            "spear [1]")))
 (kanji 埜
     (kun
         (primary-reading
@@ -45064,7 +45064,7 @@
         (primary-reading
             (secondary-spelling 寿司 (common 鮨))
             *すし*
-            "sushi")))
+            "sushi [1]")))
 (kanji 剪
     (kun
         (secondary-reading
@@ -46571,11 +46571,11 @@
         (primary-reading
             (secondary-spelling 芦 (common 蘆))
             *あし*
-            "reed")
+            "reed [2]")
         (primary-reading
             (secondary-spelling 芦 (common 蘆))
             *よし*
-            "reed")))
+            "reed [2]")))
 (kanji 覿
     (on
         (primary-reading
@@ -46954,7 +46954,7 @@
         (primary-reading
             (secondary-kanji-spelling ここ (rare 此処) (rare 茲))
             *ここ*
-            "here")))
+            "here [1]")))
 (kanji 匕
     (combined
         (primary-reading
@@ -47709,7 +47709,7 @@
         (primary-reading
             (secondary-spelling 庵 (rare 廬))
             *いおり*
-            "hermitage")))
+            "hermitage [1]")))
 (kanji 楡
     (kun
         (primary-reading
@@ -48259,7 +48259,7 @@
         (primary-reading
             (secondary-spelling 淵 (rare 潭))
             *ふち*
-            "depths, abyss")))
+            "depths, abyss [2]")))
 (kanji 綸
     (on
         (primary-reading
@@ -48641,7 +48641,7 @@
         (primary-reading
             (secondary-spelling 二 (rare 貳))
             *ニ*
-            "two (used in documents)")))
+            "two (used in documents) [2]")))
 (kanji 撚
     (kun
         (primary-reading
@@ -49239,7 +49239,7 @@
         (primary-reading
             (secondary-kanji-spelling わたる (common 渡る) (rare 亙る))
             *わた*る
-            "to range")))
+            "to range [2]")))
 (kanji 霽
     (kun
         (primary-reading
@@ -49432,13 +49432,13 @@
         (primary-reading
             (secondary-spelling 筵 (common 蓆))
             *むしろ*
-            "woven mat")))
+            "woven mat [1]")))
 (kanji 莚
     (kun
         (primary-reading
             (secondary-spelling 筵 (common 莚))
             *むしろ*
-            "woven mat")))
+            "woven mat [2]")))
 (kanji 覘
     (kun
         (primary-reading
@@ -49542,7 +49542,7 @@
         (primary-reading
             (secondary-spelling 膨大 (rare 尨大))
             *ボウ*ダイ
-            "huge, vast")))
+            "huge, vast [1]")))
 (kanji 襯
     (on
         (primary-reading
@@ -49622,7 +49622,7 @@
         (primary-reading
             (secondary-kanji-spelling ここ (rare 此処) (rare 爰))
             *ここ*
-            "here")))
+            "here [2]")))
 (kanji 迹
     (kun
         (primary-reading
@@ -49812,7 +49812,7 @@
         (primary-reading
             (secondary-spelling 槍 (rare 鎗))
             *やり*
-            "spear")))
+            "spear [2]")))
 (kanji 邃
     (on
         (primary-reading
@@ -50106,7 +50106,7 @@
         (primary-reading
             (secondary-spelling 膨大 (rare 厖大))
             *ボウ*ダイ
-            "huge, vast")))
+            "huge, vast [2]")))
 (kanji 喃
     (on
         (primary-reading
@@ -50275,7 +50275,7 @@
         (primary-reading
             (secondary-spelling 箱 (rare 筥))
             *はこ*
-            "box")))
+            "box [2]")))
 (kanji 懈
     (on
         (primary-reading
@@ -50571,7 +50571,7 @@
         (primary-reading
             (secondary-spelling 寿司 (rare 鮓))
             *すし*
-            "sushi")))
+            "sushi [2]")))
 (kanji 藷
     (kun
         (primary-reading
@@ -51102,7 +51102,7 @@
         (primary-reading
             (secondary-spelling 庵 (rare 菴))
             *いおり*
-            "hermitage")))
+            "hermitage [2]")))
 (kanji 箴
     (on
         (primary-reading
@@ -51949,7 +51949,7 @@
         (primary-reading
             (secondary-spelling 二 (rare 弍))
             *ニ*
-            "two (used in documents)")))
+            "two (used in documents) [3]")))
 (kanji 佰
     (on
         (primary-reading
