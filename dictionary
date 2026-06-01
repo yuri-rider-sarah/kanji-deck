@@ -340,26 +340,12 @@
             *ネン*レイ
             "one's age")))
 (kanji-split 中
-    (part "kun"
+    (part "1"
         (kun
             (primary-reading
                 (primary-spelling 中)
                 *なか*
-                "inside")
-            (secondary-reading
-                (secondary-kanji-spelling うち (common 内) (rare 中))
-                *うち*
-                "inside")
-            (secondary-reading
-                (secondary-spelling 当たる (rare 中る))
-                *あた*る
-                "to hit"
-                (variant (rare 中たる))
-                (secondary-reading
-                    (secondary-spelling 当てる (rare 中てる))
-                    *あ*てる
-                    "to hit"))))
-    (part "on"
+                "inside"))
         (on
             (primary-reading
                 (primary-spelling 中心)
@@ -372,9 +358,24 @@
             (secondary-reading
                 (primary-spelling 世界中)
                 セカイ*ジュウ*
-                "around the world"))))
+                "around the world")))
+    (part "2"
+        (kun
+            (secondary-reading
+                (secondary-kanji-spelling うち (common 内) (rare 中))
+                *うち*
+                "inside")
+            (secondary-reading
+                (secondary-spelling 当たる (rare 中る))
+                *あた*る
+                "to hit"
+                (variant (rare 中たる))
+                (secondary-reading
+                    (secondary-spelling 当てる (rare 中てる))
+                    *あ*てる
+                    "to hit")))))
 (kanji-split 上
-    (part "kun1"
+    (part "kun nouns"
         (kun
             (primary-reading
                 (primary-spelling 上)
@@ -384,15 +385,10 @@
                     (primary-spelling 上着)
                     *うわ*ぎ
                     "coat"))
-            (primary-reading
-                (primary-spelling 上がる)
-                *あ*がる
-                "to rise"
-                (variant (rare 上る))
-                (primary-reading
-                    (primary-spelling 上げる)
-                    *あ*げる
-                    "to raise"))))
+            (secondary-reading
+                (primary-spelling 川上)
+                かわ*かみ*
+                "upstream")))
     (part "on"
         (on
             (primary-reading
@@ -408,12 +404,17 @@
                 *シャン*ハイ
                 "Shanghai"
                 (special asian))))
-    (part "kun2"
+    (part "kun verbs"
         (kun
-            (secondary-reading
-                (primary-spelling 川上)
-                かわ*かみ*
-                "upstream")
+            (primary-reading
+                (primary-spelling 上がる)
+                *あ*がる
+                "to rise"
+                (variant (rare 上る))
+                (primary-reading
+                    (primary-spelling 上げる)
+                    *あ*げる
+                    "to raise"))
             (secondary-reading
                 (secondary-spelling 登る (common 上る))
                 *のぼ*る
@@ -423,21 +424,21 @@
                     *のぼ*せる
                     "to raise")))))
 (kanji-split 下
-    (part "1"
+    (part "kun nouns"
         (kun
             (primary-reading
                 (primary-spelling 下)
                 *した*
                 "down")
-            (primary-reading
-                (primary-spelling 下がる)
-                *さ*がる
-                "to lower"
-                (variant (rare 下る))
-                (primary-reading
-                    (primary-spelling 下げる)
-                    *さ*げる
-                    "to lower")))
+            (secondary-reading
+                (primary-spelling 川下)
+                かわ*しも*
+                "downstream")
+            (secondary-reading
+                (primary-spelling 下)
+                *もと*
+                "under (e.g. guidance)")))
+    (part "on"
         (on
             (primary-reading
                 (primary-spelling 低下)
@@ -447,8 +448,17 @@
                 (primary-spelling 下落)
                 *ゲ*ラク
                 "decline")))
-    (part "2"
+    (part "kun verbs"
         (kun
+            (primary-reading
+                (primary-spelling 下がる)
+                *さ*がる
+                "to lower"
+                (variant (rare 下る))
+                (primary-reading
+                    (primary-spelling 下げる)
+                    *さ*げる
+                    "to lower"))
             (primary-reading
                 (primary-spelling 下る)
                 *くだ*る
@@ -469,17 +479,7 @@
                     (primary-spelling 下ろす)
                     *お*ろす
                     "to bring down"
-                    (variant (rare 下す))))))
-    (part "3"
-        (kun
-            (secondary-reading
-                (primary-spelling 川下)
-                かわ*しも*
-                "downstream")
-            (secondary-reading
-                (primary-spelling 下)
-                *もと*
-                "under (e.g. guidance)"))))
+                    (variant (rare 下す)))))))
 (kanji 左
     (kun
         (primary-reading
@@ -529,37 +529,29 @@
             (primary-spelling 大切)
             *タイ*セツ
             "important")))
-(kanji-split 小
-    (part "1"
-        (kun
-            (primary-reading
-                (primary-spelling 小さい)
-                *ちい*さい
-                "small"))
-        (on
-            (primary-reading
-                (primary-spelling 小児)
-                *ショウ*ニ
-                "young child")))
-    (part "2"
-        (kun
-            (secondary-reading
-                (primary-spelling 小型)
-                *こ*がた
-                "small-scale")
-            (secondary-reading
-                (primary-spelling 小川)
-                *お*がわ
-                "brook")
-            (secondary-reading
-                (primary-spelling 小夜)
-                *さ*よ
-                "evening (archaic)"))
-        (combined
-            (secondary-reading
-                (primary-spelling 小路)
-                *こう*じ
-                "alley"))))
+(kanji 小
+    (kun
+        (primary-reading
+            (primary-spelling 小さい)
+            *ちい*さい
+            "small")
+        (secondary-reading
+            (primary-spelling 小型)
+            *こ*がた
+            "small-scale")
+        (secondary-reading
+            (primary-spelling 小川)
+            *お*がわ
+            "brook")
+        (secondary-reading
+            (primary-spelling 小夜)
+            *さ*よ
+            "evening (archaic)"))
+    (on
+        (primary-reading
+            (primary-spelling 小児)
+            *ショウ*ニ
+            "young child")))
 (kanji 木
     (kun
         (primary-reading
@@ -1958,14 +1950,6 @@
                 "ordinary")))
     (part "kun2"
         (kun
-            (secondary-reading
-                (primary-spelling 生える)
-                *は*える
-                "to grow (intr.)"
-                (secondary-reading
-                    (primary-spelling 生やす)
-                    *は*やす
-                    "to grow (tr.)"))
             (primary-reading
                 (primary-spelling 生)
                 *なま*
@@ -1973,7 +1957,15 @@
             (secondary-reading
                 (primary-spelling 生地)
                 *き*じ
-                "raw cloth")))
+                "raw cloth")
+            (secondary-reading
+                (primary-spelling 生える)
+                *は*える
+                "to grow (of plants) (intr.)"
+                (secondary-reading
+                    (primary-spelling 生やす)
+                    *は*やす
+                    "to grow (of plants) (tr.)"))))
     (part "kun3"
         (kun
             (secondary-reading
@@ -1991,7 +1983,7 @@
             (secondary-reading
                 (primary-spelling 生す)
                 *む*す
-                "to grow (intr.)")
+                "to grow (of plants) (intr.)")
             (secondary-reading
                 (primary-spelling 芝生)
                 しば*ふ*
@@ -12084,6 +12076,11 @@
             (primary-spelling 道路)
             ドウ*ロ*
             "road")))
+(word
+    (primary-reading
+        (primary-spelling 小路)
+        こうじ
+        "alley"))
 (kanji 観
     (kun
         (primary-reading
@@ -27804,6 +27801,11 @@
         (primary-kanji-spelling この度 (common 此度))
         このたび
         "this occasion"))
+(word
+    (primary-reading
+        (primary-kanji-spelling こないだ (rare 此間))
+        こないだ
+        "lately, the other day"))
 (kanji 侯
     (on
         (primary-reading
