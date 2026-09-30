@@ -2204,7 +2204,11 @@
         (primary-reading
             (primary-spelling 総合)
             ソウ*ゴウ*
-            "synthesis")
+            "synthesis"
+            (primary-reading
+                (primary-spelling 合)
+                *ゴウ*
+                "gō (unit of volume, ~130 mL)"))
         (secondary-reading
             (primary-spelling 合併)
             *ガッ*ペイ
@@ -4403,11 +4407,7 @@
         (primary-reading
             (primary-spelling 丈夫)
             *ジョウ*ブ
-            "durable, robust"
-            (secondary-reading
-                (primary-spelling 丈)
-                *ジョウ*
-                "jō (unit)"))))
+            "durable, robust")))
 (kanji 信
     (on
         (primary-reading
@@ -19534,7 +19534,7 @@
         (secondary-reading
             (primary-spelling 尋)
             *ひろ*
-            "hiro (unit)"))
+            "hiro (unit of length, ~1.8 m)"))
     (on
         (primary-reading
             (primary-spelling 尋問)
@@ -26393,7 +26393,7 @@
         (primary-reading
             (primary-spelling 斗)
             *ト*
-            "to (unit)"
+            "to (unit of volume, ~18 L)"
             (primary-reading
                 (primary-spelling 北斗)
                 ホク*ト*
@@ -26706,7 +26706,7 @@
         (primary-reading
             (primary-spelling 寸)
             *スン*
-            "sun (unit)"
+            "sun (unit of length, ~3 cm)"
             (primary-reading
                 (primary-spelling 寸法)
                 *スン*ポウ
@@ -28111,6 +28111,10 @@
                 *たたみ*
                 "tatami mat")))
     (on
+        (primary-reading
+            (primary-spelling 畳)
+            *ジョウ*
+            "jō (unit of area, ~1.6–1.8 m²)")
         (primary-reading
             (primary-spelling 重畳)
             チョウ*ジョウ*
@@ -36636,7 +36640,7 @@
         (primary-reading
             (primary-spelling 尺)
             *シャク*
-            "shaku (unit of length), length")
+            "shaku (unit of length, 30 cm), length")
         (secondary-reading
             (primary-spelling 長尺)
             チョウ*ジャク*
@@ -39257,7 +39261,7 @@
         (primary-reading
             (primary-spelling 坪)
             *つぼ*
-            "tsubo (unit)")))
+            "tsubo (unit of area, ~3.3 m²)")))
 (kanji 掬
     (kun
         (primary-reading
@@ -41328,7 +41332,7 @@
         (primary-reading
             (primary-spelling 升)
             *ショウ*
-            "shō (unit)")))
+            "shō (unit of volume, ~1.8 L)")))
 (kanji 巷
     (kun
         (primary-reading
@@ -44574,7 +44578,7 @@
         (secondary-reading
             (primary-spelling 畝)
             *せ*
-            "se (unit)")))
+            "se (unit of area, ~99 m²)")))
 (kanji 髯
     (kun
         (primary-reading
@@ -45253,7 +45257,11 @@
         (primary-reading
             (primary-spelling 斤)
             *キン*
-            "kin (unit); (counter for loaves)")))
+            "(counter for loaves)"
+            (primary-reading
+                (primary-spelling 斤量)
+                *キン*リョウ
+                "weight"))))
 (kanji 脹
     (kun
         (secondary-reading
@@ -45681,7 +45689,7 @@
         (primary-reading
             (secondary-spelling 石 (rare 斛))
             *コク*
-            "koku (unit)")))
+            "koku (unit of volume, ~180 L)")))
 (kanji 笏
     (kun
         (primary-reading
@@ -46664,7 +46672,7 @@
         (primary-reading
             (primary-spelling 匁)
             *もんめ*
-            "monme (unit)")))
+            "monme (unit of weight, 3.75 g)")))
 (kanji 譫
     (on
         (primary-reading
@@ -49605,7 +49613,7 @@
         (primary-reading
             (primary-spelling 勺)
             *シャク*
-            "shaku (unit of volume)")))
+            "shaku (unit of volume, ~18 mL)")))
 (kanji 磧
     (kun
         (primary-reading
