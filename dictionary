@@ -20892,16 +20892,17 @@
         (primary-reading
             (primary-spelling 伯爵)
             *ハク*シャク
-            "count"))
-    (combined
-        (secondary-reading
-            (primary-spelling 伯父)
-            おじ
-            "uncle (older than parent)")
-        (secondary-reading
-            (primary-spelling 伯母)
-            おば
-            "aunt (older than parent)")))
+            "count")))
+(word
+    (primary-reading
+        (primary-spelling 伯父)
+        おじ
+        "uncle (older than parent)"))
+(word
+    (primary-reading
+        (primary-spelling 伯母)
+        おば
+        "aunt (older than parent)"))
 (kanji 氷
     (kun
         (primary-reading
@@ -28706,23 +28707,18 @@
         (primary-reading
             (primary-spelling 躊躇)
             *チュウ*チョ
-            "hesitation"))
-    (combined
-        (secondary-reading
-            (primary-kanji-spelling ためらう (common 躊躇う))
-            ためらう
-            "to hesitate")))
+            "hesitation")))
 (kanji 躇
     (on
         (primary-reading
             (primary-spelling 躊躇)
             チュウ*チョ*
-            "hesitation"))
-    (combined
-        (secondary-reading
-            (primary-kanji-spelling ためらう (common 躊躇う))
-            ためらう
-            "to hesitate")))
+            "hesitation")))
+(word
+    (primary-reading
+        (primary-kanji-spelling ためらう (common 躊躇う))
+        ためらう
+        "to hesitate"))
 (kanji 妊
     (kun
         (secondary-reading
@@ -50680,7 +50676,12 @@
         (primary-reading
             (primary-kanji-spelling シャコ (rare 蝦蛄))
             シャ*コ*
-            "mantis shrimp")))
+            "mantis shrimp"))
+    (combined
+        (secondary-reading
+            (primary-kanji-spelling ケラ (rare 螻蛄))
+            けら
+            "mole cricket")))
 (kanji 糯
     (kun
         (primary-reading
