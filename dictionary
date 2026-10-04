@@ -257,11 +257,7 @@
         (secondary-reading
             (primary-spelling 百方)
             *ヒャッ*ポウ
-            "in every way")
-        (secondary-reading
-            (primary-spelling 何百)
-            ナン*ビャク*
-            "hundreds")))
+            "in every way")))
 (kanji 千
     (kun
         (secondary-reading
@@ -272,11 +268,7 @@
         (primary-reading
             (primary-spelling 千)
             *セン*
-            "thousand")
-        (secondary-reading
-            (primary-spelling 何千)
-            ナン*ゼン*
-            "many thousands")))
+            "thousand")))
 (kanji 日
     (kun
         (primary-reading
@@ -16003,11 +15995,7 @@
         (primary-reading
             (primary-spelling 乾杯)
             カン*パイ*
-            "toast")
-        (secondary-reading
-            (primary-spelling 三杯酢)
-            サン*バイ*ズ
-            "equal mixture of vinegar, soy sauce and mirin")))
+            "toast")))
 (kanji 換
     (kun
         (primary-reading
@@ -24335,11 +24323,6 @@
                 (primary-spelling 待遇)
                 タイ*グウ*
                 "reception, treatment"))))
-(word
-    (primary-reading
-        (primary-spelling 千載一遇)
-        センザイイチグウ
-        "once-in-a-lifetime"))
 (kanji 殊
     (kun
         (primary-reading
@@ -31941,11 +31924,12 @@
         (secondary-reading
             (secondary-spelling 一個 (rare 一箇))
             イッ*コ*
-            "one item")
-        (secondary-reading
-            (primary-kanji-spelling 三が日 (common 三箇日))
-            サン*ガ*ニチ
-            "first three days of the year")))
+            "one item")))
+(word
+    (primary-reading
+        (primary-kanji-spelling 三が日 (common 三箇日))
+        サンガニチ
+        "first three days of the year"))
 (kanji 曹
     (on
         (primary-reading
