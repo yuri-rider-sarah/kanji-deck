@@ -1392,11 +1392,7 @@
         (primary-reading
             (primary-spelling 飲酒)
             *イン*シュ
-            "drinking alcohol")
-        (secondary-reading
-            (primary-spelling 飲酒)
-            *オン*ジュ
-            "drinking alcohol (Buddhism)")))
+            "drinking alcohol")))
 (kanji 酒
     (kun
         (primary-reading
@@ -1411,11 +1407,7 @@
         (primary-reading
             (primary-spelling 飲酒)
             イン*シュ*
-            "drinking alcohol")
-        (secondary-reading
-            (primary-spelling 飲酒)
-            オン*ジュ*
-            "drinking alcohol (Buddhism)")))
+            "drinking alcohol")))
 (kanji 雨
     (kun
         (primary-reading
@@ -3322,9 +3314,9 @@
             *セイ*キ
             "century")
         (secondary-reading
-            (primary-spelling 三世)
-            サン*ゼ*
-            "three generations (Buddhism)")))
+            (primary-spelling 過去世)
+            カコ*ゼ*
+            "one's previous life (Buddhism)")))
 (kanji-split 外
     (part "kun"
         (kun
@@ -5696,9 +5688,9 @@
             キ*テ*レツ
             "very strange")
         (secondary-reading
-            (primary-spelling 人天)
-            ニン*デン*
-            "the human realm and the heavenly realm (Buddhism)")))
+            (primary-spelling 聖天)
+            ショウ*デン*
+            "Nandikeśvara (Buddhist god)")))
 (kanji 過
     (kun
         (primary-reading
@@ -8910,7 +8902,7 @@
         (secondary-reading
             (primary-spelling 居士)
             *コ*ジ
-            "householder (Buddhism)")))
+            "householder (lay devotee in Buddhism)")))
 (word
     (primary-reading
         (primary-spelling 安居)
@@ -11758,7 +11750,7 @@
         (secondary-reading
             (primary-spelling 聖天)
             *ショウ*デン
-            "Nandikeśvara (Buddhism)")))
+            "Nandikeśvara (Buddhist god)")))
 (kanji 飯
     (kun
         (primary-reading
@@ -14134,11 +14126,6 @@
             "wiping out")))
 (word
     (primary-reading
-        (primary-spelling 払子)
-        ホッス
-        "hossu (Buddhist staff)"))
-(word
-    (primary-reading
         (primary-kanji-spelling 売っぱらう (common 売っ払う))
         うっぱらう
         "to sell off (colloquial)"))
@@ -14945,7 +14932,7 @@
             (secondary-reading
                 (primary-spelling 愛染)
                 アイ*ゼン*
-                "Ragaraja (Buddhism)"))))
+                "Ragaraja (Buddhist god)"))))
 (word
     (primary-reading
         (primary-kanji-spelling うつる (common 伝染る))
@@ -17164,20 +17151,15 @@
             レン*ゲ*
             "lotus flower")
         (secondary-reading
-            (primary-spelling 華厳)
-            *ケ*ゴン
-            "Kegon (Buddhist sect)")))
+            (primary-spelling 法華経)
+            ホ*ケ*キョウ
+            "Lotus Sutra")))
 (kanji 那
     (on
         (primary-reading
             (primary-spelling 刹那)
             セツ*ナ*
             "moment")))
-(word
-    (primary-reading
-        (primary-spelling 末那識)
-        マナシキ
-        "mānas-vijñāna (Buddhism)"))
 (kanji 毒
     (on
         (primary-reading
@@ -20973,11 +20955,6 @@
             (primary-spelling 契約)
             *ケイ*ヤク
             "contract")))
-(word
-    (primary-reading
-        (primary-spelling 印契)
-        インゲイ
-        "mudra (Buddhism)"))
 (kanji 環
     (kun
         (secondary-reading
@@ -23636,7 +23613,7 @@
             (secondary-reading
                 (primary-spelling 修羅)
                 シュ*ラ*
-                "Asura (demigod), fighting"))))
+                "Asura (Buddhist demigod); fighting"))))
 (word
     (primary-reading
         (primary-spelling 新羅)
@@ -23724,7 +23701,7 @@
     (primary-reading
         (primary-spelling 普賢)
         フゲン
-        "Samantabhadra (Buddhism)"))
+        "Samantabhadra (bodhisattva)"))
 (kanji 哀
     (kun
         (primary-reading
@@ -24378,7 +24355,7 @@
     (primary-reading
         (primary-spelling 文殊)
         モンジュ
-        "Manjushri (Buddhism)"))
+        "Manjushri (bodhisattva)"))
 (kanji 裸
     (kun
         (primary-reading
@@ -26131,7 +26108,7 @@
     (primary-reading
         (primary-spelling 帝釈天)
         タイシャクテン
-        "Śakra (Buddhism)"))
+        "Śakra (Buddhist god)"))
 (kanji 把
     (kun
         (secondary-reading
@@ -26417,7 +26394,7 @@
     (primary-reading
         (primary-kanji-spelling ヤマタノオロチ (common 八岐大蛇))
         やまたのおろち
-        "Yamata no Orochi (legendary serpent)"))
+        "Yamata no Orochi (mythical serpent)"))
 (word
     (primary-reading
         (primary-spelling 伊邪那美)
@@ -33942,7 +33919,7 @@
         (secondary-reading
             (primary-spelling 穢土)
             *エ*ド
-            "impure world (Buddhism)")
+            "this impure world (Buddhism)")
         (secondary-reading
             (primary-spelling 汚穢)
             オ*ワイ*
@@ -34932,11 +34909,6 @@
             (primary-spelling 伽藍)
             *ガ*ラン
             "Buddhist temple")))
-(word
-    (primary-reading
-        (primary-spelling 僧伽)
-        ソウギャ
-        "sangha (Buddhism)"))
 (kanji 媛
     (kun
         (primary-reading
@@ -36584,7 +36556,7 @@
         (primary-reading
             (primary-spelling 劫)
             *コウ*
-            "kalpa (Buddhism)")
+            "kalpa (period of time in Buddhism)")
         (primary-reading
             (primary-spelling 永劫)
             エイ*ゴウ*
@@ -36792,7 +36764,7 @@
     (primary-reading
         (primary-spelling 阿頼耶識)
         アラヤシキ
-        "ālaya-vijñāna (Buddhism)"))
+        "ālaya-vijñāna (basic consciousness in Buddhism)"))
 (kanji 循
     (on
         (primary-reading
@@ -38224,7 +38196,7 @@
         (secondary-reading
             (primary-spelling 夜叉)
             ヤ*シャ*
-            "yaksha (Buddhism)")))
+            "yaksha (type of spirit in Buddhism)")))
 (word
     (primary-reading
         (primary-kanji-spelling さすまた (common 刺股))
@@ -38620,7 +38592,7 @@
     (primary-reading
         (primary-spelling 迦陵頻伽)
         カリョウビンガ
-        "Kalaviṅka (legendary bird)"))
+        "Kalaviṅka (mythical bird)"))
 (kanji 吼
     (kun
         (primary-reading
@@ -40839,7 +40811,7 @@
         (primary-reading
             (primary-spelling 韋駄天)
             *イ*ダテン
-            "Skanda (Buddhist deity), great runner")))
+            "Skanda (Buddhist god); great runner")))
 (kanji 牝
     (kun
         (primary-reading
@@ -43374,7 +43346,7 @@
         (primary-reading
             (primary-spelling 蓬莱)
             ホウ*ライ*
-            "Mount Penglai (legendary mountain)")))
+            "Mount Penglai (mythical mountain)")))
 (kanji 迭
     (on
         (primary-reading
@@ -43408,7 +43380,7 @@
     (primary-reading
         (primary-spelling 灌頂)
         カンジョウ
-        "abhisheka (Buddhism)"))
+        "abhisheka (Buddhist rite)"))
 (kanji 竪
     (kun
         (primary-reading
@@ -44409,11 +44381,7 @@
         (primary-reading
             (primary-spelling 梵天)
             *ボン*テン
-            "Brahman (Buddhism)"
-            (primary-reading
-                (primary-spelling 梵鐘)
-                *ボン*ショウ
-                "Buddhist temple bell")
+            "Brahman (Buddhist god)"
             (primary-reading
                 (primary-spelling 梵語)
                 *ボン*ゴ
@@ -44731,7 +44699,7 @@
             (primary-reading
                 (primary-spelling 弥勒)
                 ミ*ロク*
-                "Maitreya (Buddhism)"))))
+                "Maitreya (bodhisattva)"))))
 (kanji 咒
     (kun
         (primary-reading
@@ -45197,7 +45165,7 @@
         (primary-reading
             (primary-spelling 阿吽)
             ア*ウン*
-            "A-Un (Buddhism)")))
+            "A-Un (Buddhist phrase)")))
 (kanji 懣
     (on
         (primary-reading
@@ -46049,12 +46017,12 @@
         (primary-reading
             (primary-spelling 蛟)
             *みずち*
-            "mizuchi (legendary creature)"))
+            "mizuchi (mythical creature)"))
     (on
         (primary-reading
             (primary-spelling 蛟龍)
             *コウ*リョウ
-            "jiaolong (legendary creature)")))
+            "jiaolong (mythical creature)")))
 (kanji 雖
     (kun
         (primary-reading
@@ -46228,12 +46196,6 @@
                 (secondary-kanji-spelling しばしば (rare 屡々) (rare 屡))
                 *しばしば*
                 "again and again"))))
-(kanji 鸞
-    (on
-        (primary-reading
-            (primary-spelling 鸞)
-            *ラン*
-            "luan (mythical bird)")))
 (kanji 孺
     (on
         (primary-reading
@@ -47594,7 +47556,7 @@
         (primary-reading
             (primary-spelling 瞋恚)
             *シン*イ
-            "anger, dveṣa (Buddhism)")))
+            "anger; dveṣa (Buddhism)")))
 (kanji 笊
     (kun
         (primary-reading
@@ -49519,7 +49481,7 @@
         (primary-reading
             (primary-spelling 瞋恚)
             シン*イ*
-            "anger, dveṣa (Buddhism)")))
+            "anger; dveṣa (Buddhism)")))
 (kanji 諂
     (kun
         (primary-reading
