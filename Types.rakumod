@@ -72,8 +72,8 @@ class MainReading does Reading is export {
 
 class KanjiPart is export {
     has Str $.name is required;
-    has MainReading @.kun-readings;
     has MainReading @.on-readings;
+    has MainReading @.kun-readings;
     has MainReading @.combined-readings;
 }
 

@@ -89,10 +89,10 @@ sub trs-from-reading(Reading $reading, Bool $combined --> Str) {
 
 sub table-from-kanji-part(KanjiPart $part --> Str) {
     my $result = "<table>\n";
-    for $part.kun-readings -> $reading {
+    for $part.on-readings -> $reading {
         $result ~= trs-from-reading($reading, False);
     }
-    for $part.on-readings -> $reading {
+    for $part.kun-readings -> $reading {
         $result ~= trs-from-reading($reading, False);
     }
     for $part.combined-readings -> $reading {

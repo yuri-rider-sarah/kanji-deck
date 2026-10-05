@@ -92,16 +92,16 @@ multi serialize(Reading $reading) {
 }
 
 multi serialize(KanjiPart $part) {
-    if $part.kun-readings {
-        se-open 'kun';
-        for $part.kun-readings -> $reading {
+    if $part.on-readings {
+        se-open 'on';
+        for $part.on-readings -> $reading {
             serialize $reading;
         }
         se-close;
     }
-    if $part.on-readings {
-        se-open 'on';
-        for $part.on-readings -> $reading {
+    if $part.kun-readings {
+        se-open 'kun';
+        for $part.kun-readings -> $reading {
             serialize $reading;
         }
         se-close;

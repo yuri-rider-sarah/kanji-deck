@@ -2,11 +2,11 @@ unit module Parse;
 
 use Types;
 
-enum KanaType <KunReading OnReading WordReading CombinedReading>;
+enum KanaType <OnReading KunReading WordReading CombinedReading>;
 
 class ReadingList {
-    has MainReading @.kun;
     has MainReading @.on;
+    has MainReading @.kun;
     has MainReading @.combined;
 }
 
@@ -37,10 +37,10 @@ grammar Dictionary {
         '(' <reading-type> <spelling> <kana($type)> <string>
         <variant>* <related-reading($type)>* <special>* ')'
     }
-    rule kun-list { '(' 'kun' <main-reading(KunReading)>+ ')' }
     rule on-list { '(' 'on' <main-reading(OnReading)>+ ')' }
+    rule kun-list { '(' 'kun' <main-reading(KunReading)>+ ')' }
     rule combined-list { '(' 'combined' <main-reading(CombinedReading)>+ ')' }
-    rule reading-list { <kun-list>? <on-list>? <combined-list>? }
+    rule reading-list { <on-list>? <kun-list>? <combined-list>? }
     rule part { '(' 'part' <string> <reading-list> ')' }
     proto rule entry {*}
     rule entry:sym<kanji> { '(' 'kanji' <word> <reading-list> ')' }
@@ -147,10 +147,10 @@ class DictionaryActions {
             related-readings => @<related-reading>».made,
         )
     }
-    method kun-list($/ --> Array[MainReading]) {
+    method on-list($/ --> Array[MainReading]) {
         make Array[MainReading].new(@<main-reading>».made)
     }
-    method on-list($/ --> Array[MainReading]) {
+    method kun-list($/ --> Array[MainReading]) {
         make Array[MainReading].new(@<main-reading>».made)
     }
     method combined-list($/ --> Array[MainReading]) {
@@ -158,8 +158,8 @@ class DictionaryActions {
     }
     method reading-list($/ --> ReadingList) {
         make ReadingList.new(
-            kun => $<kun-list> ?? $<kun-list>.made !! [],
             on => $<on-list> ?? $<on-list>.made !! [],
+            kun => $<kun-list> ?? $<kun-list>.made !! [],
             combined => $<combined-list> ?? $<combined-list>.made !! [],
         )
     }
@@ -167,8 +167,8 @@ class DictionaryActions {
         my ReadingList $reading-list = $<reading-list>.made;
         make KanjiPart.new(
             name => $<string>.made,
-            kun-readings => $reading-list.kun,
             on-readings => $reading-list.on,
+            kun-readings => $reading-list.kun,
             combined-readings => $reading-list.combined,
         )
     }
@@ -178,8 +178,8 @@ class DictionaryActions {
             kanji => $<word>.made,
             parts => [KanjiPart.new(
                 name => "",
-                kun-readings => $reading-list.kun,
                 on-readings => $reading-list.on,
+                kun-readings => $reading-list.kun,
                 combined-readings => $reading-list.combined,
             )]
         );
