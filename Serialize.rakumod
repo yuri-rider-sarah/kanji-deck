@@ -78,7 +78,7 @@ multi serialize(Reading $reading) {
     serialize $reading.kana;
     se-line '"' ~ $reading.definition ~ '"';
     for $reading.attrs -> $attr {
-        se-line "(special {to-str($attr)})";
+        se-line "(attr {to-str($attr)})";
     }
     for $reading.variants -> $variant {
         se-line "(variant {to-str($variant)})";

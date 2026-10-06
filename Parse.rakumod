@@ -25,17 +25,17 @@ grammar Dictionary {
         || <?{ $type == OnReading || $type == CombinedReading }> $<pre>=([<:Katakana>|ー]*) '*' $<mid>=([<:Katakana>|ー]+) '*' $<post>=([<:Katakana>|ー]*)
         || <?{ $type == WordReading || $type == CombinedReading }> $<kana>=(<:Hiragana>+ | [<:Katakana>|ー]+)
     }
-    token special-attr { 'asian' | 'european' }
-    rule special { '(' 'special' <special-attr> ')' }
+    token attr-name { 'asian' | 'european' }
+    rule attr { '(' 'attr' <attr-name> ')' }
     rule variant { '(' 'variant' <freq-word> ')' }
     rule related-reading(KanaType $type) {
         '(' <reading-type> <spelling> <kana($type)> <string>
-        <variant>* <special>* ')'
+        <variant>* <attr>* ')'
     }
     token reading-type { 'primary-reading' | 'secondary-reading' }
     rule main-reading(KanaType $type) {
         '(' <reading-type> <spelling> <kana($type)> <string>
-        <variant>* <related-reading($type)>* <special>* ')'
+        <variant>* <related-reading($type)>* <attr>* ')'
     }
     rule on-list { '(' 'on' <main-reading(OnReading)>+ ')' }
     rule kun-list { '(' 'kun' <main-reading(KunReading)>+ ')' }
@@ -108,14 +108,14 @@ class DictionaryActions {
             make SplitKana.new(pre => ~$<pre>, mid => ~$<mid>, post => ~$<post>)
         }
     }
-    method special-attr($/ --> ReadingAttr) {
+    method attr-name($/ --> ReadingAttr) {
         given ~$/ {
             when 'european' { make European }
             when 'asian' { make Asian }
         }
     }
-    method special($/ --> ReadingAttr) {
-        make $<special-attr>.made
+    method attr($/ --> ReadingAttr) {
+        make $<attr-name>.made
     }
     method variant($/ --> FreqWord) {
         make $<freq-word>.made
@@ -126,7 +126,7 @@ class DictionaryActions {
             spelling => $<spelling>.made,
             kana => $<kana>.made,
             definition => $<string>.made,
-            attrs => @<special>».made,
+            attrs => @<attr>».made,
             variants => @<variant>».made,
         )
     }
@@ -142,7 +142,7 @@ class DictionaryActions {
             spelling => $<spelling>.made,
             kana => $<kana>.made,
             definition => $<string>.made,
-            attrs => @<special>».made,
+            attrs => @<attr>».made,
             variants => @<variant>».made,
             related-readings => @<related-reading>».made,
         )
