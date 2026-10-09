@@ -86,6 +86,11 @@ tr.variant td {
     font-size: 80%;
 }
 
+/* Readings whose example spelling is rare. */
+tr.rare-spelling td:nth-child(4) {
+    font-size: 80%;
+}
+
 tbody.combined td:nth-child(4) {
     font-style: italic;
 }

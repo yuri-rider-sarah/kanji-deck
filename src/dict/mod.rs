@@ -79,6 +79,15 @@ impl Spelling {
         }
     }
 
+    /// How common the spelling given as an example of the reading is.
+    pub fn described_freq(&self) -> Freq {
+        match self {
+            Spelling::Primary(_) => Freq::Common,
+            Spelling::PrimaryKanji { kanji, .. } => kanji.freq,
+            Spelling::Secondary { described, .. } | Spelling::SecondaryKanji { described, .. } => described.freq,
+        }
+    }
+
     pub fn words(&self) -> Vec<&str> {
         match self {
             Spelling::Primary(main) => vec![main],

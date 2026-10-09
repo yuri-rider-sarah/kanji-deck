@@ -70,6 +70,9 @@ fn reading_html(reading: &Reading, main: bool, kanji: &str) -> String {
     if reading.primary {
         classes.push("primary");
     }
+    if reading.spelling.described_freq() == Freq::Rare {
+        classes.push("rare-spelling");
+    }
     let class_attr = if classes.is_empty() { String::new() } else { format!(" class=\"{}\"", classes.join(" ")) };
     let mut html = format!(
         "<tr{class_attr}><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n",
