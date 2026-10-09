@@ -1,6 +1,11 @@
 @font-face {
     font-family: 'Noto Sans JP';
     src: url('_NotoSansJP.ttf');
+    /* The font's line box has more space above the ideographic em box
+       (880/-120) than below it (1160/-288), so Japanese text sits low.
+       These even it out without changing the total line height. */
+    ascent-override: 110.4%;
+    descent-override: 34.4%;
 }
 
 .card {
@@ -57,6 +62,8 @@ table {
 
 td {
     padding: 4pt 4pt 0;
+    /* Text of different sizes in a row shares one baseline. */
+    vertical-align: baseline;
 }
 
 tr:has(+ .main) td, tr:last-child td {
