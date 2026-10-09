@@ -7672,7 +7672,7 @@
                 "trace"))
         (secondary-reading
             (primary-kanji-spelling 身なり (rare 身形))
-            *なり*
+            み*なり*
             "dress, appearance")))
 (kanji 係
     (on
@@ -22974,11 +22974,11 @@
             (primary-spelling 癒す)
             *いや*す
             "to heal (tr.)"
+            (variant (common 癒やす))
             (primary-reading
                 (primary-spelling 癒える)
                 *い*える
-                "to recover"
-                (variant (common 癒やす))))))
+                "to recover"))))
 (word
     (primary-reading
         (primary-kanji-spelling 腹いせ (rare 腹癒せ))
@@ -34142,7 +34142,7 @@
                 "very"))
         (secondary-reading
             (primary-kanji-spelling いたく (rare 甚く))
-            *いた*い
+            *いた*く
             "extremely")))
 (word
     (primary-reading
@@ -47339,7 +47339,7 @@
     (combined
         (primary-reading
             (primary-kanji-spelling ニーハオ (common 你好))
-            *ニー*ハオ
+            ニーハオ
             "hi (Chinese)"
             (attr asian))))
 (kanji 谺
