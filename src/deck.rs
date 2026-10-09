@@ -56,7 +56,7 @@ fn variants_html(variants: &[FreqWord], under_primary: bool, kanji: &str) -> Str
 
 /// A table row for a reading, and one for its variants if it has any. `main`
 /// is set for the first reading in a group.
-fn reading_html(reading: &Reading, main: bool, combined: bool, kanji: &str) -> String {
+fn reading_html(reading: &Reading, main: bool, kanji: &str) -> String {
     let mut classes = Vec::new();
     for attr in &reading.attrs {
         classes.push(match attr {
@@ -69,9 +69,6 @@ fn reading_html(reading: &Reading, main: bool, combined: bool, kanji: &str) -> S
     }
     if reading.primary {
         classes.push("primary");
-    }
-    if combined {
-        classes.push("combined");
     }
     let class_attr = if classes.is_empty() { String::new() } else { format!(" class=\"{}\"", classes.join(" ")) };
     let mut html = format!(
@@ -88,14 +85,17 @@ fn reading_html(reading: &Reading, main: bool, combined: bool, kanji: &str) -> S
     html
 }
 
-fn table(sections: &[(&[Group], bool)], kanji: &str) -> String {
+/// A table with one `<tbody>` per non-empty section, named by its class.
+fn table(sections: &[(&str, &[Group])], kanji: &str) -> String {
     let mut html = String::from("<table>\n");
-    for (groups, combined) in sections {
+    for (class, groups) in sections.iter().filter(|(_, groups)| !groups.is_empty()) {
+        html += &format!("<tbody class=\"{class}\">\n");
         for group in *groups {
             for (i, reading) in group.iter().enumerate() {
-                html += &reading_html(reading, i == 0, *combined, kanji);
+                html += &reading_html(reading, i == 0, kanji);
             }
         }
+        html += "</tbody>\n";
     }
     html + "</table>"
 }
@@ -112,12 +112,12 @@ pub fn json(entries: &[Entry]) -> String {
         match entry {
             Entry::Kanji(entry) => {
                 for part in &entry.parts {
-                    let sections = [(&part.on[..], false), (&part.kun[..], false), (&part.combined[..], true)];
+                    let sections = [("on", &part.on[..]), ("kun", &part.kun[..]), ("combined", &part.combined[..])];
                     notes.push(note_json(&entry.kanji, &part.name, &table(&sections, &entry.kanji)));
                 }
             }
             Entry::Word(entry) => {
-                let content = table(&[(&entry.readings[..], false)], "");
+                let content = table(&[("word", &entry.readings[..])], "");
                 notes.push(note_json(entry.headword(), "", &content));
             }
         }
