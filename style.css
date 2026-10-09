@@ -30,9 +30,13 @@
 }
 
 .question .kanji {
-    color: #0000;
+    -webkit-text-fill-color: transparent;
     background-color: #bbb;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid currentColor;
+}
+
+.nightMode .question .kanji, .night_mode .question .kanji {
+    background-color: #555;
 }
 
 .kana, .kanji {
@@ -48,7 +52,7 @@ table {
     margin-left: auto;
     margin-right: auto;
     font-size: 14pt;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid currentColor;
     margin-top: 1em;
 }
 
@@ -61,7 +65,7 @@ tr:has(+ .main) td, tr:last-child td {
 }
 
 tr.main td {
-    border-top: 1px solid black;
+    border-top: 1px solid currentColor;
 }
 
 tr.primary td:nth-child(4) {
