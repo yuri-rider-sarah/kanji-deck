@@ -125,8 +125,9 @@ impl Kana {
     }
 }
 
+/// Where a loanword reading was borrowed from, like ミン in 明 or メートル in 米.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Attr {
+pub enum ReadingOrigin {
     Asian,
     European,
 }
@@ -138,7 +139,7 @@ pub struct Reading {
     pub spelling: Spelling,
     pub kana: Kana,
     pub definition: String,
-    pub attrs: Vec<Attr>,
+    pub origin: Option<ReadingOrigin>,
     pub variants: Vec<FreqWord>,
 }
 

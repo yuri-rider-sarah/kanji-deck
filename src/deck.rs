@@ -58,11 +58,10 @@ fn variants_html(variants: &[FreqWord], under_primary: bool, kanji: &str) -> Str
 /// is set for the first reading in a group.
 fn reading_html(reading: &Reading, main: bool, kanji: &str) -> String {
     let mut classes = Vec::new();
-    for attr in &reading.attrs {
-        classes.push(match attr {
-            Attr::Asian => "asian",
-            Attr::European => "european",
-        });
+    match reading.origin {
+        Some(ReadingOrigin::Asian) => classes.push("asian"),
+        Some(ReadingOrigin::European) => classes.push("european"),
+        None => {}
     }
     if main {
         classes.push("main");

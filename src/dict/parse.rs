@@ -74,20 +74,17 @@ fn group(args: &mut Args) -> Result<Group, Error> {
 
 fn reading(args: &mut Args) -> Result<Reading, Error> {
     let primary = args.take_flag("#core");
-    let mut attrs = Vec::new();
-    loop {
-        if args.take_flag("#asian") {
-            attrs.push(Attr::Asian);
-        } else if args.take_flag("#european") {
-            attrs.push(Attr::European);
-        } else {
-            break;
-        }
-    }
+    let origin = if args.take_flag("#asian") {
+        Some(ReadingOrigin::Asian)
+    } else if args.take_flag("#european") {
+        Some(ReadingOrigin::European)
+    } else {
+        None
+    };
     Ok(Reading {
         line: args.line,
         primary,
-        attrs,
+        origin,
         spelling: args.take_list(spelling)?,
         kana: kana(args)?,
         definition: args.take_string()?,

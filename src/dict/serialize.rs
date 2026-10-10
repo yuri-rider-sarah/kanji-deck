@@ -43,11 +43,10 @@ fn write_reading(lines: &mut Vec<String>, reading: &Reading) {
     if reading.primary {
         head += " #core";
     }
-    for attr in &reading.attrs {
-        head += match attr {
-            Attr::Asian => " #asian",
-            Attr::European => " #european",
-        };
+    match reading.origin {
+        Some(ReadingOrigin::Asian) => head += " #asian",
+        Some(ReadingOrigin::European) => head += " #european",
+        None => {}
     }
     lines.push(format!(
         "        {head} | {} | {} || {}",
