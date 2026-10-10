@@ -1,8 +1,11 @@
 //! Generates the Anki deck from the dictionary. With `--json`, prints the
 //! card data instead of passing it to generate.py.
+//!
+//! Also checks that serializing the parsed dictionary gives back the same
+//! file. If it doesn't, the serialized version is saved for comparison.
 
 use kanji::{deck, dict};
-use std::io::Write;
+use std::io::{ErrorKind, Write};
 use std::process::{Command, ExitCode, Stdio};
 
 fn main() -> ExitCode {
@@ -17,6 +20,7 @@ fn main() -> ExitCode {
         Ok(entries) => {
             let errors = dict::check::check(&entries);
             if errors.is_empty() {
+                check_serializer(&text, &entries);
                 return output(&deck::json(&entries));
             }
             errors
@@ -28,6 +32,24 @@ fn main() -> ExitCode {
     }
     eprintln!("{} errors, deck not generated", errors.len());
     ExitCode::FAILURE
+}
+
+/// Warns if the serialized entries differ from the original text, saving
+/// them to `dictionary_serialized`. Otherwise removes that file if it's left
+/// over from a previous run.
+fn check_serializer(text: &str, entries: &[dict::Entry]) {
+    const PATH: &str = "dictionary_serialized";
+    let serialized = dict::serialize::serialize(entries);
+    if serialized != text {
+        eprintln!("Warning: the serialized dictionary doesn't match the original, saved it to {PATH}");
+        if let Err(e) = std::fs::write(PATH, serialized) {
+            eprintln!("Can't write {PATH}: {e}");
+        }
+    } else if let Err(e) = std::fs::remove_file(PATH)
+        && e.kind() != ErrorKind::NotFound
+    {
+        eprintln!("Can't remove {PATH}: {e}");
+    }
 }
 
 fn output(json: &str) -> ExitCode {
