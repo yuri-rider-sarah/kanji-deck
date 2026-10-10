@@ -114,14 +114,16 @@ pub fn json(entries: &[Entry]) -> String {
     for entry in entries {
         match entry {
             Entry::Kanji(entry) => {
-                for part in &entry.parts {
+                for (i, part) in entry.parts.iter().enumerate() {
+                    // Parts are numbered from 1, but only if there's more than one.
+                    let number = if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
                     let sections = [("on", &part.on[..]), ("kun", &part.kun[..]), ("combined", &part.combined[..])];
-                    notes.push(note_json(&entry.kanji, &part.name, &table(&sections, &entry.kanji)));
+                    notes.push(note_json(&entry.kanji, &number, &table(&sections, &entry.kanji)));
                 }
             }
             Entry::Word(entry) => {
                 let content = table(&[("word", &entry.readings[..])], "");
-                notes.push(note_json(entry.headword(), "", &content));
+                notes.push(note_json(&entry.headword, "", &content));
             }
         }
     }

@@ -49,11 +49,7 @@ impl<'a> Checker<'a> {
         if !entry.parts.iter().flat_map(KanjiPart::readings).any(|r| r.primary) {
             self.error(entry.line, format!("{kanji} has no primary reading"));
         }
-        let parts = &entry.parts;
-        for (i, part) in parts.iter().enumerate() {
-            if parts.len() > 1 && (part.name.is_empty() || parts[..i].iter().any(|p| p.name == part.name)) {
-                self.error(entry.line, format!("part name \"{}\" is empty or repeated", part.name));
-            }
+        for part in &entry.parts {
             if let Some(other) = self.tables.insert(hidden_table(part, kanji), kanji) {
                 self.error(entry.line, format!("{other} and {kanji} have identical cards"));
             }
@@ -66,11 +62,15 @@ impl<'a> Checker<'a> {
     }
 
     fn check_word(&mut self, entry: &'a WordEntry) {
-        if !entry.readings[0][0].primary {
+        let first = &entry.readings[0][0];
+        if !first.primary {
             self.error(entry.line, "word entry doesn't start with a primary reading".into());
         }
-        if !self.names.insert(entry.headword()) {
-            self.error(entry.line, format!("duplicate entry for {}", entry.headword()));
+        if entry.headword != first.spelling.described() {
+            self.error(entry.line, format!("word {} doesn't match its first example {}", entry.headword, first.spelling.described()));
+        }
+        if !self.names.insert(&entry.headword) {
+            self.error(entry.line, format!("duplicate entry for {}", entry.headword));
         }
         for reading in entry.readings.iter().flatten() {
             self.check_reading(reading, Section::Word, "");

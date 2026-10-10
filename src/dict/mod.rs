@@ -2,8 +2,10 @@
 //! the structure of the file, and `check` validates the contents.
 
 pub mod check;
+mod lex;
 pub mod parse;
 pub mod read;
+pub mod serialize;
 
 use std::fmt;
 use unicode_script::{Script, UnicodeScript};
@@ -158,8 +160,6 @@ pub type Group = Vec<Reading>;
 
 #[derive(Debug, Clone)]
 pub struct KanjiPart {
-    /// Empty if the kanji isn't split into parts.
-    pub name: String,
     pub on: Vec<Group>,
     pub kun: Vec<Group>,
     pub combined: Vec<Group>,
@@ -185,14 +185,9 @@ pub struct KanjiEntry {
 #[derive(Debug, Clone)]
 pub struct WordEntry {
     pub line: usize,
+    /// The word the entry is about, which is also its note ID.
+    pub headword: String,
     pub readings: Vec<Group>,
-}
-
-impl WordEntry {
-    /// The word the entry is about: the example spelling of its first reading.
-    pub fn headword(&self) -> &str {
-        self.readings[0][0].spelling.described()
-    }
 }
 
 #[derive(Debug, Clone)]

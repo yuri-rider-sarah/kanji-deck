@@ -1,100 +1,103 @@
-//! The second phase of parsing the dictionary: converting the tree from `read`
-//! into entries. Only the structure is checked here; the contents are
+//! The second phase of parsing the dictionary: converting the nodes from
+//! `read` into entries. Only the structure is checked here; the contents are
 //! validated by `check`. Errors are collected per entry, so all broken entries
 //! are reported at once.
 
-use super::read::{Args, Node, read};
+use super::read::{Args, read};
 use super::*;
 
+/// An entry as written in the file, where each part of a kanji is separate.
+enum Item {
+    Kanji { line: usize, kanji: String, part: Option<usize>, data: KanjiPart },
+    Word(WordEntry),
+}
+
 pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
-    let nodes = read(text).map_err(|e| vec![e])?;
+    let mut root = read(text).map_err(|e| vec![e])?;
     let mut entries = Vec::new();
     let mut errors = Vec::new();
-    for node in nodes {
-        match entry(node) {
-            Ok(e) => entries.push(e),
+    while !root.is_empty() {
+        match root.take_list(item) {
+            Ok(Item::Word(entry)) => entries.push(Entry::Word(entry)),
+            Ok(Item::Kanji { line, kanji, part, data }) => {
+                // Parts of a kanji come one after another, numbered from 1.
+                let previous = match entries.last_mut() {
+                    Some(Entry::Kanji(entry)) if entry.kanji == kanji => Some(entry),
+                    _ => None,
+                };
+                match (part, previous) {
+                    (None | Some(1), _) => entries.push(Entry::Kanji(KanjiEntry { line, kanji, parts: vec![data] })),
+                    (Some(n), Some(entry)) if entry.parts.len() == n - 1 => entry.parts.push(data),
+                    (Some(n), _) => errors.push(Error { line, message: format!("part:{n} doesn't follow part:{}", n - 1) }),
+                }
+            }
             Err(e) => errors.push(e),
         }
     }
     if errors.is_empty() { Ok(entries) } else { Err(errors) }
 }
 
-fn entry(node: Node) -> Result<Entry, Error> {
-    node.take_list(|head, args| match head {
+fn item(head: &str, args: &mut Args) -> Result<Item, Error> {
+    match head {
         "kanji" => {
-            let kanji = args.take_atom()?;
-            let parts = vec![part(String::new(), args)?];
-            Ok(Entry::Kanji(KanjiEntry { line: args.line, kanji, parts }))
+            let kanji = args.take_string()?;
+            let part = match args.take_optional("part", |args| args.take_string())? {
+                Some(part) => Some(part.parse().ok().filter(|&n| n > 0).ok_or_else(|| args.error("bad part number"))?),
+                None => None,
+            };
+            let data = KanjiPart {
+                on: args.take_many("on-group", group)?,
+                kun: args.take_many("kun-group", group)?,
+                combined: args.take_many("combined-group", group)?,
+            };
+            Ok(Item::Kanji { line: args.line, kanji, part, data })
         }
-        "kanji-split" => {
-            let kanji = args.take_atom()?;
-            let parts = args.take_many("part", |args| part(args.take_string()?, args))?;
-            if parts.is_empty() {
-                return Err(args.error("kanji-split without parts"));
+        "word" => {
+            let headword = args.take_string()?;
+            let readings = args.take_many("group", group)?;
+            if readings.is_empty() {
+                return Err(args.error("word without readings"));
             }
-            Ok(Entry::Kanji(KanjiEntry { line: args.line, kanji, parts }))
+            Ok(Item::Word(WordEntry { line: args.line, headword, readings }))
         }
-        "word" => Ok(Entry::Word(WordEntry { line: args.line, readings: groups(args)? })),
         _ => Err(args.unexpected()),
-    })
-}
-
-/// The `on`, `kun` and `combined` lists of a kanji, each optional, in this order.
-fn part(name: String, args: &mut Args) -> Result<KanjiPart, Error> {
-    Ok(KanjiPart {
-        name,
-        on: args.take_optional("on", groups)?.unwrap_or_default(),
-        kun: args.take_optional("kun", groups)?.unwrap_or_default(),
-        combined: args.take_optional("combined", groups)?.unwrap_or_default(),
-    })
-}
-
-const READINGS: &[&str] = &["primary-reading", "secondary-reading"];
-
-/// Groups of readings, each written as a reading with the rest of the group
-/// nested inside it.
-fn groups(args: &mut Args) -> Result<Vec<Group>, Error> {
-    let groups = args.take_many_with(READINGS, |head, args| {
-        let mut group = vec![reading(head, args)?];
-        group.extend(args.take_many_with(READINGS, |head, args| {
-            let mut related = reading(head, args)?;
-            related.attrs = attrs(args)?;
-            Ok(related)
-        })?);
-        // The attributes of the first reading come after the rest of the group.
-        group[0].attrs = attrs(args)?;
-        Ok(group)
-    })?;
-    if groups.is_empty() {
-        return Err(args.error("empty list of readings"));
     }
-    Ok(groups)
 }
 
-/// A reading without its attributes, which come after the nested readings.
-fn reading(head: &str, args: &mut Args) -> Result<Reading, Error> {
+fn group(args: &mut Args) -> Result<Group, Error> {
+    let readings = args.take_many("reading", reading)?;
+    if readings.is_empty() {
+        return Err(args.error("empty group"));
+    }
+    Ok(readings)
+}
+
+fn reading(args: &mut Args) -> Result<Reading, Error> {
+    let primary = args.take_flag("#core");
+    let mut attrs = Vec::new();
+    loop {
+        if args.take_flag("#asian") {
+            attrs.push(Attr::Asian);
+        } else if args.take_flag("#european") {
+            attrs.push(Attr::European);
+        } else {
+            break;
+        }
+    }
     Ok(Reading {
         line: args.line,
-        primary: head == "primary-reading",
+        primary,
+        attrs,
         spelling: args.take_list(spelling)?,
         kana: kana(args)?,
         definition: args.take_string()?,
         variants: args.take_many("variant", |args| args.take_list(freq_word))?,
-        attrs: Vec::new(),
-    })
-}
-
-fn attrs(args: &mut Args) -> Result<Vec<Attr>, Error> {
-    args.take_many("attr", |args| match args.take_atom()?.as_str() {
-        "asian" => Ok(Attr::Asian),
-        "european" => Ok(Attr::European),
-        _ => Err(args.error("unknown attribute")),
     })
 }
 
 /// Kana like `*あ*がる`, where the part between asterisks belongs to the kanji.
 fn kana(args: &mut Args) -> Result<Kana, Error> {
-    let kana = args.take_atom()?;
+    let kana = args.take_string()?;
     if !kana.contains('*') {
         return Ok(Kana::Unsplit(kana));
     }
@@ -106,15 +109,11 @@ fn kana(args: &mut Args) -> Result<Kana, Error> {
 
 fn spelling(head: &str, args: &mut Args) -> Result<Spelling, Error> {
     match head {
-        "primary-spelling" => Ok(Spelling::Primary(args.take_atom()?)),
-        "primary-kanji-spelling" => {
-            Ok(Spelling::PrimaryKanji { main: args.take_atom()?, kanji: args.take_list(freq_word)? })
-        }
-        "secondary-spelling" => {
-            Ok(Spelling::Secondary { main: args.take_atom()?, described: args.take_list(freq_word)? })
-        }
-        "secondary-kanji-spelling" => Ok(Spelling::SecondaryKanji {
-            main: args.take_atom()?,
+        "pri-spell" => Ok(Spelling::Primary(args.take_string()?)),
+        "pri-kanji-spell" => Ok(Spelling::PrimaryKanji { main: args.take_string()?, kanji: args.take_list(freq_word)? }),
+        "sec-spell" => Ok(Spelling::Secondary { main: args.take_string()?, described: args.take_list(freq_word)? }),
+        "sec-kanji-spell" => Ok(Spelling::SecondaryKanji {
+            main: args.take_string()?,
             kanji: args.take_list(freq_word)?,
             described: args.take_list(freq_word)?,
         }),
@@ -128,5 +127,5 @@ fn freq_word(head: &str, args: &mut Args) -> Result<FreqWord, Error> {
         "rare" => Freq::Rare,
         _ => return Err(args.unexpected()),
     };
-    Ok(FreqWord { freq, word: args.take_atom()? })
+    Ok(FreqWord { freq, word: args.take_string()? })
 }

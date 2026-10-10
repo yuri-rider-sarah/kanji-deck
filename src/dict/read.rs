@@ -1,103 +1,202 @@
-//! The first phase of parsing the dictionary: reading the text into a tree of
-//! S-expressions, without interpreting what they mean.
+//! Reads the tokens from `lex` into a tree of nodes, without interpreting what
+//! they mean. The parser accesses the tree through `Args`.
+//!
+//! ```text
+//! file         = { record } ;
+//! record       = STRING, { node }, { segment }, NEWLINE,
+//!                [ INDENT, { continuation }, { record }, DEDENT ]
+//!              | node, NEWLINE ;
+//! continuation = segment, { segment }, NEWLINE ;
+//! segment      = "|", short record | RECORD_STRING ;
+//! short record = STRING, { node } | node ;
+//! node         = STRING, [ ":", node | "(", { node }, ")" ] ;
+//! ```
+//!
+//! Every construct is a node with a name and arguments: `a b c` and `a(b c)`
+//! are both `a` with the arguments `b` and `c`, `a:b` is `a(b)`, and `a` alone
+//! is `a()`. A record's arguments are its own nodes, then its segments and
+//! continuation lines, then the records indented under it.
 
 use super::Error;
+use super::lex::{Kind, Token, tokenize};
 use std::collections::VecDeque;
+use std::iter::Peekable;
 
-pub struct Node {
-    pub line: usize,
-    pub value: Value,
-}
-
-pub enum Value {
-    Atom(String),
-    Str(String),
-    /// A list, which always starts with an atom saying what it is.
-    List { head: String, args: Vec<Node> },
+struct Node {
+    line: usize,
+    name: String,
+    args: Vec<Node>,
 }
 
 fn err(line: usize, message: impl Into<String>) -> Error {
     Error { line, message: message.into() }
 }
 
-pub fn read(text: &str) -> Result<Vec<Node>, Error> {
-    // Each open list is kept on the stack with the line it starts on.
-    let mut stack: Vec<(usize, Vec<Node>)> = vec![(0, Vec::new())];
-    let mut line = 1;
-    let mut chars = text.chars().peekable();
-    while let Some(c) = chars.next() {
-        match c {
-            '\n' => line += 1,
-            c if c.is_whitespace() => {}
-            '(' => stack.push((line, Vec::new())),
-            ')' => {
-                let (start, mut items) = stack.pop().filter(|_| !stack.is_empty()).ok_or(err(line, "unexpected )"))?;
-                let head = match items.first() {
-                    Some(Node { value: Value::Atom(head), .. }) => head.clone(),
-                    _ => return Err(err(start, "list doesn't start with a word")),
-                };
-                items.remove(0);
-                stack.last_mut().unwrap().1.push(Node { line: start, value: Value::List { head, args: items } });
+/// Reads the text into its top-level records.
+pub fn read(text: &str) -> Result<Args<'static>, Error> {
+    let mut reader = Reader { tokens: tokenize(text)?.into_iter().peekable() };
+    let mut nodes = VecDeque::new();
+    while reader.tokens.peek().is_some() {
+        nodes.push_back(reader.record()?);
+    }
+    Ok(Args { line: 0, head: "", nodes })
+}
+
+struct Reader {
+    tokens: Peekable<std::vec::IntoIter<Token>>,
+}
+
+impl Reader {
+    fn peek(&mut self) -> Option<&Kind> {
+        self.tokens.peek().map(|t| &t.kind)
+    }
+
+    fn unexpected(&mut self) -> Error {
+        let Some(token) = self.tokens.peek() else {
+            return err(0, "unexpected end of file");
+        };
+        let record_string;
+        let what = match &token.kind {
+            Kind::Str(s) => s.as_str(),
+            Kind::RecordStr(s) => {
+                record_string = format!("|| {s}");
+                &record_string
             }
-            '"' => {
-                let start = line;
-                let mut s = String::new();
-                loop {
-                    match chars.next() {
-                        Some('"') => break,
-                        Some(c) => {
-                            if c == '\n' {
-                                line += 1;
-                            }
-                            s.push(c);
-                        }
-                        None => return Err(err(start, "unterminated string")),
-                    }
-                }
-                stack.last_mut().unwrap().1.push(Node { line: start, value: Value::Str(s) });
+            Kind::Open => "(",
+            Kind::Close => ")",
+            Kind::Colon => ":",
+            Kind::Pipe => "|",
+            Kind::Newline => "end of line",
+            Kind::Indent => "indentation",
+            Kind::Dedent => "unindentation",
+        };
+        err(token.line, format!("unexpected {what}"))
+    }
+
+    fn expect(&mut self, kind: Kind) -> Result<(), Error> {
+        if self.peek() != Some(&kind) {
+            return Err(self.unexpected());
+        }
+        self.tokens.next();
+        Ok(())
+    }
+
+    fn string(&mut self) -> Result<(usize, String), Error> {
+        match self.tokens.next_if(|t| matches!(t.kind, Kind::Str(_))) {
+            Some(Token { line, kind: Kind::Str(s) }) => Ok((line, s)),
+            _ => Err(self.unexpected()),
+        }
+    }
+
+    /// Whether the next token starts a `":" node` or `"(" { node } ")"` suffix.
+    fn at_suffix(&mut self) -> bool {
+        matches!(self.peek(), Some(Kind::Colon | Kind::Open))
+    }
+
+    /// `node = STRING, [ ":", node | "(", { node }, ")" ]`
+    fn node(&mut self) -> Result<Node, Error> {
+        let (line, name) = self.string()?;
+        self.suffix(line, name)
+    }
+
+    /// The rest of a node whose string has been read.
+    fn suffix(&mut self, line: usize, name: String) -> Result<Node, Error> {
+        let mut args = Vec::new();
+        match self.peek() {
+            Some(Kind::Colon) => {
+                self.tokens.next();
+                args.push(self.node()?);
             }
-            c => {
-                let mut s = String::from(c);
-                while let Some(&c) = chars.peek() {
-                    if c.is_whitespace() || "()\"".contains(c) {
-                        break;
-                    }
-                    s.push(c);
-                    chars.next();
+            Some(Kind::Open) => {
+                self.tokens.next();
+                while self.peek() != Some(&Kind::Close) {
+                    args.push(self.node()?);
                 }
-                stack.last_mut().unwrap().1.push(Node { line, value: Value::Atom(s) });
+                self.tokens.next();
+            }
+            _ => {}
+        }
+        Ok(Node { line, name, args })
+    }
+
+    /// `{ node }`
+    fn nodes(&mut self) -> Result<Vec<Node>, Error> {
+        let mut nodes = Vec::new();
+        while matches!(self.peek(), Some(Kind::Str(_))) {
+            nodes.push(self.node()?);
+        }
+        Ok(nodes)
+    }
+
+    /// `short record = STRING, { node } | node`
+    fn short_record(&mut self) -> Result<Node, Error> {
+        let (line, name) = self.string()?;
+        if self.at_suffix() {
+            return self.suffix(line, name);
+        }
+        Ok(Node { line, name, args: self.nodes()? })
+    }
+
+    /// `{ segment }`, where `segment = "|", short record | RECORD_STRING`
+    fn segments(&mut self) -> Result<Vec<Node>, Error> {
+        let mut segments = Vec::new();
+        loop {
+            match self.tokens.next_if(|t| matches!(t.kind, Kind::Pipe | Kind::RecordStr(_))) {
+                Some(Token { kind: Kind::Pipe, .. }) => segments.push(self.short_record()?),
+                Some(Token { line, kind: Kind::RecordStr(name) }) => segments.push(Node { line, name, args: Vec::new() }),
+                _ => return Ok(segments),
             }
         }
     }
-    if stack.len() > 1 {
-        return Err(err(stack.last().unwrap().0, "unclosed ("));
+
+    fn record(&mut self) -> Result<Node, Error> {
+        let (line, name) = self.string()?;
+        if self.at_suffix() {
+            let node = self.suffix(line, name)?;
+            self.expect(Kind::Newline)?;
+            if self.peek() == Some(&Kind::Indent) {
+                return Err(err(line, "a record written as a single node can't have indented lines"));
+            }
+            return Ok(node);
+        }
+        let mut args = self.nodes()?;
+        args.extend(self.segments()?);
+        self.expect(Kind::Newline)?;
+        if self.peek() == Some(&Kind::Indent) {
+            self.tokens.next();
+            while matches!(self.peek(), Some(Kind::Pipe | Kind::RecordStr(_))) {
+                args.extend(self.segments()?);
+                self.expect(Kind::Newline)?;
+            }
+            while matches!(self.peek(), Some(Kind::Str(_))) {
+                args.push(self.record()?);
+            }
+            self.expect(Kind::Dedent)?;
+        }
+        Ok(Node { line, name, args })
     }
-    Ok(stack.pop().unwrap().1)
 }
 
 impl Node {
-    /// Calls `f` with the head and arguments of this list. It's an error if
-    /// this isn't a list, or if `f` leaves any arguments unconsumed.
-    pub fn take_list<T>(self, f: impl FnOnce(&str, &mut Args) -> Result<T, Error>) -> Result<T, Error> {
-        let Value::List { head, args } = self.value else {
-            return Err(err(self.line, "expected a list"));
-        };
-        let mut args = Args { line: self.line, head: &head, nodes: args.into() };
-        let value = f(&head, &mut args)?;
+    /// Calls `f` with the name and arguments of this node. It's an error if
+    /// `f` leaves any arguments unconsumed.
+    fn take<T>(self, f: impl FnOnce(&str, &mut Args) -> Result<T, Error>) -> Result<T, Error> {
+        let mut args = Args { line: self.line, head: &self.name, nodes: self.args.into() };
+        let value = f(&self.name, &mut args)?;
         args.finish()?;
         Ok(value)
     }
 
     fn unexpected(&self) -> Error {
-        match &self.value {
-            Value::List { head, .. } => err(self.line, format!("unexpected ({head})")),
-            Value::Atom(atom) => err(self.line, format!("unexpected {atom}")),
-            Value::Str(s) => err(self.line, format!("unexpected \"{s}\"")),
+        if self.args.is_empty() {
+            err(self.line, format!("unexpected {}", self.name))
+        } else {
+            err(self.line, format!("unexpected {}(…)", self.name))
         }
     }
 }
 
-/// The arguments of a list, consumed in order.
+/// The arguments of a node, consumed in order.
 pub struct Args<'h> {
     pub line: usize,
     head: &'h str,
@@ -106,15 +205,12 @@ pub struct Args<'h> {
 
 impl Args<'_> {
     fn take(&mut self) -> Result<Node, Error> {
-        self.nodes.pop_front().ok_or_else(|| self.error(format!("missing item in ({})", self.head)))
+        self.nodes.pop_front().ok_or_else(|| self.error(format!("missing item in {}", self.head)))
     }
 
-    /// The head of the next node, if it's a list.
-    fn next_head(&self) -> Option<&str> {
-        match &self.nodes.front()?.value {
-            Value::List { head, .. } => Some(head),
-            _ => None,
-        }
+    /// The name of the next node.
+    fn next_name(&self) -> Option<&str> {
+        self.nodes.front().map(|node| node.name.as_str())
     }
 
     fn finish(&self) -> Result<(), Error> {
@@ -124,58 +220,60 @@ impl Args<'_> {
         }
     }
 
-    pub fn take_atom(&mut self) -> Result<String, Error> {
-        let node = self.take()?;
-        match node.value {
-            Value::Atom(s) => Ok(s),
-            _ => Err(err(node.line, "expected a word")),
-        }
+    pub fn is_empty(&self) -> bool {
+        self.nodes.is_empty()
     }
 
+    /// Takes the next node, which must have no arguments, and returns its name.
     pub fn take_string(&mut self) -> Result<String, Error> {
         let node = self.take()?;
-        match node.value {
-            Value::Str(s) => Ok(s),
-            _ => Err(err(node.line, "expected a string")),
+        if !node.args.is_empty() {
+            return Err(node.unexpected());
         }
+        Ok(node.name)
     }
 
+    /// Takes the next node, and calls `f` with its name and arguments.
     pub fn take_list<T>(&mut self, f: impl FnOnce(&str, &mut Args) -> Result<T, Error>) -> Result<T, Error> {
-        self.take()?.take_list(f)
+        self.take()?.take(f)
     }
 
-    /// Takes all consecutive lists with one of these heads.
-    pub fn take_many_with<T>(
-        &mut self,
-        heads: &[&str],
-        mut f: impl FnMut(&str, &mut Args) -> Result<T, Error>,
-    ) -> Result<Vec<T>, Error> {
-        let mut values = Vec::new();
-        while self.next_head().is_some_and(|head| heads.contains(&head)) {
-            values.push(self.take_list(&mut f)?);
+    /// Takes the next node if it's `name` without arguments, usually a `#flag`.
+    pub fn take_flag(&mut self, name: &str) -> bool {
+        let found = matches!(self.nodes.front(), Some(node) if node.name == name && node.args.is_empty());
+        if found {
+            self.nodes.pop_front();
         }
-        Ok(values)
+        found
     }
 
-    /// Takes the next node if it's a list with this head.
-    pub fn take_optional<T>(&mut self, head: &str, f: impl FnOnce(&mut Args) -> Result<T, Error>) -> Result<Option<T>, Error> {
-        if self.next_head() != Some(head) {
+    /// Takes the next node if it's named `name`.
+    pub fn take_optional<T>(&mut self, name: &str, f: impl FnOnce(&mut Args) -> Result<T, Error>) -> Result<Option<T>, Error> {
+        if self.next_name() != Some(name) {
             return Ok(None);
         }
         self.take_list(|_, args| f(args)).map(Some)
     }
 
-    /// Takes all consecutive lists with this head.
-    pub fn take_many<T>(&mut self, head: &str, mut f: impl FnMut(&mut Args) -> Result<T, Error>) -> Result<Vec<T>, Error> {
-        self.take_many_with(&[head], |_, args| f(args))
+    /// Takes all consecutive nodes named `name`.
+    pub fn take_many<T>(&mut self, name: &str, mut f: impl FnMut(&mut Args) -> Result<T, Error>) -> Result<Vec<T>, Error> {
+        let mut values = Vec::new();
+        while self.next_name() == Some(name) {
+            values.push(self.take_list(|_, args| f(args))?);
+        }
+        Ok(values)
     }
 
-    /// An error for a list whose head isn't accepted.
+    /// An error for a node whose name isn't accepted.
     pub fn unexpected(&self) -> Error {
-        self.error(format!("unexpected ({})", self.head))
+        self.error(format!("unexpected {}", self.head))
     }
 
     pub fn error(&self, message: impl Into<String>) -> Error {
         err(self.line, message)
     }
 }
+
+#[cfg(test)]
+#[path = "tests/read.rs"]
+mod tests;
