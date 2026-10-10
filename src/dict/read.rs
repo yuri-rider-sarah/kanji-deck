@@ -17,7 +17,7 @@
 //! is `a()`. A record's arguments are its own nodes, then its segments and
 //! continuation lines, then the records indented under it.
 
-use super::Error;
+use super::{Error, Result};
 use super::lex::{Kind, Token, tokenize};
 use std::collections::VecDeque;
 use std::iter::Peekable;
@@ -33,7 +33,7 @@ fn err(line: usize, message: impl Into<String>) -> Error {
 }
 
 /// Reads the text into its top-level records.
-pub fn read(text: &str) -> Result<Args<'static>, Error> {
+pub fn read(text: &str) -> Result<Args<'static>> {
     let mut reader = Reader { tokens: tokenize(text)?.into_iter().peekable() };
     let mut nodes = VecDeque::new();
     while reader.tokens.peek().is_some() {
@@ -73,7 +73,7 @@ impl Reader {
         err(token.line, format!("unexpected {what}"))
     }
 
-    fn expect(&mut self, kind: Kind) -> Result<(), Error> {
+    fn expect(&mut self, kind: Kind) -> Result<()> {
         if self.peek() != Some(&kind) {
             return Err(self.unexpected());
         }
@@ -81,7 +81,7 @@ impl Reader {
         Ok(())
     }
 
-    fn string(&mut self) -> Result<(usize, String), Error> {
+    fn string(&mut self) -> Result<(usize, String)> {
         match self.tokens.next_if(|t| matches!(t.kind, Kind::Str(_))) {
             Some(Token { line, kind: Kind::Str(s) }) => Ok((line, s)),
             _ => Err(self.unexpected()),
@@ -94,13 +94,13 @@ impl Reader {
     }
 
     /// `node = STRING, [ ":", node | "(", { node }, ")" ]`
-    fn node(&mut self) -> Result<Node, Error> {
+    fn node(&mut self) -> Result<Node> {
         let (line, name) = self.string()?;
         self.suffix(line, name)
     }
 
     /// The rest of a node whose string has been read.
-    fn suffix(&mut self, line: usize, name: String) -> Result<Node, Error> {
+    fn suffix(&mut self, line: usize, name: String) -> Result<Node> {
         let mut args = Vec::new();
         match self.peek() {
             Some(Kind::Colon) => {
@@ -120,7 +120,7 @@ impl Reader {
     }
 
     /// `{ node }`
-    fn nodes(&mut self) -> Result<Vec<Node>, Error> {
+    fn nodes(&mut self) -> Result<Vec<Node>> {
         let mut nodes = Vec::new();
         while matches!(self.peek(), Some(Kind::Str(_))) {
             nodes.push(self.node()?);
@@ -129,7 +129,7 @@ impl Reader {
     }
 
     /// `short record = STRING, { node } | node`
-    fn short_record(&mut self) -> Result<Node, Error> {
+    fn short_record(&mut self) -> Result<Node> {
         let (line, name) = self.string()?;
         if self.at_suffix() {
             return self.suffix(line, name);
@@ -138,7 +138,7 @@ impl Reader {
     }
 
     /// `{ segment }`, where `segment = "|", short record | RECORD_STRING`
-    fn segments(&mut self) -> Result<Vec<Node>, Error> {
+    fn segments(&mut self) -> Result<Vec<Node>> {
         let mut segments = Vec::new();
         loop {
             match self.tokens.next_if(|t| matches!(t.kind, Kind::Pipe | Kind::RecordStr(_))) {
@@ -149,7 +149,7 @@ impl Reader {
         }
     }
 
-    fn record(&mut self) -> Result<Node, Error> {
+    fn record(&mut self) -> Result<Node> {
         let (line, name) = self.string()?;
         if self.at_suffix() {
             let node = self.suffix(line, name)?;
@@ -180,7 +180,7 @@ impl Reader {
 impl Node {
     /// Calls `f` with the name and arguments of this node. It's an error if
     /// `f` leaves any arguments unconsumed.
-    fn take<T>(self, f: impl FnOnce(&str, &mut Args) -> Result<T, Error>) -> Result<T, Error> {
+    fn take<T>(self, f: impl FnOnce(&str, &mut Args) -> Result<T>) -> Result<T> {
         let mut args = Args { line: self.line, head: &self.name, nodes: self.args.into() };
         let value = f(&self.name, &mut args)?;
         args.finish()?;
@@ -204,7 +204,7 @@ pub struct Args<'h> {
 }
 
 impl Args<'_> {
-    fn take(&mut self) -> Result<Node, Error> {
+    fn take(&mut self) -> Result<Node> {
         self.nodes.pop_front().ok_or_else(|| self.error(format!("missing item in {}", self.head)))
     }
 
@@ -213,7 +213,7 @@ impl Args<'_> {
         self.nodes.front().map(|node| node.name.as_str())
     }
 
-    fn finish(&self) -> Result<(), Error> {
+    fn finish(&self) -> Result<()> {
         match self.nodes.front() {
             Some(node) => Err(node.unexpected()),
             None => Ok(()),
@@ -225,7 +225,7 @@ impl Args<'_> {
     }
 
     /// Takes the next node, which must have no arguments, and returns its name.
-    pub fn take_string(&mut self) -> Result<String, Error> {
+    pub fn take_string(&mut self) -> Result<String> {
         let node = self.take()?;
         if !node.args.is_empty() {
             return Err(node.unexpected());
@@ -234,7 +234,7 @@ impl Args<'_> {
     }
 
     /// Takes the next node, and calls `f` with its name and arguments.
-    pub fn take_list<T>(&mut self, f: impl FnOnce(&str, &mut Args) -> Result<T, Error>) -> Result<T, Error> {
+    pub fn take_list<T>(&mut self, f: impl FnOnce(&str, &mut Args) -> Result<T>) -> Result<T> {
         self.take()?.take(f)
     }
 
@@ -248,7 +248,7 @@ impl Args<'_> {
     }
 
     /// Takes the next node if it's named `name`.
-    pub fn take_optional<T>(&mut self, name: &str, f: impl FnOnce(&mut Args) -> Result<T, Error>) -> Result<Option<T>, Error> {
+    pub fn take_optional<T>(&mut self, name: &str, f: impl FnOnce(&mut Args) -> Result<T>) -> Result<Option<T>> {
         if self.next_name() != Some(name) {
             return Ok(None);
         }
@@ -256,7 +256,7 @@ impl Args<'_> {
     }
 
     /// Takes all consecutive nodes named `name`.
-    pub fn take_many<T>(&mut self, name: &str, mut f: impl FnMut(&mut Args) -> Result<T, Error>) -> Result<Vec<T>, Error> {
+    pub fn take_many<T>(&mut self, name: &str, mut f: impl FnMut(&mut Args) -> Result<T>) -> Result<Vec<T>> {
         let mut values = Vec::new();
         while self.next_name() == Some(name) {
             values.push(self.take_list(|_, args| f(args))?);

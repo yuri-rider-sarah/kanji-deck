@@ -16,6 +16,9 @@ pub struct Error {
     pub message: String,
 }
 
+/// A result whose error is a dictionary `Error` unless given otherwise.
+pub type Result<T, E = Error> = std::result::Result<T, E>;
+
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "line {}: {}", self.line, self.message)

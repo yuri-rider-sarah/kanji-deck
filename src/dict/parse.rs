@@ -37,7 +37,7 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
     if errors.is_empty() { Ok(entries) } else { Err(errors) }
 }
 
-fn item(head: &str, args: &mut Args) -> Result<Item, Error> {
+fn item(head: &str, args: &mut Args) -> Result<Item> {
     match head {
         "kanji" => {
             let kanji = args.take_string()?;
@@ -64,7 +64,7 @@ fn item(head: &str, args: &mut Args) -> Result<Item, Error> {
     }
 }
 
-fn group(args: &mut Args) -> Result<Group, Error> {
+fn group(args: &mut Args) -> Result<Group> {
     let readings = args.take_many("reading", reading)?;
     if readings.is_empty() {
         return Err(args.error("empty group"));
@@ -72,7 +72,7 @@ fn group(args: &mut Args) -> Result<Group, Error> {
     Ok(readings)
 }
 
-fn reading(args: &mut Args) -> Result<Reading, Error> {
+fn reading(args: &mut Args) -> Result<Reading> {
     let primary = args.take_flag("#core");
     let origin = if args.take_flag("#asian") {
         Some(ReadingOrigin::Asian)
@@ -93,7 +93,7 @@ fn reading(args: &mut Args) -> Result<Reading, Error> {
 }
 
 /// Kana like `*あ*がる`, where the part between asterisks belongs to the kanji.
-fn kana(args: &mut Args) -> Result<Kana, Error> {
+fn kana(args: &mut Args) -> Result<Kana> {
     let kana = args.take_string()?;
     if !kana.contains('*') {
         return Ok(Kana::Unsplit(kana));
@@ -104,7 +104,7 @@ fn kana(args: &mut Args) -> Result<Kana, Error> {
     }
 }
 
-fn spelling(head: &str, args: &mut Args) -> Result<Spelling, Error> {
+fn spelling(head: &str, args: &mut Args) -> Result<Spelling> {
     match head {
         "pri-spell" => Ok(Spelling::Primary(args.take_string()?)),
         "pri-kanji-spell" => Ok(Spelling::PrimaryKanji { main: args.take_string()?, kanji: args.take_list(freq_word)? }),
@@ -118,7 +118,7 @@ fn spelling(head: &str, args: &mut Args) -> Result<Spelling, Error> {
     }
 }
 
-fn freq_word(head: &str, args: &mut Args) -> Result<FreqWord, Error> {
+fn freq_word(head: &str, args: &mut Args) -> Result<FreqWord> {
     let freq = match head {
         "common" => Freq::Common,
         "rare" => Freq::Rare,

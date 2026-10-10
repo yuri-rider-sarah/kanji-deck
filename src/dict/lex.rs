@@ -6,7 +6,7 @@
 //! ignored. Lines end with LF or CRLF, and other line breaks aren't allowed
 //! anywhere.
 
-use super::Error;
+use super::{Error, Result};
 use unicode_general_category::{GeneralCategory as G, get_general_category};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -34,7 +34,7 @@ fn err(line: usize, message: impl Into<String>) -> Error {
     Error { line, message: message.into() }
 }
 
-pub fn tokenize(text: &str) -> Result<Vec<Token>, Error> {
+pub fn tokenize(text: &str) -> Result<Vec<Token>> {
     let mut tokens = Vec::new();
     // Widths of the open indentation levels.
     let mut levels = vec![0];
@@ -104,7 +104,7 @@ fn is_quotable(c: char) -> bool {
     c != '"' && get_general_category(c) != G::Control
 }
 
-fn line_tokens(text: &str, line: usize, tokens: &mut Vec<Token>) -> Result<(), Error> {
+fn line_tokens(text: &str, line: usize, tokens: &mut Vec<Token>) -> Result<()> {
     let mut push = |kind| tokens.push(Token { line, kind });
     let mut rest = text;
     // Whether the previous token is a string that ends right where `rest` starts.
