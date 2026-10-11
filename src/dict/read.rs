@@ -18,7 +18,7 @@
 //! continuation lines, then the records indented under it.
 
 use super::{Error, Result};
-use super::lex::{Kind, Token, tokenize};
+use super::lex::{Token, TokenKind, tokenize};
 use std::collections::VecDeque;
 use std::iter::Peekable;
 
@@ -28,153 +28,135 @@ struct Node {
     args: Vec<Node>,
 }
 
-fn err(line: usize, message: impl Into<String>) -> Error {
-    Error { line, message: message.into() }
-}
-
 /// Reads the text into its top-level records.
 pub fn read(text: &str) -> Result<Args<'static>> {
-    let mut reader = Reader { tokens: tokenize(text)?.into_iter().peekable() };
+    let mut tokens = tokenize(text)?.into_iter().peekable();
     let mut nodes = VecDeque::new();
-    while reader.tokens.peek().is_some() {
-        nodes.push_back(reader.record()?);
+    while tokens.peek().is_some() {
+        nodes.push_back(record(&mut tokens)?);
     }
     Ok(Args { line: 0, head: "", nodes })
 }
 
-struct Reader {
-    tokens: Peekable<std::vec::IntoIter<Token>>,
+type Tokens = Peekable<std::vec::IntoIter<Token>>;
+
+fn peek(tokens: &mut Tokens) -> Option<&TokenKind> {
+    tokens.peek().map(|t| &t.kind)
 }
 
-impl Reader {
-    fn peek(&mut self) -> Option<&Kind> {
-        self.tokens.peek().map(|t| &t.kind)
-    }
+fn unexpected(token: &Option<Token>) -> Error {
+    let Some(token) = token else {
+        return Error::new(0, "unexpected end of file");
+    };
+    let record_string;
+    let name = match &token.kind {
+        TokenKind::Str(s) => s.as_str(),
+        TokenKind::RecordStr(s) => {
+            record_string = format!("|| {s}");
+            &record_string
+        },
+        TokenKind::LeftParen => "(",
+        TokenKind::RightParen => ")",
+        TokenKind::Colon => ":",
+        TokenKind::Pipe => "|",
+        TokenKind::Newline => "end of line",
+        TokenKind::Indent => "indentation",
+        TokenKind::Dedent => "unindentation",
+    };
+    Error::new(token.line, format!("unexpected {name}"))
+}
 
-    fn unexpected(&mut self) -> Error {
-        let Some(token) = self.tokens.peek() else {
-            return err(0, "unexpected end of file");
-        };
-        let record_string;
-        let what = match &token.kind {
-            Kind::Str(s) => s.as_str(),
-            Kind::RecordStr(s) => {
-                record_string = format!("|| {s}");
-                &record_string
+fn expect(tokens: &mut Tokens, kind: TokenKind) -> Result<()> {
+    match tokens.next() {
+        Some(token) if token.kind == kind => Ok(()),
+        token => Err(unexpected(&token)),
+    }
+}
+
+/// The second part of the returned tuple specifies whether the node had anything after the string token.
+fn node_or_string(tokens: &mut Tokens) -> Result<(Node, bool)> {
+    let (line, name) = match tokens.next() {
+        Some(Token { line, kind: TokenKind::Str(s) }) => (line, s),
+        token => return Err(unexpected(&token)),
+    };
+    match peek(tokens) {
+        Some(TokenKind::Colon) => {
+            tokens.next();
+            let arg = node(tokens)?;
+            Ok((Node { line, name, args: vec![arg] }, true))
+        },
+        Some(TokenKind::LeftParen) => {
+            let mut args = Vec::new();
+            tokens.next();
+            while peek(tokens) != Some(&TokenKind::RightParen) {
+                args.push(node(tokens)?);
             }
-            Kind::Open => "(",
-            Kind::Close => ")",
-            Kind::Colon => ":",
-            Kind::Pipe => "|",
-            Kind::Newline => "end of line",
-            Kind::Indent => "indentation",
-            Kind::Dedent => "unindentation",
-        };
-        err(token.line, format!("unexpected {what}"))
+            tokens.next();
+            Ok((Node { line, name, args }, true))
+        },
+        _ => {
+            Ok((Node { line, name, args: Vec::new() }, false))
+        },
     }
+}
 
-    fn expect(&mut self, kind: Kind) -> Result<()> {
-        if self.peek() != Some(&kind) {
-            return Err(self.unexpected());
-        }
-        self.tokens.next();
-        Ok(())
+/// `node = STRING, [ ":", node | "(", { node }, ")" ]`
+fn node(tokens: &mut Tokens) -> Result<Node> {
+    let (node, _) = node_or_string(tokens)?;
+    Ok(node)
+}
+
+/// `{ node }`
+fn nodes(tokens: &mut Tokens) -> Result<Vec<Node>> {
+    let mut nodes = Vec::new();
+    while matches!(peek(tokens), Some(TokenKind::Str(_))) {
+        nodes.push(node(tokens)?);
     }
+    Ok(nodes)
+}
 
-    fn string(&mut self) -> Result<(usize, String)> {
-        match self.tokens.next_if(|t| matches!(t.kind, Kind::Str(_))) {
-            Some(Token { line, kind: Kind::Str(s) }) => Ok((line, s)),
-            _ => Err(self.unexpected()),
-        }
+/// `short record = STRING, { node } | node`
+fn short_record(tokens: &mut Tokens) -> Result<Node> {
+    let (mut node, has_args) = node_or_string(tokens)?;
+    if !has_args {
+        node.args.extend(nodes(tokens)?);
     }
+    Ok(node)
+}
 
-    /// Whether the next token starts a `":" node` or `"(" { node } ")"` suffix.
-    fn at_suffix(&mut self) -> bool {
-        matches!(self.peek(), Some(Kind::Colon | Kind::Open))
-    }
-
-    /// `node = STRING, [ ":", node | "(", { node }, ")" ]`
-    fn node(&mut self) -> Result<Node> {
-        let (line, name) = self.string()?;
-        self.suffix(line, name)
-    }
-
-    /// The rest of a node whose string has been read.
-    fn suffix(&mut self, line: usize, name: String) -> Result<Node> {
-        let mut args = Vec::new();
-        match self.peek() {
-            Some(Kind::Colon) => {
-                self.tokens.next();
-                args.push(self.node()?);
-            }
-            Some(Kind::Open) => {
-                self.tokens.next();
-                while self.peek() != Some(&Kind::Close) {
-                    args.push(self.node()?);
-                }
-                self.tokens.next();
-            }
-            _ => {}
-        }
-        Ok(Node { line, name, args })
-    }
-
-    /// `{ node }`
-    fn nodes(&mut self) -> Result<Vec<Node>> {
-        let mut nodes = Vec::new();
-        while matches!(self.peek(), Some(Kind::Str(_))) {
-            nodes.push(self.node()?);
-        }
-        Ok(nodes)
-    }
-
-    /// `short record = STRING, { node } | node`
-    fn short_record(&mut self) -> Result<Node> {
-        let (line, name) = self.string()?;
-        if self.at_suffix() {
-            return self.suffix(line, name);
-        }
-        Ok(Node { line, name, args: self.nodes()? })
-    }
-
-    /// `{ segment }`, where `segment = "|", short record | RECORD_STRING`
-    fn segments(&mut self) -> Result<Vec<Node>> {
-        let mut segments = Vec::new();
-        loop {
-            match self.tokens.next_if(|t| matches!(t.kind, Kind::Pipe | Kind::RecordStr(_))) {
-                Some(Token { kind: Kind::Pipe, .. }) => segments.push(self.short_record()?),
-                Some(Token { line, kind: Kind::RecordStr(name) }) => segments.push(Node { line, name, args: Vec::new() }),
-                _ => return Ok(segments),
-            }
+/// `{ segment }`, where `segment = "|", short record | RECORD_STRING`
+fn segments(tokens: &mut Tokens) -> Result<Vec<Node>> {
+    let mut segments = Vec::new();
+    loop {
+        match tokens.next_if(|t| matches!(t.kind, TokenKind::Pipe | TokenKind::RecordStr(_))) {
+            Some(Token { kind: TokenKind::Pipe, .. }) => segments.push(short_record(tokens)?),
+            Some(Token { line, kind: TokenKind::RecordStr(name) }) => segments.push(Node { line, name, args: Vec::new() }),
+            _ => return Ok(segments),
         }
     }
+}
 
-    fn record(&mut self) -> Result<Node> {
-        let (line, name) = self.string()?;
-        if self.at_suffix() {
-            let node = self.suffix(line, name)?;
-            self.expect(Kind::Newline)?;
-            if self.peek() == Some(&Kind::Indent) {
-                return Err(err(line, "a record written as a single node can't have indented lines"));
-            }
-            return Ok(node);
-        }
-        let mut args = self.nodes()?;
-        args.extend(self.segments()?);
-        self.expect(Kind::Newline)?;
-        if self.peek() == Some(&Kind::Indent) {
-            self.tokens.next();
-            while matches!(self.peek(), Some(Kind::Pipe | Kind::RecordStr(_))) {
-                args.extend(self.segments()?);
-                self.expect(Kind::Newline)?;
-            }
-            while matches!(self.peek(), Some(Kind::Str(_))) {
-                args.push(self.record()?);
-            }
-            self.expect(Kind::Dedent)?;
-        }
-        Ok(Node { line, name, args })
+fn record(tokens: &mut Tokens) -> Result<Node> {
+    let (mut node, has_args) = node_or_string(tokens)?;
+    if has_args {
+        expect(tokens, TokenKind::Newline)?;
+        return Ok(node);
     }
+    node.args.extend(nodes(tokens)?);
+    node.args.extend(segments(tokens)?);
+    expect(tokens, TokenKind::Newline)?;
+    if peek(tokens) == Some(&TokenKind::Indent) {
+        tokens.next();
+        while matches!(peek(tokens), Some(TokenKind::Pipe | TokenKind::RecordStr(_))) {
+            node.args.extend(segments(tokens)?);
+            expect(tokens, TokenKind::Newline)?;
+        }
+        while matches!(peek(tokens), Some(TokenKind::Str(_))) {
+            node.args.push(record(tokens)?);
+        }
+        expect(tokens, TokenKind::Dedent)?;
+    }
+    Ok(node)
 }
 
 impl Node {
@@ -189,9 +171,9 @@ impl Node {
 
     fn unexpected(&self) -> Error {
         if self.args.is_empty() {
-            err(self.line, format!("unexpected {}", self.name))
+            Error::new(self.line, format!("unexpected {}", self.name))
         } else {
-            err(self.line, format!("unexpected {}(…)", self.name))
+            Error::new(self.line, format!("unexpected {}(…)", self.name))
         }
     }
 }
@@ -270,7 +252,7 @@ impl Args<'_> {
     }
 
     pub fn error(&self, message: impl Into<String>) -> Error {
-        err(self.line, message)
+        Error::new(self.line, message)
     }
 }
 

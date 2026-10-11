@@ -49,7 +49,7 @@ fn single_node_record_takes_nothing_more() {
     assert_eq!(error("a(b) c"), "1: unexpected c");
     assert_eq!(error("a:b c"), "1: unexpected c");
     assert_eq!(error("a:b | c"), "1: unexpected |");
-    assert_eq!(error("a:b\n    c"), "1: a record written as a single node can't have indented lines");
+    assert_eq!(error("a:b\n    c"), "2: unexpected indentation");
 }
 
 #[test]

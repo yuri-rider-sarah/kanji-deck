@@ -46,8 +46,8 @@ impl<'a> Checker<'a> {
         if !self.names.insert(kanji) {
             self.error(entry.line, format!("duplicate entry for {kanji}"));
         }
-        if !entry.parts.iter().flat_map(KanjiPart::readings).any(|r| r.primary) {
-            self.error(entry.line, format!("{kanji} has no primary reading"));
+        if !entry.parts.iter().flat_map(KanjiPart::readings).any(|r| r.core) {
+            self.error(entry.line, format!("{kanji} has no core reading"));
         }
         for part in &entry.parts {
             if let Some(other) = self.tables.insert(hidden_table(part, kanji), kanji) {
@@ -63,8 +63,8 @@ impl<'a> Checker<'a> {
 
     fn check_word(&mut self, entry: &'a WordEntry) {
         let first = &entry.readings[0][0];
-        if !first.primary {
-            self.error(entry.line, "word entry doesn't start with a primary reading".into());
+        if !first.core {
+            self.error(entry.line, "word entry doesn't start with a core reading".into());
         }
         if entry.headword != first.spelling.described() {
             self.error(entry.line, format!("word {} doesn't match its first example {}", entry.headword, first.spelling.described()));

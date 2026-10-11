@@ -40,7 +40,7 @@ pub fn serialize(entries: &[Entry]) -> String {
 
 fn write_reading(lines: &mut Vec<String>, reading: &Reading) {
     let mut head = String::from("reading");
-    if reading.primary {
+    if reading.core {
         head += " #core";
     }
     match reading.origin {

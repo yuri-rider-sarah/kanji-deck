@@ -16,14 +16,19 @@ pub struct Error {
     pub message: String,
 }
 
-/// A result whose error is a dictionary `Error` unless given otherwise.
-pub type Result<T, E = Error> = std::result::Result<T, E>;
+impl Error {
+    fn new(line: usize, message: impl Into<String>) -> Error {
+        Error { line, message: message.into() }
+    }
+}
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "line {}: {}", self.line, self.message)
     }
 }
+
+pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 pub fn is_han(c: char) -> bool {
     c.script() == Script::Han
@@ -41,7 +46,6 @@ pub fn has_han(word: &str) -> bool {
     word.chars().any(is_han)
 }
 
-/// Ordered so that `Rare < Common`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Freq {
     Rare,
@@ -75,7 +79,6 @@ impl Spelling {
         }
     }
 
-    /// The spelling given as an example of the reading.
     pub fn described(&self) -> &str {
         match self {
             Spelling::Primary(main) => main,
@@ -84,7 +87,6 @@ impl Spelling {
         }
     }
 
-    /// How common the spelling given as an example of the reading is.
     pub fn described_freq(&self) -> Freq {
         match self {
             Spelling::Primary(_) => Freq::Common,
@@ -111,8 +113,6 @@ pub enum Section {
     Word,
 }
 
-/// The reading of a word. On and kun readings mark which part of it belongs
-/// to the kanji.
 #[derive(Debug, Clone)]
 pub enum Kana {
     Split { pre: String, mid: String, post: String },
@@ -128,7 +128,6 @@ impl Kana {
     }
 }
 
-/// Where a loanword reading was borrowed from, like ミン in 明 or メートル in 米.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReadingOrigin {
     Asian,
@@ -138,7 +137,7 @@ pub enum ReadingOrigin {
 #[derive(Debug, Clone)]
 pub struct Reading {
     pub line: usize,
-    pub primary: bool,
+    pub core: bool,
     pub spelling: Spelling,
     pub kana: Kana,
     pub definition: String,
@@ -159,18 +158,17 @@ impl Reading {
     }
 }
 
-/// Readings shown together: related readings, or examples of the same reading.
-pub type Group = Vec<Reading>;
+pub type ReadingGroup = Vec<Reading>;
 
 #[derive(Debug, Clone)]
 pub struct KanjiPart {
-    pub on: Vec<Group>,
-    pub kun: Vec<Group>,
-    pub combined: Vec<Group>,
+    pub on: Vec<ReadingGroup>,
+    pub kun: Vec<ReadingGroup>,
+    pub combined: Vec<ReadingGroup>,
 }
 
 impl KanjiPart {
-    pub fn sections(&self) -> [(Section, &[Group]); 3] {
+    pub fn sections(&self) -> [(Section, &[ReadingGroup]); 3] {
         [(Section::On, &self.on), (Section::Kun, &self.kun), (Section::Combined, &self.combined)]
     }
 
@@ -189,9 +187,8 @@ pub struct KanjiEntry {
 #[derive(Debug, Clone)]
 pub struct WordEntry {
     pub line: usize,
-    /// The word the entry is about, which is also its note ID.
     pub headword: String,
-    pub readings: Vec<Group>,
+    pub readings: Vec<ReadingGroup>,
 }
 
 #[derive(Debug, Clone)]

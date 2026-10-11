@@ -10,13 +10,13 @@ use super::{Error, Result};
 use unicode_general_category::{GeneralCategory as G, get_general_category};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Kind {
+pub enum TokenKind {
     /// A string, quoted or unquoted.
     Str(String),
     /// A string from `||` to the next `|` or the end of the line, trimmed.
     RecordStr(String),
-    Open,
-    Close,
+    LeftParen,
+    RightParen,
     Colon,
     Pipe,
     Newline,
@@ -27,23 +27,24 @@ pub enum Kind {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Token {
     pub line: usize,
-    pub kind: Kind,
+    pub kind: TokenKind,
 }
 
-fn err(line: usize, message: impl Into<String>) -> Error {
-    Error { line, message: message.into() }
-}
+// All Unicode characters serving as line terminators.
+const NEWLINES: [char; 7] = ['\n', '\u{b}', '\u{c}', '\r', '\u{85}', '\u{2028}', '\u{2029}'];
 
 pub fn tokenize(text: &str) -> Result<Vec<Token>> {
     let mut tokens = Vec::new();
-    // Widths of the open indentation levels.
-    let mut levels = vec![0];
+    // Width of the current indentation level.
+    let mut current_indent = 0;
+    // Widths of the previous indentation levels.
+    let mut old_indents = Vec::new();
     // The character used for indentation, set by the first indented line.
     let mut indent_char = None;
     for (i, text) in text.lines().enumerate() {
         let line = i + 1;
-        if let Some(c) = text.chars().find(|c| ['\r', '\u{b}', '\u{c}', '\u{85}', '\u{2028}', '\u{2029}'].contains(c)) {
-            return Err(err(line, format!("unexpected line break {c:?}")));
+        if let Some(c) = text.chars().find(|c| NEWLINES.contains(c)) {
+            return Err(Error::new(line, format!("unexpected line break {c:?}")));
         }
         let content = text.trim_start_matches([' ', '\t']);
         if content.trim_start().is_empty() {
@@ -51,34 +52,35 @@ pub fn tokenize(text: &str) -> Result<Vec<Token>> {
         }
         // Other whitespace right after the indentation would look like part of it.
         if let Some(c) = content.chars().next().filter(|c| c.is_whitespace()) {
-            return Err(err(line, format!("unexpected character {c:?} in indentation")));
+            return Err(Error::new(line, format!("unexpected character {c:?} in indentation")));
         }
         let indent = &text[..text.len() - content.len()];
         if let Some(first) = indent.chars().next() {
             let expected = *indent_char.get_or_insert(first);
             if indent.chars().any(|c| c != expected) {
-                return Err(err(line, "indentation mixes tabs and spaces"));
+                return Err(Error::new(line, "indentation mixes tabs and spaces"));
             }
         }
         let width = indent.len();
-        if width > *levels.last().unwrap() {
-            levels.push(width);
-            tokens.push(Token { line, kind: Kind::Indent });
+        if width > current_indent {
+            old_indents.push(current_indent);
+            current_indent = width;
+            tokens.push(Token { line, kind: TokenKind::Indent });
         } else {
-            while width < *levels.last().unwrap() {
-                levels.pop();
-                tokens.push(Token { line, kind: Kind::Dedent });
+            while width < current_indent && let Some(last_indent) = old_indents.pop() {
+                current_indent = last_indent;
+                tokens.push(Token { line, kind: TokenKind::Dedent });
             }
-            if width != *levels.last().unwrap() {
-                return Err(err(line, "indentation doesn't match any outer line"));
+            if width != current_indent {
+                return Err(Error::new(line, "indentation doesn't match any outer line"));
             }
         }
         line_tokens(content, line, &mut tokens)?;
-        tokens.push(Token { line, kind: Kind::Newline });
+        tokens.push(Token { line, kind: TokenKind::Newline });
     }
     let line = text.lines().count();
-    for _ in 1..levels.len() {
-        tokens.push(Token { line, kind: Kind::Dedent });
+    for _ in 0..old_indents.len() {
+        tokens.push(Token { line, kind: TokenKind::Dedent });
     }
     Ok(tokens)
 }
@@ -101,7 +103,7 @@ fn is_unquoted(c: char) -> bool {
 
 /// Whether a character can be part of a quoted string.
 fn is_quotable(c: char) -> bool {
-    c != '"' && get_general_category(c) != G::Control
+    c != '"' && !matches!(get_general_category(c), G::Control | G::LineSeparator | G::ParagraphSeparator)
 }
 
 fn line_tokens(text: &str, line: usize, tokens: &mut Vec<Token>) -> Result<()> {
@@ -119,28 +121,28 @@ fn line_tokens(text: &str, line: usize, tokens: &mut Vec<Token>) -> Result<()> {
             return Ok(());
         };
         if (c == '"' || is_unquoted(c)) && after_string {
-            return Err(err(line, "strings must be separated by whitespace"));
+            return Err(Error::new(line, "strings must be separated by whitespace"));
         }
         after_string = false;
         match c {
             '|' => {
                 if let Some(after) = rest.strip_prefix("||") {
                     if after.starts_with('|') {
-                        return Err(err(line, "unexpected |||"));
+                        return Err(Error::new(line, "unexpected |||"));
                     }
                     let end = after.find('|').unwrap_or(after.len());
-                    push(Kind::RecordStr(after[..end].trim().into()));
+                    push(TokenKind::RecordStr(after[..end].trim().into()));
                     rest = &after[end..];
                 } else {
-                    push(Kind::Pipe);
+                    push(TokenKind::Pipe);
                     rest = &rest[1..];
                 }
             }
             '(' | ')' | ':' => {
                 push(match c {
-                    '(' => Kind::Open,
-                    ')' => Kind::Close,
-                    _ => Kind::Colon,
+                    '(' => TokenKind::LeftParen,
+                    ')' => TokenKind::RightParen,
+                    _ => TokenKind::Colon,
                 });
                 rest = &rest[1..];
             }
@@ -149,20 +151,20 @@ fn line_tokens(text: &str, line: usize, tokens: &mut Vec<Token>) -> Result<()> {
                 let end = after.find(|c| !is_quotable(c)).unwrap_or(after.len());
                 match after[end..].chars().next() {
                     Some('"') => {}
-                    Some(c) => return Err(err(line, format!("unexpected character {c:?} in string"))),
-                    None => return Err(err(line, "unterminated string")),
+                    Some(c) => return Err(Error::new(line, format!("unexpected character {c:?} in string"))),
+                    None => return Err(Error::new(line, "unterminated string")),
                 }
-                push(Kind::Str(after[..end].into()));
+                push(TokenKind::Str(after[..end].into()));
                 rest = &after[end + 1..];
                 after_string = true;
             }
             c if is_unquoted(c) => {
                 let end = rest.find(|c| !is_unquoted(c)).unwrap_or(rest.len());
-                push(Kind::Str(rest[..end].into()));
+                push(TokenKind::Str(rest[..end].into()));
                 rest = &rest[end..];
                 after_string = true;
             }
-            c => return Err(err(line, format!("unexpected character {c:?}"))),
+            c => return Err(Error::new(line, format!("unexpected character {c:?}"))),
         }
     }
 }

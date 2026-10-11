@@ -64,7 +64,7 @@ fn item(head: &str, args: &mut Args) -> Result<Item> {
     }
 }
 
-fn group(args: &mut Args) -> Result<Group> {
+fn group(args: &mut Args) -> Result<ReadingGroup> {
     let readings = args.take_many("reading", reading)?;
     if readings.is_empty() {
         return Err(args.error("empty group"));
@@ -73,7 +73,7 @@ fn group(args: &mut Args) -> Result<Group> {
 }
 
 fn reading(args: &mut Args) -> Result<Reading> {
-    let primary = args.take_flag("#core");
+    let core = args.take_flag("#core");
     let origin = if args.take_flag("#asian") {
         Some(ReadingOrigin::Asian)
     } else if args.take_flag("#european") {
@@ -83,7 +83,7 @@ fn reading(args: &mut Args) -> Result<Reading> {
     };
     Ok(Reading {
         line: args.line,
-        primary,
+        core,
         origin,
         spelling: args.take_list(spelling)?,
         kana: kana(args)?,

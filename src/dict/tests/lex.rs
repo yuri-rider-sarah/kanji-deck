@@ -1,7 +1,7 @@
-use super::Kind::*;
+use super::TokenKind::*;
 use super::*;
 
-fn kinds(text: &str) -> Vec<Kind> {
+fn kinds(text: &str) -> Vec<TokenKind> {
     tokenize(text).unwrap().into_iter().map(|t| t.kind).collect()
 }
 
@@ -10,17 +10,17 @@ fn error(text: &str) -> String {
     format!("{}: {}", e.line, e.message)
 }
 
-fn s(text: &str) -> Kind {
+fn s(text: &str) -> TokenKind {
     Str(text.into())
 }
 
-fn r(text: &str) -> Kind {
+fn r(text: &str) -> TokenKind {
     RecordStr(text.into())
 }
 
 #[test]
 fn simple_line() {
-    assert_eq!(kinds("a b:c(d)"), [s("a"), s("b"), Colon, s("c"), Open, s("d"), Close, Newline]);
+    assert_eq!(kinds("a b:c(d)"), [s("a"), s("b"), Colon, s("c"), LeftParen, s("d"), RightParen, Newline]);
 }
 
 #[test]
@@ -88,7 +88,7 @@ fn triple_pipe() {
 #[test]
 fn quoted_strings() {
     assert_eq!(kinds("\"a b\" \"\""), [s("a b"), s(""), Newline]);
-    assert_eq!(kinds("(\"a\") x:\"b\" \"c\"|"), [Open, s("a"), Close, s("x"), Colon, s("b"), s("c"), Pipe, Newline]);
+    assert_eq!(kinds("(\"a\") x:\"b\" \"c\"|"), [LeftParen, s("a"), RightParen, s("x"), Colon, s("b"), s("c"), Pipe, Newline]);
     assert_eq!(kinds("\"a(b):|c\""), [s("a(b):|c"), Newline]);
 }
 
@@ -112,7 +112,7 @@ fn disallowed_characters() {
 
 #[test]
 fn any_whitespace_between_tokens() {
-    assert_eq!(kinds("a\u{3000}b\u{a0}(c)\u{2003}"), [s("a"), s("b"), Open, s("c"), Close, Newline]);
+    assert_eq!(kinds("a\u{3000}b\u{a0}(c)\u{2003}"), [s("a"), s("b"), LeftParen, s("c"), RightParen, Newline]);
     assert_eq!(kinds("||\u{3000}a\u{3000}"), [r("a"), Newline]);
     assert_eq!(kinds("a\n\u{3000}\nb"), [s("a"), Newline, s("b"), Newline]);
 }

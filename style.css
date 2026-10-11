@@ -85,7 +85,7 @@ tbody:not(:first-child)::before {
     height: 22pt;
 }
 
-tr.primary td:nth-child(4) {
+tr.core td:nth-child(4) {
     font-weight: bold;
 }
 

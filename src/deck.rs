@@ -66,8 +66,8 @@ fn reading_html(reading: &Reading, main: bool, kanji: &str) -> String {
     if main {
         classes.push("main");
     }
-    if reading.primary {
-        classes.push("primary");
+    if reading.core {
+        classes.push("core");
     }
     if reading.spelling.described_freq() == Freq::Rare {
         classes.push("rare-spelling");
@@ -88,7 +88,7 @@ fn reading_html(reading: &Reading, main: bool, kanji: &str) -> String {
 }
 
 /// A table with one `<tbody>` per non-empty section, named by its class.
-fn table(sections: &[(&str, &[Group])], kanji: &str) -> String {
+fn table(sections: &[(&str, &[ReadingGroup])], kanji: &str) -> String {
     let mut html = String::from("<table>\n");
     for (class, groups) in sections.iter().filter(|(_, groups)| !groups.is_empty()) {
         html += &format!("<tbody class=\"{class}\">\n");
