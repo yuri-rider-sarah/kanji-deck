@@ -15,14 +15,14 @@ fn render(node: &Node) -> String {
 
 /// The top-level records, rendered as `a(b c)` and separated by `; `.
 fn read_str(text: &str) -> String {
-    let args = read(text).unwrap_or_else(|e| panic!("{}: {}", e.line, e.message));
+    let args = read(text).unwrap_or_else(|e| panic!("{}: {}", e.pos, e.message));
     args.nodes.iter().map(render).collect::<Vec<_>>().join("; ")
 }
 
 fn error(text: &str) -> String {
     match read(text) {
         Ok(args) => panic!("no error, got {}", args.nodes.iter().map(render).collect::<Vec<_>>().join("; ")),
-        Err(e) => format!("{}: {}", e.line, e.message),
+        Err(e) => format!("{}: {}", e.pos, e.message),
     }
 }
 
@@ -35,7 +35,7 @@ fn plain_records() {
 fn nodes() {
     assert_eq!(read_str("a b:c:d e(f g(h)) i()"), "a(b(c(d)) e(f g(h)) i)");
     assert_eq!(read_str("a (b)\na : b"), "a(b); a(b)");
-    assert_eq!(error("a(b):c"), "1: unexpected :");
+    assert_eq!(error("a(b):c"), "1:5: unexpected :");
     assert_eq!(read_str("a b(c:d \"e f\")"), "a(b(c(d) \"e f\"))");
 }
 
@@ -46,10 +46,10 @@ fn record_as_single_node() {
 
 #[test]
 fn single_node_record_takes_nothing_more() {
-    assert_eq!(error("a(b) c"), "1: unexpected c");
-    assert_eq!(error("a:b c"), "1: unexpected c");
-    assert_eq!(error("a:b | c"), "1: unexpected |");
-    assert_eq!(error("a:b\n    c"), "2: unexpected indentation");
+    assert_eq!(error("a(b) c"), "1:6: unexpected c");
+    assert_eq!(error("a:b c"), "1:5: unexpected c");
+    assert_eq!(error("a:b | c"), "1:5: unexpected |");
+    assert_eq!(error("a:b\n    c"), "2:5: unexpected indentation");
 }
 
 #[test]
@@ -61,13 +61,13 @@ fn segments() {
 
 #[test]
 fn segment_single_node_takes_nothing_more() {
-    assert_eq!(error("a | b(c) d"), "1: unexpected d");
+    assert_eq!(error("a | b(c) d"), "1:10: unexpected d");
 }
 
 #[test]
 fn empty_segment() {
-    assert_eq!(error("a | | b"), "1: unexpected |");
-    assert_eq!(error("a |"), "1: unexpected end of line");
+    assert_eq!(error("a | | b"), "1:5: unexpected |");
+    assert_eq!(error("a |"), "1:4: unexpected end of line");
 }
 
 #[test]
@@ -82,24 +82,24 @@ fn continuation_lines() {
 
 #[test]
 fn continuation_after_child() {
-    assert_eq!(error("a\n    b\n    | c"), "3: unexpected |");
+    assert_eq!(error("a\n    b\n    | c"), "3:5: unexpected |");
 }
 
 #[test]
 fn line_starting_with_record_string() {
-    assert_eq!(error("|| a"), "1: unexpected || a");
+    assert_eq!(error("|| a"), "1:1: unexpected || a");
 }
 
 #[test]
 fn indented_first_line() {
-    assert_eq!(error("    a"), "1: unexpected indentation");
+    assert_eq!(error("    a"), "1:5: unexpected indentation");
 }
 
 #[test]
 fn unclosed_and_stray_parentheses() {
-    assert_eq!(error("a(b"), "1: unexpected end of line");
-    assert_eq!(error("a b)"), "1: unexpected )");
-    assert_eq!(error("a:"), "1: unexpected end of line");
+    assert_eq!(error("a(b"), "1:4: unexpected end of line");
+    assert_eq!(error("a b)"), "1:4: unexpected )");
+    assert_eq!(error("a:"), "1:3: unexpected end of line");
 }
 
 #[test]
@@ -111,11 +111,12 @@ fn dictionary_reading() {
 }
 
 #[test]
-fn line_numbers() {
+fn positions() {
     let args = read("a\n\n    b | c\n        d").unwrap();
     let a = &args.nodes[0];
     let b = &a.args[0];
-    assert_eq!((a.line, b.line, b.args[0].line, b.args[1].line), (1, 3, 3, 4));
+    let positions = [a.pos, b.pos, b.args[0].pos, b.args[1].pos].map(|pos| pos.to_string());
+    assert_eq!(positions, ["1:1", "3:5", "3:9", "4:9"]);
 }
 
 #[test]

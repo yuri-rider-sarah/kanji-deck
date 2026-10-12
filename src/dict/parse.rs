@@ -8,7 +8,7 @@ use super::*;
 
 /// An entry as written in the file, where each part of a kanji is separate.
 enum Item {
-    Kanji { line: usize, kanji: String, part: Option<usize>, data: KanjiPart },
+    Kanji { pos: Pos, kanji: String, part: Option<usize>, data: KanjiPart },
     Word(WordEntry),
 }
 
@@ -19,16 +19,16 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
     while !root.is_empty() {
         match root.take_list(item) {
             Ok(Item::Word(entry)) => entries.push(Entry::Word(entry)),
-            Ok(Item::Kanji { line, kanji, part, data }) => {
+            Ok(Item::Kanji { pos, kanji, part, data }) => {
                 // Parts of a kanji come one after another, numbered from 1.
                 let previous = match entries.last_mut() {
                     Some(Entry::Kanji(entry)) if entry.kanji == kanji => Some(entry),
                     _ => None,
                 };
                 match (part, previous) {
-                    (None | Some(1), _) => entries.push(Entry::Kanji(KanjiEntry { line, kanji, parts: vec![data] })),
+                    (None | Some(1), _) => entries.push(Entry::Kanji(KanjiEntry { pos, kanji, parts: vec![data] })),
                     (Some(n), Some(entry)) if entry.parts.len() == n - 1 => entry.parts.push(data),
-                    (Some(n), _) => errors.push(Error { line, message: format!("part:{n} doesn't follow part:{}", n - 1) }),
+                    (Some(n), _) => errors.push(Error { pos, message: format!("part:{n} doesn't follow part:{}", n - 1) }),
                 }
             }
             Err(e) => errors.push(e),
@@ -50,7 +50,7 @@ fn item(head: &str, args: &mut Args) -> Result<Item> {
                 kun: args.take_many("kun-group", group)?,
                 combined: args.take_many("combined-group", group)?,
             };
-            Ok(Item::Kanji { line: args.line, kanji, part, data })
+            Ok(Item::Kanji { pos: args.pos, kanji, part, data })
         }
         "word" => {
             let headword = args.take_string()?;
@@ -58,7 +58,7 @@ fn item(head: &str, args: &mut Args) -> Result<Item> {
             if readings.is_empty() {
                 return Err(args.error("word without readings"));
             }
-            Ok(Item::Word(WordEntry { line: args.line, headword, readings }))
+            Ok(Item::Word(WordEntry { pos: args.pos, headword, readings }))
         }
         _ => Err(args.unexpected()),
     }
@@ -82,7 +82,7 @@ fn reading(args: &mut Args) -> Result<Reading> {
         None
     };
     Ok(Reading {
-        line: args.line,
+        pos: args.pos,
         core,
         origin,
         spelling: args.take_list(spelling)?,

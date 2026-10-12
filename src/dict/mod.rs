@@ -10,21 +10,35 @@ pub mod serialize;
 use std::fmt;
 use unicode_script::{Script, UnicodeScript};
 
+/// A position in the dictionary file. Both the line and the column are counted
+/// from 1, and the column is counted in characters.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Pos {
+    pub line: usize,
+    pub column: usize,
+}
+
+impl fmt::Display for Pos {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}:{}", self.line, self.column)
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct Error {
-    pub line: usize,
+    pub pos: Pos,
     pub message: String,
 }
 
 impl Error {
-    fn new(line: usize, message: impl Into<String>) -> Error {
-        Error { line, message: message.into() }
+    fn new(pos: Pos, message: impl Into<String>) -> Error {
+        Error { pos, message: message.into() }
     }
 }
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "line {}: {}", self.line, self.message)
+        write!(f, "{}: {}", self.pos, self.message)
     }
 }
 
@@ -136,7 +150,7 @@ pub enum ReadingOrigin {
 
 #[derive(Debug, Clone)]
 pub struct Reading {
-    pub line: usize,
+    pub pos: Pos,
     pub core: bool,
     pub spelling: Spelling,
     pub kana: Kana,
@@ -179,14 +193,14 @@ impl KanjiPart {
 
 #[derive(Debug, Clone)]
 pub struct KanjiEntry {
-    pub line: usize,
+    pub pos: Pos,
     pub kanji: String,
     pub parts: Vec<KanjiPart>,
 }
 
 #[derive(Debug, Clone)]
 pub struct WordEntry {
-    pub line: usize,
+    pub pos: Pos,
     pub headword: String,
     pub readings: Vec<ReadingGroup>,
 }

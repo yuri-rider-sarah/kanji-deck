@@ -17,85 +17,49 @@
 //! is `a()`. A record's arguments are its own nodes, then its segments and
 //! continuation lines, then the records indented under it.
 
-use super::{Error, Result};
-use super::lex::{Token, TokenKind, tokenize};
+use super::lex::{Token, TokenKind, Tokens, tokenize};
+use super::{Error, Pos, Result};
 use std::collections::VecDeque;
-use std::iter::Peekable;
 
 struct Node {
-    line: usize,
+    pos: Pos,
     name: String,
     args: Vec<Node>,
 }
 
 /// Reads the text into its top-level records.
 pub fn read(text: &str) -> Result<Args<'static>> {
-    let mut tokens = tokenize(text)?.into_iter().peekable();
+    let mut tokens = tokenize(text);
     let mut nodes = VecDeque::new();
-    while tokens.peek().is_some() {
+    while tokens.peek()? != &TokenKind::Eof {
         nodes.push_back(record(&mut tokens)?);
     }
-    Ok(Args { line: 0, head: "", nodes })
-}
-
-type Tokens = Peekable<std::vec::IntoIter<Token>>;
-
-fn peek(tokens: &mut Tokens) -> Option<&TokenKind> {
-    tokens.peek().map(|t| &t.kind)
-}
-
-fn unexpected(token: &Option<Token>) -> Error {
-    let Some(token) = token else {
-        return Error::new(0, "unexpected end of file");
-    };
-    let record_string;
-    let name = match &token.kind {
-        TokenKind::Str(s) => s.as_str(),
-        TokenKind::RecordStr(s) => {
-            record_string = format!("|| {s}");
-            &record_string
-        },
-        TokenKind::LeftParen => "(",
-        TokenKind::RightParen => ")",
-        TokenKind::Colon => ":",
-        TokenKind::Pipe => "|",
-        TokenKind::Newline => "end of line",
-        TokenKind::Indent => "indentation",
-        TokenKind::Dedent => "unindentation",
-    };
-    Error::new(token.line, format!("unexpected {name}"))
-}
-
-fn expect(tokens: &mut Tokens, kind: TokenKind) -> Result<()> {
-    match tokens.next() {
-        Some(token) if token.kind == kind => Ok(()),
-        token => Err(unexpected(&token)),
-    }
+    Ok(Args { pos: Pos { line: 1, column: 1 }, head: "", nodes })
 }
 
 /// The second part of the returned tuple specifies whether the node had anything after the string token.
 fn node_or_string(tokens: &mut Tokens) -> Result<(Node, bool)> {
-    let (line, name) = match tokens.next() {
-        Some(Token { line, kind: TokenKind::Str(s) }) => (line, s),
-        token => return Err(unexpected(&token)),
+    let (pos, name) = match tokens.next()? {
+        Token { pos, kind: TokenKind::Str(s) } => (pos, s),
+        token => return Err(token.unexpected()),
     };
-    match peek(tokens) {
-        Some(TokenKind::Colon) => {
-            tokens.next();
+    match tokens.peek()? {
+        TokenKind::Colon => {
+            tokens.next()?;
             let arg = node(tokens)?;
-            Ok((Node { line, name, args: vec![arg] }, true))
+            Ok((Node { pos, name, args: vec![arg] }, true))
         },
-        Some(TokenKind::LeftParen) => {
+        TokenKind::LeftParen => {
             let mut args = Vec::new();
-            tokens.next();
-            while peek(tokens) != Some(&TokenKind::RightParen) {
+            tokens.next()?;
+            while tokens.peek()? != &TokenKind::RightParen {
                 args.push(node(tokens)?);
             }
-            tokens.next();
-            Ok((Node { line, name, args }, true))
+            tokens.next()?;
+            Ok((Node { pos, name, args }, true))
         },
         _ => {
-            Ok((Node { line, name, args: Vec::new() }, false))
+            Ok((Node { pos, name, args: Vec::new() }, false))
         },
     }
 }
@@ -109,7 +73,7 @@ fn node(tokens: &mut Tokens) -> Result<Node> {
 /// `{ node }`
 fn nodes(tokens: &mut Tokens) -> Result<Vec<Node>> {
     let mut nodes = Vec::new();
-    while matches!(peek(tokens), Some(TokenKind::Str(_))) {
+    while matches!(tokens.peek()?, TokenKind::Str(_)) {
         nodes.push(node(tokens)?);
     }
     Ok(nodes)
@@ -128,9 +92,9 @@ fn short_record(tokens: &mut Tokens) -> Result<Node> {
 fn segments(tokens: &mut Tokens) -> Result<Vec<Node>> {
     let mut segments = Vec::new();
     loop {
-        match tokens.next_if(|t| matches!(t.kind, TokenKind::Pipe | TokenKind::RecordStr(_))) {
+        match tokens.next_if(|kind| matches!(kind, TokenKind::Pipe | TokenKind::RecordStr(_)))? {
             Some(Token { kind: TokenKind::Pipe, .. }) => segments.push(short_record(tokens)?),
-            Some(Token { line, kind: TokenKind::RecordStr(name) }) => segments.push(Node { line, name, args: Vec::new() }),
+            Some(Token { pos, kind: TokenKind::RecordStr(name) }) => segments.push(Node { pos, name, args: Vec::new() }),
             _ => return Ok(segments),
         }
     }
@@ -139,22 +103,21 @@ fn segments(tokens: &mut Tokens) -> Result<Vec<Node>> {
 fn record(tokens: &mut Tokens) -> Result<Node> {
     let (mut node, has_args) = node_or_string(tokens)?;
     if has_args {
-        expect(tokens, TokenKind::Newline)?;
+        tokens.expect(TokenKind::Newline)?;
         return Ok(node);
     }
     node.args.extend(nodes(tokens)?);
     node.args.extend(segments(tokens)?);
-    expect(tokens, TokenKind::Newline)?;
-    if peek(tokens) == Some(&TokenKind::Indent) {
-        tokens.next();
-        while matches!(peek(tokens), Some(TokenKind::Pipe | TokenKind::RecordStr(_))) {
+    tokens.expect(TokenKind::Newline)?;
+    if tokens.next_if(|kind| kind == &TokenKind::Indent)?.is_some() {
+        while matches!(tokens.peek()?, TokenKind::Pipe | TokenKind::RecordStr(_)) {
             node.args.extend(segments(tokens)?);
-            expect(tokens, TokenKind::Newline)?;
+            tokens.expect(TokenKind::Newline)?;
         }
-        while matches!(peek(tokens), Some(TokenKind::Str(_))) {
+        while matches!(tokens.peek()?, TokenKind::Str(_)) {
             node.args.push(record(tokens)?);
         }
-        expect(tokens, TokenKind::Dedent)?;
+        tokens.expect(TokenKind::Dedent)?;
     }
     Ok(node)
 }
@@ -163,7 +126,7 @@ impl Node {
     /// Calls `f` with the name and arguments of this node. It's an error if
     /// `f` leaves any arguments unconsumed.
     fn take<T>(self, f: impl FnOnce(&str, &mut Args) -> Result<T>) -> Result<T> {
-        let mut args = Args { line: self.line, head: &self.name, nodes: self.args.into() };
+        let mut args = Args { pos: self.pos, head: &self.name, nodes: self.args.into() };
         let value = f(&self.name, &mut args)?;
         args.finish()?;
         Ok(value)
@@ -171,16 +134,16 @@ impl Node {
 
     fn unexpected(&self) -> Error {
         if self.args.is_empty() {
-            Error::new(self.line, format!("unexpected {}", self.name))
+            Error::new(self.pos, format!("unexpected {}", self.name))
         } else {
-            Error::new(self.line, format!("unexpected {}(…)", self.name))
+            Error::new(self.pos, format!("unexpected {}(…)", self.name))
         }
     }
 }
 
 /// The arguments of a node, consumed in order.
 pub struct Args<'h> {
-    pub line: usize,
+    pub pos: Pos,
     head: &'h str,
     nodes: VecDeque<Node>,
 }
@@ -252,7 +215,7 @@ impl Args<'_> {
     }
 
     pub fn error(&self, message: impl Into<String>) -> Error {
-        Error::new(self.line, message)
+        Error::new(self.pos, message)
     }
 }
 

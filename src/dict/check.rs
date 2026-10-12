@@ -30,8 +30,8 @@ struct Checker<'a> {
 }
 
 impl<'a> Checker<'a> {
-    fn error(&mut self, line: usize, message: String) {
-        self.errors.push(Error { line, message });
+    fn error(&mut self, pos: Pos, message: String) {
+        self.errors.push(Error { pos, message });
     }
 
     fn check_kanji(&mut self, entry: &'a KanjiEntry) {
@@ -41,17 +41,17 @@ impl<'a> Checker<'a> {
             (Some(c), None) if is_han(c) => {
                 self.known.insert(c);
             }
-            _ => self.error(entry.line, format!("{kanji} is not a single kanji")),
+            _ => self.error(entry.pos, format!("{kanji} is not a single kanji")),
         }
         if !self.names.insert(kanji) {
-            self.error(entry.line, format!("duplicate entry for {kanji}"));
+            self.error(entry.pos, format!("duplicate entry for {kanji}"));
         }
         if !entry.parts.iter().flat_map(KanjiPart::readings).any(|r| r.core) {
-            self.error(entry.line, format!("{kanji} has no core reading"));
+            self.error(entry.pos, format!("{kanji} has no core reading"));
         }
         for part in &entry.parts {
             if let Some(other) = self.tables.insert(hidden_table(part, kanji), kanji) {
-                self.error(entry.line, format!("{other} and {kanji} have identical cards"));
+                self.error(entry.pos, format!("{other} and {kanji} have identical cards"));
             }
             for (section, readings) in part.sections() {
                 for reading in readings.iter().flatten() {
@@ -64,20 +64,20 @@ impl<'a> Checker<'a> {
     fn check_word(&mut self, entry: &'a WordEntry) {
         let first = &entry.readings[0][0];
         if !first.core {
-            self.error(entry.line, "word entry doesn't start with a core reading".into());
+            self.error(entry.pos, "word entry doesn't start with a core reading".into());
         }
         if entry.headword != first.spelling.described() {
-            self.error(entry.line, format!("word {} doesn't match its first example {}", entry.headword, first.spelling.described()));
+            self.error(entry.pos, format!("word {} doesn't match its first example {}", entry.headword, first.spelling.described()));
         }
         if !self.names.insert(&entry.headword) {
-            self.error(entry.line, format!("duplicate entry for {}", entry.headword));
+            self.error(entry.pos, format!("duplicate entry for {}", entry.headword));
         }
         for reading in entry.readings.iter().flatten() {
             self.check_reading(reading, Section::Word, "");
             for word in reading.words() {
                 let unknown: Vec<char> = word.chars().filter(|&c| is_han(c) && !self.known.contains(&c)).collect();
                 for c in unknown {
-                    self.error(reading.line, format!("{word} contains {c}, which hasn't been introduced yet"));
+                    self.error(reading.pos, format!("{word} contains {c}, which hasn't been introduced yet"));
                 }
             }
         }
@@ -85,19 +85,19 @@ impl<'a> Checker<'a> {
 
     /// Checks a reading of `kanji`, which is empty for word entries.
     fn check_reading(&mut self, reading: &Reading, section: Section, kanji: &str) {
-        let line = reading.line;
+        let pos = reading.pos;
         if reading.definition.trim().is_empty() {
-            self.error(line, "empty definition".into());
+            self.error(pos, "empty definition".into());
         }
         if !kana_fits(&reading.kana, section) {
-            self.error(line, format!("{} is not valid kana for {section:?} readings", reading.kana.joined()));
+            self.error(pos, format!("{} is not valid kana for {section:?} readings", reading.kana.joined()));
         }
         for word in reading.words() {
             if !word.chars().all(|c| c.is_alphanumeric() || c == '_') {
-                self.error(line, format!("{word} is not a valid word"));
+                self.error(pos, format!("{word} is not a valid word"));
             }
         }
-        self.check_spelling(&reading.spelling, line);
+        self.check_spelling(&reading.spelling, pos);
         // Combined readings are vestigial, and are often for words with kanji
         // that are only introduced later.
         if section == Section::Combined {
@@ -107,32 +107,32 @@ impl<'a> Checker<'a> {
             let examples = std::iter::once(reading.spelling.described()).chain(reading.variants.iter().map(|v| v.word.as_str()));
             for word in examples {
                 if !word.contains(kanji) {
-                    self.error(line, format!("{word} doesn't contain {kanji}"));
+                    self.error(pos, format!("{word} doesn't contain {kanji}"));
                 }
             }
         }
         let kana = to_hiragana(&reading.kana.joined());
         for word in reading.words() {
             if !kana_matches(&to_hiragana(word), &kana) {
-                self.error(line, format!("{word} doesn't match its reading {}", reading.kana.joined()));
+                self.error(pos, format!("{word} doesn't match its reading {}", reading.kana.joined()));
             }
         }
     }
 
-    fn check_spelling(&mut self, spelling: &Spelling, line: usize) {
+    fn check_spelling(&mut self, spelling: &Spelling, pos: Pos) {
         let words = spelling.words();
         if (1..words.len()).any(|i| words[..i].contains(&words[i])) {
-            self.error(line, "spelling contains a repeated word".into());
+            self.error(pos, "spelling contains a repeated word".into());
         }
         if !has_han(spelling.described()) {
-            self.error(line, format!("example spelling {} contains no kanji", spelling.described()));
+            self.error(pos, format!("example spelling {} contains no kanji", spelling.described()));
         }
         if let Spelling::SecondaryKanji { kanji, described, .. } = spelling {
             if !has_han(&kanji.word) {
-                self.error(line, format!("kanji spelling {} contains no kanji", kanji.word));
+                self.error(pos, format!("kanji spelling {} contains no kanji", kanji.word));
             }
             if described.freq > kanji.freq {
-                self.error(line, format!("{} is marked as more common than {}", described.word, kanji.word));
+                self.error(pos, format!("{} is marked as more common than {}", described.word, kanji.word));
             }
         }
     }
