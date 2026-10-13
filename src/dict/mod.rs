@@ -8,6 +8,7 @@ pub mod read;
 pub mod serialize;
 
 use std::fmt;
+use std::ops::Index;
 
 /// A position in the dictionary file. Both the line and the column are counted
 /// from 1, and the column is counted in characters.
@@ -107,11 +108,15 @@ impl Spelling {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Section {
+pub enum ReadingType {
     On,
     Kun,
     Combined,
-    Word,
+}
+
+impl ReadingType {
+    /// All types, in the order they're written in a kanji entry.
+    pub const ALL: [ReadingType; 3] = [ReadingType::On, ReadingType::Kun, ReadingType::Combined];
 }
 
 #[derive(Debug, Clone)]
@@ -169,19 +174,28 @@ pub struct KanjiPart {
 }
 
 impl KanjiPart {
-    pub fn sections(&self) -> [(Section, &[ReadingGroup]); 3] {
-        [(Section::On, &self.on), (Section::Kun, &self.kun), (Section::Combined, &self.combined)]
-    }
-
     pub fn readings(&self) -> impl Iterator<Item = &Reading> {
         self.on.iter().chain(&self.kun).chain(&self.combined).flatten()
+    }
+}
+
+/// The groups of readings of one type.
+impl Index<ReadingType> for KanjiPart {
+    type Output = Vec<ReadingGroup>;
+
+    fn index(&self, reading_type: ReadingType) -> &Vec<ReadingGroup> {
+        match reading_type {
+            ReadingType::On => &self.on,
+            ReadingType::Kun => &self.kun,
+            ReadingType::Combined => &self.combined,
+        }
     }
 }
 
 #[derive(Debug, Clone)]
 pub struct KanjiEntry {
     pub pos: Pos,
-    pub kanji: String,
+    pub kanji: char,
     pub parts: Vec<KanjiPart>,
 }
 

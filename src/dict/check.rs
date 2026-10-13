@@ -14,7 +14,7 @@ pub fn check(entries: &[Entry]) -> Vec<Error> {
     let mut tables = HashMap::new();
     for entry in entries {
         let (pos, name) = match entry {
-            Entry::Kanji(entry) => (entry.pos, entry.kanji.clone()),
+            Entry::Kanji(entry) => (entry.pos, entry.kanji.to_string()),
             Entry::Word(entry) => (entry.pos, entry.headword.clone()),
         };
         if !names.insert(name.clone()) {
@@ -28,14 +28,12 @@ pub fn check(entries: &[Entry]) -> Vec<Error> {
     errors
 }
 
-fn check_kanji<'a>(entry: &'a KanjiEntry, known: &mut HashSet<char>, tables: &mut HashMap<String, &'a str>, errors: &mut Vec<Error>) {
-    let kanji = &entry.kanji;
-    let mut chars = kanji.chars();
-    match (chars.next(), chars.next()) {
-        (Some(c), None) if is_kanji(c) => {
-            known.insert(c);
-        }
-        _ => errors.push(Error::new(entry.pos, format!("{kanji} is not a single kanji"))),
+fn check_kanji(entry: &KanjiEntry, known: &mut HashSet<char>, tables: &mut HashMap<String, char>, errors: &mut Vec<Error>) {
+    let kanji = entry.kanji;
+    if is_kanji(kanji) {
+        known.insert(kanji);
+    } else {
+        errors.push(Error::new(entry.pos, format!("{kanji} is not a kanji")));
     }
     if !entry.parts.iter().flat_map(KanjiPart::readings).any(|r| r.core) {
         errors.push(Error::new(entry.pos, format!("{kanji} has no core reading")));
@@ -48,10 +46,10 @@ fn check_kanji<'a>(entry: &'a KanjiEntry, known: &mut HashSet<char>, tables: &mu
         if let Some(other) = tables.insert(hidden_table(part, kanji), kanji) {
             errors.push(Error::new(entry.pos, format!("{other} and {kanji} have identical cards")));
         }
-        for (section, groups) in part.sections() {
-            check_groups(groups, entry.pos, errors);
-            for reading in groups.iter().flatten() {
-                check_reading(reading, section, kanji, errors);
+        for reading_type in ReadingType::ALL {
+            check_groups(&part[reading_type], entry.pos, errors);
+            for reading in part[reading_type].iter().flatten() {
+                check_reading(reading, Some(reading_type), Some(kanji), errors);
             }
         }
     }
@@ -73,7 +71,7 @@ fn check_word(entry: &WordEntry, known: &HashSet<char>, errors: &mut Vec<Error>)
     }
     check_groups(&entry.readings, entry.pos, errors);
     for reading in entry.readings.iter().flatten() {
-        check_reading(reading, Section::Word, "", errors);
+        check_reading(reading, None, None, errors);
         for word in reading.words() {
             for c in word.chars().filter(|&c| is_kanji(c) && !known.contains(&c)) {
                 errors.push(Error::new(reading.pos, format!("{word} contains {c}, which hasn't been introduced yet")));
@@ -90,14 +88,19 @@ fn check_groups(groups: &[ReadingGroup], pos: Pos, errors: &mut Vec<Error>) {
     }
 }
 
-/// Checks a reading of `kanji`, which is empty for word entries.
-fn check_reading(reading: &Reading, section: Section, kanji: &str, errors: &mut Vec<Error>) {
+/// Checks a reading of `kanji`. Both the reading type and the kanji are `None`
+/// for word entries.
+fn check_reading(reading: &Reading, reading_type: Option<ReadingType>, kanji: Option<char>, errors: &mut Vec<Error>) {
     let pos = reading.pos;
     if reading.definition.trim().is_empty() {
         errors.push(Error::new(pos, "empty definition"));
     }
-    if !kana_fits(&reading.kana, section) {
-        errors.push(Error::new(pos, format!("{} is not valid kana for {section:?} readings", reading.kana.joined())));
+    if !kana_fits(&reading.kana, reading_type) {
+        let readings = match reading_type {
+            Some(reading_type) => format!("{reading_type:?} readings"),
+            None => "word readings".into(),
+        };
+        errors.push(Error::new(pos, format!("{} is not valid kana for {readings}", reading.kana.joined())));
     }
     for word in reading.words() {
         if word.is_empty() {
@@ -109,10 +112,10 @@ fn check_reading(reading: &Reading, section: Section, kanji: &str, errors: &mut 
     check_spelling(&reading.spelling, pos, errors);
     // Combined readings are vestigial, and are often for words with kanji
     // that are only introduced later.
-    if section == Section::Combined {
+    if reading_type == Some(ReadingType::Combined) {
         return;
     }
-    if !kanji.is_empty() {
+    if let Some(kanji) = kanji {
         let examples = std::iter::once(reading.spelling.described()).chain(reading.variants.iter().map(|v| v.word.as_str()));
         for word in examples {
             if !word.contains(kanji) {
@@ -146,16 +149,18 @@ fn check_spelling(spelling: &Spelling, pos: Pos, errors: &mut Vec<Error>) {
     }
 }
 
-fn kana_fits(kana: &Kana, section: Section) -> bool {
+/// Whether the kana has the right form for the reading type, which is `None`
+/// for word entries.
+fn kana_fits(kana: &Kana, reading_type: Option<ReadingType>) -> bool {
     let all = |text: &str, f: fn(char) -> bool| text.chars().all(f);
-    match (kana, section) {
-        (Kana::Split { pre, mid, post }, Section::On) => {
+    match (kana, reading_type) {
+        (Kana::Split { pre, mid, post }, Some(ReadingType::On)) => {
             !mid.is_empty() && [pre, mid, post].iter().all(|s| all(s, is_katakana))
         }
-        (Kana::Split { pre, mid, post }, Section::Kun) => {
+        (Kana::Split { pre, mid, post }, Some(ReadingType::Kun)) => {
             !mid.is_empty() && [pre, mid, post].iter().all(|s| all(s, is_hiragana))
         }
-        (Kana::Unsplit(kana), Section::Combined | Section::Word) => {
+        (Kana::Unsplit(kana), Some(ReadingType::Combined) | None) => {
             !kana.is_empty() && (all(kana, is_hiragana) || all(kana, is_katakana))
         }
         _ => false,
@@ -175,7 +180,7 @@ fn kana_matches(word: &str, kana: &str) -> bool {
 }
 
 /// The contents of a kanji card with the kanji hidden.
-fn hidden_table(part: &KanjiPart, kanji: &str) -> String {
+fn hidden_table(part: &KanjiPart, kanji: char) -> String {
     part.readings()
         .map(|r| {
             let words: Vec<String> = r.spelling.words().iter().map(|w| w.replace(kanji, "[]")).collect();

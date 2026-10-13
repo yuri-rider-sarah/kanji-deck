@@ -14,7 +14,11 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
     loop {
         let mut parse_entry = |head: String, args: &mut Args| match head.as_str() {
             "kanji" => {
-                let kanji = args.take_string()?;
+                let name = args.take_string()?;
+                let mut chars = name.chars();
+                let (Some(kanji), None) = (chars.next(), chars.next()) else {
+                    return Err(Error::new(args.get_pos(), format!("{name} is not a single character")));
+                };
                 let part_no = args.take_optional_by_name("part", |args| {
                     args.take_string()?.parse().ok().filter(|&n| n > 0).ok_or_else(|| Error::new(args.get_pos(), "bad part number"))
                 })?;

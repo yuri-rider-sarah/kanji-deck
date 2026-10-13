@@ -13,9 +13,9 @@ pub fn serialize(entries: &[Entry]) -> String {
                     } else {
                         lines.push(format!("kanji {}", entry.kanji));
                     }
-                    let sections = [("on-group", &part.on), ("kun-group", &part.kun), ("combined-group", &part.combined)];
-                    for (head, groups) in sections {
-                        for group in groups {
+                    let heads = [(ReadingType::On, "on-group"), (ReadingType::Kun, "kun-group"), (ReadingType::Combined, "combined-group")];
+                    for (reading_type, head) in heads {
+                        for group in &part[reading_type] {
                             lines.push(format!("    {head}"));
                             for reading in group {
                                 write_reading(&mut lines, reading);

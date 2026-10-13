@@ -7,16 +7,17 @@ fn escape(text: &str) -> String {
 }
 
 /// A word with the kanji highlighted, or the whole word if there's no kanji.
-fn word_html(word: &str, kanji: &str) -> String {
-    if kanji.is_empty() {
-        format!("<span class=\"kanji\">{}</span>", escape(word))
-    } else {
-        let parts: Vec<String> = word.split(kanji).map(escape).collect();
-        parts.join(&format!("<span class=\"kanji\">{kanji}</span>"))
+fn word_html(word: &str, kanji: Option<char>) -> String {
+    match kanji {
+        None => format!("<span class=\"kanji\">{}</span>", escape(word)),
+        Some(kanji) => {
+            let parts: Vec<String> = word.split(kanji).map(escape).collect();
+            parts.join(&format!("<span class=\"kanji\">{kanji}</span>"))
+        }
     }
 }
 
-fn freq_word_html(fw: &FreqWord, kanji: &str) -> String {
+fn freq_word_html(fw: &FreqWord, kanji: Option<char>) -> String {
     match fw.freq {
         Freq::Common => word_html(&fw.word, kanji),
         Freq::Rare => format!("<span class=\"rare\">{}</span>", word_html(&fw.word, kanji)),
@@ -24,7 +25,7 @@ fn freq_word_html(fw: &FreqWord, kanji: &str) -> String {
 }
 
 /// The spellings shown in addition to the main one.
-fn other_spelling_html(spelling: &Spelling, kanji: &str) -> String {
+fn other_spelling_html(spelling: &Spelling, kanji: Option<char>) -> String {
     match spelling {
         Spelling::Primary(_) => String::new(),
         Spelling::PrimaryKanji { kanji: word, .. } | Spelling::Secondary { described: word, .. } => {
@@ -45,7 +46,7 @@ fn kana_html(kana: &Kana) -> String {
     }
 }
 
-fn variants_html(variants: &[FreqWord], under_primary: bool, kanji: &str) -> String {
+fn variants_html(variants: &[FreqWord], under_primary: bool, kanji: Option<char>) -> String {
     let text = variants.iter().map(|v| freq_word_html(v, kanji)).collect::<Vec<_>>().join(", ");
     if under_primary {
         format!("<tr class=\"variant\"><td></td><td>~ {text}</td><td></td><td></td></tr>\n")
@@ -56,7 +57,7 @@ fn variants_html(variants: &[FreqWord], under_primary: bool, kanji: &str) -> Str
 
 /// A table row for a reading, and one for its variants if it has any. `main`
 /// is set for the first reading in a group.
-fn reading_html(reading: &Reading, main: bool, kanji: &str) -> String {
+fn reading_html(reading: &Reading, main: bool, kanji: Option<char>) -> String {
     let mut classes = Vec::new();
     match reading.origin {
         Some(ReadingOrigin::Asian) => classes.push("asian"),
@@ -88,7 +89,7 @@ fn reading_html(reading: &Reading, main: bool, kanji: &str) -> String {
 }
 
 /// A table with one `<tbody>` per non-empty section, named by its class.
-fn table(sections: &[(&str, &[ReadingGroup])], kanji: &str) -> String {
+fn table(sections: &[(&str, &[ReadingGroup])], kanji: Option<char>) -> String {
     let mut html = String::from("<table>\n");
     for (class, groups) in sections.iter().filter(|(_, groups)| !groups.is_empty()) {
         html += &format!("<tbody class=\"{class}\">\n");
@@ -116,12 +117,13 @@ pub fn json(entries: &[Entry]) -> String {
                 for (i, part) in entry.parts.iter().enumerate() {
                     // Parts are numbered from 1, but only if there's more than one.
                     let number = if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
-                    let sections = [("on", &part.on[..]), ("kun", &part.kun[..]), ("combined", &part.combined[..])];
-                    notes.push(note_json(&entry.kanji, &number, &table(&sections, &entry.kanji)));
+                    let classes = [(ReadingType::On, "on"), (ReadingType::Kun, "kun"), (ReadingType::Combined, "combined")];
+                    let sections = classes.map(|(reading_type, class)| (class, &part[reading_type][..]));
+                    notes.push(note_json(&entry.kanji.to_string(), &number, &table(&sections, Some(entry.kanji))));
                 }
             }
             Entry::Word(entry) => {
-                let content = table(&[("word", &entry.readings[..])], "");
+                let content = table(&[("word", &entry.readings[..])], None);
                 notes.push(note_json(&entry.headword, "", &content));
             }
         }
