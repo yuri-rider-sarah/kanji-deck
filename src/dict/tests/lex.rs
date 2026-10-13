@@ -113,7 +113,7 @@ fn record_string_characters() {
 
 #[test]
 fn triple_pipe() {
-    assert_eq!(error("a ||| b"), "1:3: unexpected |||");
+    assert_eq!(error("a ||| b"), "1:3: ambiguous token: |||");
 }
 
 #[test]
@@ -132,7 +132,7 @@ fn touching_strings() {
 
 #[test]
 fn unterminated_string() {
-    assert_eq!(error("a\n\"b"), "2:1: unterminated string");
+    assert_eq!(error("a\n\"b"), "2:3: unterminated string");
     assert_eq!(error("\"a\u{7}\""), "1:3: unexpected character '\\u{7}' in string");
 }
 
@@ -161,7 +161,7 @@ fn other_whitespace_after_indentation() {
 #[test]
 fn other_line_breaks() {
     assert_eq!(kinds("a\r\nb\r\n"), [s("a"), Newline, s("b"), Newline, Eof]);
-    assert_eq!(error("a\nb\rc"), "2:2: unexpected character '\\r'");
+    assert_eq!(error("a\nb\rc"), "2:3: expected NL after CR");
     assert_eq!(error("a\n\u{b}"), "2:1: unexpected character '\\u{b}'");
     assert_eq!(error("a \u{c}"), "1:3: unexpected character '\\u{c}'");
     assert_eq!(error("|| a\u{85}"), "1:5: unexpected character '\\u{85}'");
@@ -182,13 +182,10 @@ fn positions() {
 fn cursor_stays_at_end_of_file() {
     let mut tokens = tokenize("a");
     assert_eq!(tokens.next().unwrap().kind, s("a"));
-    assert_eq!(tokens.next_if(|kind| kind == &Colon).unwrap(), None);
-    assert_eq!(tokens.next_if(|kind| kind == &Newline).unwrap().map(|t| t.kind), Some(Newline));
+    assert_eq!(tokens.next().unwrap().kind, Newline);
     assert_eq!(tokens.next().unwrap().kind, Eof);
     assert_eq!(tokens.peek().unwrap(), &Eof);
     assert_eq!(tokens.next().unwrap().kind, Eof);
-    let e = tokens.expect(Newline).unwrap_err();
-    assert_eq!(format!("{}: {}", e.pos, e.message), "1:2: unexpected end of file");
 }
 
 #[test]

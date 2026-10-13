@@ -34,6 +34,10 @@ impl Error {
     fn new(pos: Pos, message: impl Into<String>) -> Error {
         Error { pos, message: message.into() }
     }
+
+    fn unexpected_node(pos: Pos, head: &str) -> Error {
+        Error::new(pos, format!("unexpected {}", head))
+    }
 }
 
 impl fmt::Display for Error {

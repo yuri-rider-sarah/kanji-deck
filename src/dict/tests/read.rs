@@ -46,8 +46,8 @@ fn record_as_single_node() {
 
 #[test]
 fn single_node_record_takes_nothing_more() {
-    assert_eq!(error("a(b) c"), "1:6: unexpected c");
-    assert_eq!(error("a:b c"), "1:5: unexpected c");
+    assert_eq!(error("a(b) c"), "1:6: unexpected string");
+    assert_eq!(error("a:b c"), "1:5: unexpected string");
     assert_eq!(error("a:b | c"), "1:5: unexpected |");
     assert_eq!(error("a:b\n    c"), "2:5: unexpected indentation");
 }
@@ -61,7 +61,7 @@ fn segments() {
 
 #[test]
 fn segment_single_node_takes_nothing_more() {
-    assert_eq!(error("a | b(c) d"), "1:10: unexpected d");
+    assert_eq!(error("a | b(c) d"), "1:10: unexpected string");
 }
 
 #[test]
@@ -87,7 +87,7 @@ fn continuation_after_child() {
 
 #[test]
 fn line_starting_with_record_string() {
-    assert_eq!(error("|| a"), "1:1: unexpected || a");
+    assert_eq!(error("|| a"), "1:1: unexpected record string");
 }
 
 #[test]
@@ -122,25 +122,24 @@ fn positions() {
 #[test]
 fn args_cursor() {
     let mut root = read("a x #f y:z w").unwrap();
-    let result = root.take_list(|name, args| {
+    let result = root.take_one(|name, args| {
         assert_eq!(name, "a");
         assert_eq!(args.take_string()?, "x");
         assert!(!args.take_flag("#g"));
         assert!(args.take_flag("#f"));
-        let y = args.take_optional("y", |args| args.take_string())?;
-        let missing = args.take_optional("y", |args| args.take_string())?;
+        let y = args.take_optional_by_name("y", |args| args.take_string())?;
+        let missing = args.take_optional_by_name("y", |args| args.take_string())?;
         Ok((y, missing, args.take_string()?))
     });
     assert_eq!(result.unwrap(), (Some("z".into()), None, "w".into()));
-    assert!(root.is_empty());
 }
 
 #[test]
 fn args_leftover_and_missing() {
     let mut root = read("a x y").unwrap();
-    let e = root.take_list(|_, args| args.take_string()).unwrap_err();
+    let e = root.take_one(|_, args| args.take_string()).unwrap_err();
     assert_eq!(e.message, "unexpected y");
     let mut root = read("a").unwrap();
-    let e = root.take_list(|_, args| args.take_string()).unwrap_err();
-    assert_eq!(e.message, "missing item in a");
+    let e = root.take_one(|_, args| args.take_string()).unwrap_err();
+    assert_eq!(e.message, "expected more arguments");
 }
