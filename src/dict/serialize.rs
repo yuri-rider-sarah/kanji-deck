@@ -2,6 +2,13 @@
 
 use super::*;
 
+/// Formats a line indented by the given number of levels of 4 spaces.
+macro_rules! indented {
+    ($level:expr, $($arg:tt)*) => {
+        format!("{}{}", " ".repeat(4 * $level), format_args!($($arg)*))
+    };
+}
+
 pub fn serialize(entries: &[Entry]) -> String {
     let mut lines = Vec::new();
     for entry in entries {
@@ -16,7 +23,7 @@ pub fn serialize(entries: &[Entry]) -> String {
                     let heads = [(ReadingType::On, "on-group"), (ReadingType::Kun, "kun-group"), (ReadingType::Combined, "combined-group")];
                     for (reading_type, head) in heads {
                         for group in &part[reading_type] {
-                            lines.push(format!("    {head}"));
+                            lines.push(indented!(1, "{head}"));
                             for reading in group {
                                 write_reading(&mut lines, reading);
                             }
@@ -27,7 +34,7 @@ pub fn serialize(entries: &[Entry]) -> String {
             Entry::Word(entry) => {
                 lines.push(format!("word {}", entry.headword));
                 for group in &entry.readings {
-                    lines.push("    group".into());
+                    lines.push(indented!(1, "group"));
                     for reading in group {
                         write_reading(&mut lines, reading);
                     }
@@ -48,14 +55,15 @@ fn write_reading(lines: &mut Vec<String>, reading: &Reading) {
         Some(ReadingOrigin::European) => head += " #european",
         None => {}
     }
-    lines.push(format!(
-        "        {head} | {} | {} || {}",
+    lines.push(indented!(
+        2,
+        "{head} | {} | {} || {}",
         spelling(&reading.spelling),
         kana(&reading.kana),
         reading.definition
     ));
     for variant in &reading.variants {
-        lines.push(format!("            variant {}", freq_word(variant)));
+        lines.push(indented!(3, "variant {}", freq_word(variant)));
     }
 }
 
