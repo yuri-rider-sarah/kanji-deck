@@ -8,7 +8,6 @@ pub mod read;
 pub mod serialize;
 
 use std::fmt;
-use unicode_script::{Script, UnicodeScript};
 
 /// A position in the dictionary file. Both the line and the column are counted
 /// from 1, and the column is counted in characters.
@@ -47,22 +46,6 @@ impl fmt::Display for Error {
 }
 
 pub type Result<T, E = Error> = std::result::Result<T, E>;
-
-pub fn is_han(c: char) -> bool {
-    c.script() == Script::Han
-}
-
-pub fn is_hiragana(c: char) -> bool {
-    c.script() == Script::Hiragana
-}
-
-pub fn is_katakana(c: char) -> bool {
-    c.script() == Script::Katakana || c == 'ー'
-}
-
-pub fn has_han(word: &str) -> bool {
-    word.chars().any(is_han)
-}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Freq {

@@ -1,12 +1,13 @@
 //! Validation of the dictionary contents.
 
 use super::*;
+use crate::japanese::*;
 use std::collections::{HashMap, HashSet};
 
 pub fn check(entries: &[Entry]) -> Vec<Error> {
     let mut checker = Checker {
         errors: Vec::new(),
-        known: HashSet::from(['々']),
+        known: HashSet::new(),
         names: HashSet::new(),
         tables: HashMap::new(),
     };
@@ -38,7 +39,7 @@ impl<'a> Checker<'a> {
         let kanji = &entry.kanji;
         let mut chars = kanji.chars();
         match (chars.next(), chars.next()) {
-            (Some(c), None) if is_han(c) => {
+            (Some(c), None) if is_kanji(c) => {
                 self.known.insert(c);
             }
             _ => self.error(entry.pos, format!("{kanji} is not a single kanji")),
@@ -75,7 +76,7 @@ impl<'a> Checker<'a> {
         for reading in entry.readings.iter().flatten() {
             self.check_reading(reading, Section::Word, "");
             for word in reading.words() {
-                let unknown: Vec<char> = word.chars().filter(|&c| is_han(c) && !self.known.contains(&c)).collect();
+                let unknown: Vec<char> = word.chars().filter(|&c| is_kanji(c) && !self.known.contains(&c)).collect();
                 for c in unknown {
                     self.error(reading.pos, format!("{word} contains {c}, which hasn't been introduced yet"));
                 }
@@ -124,11 +125,11 @@ impl<'a> Checker<'a> {
         if (1..words.len()).any(|i| words[..i].contains(&words[i])) {
             self.error(pos, "spelling contains a repeated word".into());
         }
-        if !has_han(spelling.described()) {
+        if !has_kanji(spelling.described()) {
             self.error(pos, format!("example spelling {} contains no kanji", spelling.described()));
         }
         if let Spelling::SecondaryKanji { kanji, described, .. } = spelling {
-            if !has_han(&kanji.word) {
+            if !has_kanji(&kanji.word) {
                 self.error(pos, format!("kanji spelling {} contains no kanji", kanji.word));
             }
             if described.freq > kanji.freq {
@@ -154,24 +155,16 @@ fn kana_fits(kana: &Kana, section: Section) -> bool {
     }
 }
 
-/// Whether the kana at the start and end of a word matches its reading.
+/// Whether the kana at the start and end of a word matches its reading. Both
+/// are in hiragana.
 fn kana_matches(word: &str, kana: &str) -> bool {
-    let is_kana = |c: &char| !is_han(*c) && *c != 'ゖ';
+    let is_kana = |c: &char| is_hiragana(*c) || is_katakana(*c);
     if word.chars().all(|c| is_kana(&c)) {
         return word == kana;
     }
     let pre: String = word.chars().take_while(is_kana).collect();
     let post: String = word.chars().rev().take_while(is_kana).collect::<Vec<_>>().into_iter().rev().collect();
     kana.len() > pre.len() + post.len() && kana.starts_with(&pre) && kana.ends_with(&post)
-}
-
-fn to_hiragana(text: &str) -> String {
-    text.chars()
-        .map(|c| match c {
-            'ァ'..='ヶ' => char::from_u32(c as u32 - 0x60).unwrap(),
-            c => c,
-        })
-        .collect()
 }
 
 /// The contents of a kanji card with the kanji hidden.
