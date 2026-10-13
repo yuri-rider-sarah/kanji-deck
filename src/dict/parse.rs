@@ -45,9 +45,6 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
             "word" => {
                 let headword = args.take_string()?;
                 let readings = args.take_many_by_name("group", parse_group)?;
-                if readings.is_empty() {
-                    return Err(Error::new(args.get_pos(), "word without readings"));
-                }
                 entries.push(Entry::Word(WordEntry { pos: args.get_pos(), headword, readings }));
                 last_part_no = None;
                 Ok(())
@@ -67,11 +64,7 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
 }
 
 fn parse_group(args: &mut Args) -> Result<ReadingGroup> {
-    let readings = args.take_many_by_name("reading", parse_reading)?;
-    if readings.is_empty() {
-        return Err(Error::new(args.get_pos(), "empty group"));
-    }
-    Ok(readings)
+    args.take_many_by_name("reading", parse_reading)
 }
 
 fn parse_reading(args: &mut Args) -> Result<Reading> {
