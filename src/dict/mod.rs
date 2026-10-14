@@ -1,6 +1,5 @@
 //! The dictionary data model, with `load` to read and check a dictionary from
-//! the nodes of its file and `serialize` to write it back as text. The data types are plain: `convert` only
-//! checks the structure of the file, and `check` validates the contents.
+//! the nodes of its file and `serialize` to write it back as text.
 
 mod check;
 mod convert;
@@ -16,16 +15,18 @@ use std::ops::Index;
 /// contents. Fails with all errors found.
 pub fn load(nodes: Args) -> Result<Vec<Entry>, Vec<Error>> {
     let entries = convert::convert(nodes)?;
-    let errors = check::check(&entries);
-    if errors.is_empty() { Ok(entries) } else { Err(errors) }
+    check::check(&entries)?;
+    Ok(entries)
 }
 
+/// The relative frequency of a spelling.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Freq {
     Rare,
     Common,
 }
 
+/// A spelling along with its frequency.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FreqWord {
     pub freq: Freq,
@@ -72,6 +73,7 @@ impl Spelling {
         }
     }
 
+    /// All spellings in the `Spelling` as a list, in order.
     pub fn words(&self) -> Vec<&str> {
         match self {
             Spelling::Primary(main) => vec![main],
@@ -94,13 +96,17 @@ impl ReadingType {
     pub const ALL: [ReadingType; 3] = [ReadingType::On, ReadingType::Kun, ReadingType::Combined];
 }
 
+/// The kana used to spell a word
 #[derive(Debug, Clone)]
 pub enum Kana {
+    /// A reading with the middle part marked as written by a given kanji.
     Split { pre: String, mid: String, post: String },
+    /// A reading without no section dinstinguished.
     Unsplit(String),
 }
 
 impl Kana {
+    /// The kana joined into a single string.
     pub fn joined(&self) -> String {
         match self {
             Kana::Split { pre, mid, post } => format!("{pre}{mid}{post}"),
@@ -109,12 +115,14 @@ impl Kana {
     }
 }
 
+/// The origin of a reading, for more recent loanwords.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReadingOrigin {
     Asian,
     European,
 }
 
+/// A specific example of a kanji reading.
 #[derive(Debug, Clone)]
 pub struct Reading {
     pub line: usize,
@@ -126,21 +134,10 @@ pub struct Reading {
     pub variants: Vec<FreqWord>,
 }
 
-impl Reading {
-    /// All spellings including variants, without repetitions.
-    pub fn words(&self) -> Vec<&str> {
-        let mut words = Vec::new();
-        for word in self.spelling.words().into_iter().chain(self.variants.iter().map(|v| v.word.as_str())) {
-            if !words.contains(&word) {
-                words.push(word);
-            }
-        }
-        words
-    }
-}
-
+/// A group of related reading examples.
 pub type ReadingGroup = Vec<Reading>;
 
+/// One part of a kanji entry. Most kanji only have a single part.
 #[derive(Debug, Clone)]
 pub struct KanjiPart {
     pub on: Vec<ReadingGroup>,
@@ -149,15 +146,16 @@ pub struct KanjiPart {
 }
 
 impl KanjiPart {
+    /// All readings combined into a single list.
     pub fn readings(&self) -> impl Iterator<Item = &Reading> {
         self.on.iter().chain(&self.kun).chain(&self.combined).flatten()
     }
 }
 
-/// The groups of readings of one type.
 impl Index<ReadingType> for KanjiPart {
     type Output = Vec<ReadingGroup>;
 
+    /// The groups of readings for a given type.
     fn index(&self, reading_type: ReadingType) -> &Vec<ReadingGroup> {
         match reading_type {
             ReadingType::On => &self.on,

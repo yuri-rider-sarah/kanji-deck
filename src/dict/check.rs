@@ -4,7 +4,7 @@ use super::*;
 use crate::japanese::*;
 use std::collections::HashSet;
 
-pub fn check(entries: &[Entry]) -> Vec<Error> {
+pub fn check(entries: &[Entry]) -> Result<(), Vec<Error>> {
     let mut errors = Vec::new();
     // Kanji introduced so far.
     let mut known_kanji = HashSet::new();
@@ -16,7 +16,7 @@ pub fn check(entries: &[Entry]) -> Vec<Error> {
             Entry::Word(entry) => check_word(entry, &known_kanji, &mut known_words, &mut errors),
         }
     }
-    errors
+    if errors.is_empty() { Ok(()) } else { Err(errors) }
 }
 
 fn check_kanji(entry: &KanjiEntry, known_kanji: &mut HashSet<char>, errors: &mut Vec<Error>) {
@@ -68,7 +68,7 @@ fn check_word<'a>(entry: &'a WordEntry, known_kanji: &HashSet<char>, known_words
     check_groups(&entry.readings, entry.line, errors);
     for reading in entry.readings.iter().flatten() {
         check_reading(reading, None, None, errors);
-        for word in reading.words() {
+        for word in unique_words(reading) {
             for c in word.chars().filter(|&c| is_kanji(c) && !known_kanji.contains(&c)) {
                 errors.push(Error::at_line(reading.line, format!("{word} contains {c}, which hasn't been introduced yet")));
             }
@@ -98,7 +98,7 @@ fn check_reading(reading: &Reading, reading_type: Option<ReadingType>, kanji: Op
         };
         errors.push(Error::at_line(line, format!("{} is not valid kana for {readings}", reading.kana.joined())));
     }
-    for word in reading.words() {
+    for word in unique_words(reading) {
         if word.is_empty() {
             errors.push(Error::at_line(line, "empty word"));
         } else if !word.chars().all(is_japanese) {
@@ -120,7 +120,7 @@ fn check_reading(reading: &Reading, reading_type: Option<ReadingType>, kanji: Op
         }
     }
     let kana = katakana_to_hiragana(&reading.kana.joined());
-    for word in reading.words() {
+    for word in unique_words(reading) {
         if !hiragana_matches(&katakana_to_hiragana(word), &kana) {
             errors.push(Error::at_line(line, format!("{word} doesn't match its reading {}", reading.kana.joined())));
         }
@@ -171,4 +171,15 @@ fn hiragana_matches(word: &str, kana: &str) -> bool {
     let pre: String = word.chars().take_while(|&c| is_hiragana(c)).collect();
     let post: String = word.chars().rev().take_while(|&c| is_hiragana(c)).collect::<Vec<_>>().into_iter().rev().collect();
     kana.len() > pre.len() + post.len() && kana.starts_with(&pre) && kana.ends_with(&post)
+}
+
+/// All spellings in a reading including variants, without repetitions.
+fn unique_words(reading: &Reading) -> Vec<&str> {
+    let mut words = Vec::new();
+    for word in reading.spelling.words().into_iter().chain(reading.variants.iter().map(|v| v.word.as_str())) {
+        if !words.contains(&word) {
+            words.push(word);
+        }
+    }
+    words
 }
