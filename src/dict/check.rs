@@ -4,7 +4,7 @@ use super::*;
 use crate::japanese::*;
 use std::collections::HashSet;
 
-pub(super) fn check(entries: &[Entry]) -> Vec<Error> {
+pub fn check(entries: &[Entry]) -> Vec<Error> {
     let mut errors = Vec::new();
     // Kanji introduced so far.
     let mut known_kanji = HashSet::new();
