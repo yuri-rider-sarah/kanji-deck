@@ -1,52 +1,24 @@
-//! The dictionary data model. These are plain data types: `parse` only checks
-//! the structure of the file, and `check` validates the contents.
+//! The dictionary data model, with `load` to read and check a dictionary from
+//! the nodes of its file and `serialize` to write it back as text. The data types are plain: `convert` only
+//! checks the structure of the file, and `check` validates the contents.
 
-pub mod check;
-mod lex;
-pub mod parse;
-pub mod read;
-pub mod serialize;
+mod check;
+mod convert;
+mod serialize;
 
-use std::fmt;
+pub use serialize::serialize;
+
+use crate::error::{Error, Result};
+use crate::parser::Args;
 use std::ops::Index;
 
-/// A position in the dictionary file. Both the line and the column are counted
-/// from 1, and the column is counted in characters.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Pos {
-    pub line: usize,
-    pub column: usize,
+/// Reads the dictionary from the top-level nodes of its file, and checks its
+/// contents. Fails with all errors found.
+pub fn load(nodes: Args) -> Result<Vec<Entry>, Vec<Error>> {
+    let entries = convert::convert(nodes)?;
+    let errors = check::check(&entries);
+    if errors.is_empty() { Ok(entries) } else { Err(errors) }
 }
-
-impl fmt::Display for Pos {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}:{}", self.line, self.column)
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct Error {
-    pub pos: Pos,
-    pub message: String,
-}
-
-impl Error {
-    fn new(pos: Pos, message: impl Into<String>) -> Error {
-        Error { pos, message: message.into() }
-    }
-
-    fn unexpected_node(pos: Pos, head: &str) -> Error {
-        Error::new(pos, format!("unexpected {}", head))
-    }
-}
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}: {}", self.pos, self.message)
-    }
-}
-
-pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Freq {
@@ -145,7 +117,7 @@ pub enum ReadingOrigin {
 
 #[derive(Debug, Clone)]
 pub struct Reading {
-    pub pos: Pos,
+    line: usize,
     pub core: bool,
     pub spelling: Spelling,
     pub kana: Kana,
@@ -197,14 +169,14 @@ impl Index<ReadingType> for KanjiPart {
 
 #[derive(Debug, Clone)]
 pub struct KanjiEntry {
-    pub pos: Pos,
+    line: usize,
     pub kanji: char,
     pub parts: Vec<KanjiPart>,
 }
 
 #[derive(Debug, Clone)]
 pub struct WordEntry {
-    pub pos: Pos,
+    line: usize,
     pub headword: String,
     pub readings: Vec<ReadingGroup>,
 }

@@ -1,5 +1,5 @@
-//! Reads the tokens from `lex` into a tree of nodes, without interpreting what
-//! they mean. The parser accesses the tree through `Args`.
+//! Reads the tokens from `lex` into a tree of nodes, which callers access
+//! through `Args`.
 //!
 //! ```text
 //! file         = { record } ;
@@ -17,8 +17,9 @@
 //! is `a()`. A record's arguments are its own nodes, then its segments and
 //! continuation lines, then the records indented under it.
 
+use super::Pos;
 use super::lex::{Token, TokenKind, Tokens, tokenize};
-use super::{Error, Pos, Result};
+use crate::error::{Error, Result};
 use std::collections::VecDeque;
 
 struct Node {
@@ -27,8 +28,8 @@ struct Node {
     args: Vec<Node>,
 }
 
-/// Reads the text into its top-level records.
-pub fn read(text: &str) -> Result<Args> {
+/// Parses the text into its top-level records.
+pub fn parse(text: &str) -> Result<Args> {
     let mut tokens = tokenize(text);
     let mut nodes = VecDeque::new();
     while tokens.peek()? != &TokenKind::Eof {

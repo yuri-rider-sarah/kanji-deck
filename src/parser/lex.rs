@@ -1,11 +1,12 @@
-//! Splits the dictionary text into tokens.
+//! Splits text into tokens.
 //!
 //! Indentation is turned into `Indent` and `Dedent` tokens, and every
 //! non-blank line ends with a `Newline` token. Indentation is made of spaces
 //! or tabs. Within a line, any whitespace separates tokens, but is otherwise
 //! ignored. Tokens are read lazily.
 
-use super::{Error, Pos, Result};
+use super::Pos;
+use crate::error::{Error, Result};
 use std::str::Chars;
 use unicode_general_category::{GeneralCategory as GC, get_general_category};
 

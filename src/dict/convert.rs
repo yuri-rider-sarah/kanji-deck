@@ -1,13 +1,11 @@
-//! The second phase of parsing the dictionary: converting the tree of nodes
-//! into entries. Only the basic structure is checked here; the contents are
+//! Converts the tree of nodes from `parser` into dictionary entries. Only the basic structure is checked here; the contents are
 //! validated by `check`. Errors are collected per entry, so all broken entries
 //! are reported at once.
 
-use super::read::{Args, read};
 use super::*;
+use crate::parser::Args;
 
-pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
-    let mut root = read(text).map_err(|e| vec![e])?;
+pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
     let mut entries = Vec::new();
     let mut errors = Vec::new();
     let mut last_part_no = None;
@@ -29,7 +27,7 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
                 };
                 match part_no {
                     None | Some(1) => {
-                        entries.push(Entry::Kanji(KanjiEntry { pos: args.get_pos(), kanji, parts: vec![data] }));
+                        entries.push(Entry::Kanji(KanjiEntry { line: args.get_pos().line, kanji, parts: vec![data] }));
                     },
                     Some(part_no) => {
                         // If there was a part number above 1, it must follow the part number in the last entry.
@@ -38,7 +36,7 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
                                 entry.parts.push(data);
                             },
                             _ => {
-                                return Err(Error { pos: args.get_pos(), message: format!("part:{part_no} doesn't follow part:{}", part_no - 1) });
+                                return Err(Error::new(args.get_pos(), format!("part:{part_no} doesn't follow part:{}", part_no - 1)));
                             },
                         }
                     },
@@ -49,7 +47,7 @@ pub fn parse(text: &str) -> Result<Vec<Entry>, Vec<Error>> {
             "word" => {
                 let headword = args.take_string()?;
                 let readings = args.take_many_by_name("group", parse_group)?;
-                entries.push(Entry::Word(WordEntry { pos: args.get_pos(), headword, readings }));
+                entries.push(Entry::Word(WordEntry { line: args.get_pos().line, headword, readings }));
                 last_part_no = None;
                 Ok(())
             }
@@ -81,7 +79,7 @@ fn parse_reading(args: &mut Args) -> Result<Reading> {
         None
     };
     Ok(Reading {
-        pos: args.get_pos(),
+        line: args.get_pos().line,
         core,
         origin,
         spelling: args.take_one(parse_spelling)?,

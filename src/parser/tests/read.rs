@@ -15,14 +15,14 @@ fn render(node: &Node) -> String {
 
 /// The top-level records, rendered as `a(b c)` and separated by `; `.
 fn read_str(text: &str) -> String {
-    let args = read(text).unwrap_or_else(|e| panic!("{}: {}", e.pos, e.message));
+    let args = parse(text).unwrap_or_else(|e| panic!("{e}"));
     args.nodes.iter().map(render).collect::<Vec<_>>().join("; ")
 }
 
 fn error(text: &str) -> String {
-    match read(text) {
+    match parse(text) {
         Ok(args) => panic!("no error, got {}", args.nodes.iter().map(render).collect::<Vec<_>>().join("; ")),
-        Err(e) => format!("{}: {}", e.pos, e.message),
+        Err(e) => e.to_string(),
     }
 }
 
@@ -112,7 +112,7 @@ fn dictionary_reading() {
 
 #[test]
 fn positions() {
-    let args = read("a\n\n    b | c\n        d").unwrap();
+    let args = parse("a\n\n    b | c\n        d").unwrap();
     let a = &args.nodes[0];
     let b = &a.args[0];
     let positions = [a.pos, b.pos, b.args[0].pos, b.args[1].pos].map(|pos| pos.to_string());
@@ -121,7 +121,7 @@ fn positions() {
 
 #[test]
 fn args_cursor() {
-    let mut root = read("a x #f y:z w").unwrap();
+    let mut root = parse("a x #f y:z w").unwrap();
     let result = root.take_one(|name, args| {
         assert_eq!(name, "a");
         assert_eq!(args.take_string()?, "x");
@@ -136,10 +136,10 @@ fn args_cursor() {
 
 #[test]
 fn args_leftover_and_missing() {
-    let mut root = read("a x y").unwrap();
+    let mut root = parse("a x y").unwrap();
     let e = root.take_one(|_, args| args.take_string()).unwrap_err();
     assert_eq!(e.message, "unexpected y");
-    let mut root = read("a").unwrap();
+    let mut root = parse("a").unwrap();
     let e = root.take_one(|_, args| args.take_string()).unwrap_err();
     assert_eq!(e.message, "expected more arguments");
 }

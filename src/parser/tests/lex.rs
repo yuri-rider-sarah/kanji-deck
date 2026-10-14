@@ -16,14 +16,14 @@ fn all_tokens(text: &str) -> Result<Vec<Token>> {
 }
 
 fn kinds(text: &str) -> Vec<TokenKind> {
-    let tokens = all_tokens(text).unwrap_or_else(|e| panic!("{}: {}", e.pos, e.message));
+    let tokens = all_tokens(text).unwrap_or_else(|e| panic!("{e}"));
     tokens.into_iter().map(|t| t.kind).collect()
 }
 
 fn error(text: &str) -> String {
     match all_tokens(text) {
         Ok(_) => panic!("no error"),
-        Err(e) => format!("{}: {}", e.pos, e.message),
+        Err(e) => e.to_string(),
     }
 }
 
@@ -193,5 +193,5 @@ fn errors_are_lazy() {
     let mut tokens = tokenize("a 「");
     assert_eq!(tokens.next().unwrap().kind, s("a"));
     let e = tokens.next().unwrap_err();
-    assert_eq!(format!("{}: {}", e.pos, e.message), "1:3: unexpected character '「'");
+    assert_eq!(e.to_string(), "1:3: unexpected character '「'");
 }
