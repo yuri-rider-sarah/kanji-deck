@@ -115,7 +115,7 @@ fn positions() {
     let args = parse("a\n\n    b | c\n        d").unwrap();
     let a = &args.nodes[0];
     let b = &a.args[0];
-    let positions = [a.pos, b.pos, b.args[0].pos, b.args[1].pos].map(|pos| pos.to_string());
+    let positions = [a.pos, b.pos, b.args[0].pos, b.args[1].pos].map(|pos| format!("{}:{}", pos.line, pos.column));
     assert_eq!(positions, ["1:1", "3:5", "3:9", "4:9"]);
 }
 

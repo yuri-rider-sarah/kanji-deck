@@ -173,7 +173,7 @@ fn other_line_breaks() {
 fn positions() {
     let tokens = all_tokens("a\n\n  bc (\"d\" ||e\nf").unwrap();
     assert_eq!(
-        tokens.iter().map(|t| t.pos.to_string()).collect::<Vec<_>>(),
+        tokens.iter().map(|t| format!("{}:{}", t.pos.line, t.pos.column)).collect::<Vec<_>>(),
         ["1:1", "1:2", "3:3", "3:3", "3:6", "3:7", "3:11", "3:14", "4:1", "4:1", "4:2", "4:2"]
     );
 }
