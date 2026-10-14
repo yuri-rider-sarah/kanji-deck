@@ -16,7 +16,11 @@ fn main() -> ExitCode {
             return ExitCode::FAILURE;
         }
     };
-    let errors = match parser::parse(&text).map_err(|e| vec![e]).and_then(dict::load) {
+    let entries = parser::parse(&text).map_err(|e| vec![e]).and_then(dict::load).and_then(|entries| {
+        let errors = deck::check(&entries);
+        if errors.is_empty() { Ok(entries) } else { Err(errors) }
+    });
+    let errors = match entries {
         Ok(entries) => {
             check_serializer(&text, &entries);
             return output(&deck::json(&entries));

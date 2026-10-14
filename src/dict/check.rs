@@ -2,7 +2,7 @@
 
 use super::*;
 use crate::japanese::*;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 pub(super) fn check(entries: &[Entry]) -> Vec<Error> {
     let mut errors = Vec::new();
@@ -10,18 +10,16 @@ pub(super) fn check(entries: &[Entry]) -> Vec<Error> {
     let mut known_kanji = HashSet::new();
     // Word entries introduced so far.
     let mut known_words = HashSet::new();
-    // Tables of kanji cards with the kanji hidden, to find identical cards.
-    let mut tables = HashMap::new();
     for entry in entries {
         match entry {
-            Entry::Kanji(entry) => check_kanji(entry, &mut known_kanji, &mut tables, &mut errors),
+            Entry::Kanji(entry) => check_kanji(entry, &mut known_kanji, &mut errors),
             Entry::Word(entry) => check_word(entry, &known_kanji, &mut known_words, &mut errors),
         }
     }
     errors
 }
 
-fn check_kanji(entry: &KanjiEntry, known_kanji: &mut HashSet<char>, tables: &mut HashMap<String, char>, errors: &mut Vec<Error>) {
+fn check_kanji(entry: &KanjiEntry, known_kanji: &mut HashSet<char>, errors: &mut Vec<Error>) {
     let kanji = entry.kanji;
     if !known_kanji.insert(kanji) {
         errors.push(Error::at_line(entry.line, format!("duplicate entry for kanji {kanji}")));
@@ -36,9 +34,6 @@ fn check_kanji(entry: &KanjiEntry, known_kanji: &mut HashSet<char>, tables: &mut
         if part.readings().next().is_none() {
             errors.push(Error::at_line(entry.line, format!("{kanji} has a part without readings")));
             continue;
-        }
-        if let Some(other) = tables.insert(hidden_table(part, kanji), kanji) {
-            errors.push(Error::at_line(entry.line, format!("{other} and {kanji} have identical cards")));
         }
         for reading_type in ReadingType::ALL {
             check_groups(&part[reading_type], entry.line, errors);
@@ -176,15 +171,4 @@ fn hiragana_matches(word: &str, kana: &str) -> bool {
     let pre: String = word.chars().take_while(|&c| is_hiragana(c)).collect();
     let post: String = word.chars().rev().take_while(|&c| is_hiragana(c)).collect::<Vec<_>>().into_iter().rev().collect();
     kana.len() > pre.len() + post.len() && kana.starts_with(&pre) && kana.ends_with(&post)
-}
-
-/// The contents of a kanji card with the kanji hidden.
-fn hidden_table(part: &KanjiPart, kanji: char) -> String {
-    part.readings()
-        .map(|r| {
-            let words: Vec<String> = r.spelling.words().iter().map(|w| w.replace(kanji, "[]")).collect();
-            format!("{}\n{}\n{}", words.join("\n"), r.kana.joined(), r.definition)
-        })
-        .collect::<Vec<_>>()
-        .join("\n")
 }

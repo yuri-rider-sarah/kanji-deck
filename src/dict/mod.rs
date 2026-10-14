@@ -117,7 +117,7 @@ pub enum ReadingOrigin {
 
 #[derive(Debug, Clone)]
 pub struct Reading {
-    line: usize,
+    pub line: usize,
     pub core: bool,
     pub spelling: Spelling,
     pub kana: Kana,
@@ -169,14 +169,14 @@ impl Index<ReadingType> for KanjiPart {
 
 #[derive(Debug, Clone)]
 pub struct KanjiEntry {
-    line: usize,
+    pub line: usize,
     pub kanji: char,
     pub parts: Vec<KanjiPart>,
 }
 
 #[derive(Debug, Clone)]
 pub struct WordEntry {
-    line: usize,
+    pub line: usize,
     pub headword: String,
     pub readings: Vec<ReadingGroup>,
 }

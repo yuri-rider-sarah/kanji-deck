@@ -1,6 +1,8 @@
 //! Card contents for the Anki deck, passed to generate.py as JSON.
 
 use crate::dict::*;
+use crate::error::Error;
+use std::collections::HashMap;
 
 fn escape(text: &str) -> String {
     text.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;").replace('"', "&quot;")
@@ -106,6 +108,43 @@ fn table(sections: &[(&str, &[ReadingGroup])], kanji: Option<char>) -> String {
 fn note_json(kanji: &str, part: &str, content: &str) -> String {
     let s = |text: &str| serde_json::to_string(text).unwrap();
     format!("{{\"kanji\":{},\"part\":{},\"content\":{}}}", s(kanji), s(part), s(content))
+}
+
+/// What a reading on a kanji card shows that matters for telling cards apart:
+/// its words with the kanji hidden (as `None`), its kana and its definition.
+#[derive(PartialEq, Eq, Hash)]
+struct HiddenReading {
+    words: Vec<Vec<Option<char>>>,
+    kana: String,
+    definition: String,
+}
+
+fn hidden_readings(part: &KanjiPart, kanji: char) -> Vec<HiddenReading> {
+    part.readings()
+        .map(|reading| HiddenReading {
+            words: reading.spelling.words().iter().map(|word| word.chars().map(|c| (c != kanji).then_some(c)).collect()).collect(),
+            kana: reading.kana.joined(),
+            definition: reading.definition.clone(),
+        })
+        .collect()
+}
+
+/// Finds kanji cards too similar to tell apart with the kanji hidden.
+pub fn check(entries: &[Entry]) -> Vec<Error> {
+    let mut errors = Vec::new();
+    let mut cards = HashMap::new();
+    for entry in entries {
+        if let Entry::Kanji(entry) = entry {
+            for (i, part) in entry.parts.iter().enumerate() {
+                // Parts are numbered from 1, but only if there's more than one.
+                let name = if entry.parts.len() > 1 { format!("{} (part {})", entry.kanji, i + 1) } else { entry.kanji.to_string() };
+                if let Some(other) = cards.insert(hidden_readings(part, entry.kanji), name.clone()) {
+                    errors.push(Error::at_line(entry.line, format!("{other} and {name} have cards too similar to tell apart")));
+                }
+            }
+        }
+    }
+    errors
 }
 
 /// JSON with one object per card, in the format generate.py expects.
