@@ -106,7 +106,7 @@ fn check_reading(reading: &Reading, reading_type: Option<ReadingType>, kanji: Op
     for word in reading.words() {
         if word.is_empty() {
             errors.push(Error::at_line(line, "empty word"));
-        } else if !word.chars().all(|c| c.is_alphanumeric() || c == '_') {
+        } else if !word.chars().all(is_japanese) {
             errors.push(Error::at_line(line, format!("{word} is not a valid word")));
         }
     }

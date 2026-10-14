@@ -23,6 +23,12 @@ pub fn is_katakana(c: char) -> bool {
     (c.script() == Script::Katakana || c == 'ー') && !['ヵ', 'ヶ'].contains(&c)
 }
 
+/// Whether a character can be part of a Japanese word: a kanji, kana, or one
+/// of 々, ヵ and ヶ, which count as neither.
+pub fn is_japanese(c: char) -> bool {
+    is_kanji(c) || is_hiragana(c) || is_katakana(c) || ['々', 'ヵ', 'ヶ'].contains(&c)
+}
+
 /// Converts katakana to hiragana, leaving other characters unchanged.
 pub fn katakana_to_hiragana(text: &str) -> String {
     text.chars()
