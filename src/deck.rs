@@ -28,10 +28,10 @@ fn freq_word_html(fw: &FreqWord, kanji: Option<char>) -> String {
 fn other_spelling_html(spelling: &Spelling, kanji: Option<char>) -> String {
     match spelling {
         Spelling::Primary(_) => String::new(),
-        Spelling::PrimaryKanji { kanji: word, .. } | Spelling::Secondary { described: word, .. } => {
-            freq_word_html(word, kanji)
+        Spelling::PrimaryKanji(_, described) | Spelling::Secondary(_, described) => {
+            freq_word_html(described, kanji)
         }
-        Spelling::SecondaryKanji { kanji: main_kanji, described, .. } => {
+        Spelling::SecondaryKanji(_, main_kanji, described) => {
             format!("{} / {}", freq_word_html(described, kanji), freq_word_html(main_kanji, kanji))
         }
     }

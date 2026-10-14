@@ -24,7 +24,7 @@ pub fn is_katakana(c: char) -> bool {
 }
 
 /// Converts katakana to hiragana, leaving other characters unchanged.
-pub fn to_hiragana(text: &str) -> String {
+pub fn katakana_to_hiragana(text: &str) -> String {
     text.chars()
         .map(|c| match c {
             'ァ'..='ヴ' => char::from_u32(c as u32 - 0x60).unwrap(),

@@ -91,13 +91,12 @@ fn parse_reading(args: &mut Args) -> Result<Reading> {
     })
 }
 
-/// Kana like `*あ*がる`, where the part between asterisks belongs to the kanji.
 fn parse_kana(kana: String, args: &mut Args) -> Result<Kana> {
     if !kana.contains('*') {
         return Ok(Kana::Unsplit(kana));
     }
     match kana.split('*').collect::<Vec<_>>()[..] {
-        [pre, mid, post] => Ok(Kana::Split { pre: pre.into(), mid: mid.into(), post: post.into() }),
+        [pre, mid, post] => Ok(Kana::Split { pre: pre.to_string(), mid: mid.to_string(), post: post.to_string() }),
         _ => Err(Error::new(args.get_pos(), "kana must have zero or two asterisks")),
     }
 }
@@ -105,13 +104,9 @@ fn parse_kana(kana: String, args: &mut Args) -> Result<Kana> {
 fn parse_spelling(head: String, args: &mut Args) -> Result<Spelling> {
     match head.as_str() {
         "pri-spell" => Ok(Spelling::Primary(args.take_string()?)),
-        "pri-kanji-spell" => Ok(Spelling::PrimaryKanji { main: args.take_string()?, kanji: args.take_one(freq_word)? }),
-        "sec-spell" => Ok(Spelling::Secondary { main: args.take_string()?, described: args.take_one(freq_word)? }),
-        "sec-kanji-spell" => Ok(Spelling::SecondaryKanji {
-            main: args.take_string()?,
-            kanji: args.take_one(freq_word)?,
-            described: args.take_one(freq_word)?,
-        }),
+        "pri-kanji-spell" => Ok(Spelling::PrimaryKanji(args.take_string()?, args.take_one(freq_word)?)),
+        "sec-spell" => Ok(Spelling::Secondary(args.take_string()?, args.take_one(freq_word)?)),
+        "sec-kanji-spell" => Ok(Spelling::SecondaryKanji(args.take_string()?, args.take_one(freq_word)?, args.take_one(freq_word)?,)),
         _ => Err(Error::unexpected_node(args.get_pos(), &head)),
     }
 }

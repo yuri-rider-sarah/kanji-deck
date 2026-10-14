@@ -131,7 +131,7 @@ fn args_cursor() {
         let missing = args.take_optional_by_name("y", |args| args.take_string())?;
         Ok((y, missing, args.take_string()?))
     });
-    assert_eq!(result.unwrap(), (Some("z".into()), None, "w".into()));
+    assert_eq!(result.unwrap(), (Some("z".to_string()), None, "w".to_string()));
 }
 
 #[test]

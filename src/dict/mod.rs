@@ -60,49 +60,52 @@ pub struct FreqWord {
     pub word: String,
 }
 
-/// The spellings of a word. `main` is the most common spelling, `kanji` the
-/// most common one using kanji if that's different, and `described` the one
-/// given as an example of the reading if it's neither of these.
+/// The given spellings of a word, in order from most to least frequent.
 #[derive(Debug, Clone)]
 pub enum Spelling {
     Primary(String),
-    PrimaryKanji { main: String, kanji: FreqWord },
-    Secondary { main: String, described: FreqWord },
-    SecondaryKanji { main: String, kanji: FreqWord, described: FreqWord },
+    PrimaryKanji(String, FreqWord),
+    Secondary(String, FreqWord),
+    SecondaryKanji(String, FreqWord, FreqWord),
 }
 
 impl Spelling {
+    /// The most common spelling of the word.
     pub fn main(&self) -> &str {
         match self {
             Spelling::Primary(main)
-            | Spelling::PrimaryKanji { main, .. }
-            | Spelling::Secondary { main, .. }
-            | Spelling::SecondaryKanji { main, .. } => main,
+            | Spelling::PrimaryKanji(main, _)
+            | Spelling::Secondary(main, _)
+            | Spelling::SecondaryKanji(main, _, _) => main,
         }
     }
 
+    /// The spelling of the word described in the entry.
     pub fn described(&self) -> &str {
         match self {
-            Spelling::Primary(main) => main,
-            Spelling::PrimaryKanji { kanji, .. } => &kanji.word,
-            Spelling::Secondary { described, .. } | Spelling::SecondaryKanji { described, .. } => &described.word,
+            Spelling::Primary(described) => described,
+            Spelling::PrimaryKanji(_, described)
+            | Spelling::Secondary(_, described)
+            | Spelling::SecondaryKanji(_, _, described) => &described.word,
         }
     }
 
+    /// The frequency of the described spelling.
     pub fn described_freq(&self) -> Freq {
         match self {
             Spelling::Primary(_) => Freq::Common,
-            Spelling::PrimaryKanji { kanji, .. } => kanji.freq,
-            Spelling::Secondary { described, .. } | Spelling::SecondaryKanji { described, .. } => described.freq,
+            Spelling::PrimaryKanji(_, described)
+            | Spelling::Secondary(_, described)
+            | Spelling::SecondaryKanji(_, _, described) => described.freq,
         }
     }
 
     pub fn words(&self) -> Vec<&str> {
         match self {
             Spelling::Primary(main) => vec![main],
-            Spelling::PrimaryKanji { main, kanji } => vec![main, &kanji.word],
-            Spelling::Secondary { main, described } => vec![main, &described.word],
-            Spelling::SecondaryKanji { main, kanji, described } => vec![main, &kanji.word, &described.word],
+            Spelling::PrimaryKanji(main, described)
+            | Spelling::Secondary(main, described) => vec![main, &described.word],
+            Spelling::SecondaryKanji(main, main_kanji, described) => vec![main, &main_kanji.word, &described.word],
         }
     }
 }

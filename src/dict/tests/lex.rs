@@ -28,11 +28,11 @@ fn error(text: &str) -> String {
 }
 
 fn s(text: &str) -> TokenKind {
-    Str(text.into())
+    Str(text.to_string())
 }
 
 fn r(text: &str) -> TokenKind {
-    RecordStr(text.into())
+    RecordStr(text.to_string())
 }
 
 #[test]
