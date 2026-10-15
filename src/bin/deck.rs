@@ -16,19 +16,19 @@ fn main() -> ExitCode {
             return ExitCode::FAILURE;
         }
     };
-    let entries = parser::parse(&text).map_err(|e| vec![e]).and_then(dict::load).and_then(|entries| {
-        let errors = deck::check(&entries);
-        if errors.is_empty() { Ok(entries) } else { Err(errors) }
-    });
+    let entries = parser::parse(&text).map_err(|e| vec![e]).and_then(dict::load);
     let errors = match entries {
         Ok(entries) => {
             check_serializer(&text, &entries);
+            for warning in deck::check(&entries[..]) {
+                eprintln!("Warning: {warning}");
+            }
             return output(&deck::json_from_entries(&entries));
         }
         Err(errors) => errors,
     };
     for error in &errors {
-        eprintln!("{error}");
+        eprintln!("Error: {error}");
     }
     eprintln!("{} errors, deck not generated", errors.len());
     ExitCode::FAILURE
