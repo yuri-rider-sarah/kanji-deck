@@ -118,17 +118,17 @@ fn write_variants(w: &mut HtmlWriter, variants: &[FreqWord], under_primary: bool
     w.add_line_break();
 }
 
-/// A table row for a reading, and one for its variants if it has any. `main`
-/// is set for the first reading in a group.
-fn write_reading(w: &mut HtmlWriter, reading: &Reading, main: bool, kanji: Option<char>) {
+/// A table row for a reading, and one for its variants if it has any.
+/// `group-top` is set for the first reading in a group.
+fn write_reading(w: &mut HtmlWriter, reading: &Reading, group_top: bool, kanji: Option<char>) {
     let mut classes = Vec::new();
     match reading.origin {
         Some(ReadingOrigin::Asian) => classes.push("asian"),
         Some(ReadingOrigin::European) => classes.push("european"),
         None => {}
     }
-    if main {
-        classes.push("main");
+    if group_top {
+        classes.push("group-top");
     }
     if reading.core {
         classes.push("core");

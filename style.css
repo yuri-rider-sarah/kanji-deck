@@ -66,11 +66,11 @@ td {
     vertical-align: baseline;
 }
 
-tr:has(+ .main) td, tr:last-child td {
+tr:has(+ .group-top) td, tr:last-child td {
     padding-bottom: 4pt;
 }
 
-tr.main td {
+tr.group-top td {
     border-top: 1px solid currentColor;
 }
 
