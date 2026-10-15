@@ -48,17 +48,21 @@ fn escape_html(text: &str) -> String {
 
 /// A word with the kanji highlighted, or the whole word if there's no kanji.
 fn write_word(w: &mut HtmlWriter, word: &str, kanji: Option<char>) {
-    let Some(kanji) = kanji else {
-        return w.add_tag("span", &["kanji"], |w| w.add_text(word));
-    };
-    for (i, piece) in word.split(kanji).enumerate() {
-        if i > 0 {
-            w.add_tag("span", &["kanji"], |w| w.add_text(&kanji.to_string()));
-        }
-        w.add_text(piece);
+    match kanji {
+        Some(kanji) => {
+            for (i, piece) in word.split(kanji).enumerate() {
+                // Insert <span> with the kanji highlighted between the other parts of the word.
+                if i > 0 {
+                    w.add_tag("span", &["kanji"], |w| w.add_text(&kanji.to_string()));
+                }
+                w.add_text(piece);
+            }
+        },
+        None => w.add_tag("span", &["kanji"], |w| w.add_text(word)),
     }
 }
 
+/// A word with the kanji highlighted, in a smaller font if it's rare.
 fn write_freq_word(w: &mut HtmlWriter, fw: &FreqWord, kanji: Option<char>) {
     match fw.freq {
         Freq::Common => write_word(w, &fw.word, kanji),
@@ -92,12 +96,13 @@ fn write_kana(w: &mut HtmlWriter, kana: &Kana) {
     }
 }
 
-/// A table row for the variants of a reading. They go in the second column if
-/// the first one is empty.
+/// A table row for the variants of a reading. They go in the same column as
+/// the described reading.
 fn write_variants(w: &mut HtmlWriter, variants: &[FreqWord], under_primary: bool, kanji: Option<char>) {
     let write_text = |w: &mut HtmlWriter| {
         w.add_text("~ ");
         for (i, variant) in variants.iter().enumerate() {
+            // Separate variants with commas.
             if i > 0 {
                 w.add_text(", ");
             }
@@ -154,7 +159,10 @@ fn html_from_note(sections: &[(&str, &[ReadingGroup])], kanji: Option<char>) -> 
     let mut w = HtmlWriter::new();
     w.add_tag("table", &[], |w| {
         w.add_line_break();
-        for (class, groups) in sections.iter().filter(|(_, groups)| !groups.is_empty()) {
+        for (class, groups) in sections.iter() {
+            if groups.is_empty() {
+                continue;
+            }
             w.add_tag("tbody", &[class], |w| {
                 w.add_line_break();
                 for group in *groups {
