@@ -177,9 +177,24 @@ fn html_from_note(sections: &[(&str, &[ReadingGroup])], kanji: Option<char>) -> 
     w.finish()
 }
 
+/// Escapes a string so it can be put between quotes in JSON.
+fn escape_json(text: &str) -> String {
+    let mut escaped = String::new();
+    for c in text.chars() {
+        match c {
+            '"' => escaped += "\\\"",
+            '\\' => escaped += "\\\\",
+            '\n' => escaped += "\\n",
+            c if c.is_control() => escaped += &format!("\\u{:04x}", c as u32),
+            c => escaped.push(c),
+        }
+    }
+    escaped
+}
+
 fn json_from_note(kanji: &str, part: &str, content: &str) -> String {
-    let s = |text: &str| serde_json::to_string(text).unwrap();
-    format!("{{\"kanji\":{},\"part\":{},\"content\":{}}}", s(kanji), s(part), s(content))
+    let (kanji, part, content) = (escape_json(kanji), escape_json(part), escape_json(content));
+    format!("{{\"kanji\":\"{kanji}\",\"part\":\"{part}\",\"content\":\"{content}\"}}")
 }
 
 /// JSON with one object per card, in the format generate.py expects.
