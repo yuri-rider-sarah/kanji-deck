@@ -2,36 +2,39 @@
 
 use unicode_script::{Script, UnicodeScript};
 
-/// Whether a character is a kanji. The iteration mark 々 is in the Han script,
-/// but isn't a kanji.
+/// Whether a character is a kanji. Excludes the kanji iteration mark 々.
 pub fn is_kanji(c: char) -> bool {
     c.script() == Script::Han && c != '々'
 }
 
+/// Whether a string contains a kanji.
 pub fn has_kanji(text: &str) -> bool {
     text.chars().any(is_kanji)
 }
 
+/// Whether c character is hiragana.
+/// Excludes ゖ and ゕ, as they are virtually unused.
 pub fn is_hiragana(c: char) -> bool {
-    c.script() == Script::Hiragana
+    c.script() == Script::Hiragana && !['ゕ', 'ゖ'].contains(&c)
 }
 
-/// Whether a character is katakana, including the long vowel mark ー. ヵ and ヶ
-/// aren't counted: in words like 一ヵ月 and 一ヶ月 they're abbreviations of 箇,
-/// not kana.
+/// Whether a character is katakana, including the long vowel mark ー.
+/// Excludes ヶ and ヵ, as semantically they are abbreviations of 箇, not kana.
 pub fn is_katakana(c: char) -> bool {
     (c.script() == Script::Katakana || c == 'ー') && !['ヵ', 'ヶ'].contains(&c)
 }
 
-/// Whether a character can be part of a Japanese word: a kanji, kana, or one
-/// of 々, ヵ and ヶ, which count as neither.
+/// Whether a character can be part of a Japanese word: a kanji or kana.
+/// Includes the characters excluded by other functions: 々, ヶ, ヵ, ゖ, ゕ.
 pub fn is_japanese(c: char) -> bool {
-    is_kanji(c) || is_hiragana(c) || is_katakana(c) || ['々', 'ヵ', 'ヶ'].contains(&c)
+    [Script::Han, Script::Hiragana, Script::Katakana].contains(&c.script()) || c == 'ー'
 }
 
 /// Converts katakana to hiragana, leaving other characters unchanged.
+/// Does not convert ヶ and ヵ.
 pub fn katakana_to_hiragana(text: &str) -> String {
     text.chars()
+        // The katakana unicode range is exactly 0x60 after the hiragana range.
         .map(|c| match c {
             'ァ'..='ヴ' => char::from_u32(c as u32 - 0x60).unwrap(),
             c => c,
