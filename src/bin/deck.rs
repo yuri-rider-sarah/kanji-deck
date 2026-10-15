@@ -23,7 +23,7 @@ fn main() -> ExitCode {
     let errors = match entries {
         Ok(entries) => {
             check_serializer(&text, &entries);
-            return output(&deck::json(&entries));
+            return output(&deck::json_from_entries(&entries));
         }
         Err(errors) => errors,
     };
