@@ -3,9 +3,9 @@
 //! `Args`.
 
 mod lex;
-mod read;
+mod parse;
 
-pub use read::{Args, parse};
+pub use parse::{Args, parse};
 
 /// A position in a file. Both the line and the column are counted from 1, and
 /// the column is counted in characters.
