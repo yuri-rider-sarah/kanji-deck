@@ -7,7 +7,7 @@ use std::fmt;
 
 /// What a reading on a kanji card shows that matters for telling cards apart:
 /// its words with the kanji hidden (as `None`), its kana and its definition.
-#[derive(PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
 struct HiddenReading<'a> {
     words: Vec<Vec<Option<char>>>,
     kana: String,
@@ -29,8 +29,10 @@ impl fmt::Display for KanjiPartName {
     }
 }
 
+/// The hidden readings of a card, sorted so that the order of the readings
+/// doesn't matter.
 fn get_hidden_readings<'a>(part: &'a KanjiPart, kanji: char) -> Vec<HiddenReading<'a>> {
-    part.readings()
+    let mut readings: Vec<_> = part.readings()
         .map(|reading| HiddenReading {
             words: reading.spelling.words().iter().map(|word|
                    word.chars().map(|c| (c != kanji).then_some(c)).collect()
@@ -38,7 +40,9 @@ fn get_hidden_readings<'a>(part: &'a KanjiPart, kanji: char) -> Vec<HiddenReadin
             kana: reading.kana.joined(),
             definition: &reading.definition,
         })
-        .collect()
+        .collect();
+    readings.sort();
+    readings
 }
 
 pub fn check(entries: &[Entry]) -> Vec<Error> {
