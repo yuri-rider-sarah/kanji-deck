@@ -12,16 +12,16 @@ pub fn has_kanji(text: &str) -> bool {
     text.chars().any(is_kanji)
 }
 
-/// Whether c character is hiragana.
+/// Whether a character is hiragana.
 /// Excludes ゖ and ゕ, as they are virtually unused.
 pub fn is_hiragana(c: char) -> bool {
-    c.script() == Script::Hiragana && !['ゕ', 'ゖ'].contains(&c)
+    c.script() == Script::Hiragana && !matches!(c, 'ゕ' | 'ゖ')
 }
 
 /// Whether a character is katakana, including the long vowel mark ー.
 /// Excludes ヶ and ヵ, as semantically they are abbreviations of 箇, not kana.
 pub fn is_katakana(c: char) -> bool {
-    (c.script() == Script::Katakana || c == 'ー') && !['ヵ', 'ヶ'].contains(&c)
+    (c.script() == Script::Katakana || c == 'ー') && !matches!(c, 'ヵ' | 'ヶ')
 }
 
 /// Whether a character can be part of a Japanese word: a kanji or kana.

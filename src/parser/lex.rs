@@ -42,7 +42,7 @@ fn is_inline_space(c: char) -> bool {
 
 /// Whether a character can be part of an unquoted string.
 fn allowed_unquoted(c: char) -> bool {
-    c != '"' && c != ':' && c != '|' && !matches!(get_general_category(c),
+    !matches!(c, '"' | ':' | '|') && !matches!(get_general_category(c),
         GC::Control | GC::SpaceSeparator | GC::LineSeparator | GC::ParagraphSeparator
         | GC::OpenPunctuation | GC::ClosePunctuation | GC::InitialPunctuation | GC::FinalPunctuation
     )
@@ -172,7 +172,7 @@ impl Tokens<'_> {
                             Some('|') => return Err(Error::new(pos, "ambiguous token: |||")),
                             _ => self.read_record_string(),
                         }
-                    },
+                    }
                     _ => TokenKind::Pipe
                 }
             }
@@ -183,11 +183,11 @@ impl Tokens<'_> {
             Some(')') => {
                 self.next_char();
                 TokenKind::RightParen
-            },
+            }
             Some(':') => {
                 self.next_char();
                 TokenKind::Colon
-            },
+            }
             Some('"') => {
                 self.next_char();
                 TokenKind::Str(self.read_quoted_string()?)
@@ -200,11 +200,11 @@ impl Tokens<'_> {
                 }
                 TokenKind::Str(s)
             }
-            Some('\n') | Some('\r') => {
+            Some('\n' | '\r') => {
                 self.skip_line_break()?;
                 self.at_line_start = true;
                 TokenKind::Newline
-            },
+            }
             Some(c) => return Err(Error::new(pos, format!("unexpected character {c:?}"))),
             None => {
                 // The last line may end without a line break, so we still emit a newline token in
@@ -216,7 +216,7 @@ impl Tokens<'_> {
                 };
                 self.at_line_start = true;
                 kind
-            },
+            }
         };
         if matches!(kind, TokenKind::Str(_)) && self.peek_char().is_some_and(|c| c == '"' || allowed_unquoted(c)) {
             return Err(Error::new(self.pos, "strings must be separated by whitespace"));
@@ -229,26 +229,26 @@ impl Tokens<'_> {
         let mut width = 0;
         loop {
             match self.peek_char() {
-                Some(c) if c == ' ' || c == '\t' => {
+                Some(c @ (' ' | '\t')) => {
                     if *self.indent_char.get_or_insert(c) != c {
                         return Err(Error::new(self.pos, "indentation mixes tabs and spaces"));
                     }
                     self.next_char();
                     width += 1;
-                },
+                }
                 Some(c) if is_inline_space(c) => {
                     return Err(Error::new(self.pos, format!("unexpected character {c:?} in indentation")));
-                },
-                Some('\n') | Some('\r') => {
+                }
+                Some('\n' | '\r') => {
                     self.skip_line_break()?;
                     width = 0;
-                },
+                }
                 None => {
                     // Set `at_line_start` so we know not to emit a newline token before EOF.
                     self.at_line_start = true;
                     width = 0;
                     break;
-                },
+                }
                 _ => break,
             }
         }
@@ -278,7 +278,7 @@ impl Tokens<'_> {
         }
         match self.peek_char() {
             Some('"') => self.next_char(),
-            Some('\n') | Some('\r') | None => return Err(Error::new(self.pos, "unterminated string")),
+            Some('\n' | '\r') | None => return Err(Error::new(self.pos, "unterminated string")),
             Some(c) => return Err(Error::new(self.pos, format!("unexpected character {c:?} in string"))),
         }
         Ok(s)

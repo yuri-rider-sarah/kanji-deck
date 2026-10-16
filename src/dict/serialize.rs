@@ -78,10 +78,10 @@ fn serialize_freq_word(fw: &FreqWord) -> String {
 fn serialize_spelling(spelling: &Spelling) -> String {
     match spelling {
         Spelling::Primary(main) => format!("pri-spell {main}"),
-        Spelling::PrimaryKanji(main, described) => format!("pri-kanji-spell {main} {}", serialize_freq_word(described)),
-        Spelling::Secondary(main, described) => format!("sec-spell {main} {}", serialize_freq_word(described)),
-        Spelling::SecondaryKanji(main, kanji, described) => {
-            format!("sec-kanji-spell {main} {} {}", serialize_freq_word(kanji), serialize_freq_word(described))
+        Spelling::PrimaryKanji { main, described } => format!("pri-kanji-spell {main} {}", serialize_freq_word(described)),
+        Spelling::Secondary { main, described } => format!("sec-spell {main} {}", serialize_freq_word(described)),
+        Spelling::SecondaryKanji { main, main_kanji, described } => {
+            format!("sec-kanji-spell {main} {} {}", serialize_freq_word(main_kanji), serialize_freq_word(described))
         }
     }
 }

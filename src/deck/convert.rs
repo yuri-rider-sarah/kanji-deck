@@ -57,7 +57,7 @@ fn write_word(w: &mut HtmlWriter, word: &str, kanji: Option<char>) {
                 }
                 w.add_text(piece);
             }
-        },
+        }
         None => w.add_tag("span", &["kanji"], |w| w.add_text(word)),
     }
 }
@@ -74,10 +74,10 @@ fn write_freq_word(w: &mut HtmlWriter, fw: &FreqWord, kanji: Option<char>) {
 fn write_other_spellings(w: &mut HtmlWriter, spelling: &Spelling, kanji: Option<char>) {
     match spelling {
         Spelling::Primary(_) => {}
-        Spelling::PrimaryKanji(_, described) | Spelling::Secondary(_, described) => {
+        Spelling::PrimaryKanji { described, .. } | Spelling::Secondary { described, .. } => {
             write_freq_word(w, described, kanji);
         }
-        Spelling::SecondaryKanji(_, main_kanji, described) => {
+        Spelling::SecondaryKanji { main_kanji, described, .. } => {
             write_freq_word(w, described, kanji);
             w.add_text(" / ");
             write_freq_word(w, main_kanji, kanji);

@@ -20,7 +20,7 @@ fn main() -> ExitCode {
     let errors = match entries {
         Ok(entries) => {
             check_serializer(&text, &entries);
-            for warning in deck::check(&entries[..]) {
+            for warning in deck::check(&entries) {
                 eprintln!("Warning: {warning}");
             }
             return output(&deck::json_from_entries(&entries));

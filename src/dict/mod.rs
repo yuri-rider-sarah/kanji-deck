@@ -37,9 +37,9 @@ pub struct FreqWord {
 #[derive(Debug, Clone)]
 pub enum Spelling {
     Primary(String),
-    PrimaryKanji(String, FreqWord),
-    Secondary(String, FreqWord),
-    SecondaryKanji(String, FreqWord, FreqWord),
+    PrimaryKanji { main: String, described: FreqWord },
+    Secondary { main: String, described: FreqWord },
+    SecondaryKanji { main: String, main_kanji: FreqWord, described: FreqWord },
 }
 
 impl Spelling {
@@ -47,9 +47,9 @@ impl Spelling {
     pub fn main(&self) -> &str {
         match self {
             Spelling::Primary(main)
-            | Spelling::PrimaryKanji(main, _)
-            | Spelling::Secondary(main, _)
-            | Spelling::SecondaryKanji(main, _, _) => main,
+            | Spelling::PrimaryKanji { main, .. }
+            | Spelling::Secondary { main, .. }
+            | Spelling::SecondaryKanji { main, .. } => main,
         }
     }
 
@@ -57,9 +57,9 @@ impl Spelling {
     pub fn described(&self) -> &str {
         match self {
             Spelling::Primary(described) => described,
-            Spelling::PrimaryKanji(_, described)
-            | Spelling::Secondary(_, described)
-            | Spelling::SecondaryKanji(_, _, described) => &described.word,
+            Spelling::PrimaryKanji { described, .. }
+            | Spelling::Secondary { described, .. }
+            | Spelling::SecondaryKanji { described, .. } => &described.word,
         }
     }
 
@@ -67,9 +67,9 @@ impl Spelling {
     pub fn described_freq(&self) -> Freq {
         match self {
             Spelling::Primary(_) => Freq::Common,
-            Spelling::PrimaryKanji(_, described)
-            | Spelling::Secondary(_, described)
-            | Spelling::SecondaryKanji(_, _, described) => described.freq,
+            Spelling::PrimaryKanji { described, .. }
+            | Spelling::Secondary { described, .. }
+            | Spelling::SecondaryKanji { described, .. } => described.freq,
         }
     }
 
@@ -77,9 +77,10 @@ impl Spelling {
     pub fn words(&self) -> Vec<&str> {
         match self {
             Spelling::Primary(main) => vec![main],
-            Spelling::PrimaryKanji(main, described)
-            | Spelling::Secondary(main, described) => vec![main, &described.word],
-            Spelling::SecondaryKanji(main, main_kanji, described) => vec![main, &main_kanji.word, &described.word],
+            Spelling::PrimaryKanji { main, described } | Spelling::Secondary { main, described } => {
+                vec![main, &described.word]
+            }
+            Spelling::SecondaryKanji { main, main_kanji, described } => vec![main, &main_kanji.word, &described.word],
         }
     }
 }
@@ -96,12 +97,12 @@ impl ReadingType {
     pub const ALL: [ReadingType; 3] = [ReadingType::On, ReadingType::Kun, ReadingType::Combined];
 }
 
-/// The kana used to spell a word
+/// The kana used to spell a word.
 #[derive(Debug, Clone)]
 pub enum Kana {
     /// A reading with the middle part marked as written by a given kanji.
     Split { pre: String, mid: String, post: String },
-    /// A reading without no section dinstinguished.
+    /// A reading with no section distinguished.
     Unsplit(String),
 }
 

@@ -76,7 +76,7 @@ fn read_node_or_string(tokens: &mut Tokens) -> Result<(Node, bool)> {
             tokens.next()?;
             node.args.push(read_node(tokens)?);
             Ok((node, true))
-        },
+        }
         TokenKind::LeftParen => {
             tokens.next()?;
             while tokens.peek()? != &TokenKind::RightParen {
@@ -84,7 +84,7 @@ fn read_node_or_string(tokens: &mut Tokens) -> Result<(Node, bool)> {
             }
             tokens.next()?;
             Ok((node, true))
-        },
+        }
         _ => Ok((node, false)),
     }
 }
@@ -216,7 +216,7 @@ impl Args {
         Ok(values)
     }
 
-    pub fn get_pos(&self) -> Pos {
+    pub fn pos(&self) -> Pos {
         self.pos
     }
 }

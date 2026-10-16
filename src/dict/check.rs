@@ -135,7 +135,7 @@ fn check_spelling(spelling: &Spelling, line: usize, errors: &mut Vec<Error>) {
     if !has_kanji(spelling.described()) {
         errors.push(Error::at_line(line, format!("example spelling {} contains no kanji", spelling.described())));
     }
-    if let Spelling::SecondaryKanji(_, main_kanji, described) = spelling {
+    if let Spelling::SecondaryKanji { main_kanji, described, .. } = spelling {
         if !has_kanji(&main_kanji.word) {
             errors.push(Error::at_line(line, format!("kanji spelling {} contains no kanji", main_kanji.word)));
         }

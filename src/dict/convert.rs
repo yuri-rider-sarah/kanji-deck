@@ -15,10 +15,10 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
                 let name = args.take_string()?;
                 let mut chars = name.chars();
                 let (Some(kanji), None) = (chars.next(), chars.next()) else {
-                    return Err(Error::new(args.get_pos(), format!("{name} is not a single character")));
+                    return Err(Error::new(args.pos(), format!("{name} is not a single character")));
                 };
                 let part_no = args.take_optional_by_name("part", |args| {
-                    args.take_string()?.parse().ok().filter(|&n| n > 0).ok_or_else(|| Error::new(args.get_pos(), "bad part number"))
+                    args.take_string()?.parse().ok().filter(|&n| n > 0).ok_or_else(|| Error::new(args.pos(), "bad part number"))
                 })?;
                 let data = KanjiPart {
                     on: args.take_many_by_name("on-group", parse_group)?,
@@ -27,19 +27,19 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
                 };
                 match part_no {
                     None | Some(1) => {
-                        entries.push(Entry::Kanji(KanjiEntry { line: args.get_pos().line, kanji, parts: vec![data] }));
-                    },
+                        entries.push(Entry::Kanji(KanjiEntry { line: args.pos().line, kanji, parts: vec![data] }));
+                    }
                     Some(part_no) => {
                         // If there was a part number above 1, it must follow the part number in the last entry.
                         match entries.last_mut() {
                             Some(Entry::Kanji(entry)) if entry.kanji == kanji && last_part_no == Some(part_no - 1) => {
                                 entry.parts.push(data);
-                            },
+                            }
                             _ => {
-                                return Err(Error::new(args.get_pos(), format!("part:{part_no} doesn't follow part:{}", part_no - 1)));
-                            },
+                                return Err(Error::new(args.pos(), format!("part:{part_no} doesn't follow part:{}", part_no - 1)));
+                            }
                         }
-                    },
+                    }
                 }
                 last_part_no = part_no;
                 Ok(())
@@ -47,11 +47,11 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
             "word" => {
                 let headword = args.take_string()?;
                 let readings = args.take_many_by_name("group", parse_group)?;
-                entries.push(Entry::Word(WordEntry { line: args.get_pos().line, headword, readings }));
+                entries.push(Entry::Word(WordEntry { line: args.pos().line, headword, readings }));
                 last_part_no = None;
                 Ok(())
             }
-            _ => Err(Error::unexpected_node(args.get_pos(), &head)),
+            _ => Err(Error::unexpected_node(args.pos(), &head)),
         };
         match root.take_optional(&mut parse_entry) {
             Ok(Some(())) => (),
@@ -59,7 +59,7 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
             Err(e) => {
                 last_part_no = None;
                 errors.push(e);
-            },
+            }
         }
     }
     if errors.is_empty() { Ok(entries) } else { Err(errors) }
@@ -79,7 +79,7 @@ fn parse_reading(args: &mut Args) -> Result<Reading> {
         None
     };
     Ok(Reading {
-        line: args.get_pos().line,
+        line: args.pos().line,
         core,
         origin,
         spelling: args.take_one(parse_spelling)?,
@@ -95,17 +95,21 @@ fn parse_kana(kana: String, args: &mut Args) -> Result<Kana> {
     }
     match kana.split('*').collect::<Vec<_>>()[..] {
         [pre, mid, post] => Ok(Kana::Split { pre: pre.to_string(), mid: mid.to_string(), post: post.to_string() }),
-        _ => Err(Error::new(args.get_pos(), "kana must have zero or two asterisks")),
+        _ => Err(Error::new(args.pos(), "kana must have zero or two asterisks")),
     }
 }
 
 fn parse_spelling(head: String, args: &mut Args) -> Result<Spelling> {
     match head.as_str() {
         "pri-spell" => Ok(Spelling::Primary(args.take_string()?)),
-        "pri-kanji-spell" => Ok(Spelling::PrimaryKanji(args.take_string()?, args.take_one(freq_word)?)),
-        "sec-spell" => Ok(Spelling::Secondary(args.take_string()?, args.take_one(freq_word)?)),
-        "sec-kanji-spell" => Ok(Spelling::SecondaryKanji(args.take_string()?, args.take_one(freq_word)?, args.take_one(freq_word)?,)),
-        _ => Err(Error::unexpected_node(args.get_pos(), &head)),
+        "pri-kanji-spell" => Ok(Spelling::PrimaryKanji { main: args.take_string()?, described: args.take_one(freq_word)? }),
+        "sec-spell" => Ok(Spelling::Secondary { main: args.take_string()?, described: args.take_one(freq_word)? }),
+        "sec-kanji-spell" => Ok(Spelling::SecondaryKanji {
+            main: args.take_string()?,
+            main_kanji: args.take_one(freq_word)?,
+            described: args.take_one(freq_word)?,
+        }),
+        _ => Err(Error::unexpected_node(args.pos(), &head)),
     }
 }
 
@@ -113,7 +117,7 @@ fn freq_word(head: String, args: &mut Args) -> Result<FreqWord> {
     let freq = match head.as_str() {
         "common" => Freq::Common,
         "rare" => Freq::Rare,
-        _ => return Err(Error::unexpected_node(args.get_pos(), &head)),
+        _ => return Err(Error::unexpected_node(args.pos(), &head)),
     };
     Ok(FreqWord { freq, word: args.take_string()? })
 }
