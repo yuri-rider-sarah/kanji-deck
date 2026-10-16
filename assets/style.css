@@ -1,3 +1,10 @@
+/* Styling for the cards. The front of a card shows the kanji or word (.q-kanji)
+   and the part number (.part), and the back adds the readings table.
+   The second card type shows the readings table as the question (.question),
+   with the kanji hidden. */
+
+/* Fonts */
+
 @font-face {
     font-family: 'Noto Sans JP';
     src: url('_NotoSansJP.ttf');
@@ -12,9 +19,12 @@
     font-family: 'Noto Sans JP', sans-serif;
 }
 
+/* Text in Latin script: the part number and the definitions. */
 .part, td:nth-child(4) {
     font-family: 'Bitstream Vera Sans', 'Verdana', sans-serif;
 }
+
+/* Front side */
 
 .q-kanji {
     font-size: 80pt;
@@ -34,30 +44,19 @@
     content: ')';
 }
 
-.question .kanji {
-    -webkit-text-fill-color: transparent;
-    background-color: #bbb;
-    border-bottom: 2px solid currentColor;
-}
-
-.nightMode .question .kanji, .night_mode .question .kanji {
-    background-color: #555;
-}
-
-.kana, .kanji {
-    font-weight: bold;
-}
-
-.rare {
-    font-size: 80%;
-}
+/* Readings table. Each reading is a row with four columns:
+   1. other spellings: the example spelling and the most common kanji spelling,
+      if they differ from the main spelling,
+   2. the main spelling,
+   3. the kana,
+   4. the definition.
+   Each section (on, kun, combined, or the readings of a word) is a <tbody>,
+   and the first row of each group of readings has the class .group-top. */
 
 table {
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 14pt auto 0;
     font-size: 14pt;
-    margin-top: 14pt;
 }
 
 td {
@@ -66,31 +65,41 @@ td {
     vertical-align: baseline;
 }
 
+/* Only definitions wrap. */
+td:not(:nth-child(4)) {
+    white-space: nowrap;
+}
+
+/* Lines between groups.
+   Borders on rows only work because the table's borders are collapsed. */
+tr.group-top {
+    border-top: 1px solid currentColor;
+}
+
+tr:last-child {
+    border-bottom: 1px solid currentColor;
+}
+
+/* Padding on the bottom of a group, to even out the padding on top. */
 tr:has(+ .group-top) td, tr:last-child td {
     padding-bottom: 4pt;
 }
 
-tr.group-top td {
-    border-top: 1px solid currentColor;
-}
-
-tbody tr:last-child td {
-    border-bottom: 1px solid currentColor;
-}
-
-/* Space between the on, kun and combined sections, about one row high. */
+/* Space between sections, about one row high. */
 tbody:not(:first-child)::before {
     content: '';
     display: table-row;
     height: 22pt;
 }
 
+/* Kinds of readings */
+
 tr.core td:nth-child(4) {
     font-weight: bold;
 }
 
-tr.variant td {
-    font-size: 80%;
+tbody.combined td:nth-child(4) {
+    font-style: italic;
 }
 
 /* Readings whose example spelling is rare. */
@@ -98,18 +107,41 @@ tr.rare-spelling td:nth-child(4) {
     font-size: 80%;
 }
 
-tbody.combined td:nth-child(4) {
-    font-style: italic;
+/* A row containing the variant spellings of the reading above it. */
+tr.variant td {
+    font-size: 80%;
 }
 
-tr.european td {
+/* Loanwords. The colors are translucent so that they work in night mode too. */
+tr.european {
     background-color: #00F2;
 }
 
-tr.asian td {
+tr.asian {
     background-color: #F002;
 }
 
-td:not(:empty):nth-child(1), td:not(:empty):nth-child(2), td:not(:empty):nth-child(3) {
-    white-space: nowrap;
+/* Words in the table */
+
+/* The kanji in a word, and the part of the kana that belongs to it. */
+.kanji, .kana {
+    font-weight: bold;
+}
+
+.rare {
+    font-size: 80%;
+}
+
+/* On the question side, the kanji is replaced by a gray box with a line under it.
+   The text fill is made transparent instead of the color,
+   so that currentColor still gives the line its color. */
+.question .kanji {
+    -webkit-text-fill-color: transparent;
+    background-color: #bbb;
+    border-bottom: 2px solid currentColor;
+}
+
+/* Anki versions and clients differ in the class name they use for night mode. */
+.nightMode .question .kanji, .night_mode .question .kanji {
+    background-color: #555;
 }
