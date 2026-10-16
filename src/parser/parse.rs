@@ -239,5 +239,5 @@ impl Args {
 }
 
 #[cfg(test)]
-#[path = "tests/read.rs"]
+#[path = "tests/parse.rs"]
 mod tests;
