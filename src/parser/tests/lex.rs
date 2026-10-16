@@ -37,19 +37,39 @@ fn r(text: &str) -> TokenKind {
 
 #[test]
 fn simple_line() {
-    assert_eq!(kinds("a b:c(d)"), [s("a"), s("b"), Colon, s("c"), LeftParen, s("d"), RightParen, Newline, Eof]);
+    assert_eq!(
+        kinds("a b:c(d)"),
+        [s("a"), s("b"), Colon, s("c"), LeftParen, s("d"), RightParen, Newline, Eof]
+    );
 }
 
 #[test]
 fn japanese_and_symbols() {
-    assert_eq!(kinds("reading #core *あ*がる 上がる"), [s("reading"), s("#core"), s("*あ*がる"), s("上がる"), Newline, Eof]);
+    assert_eq!(
+        kinds("reading #core *あ*がる 上がる"),
+        [s("reading"), s("#core"), s("*あ*がる"), s("上がる"), Newline, Eof]
+    );
 }
 
 #[test]
 fn indentation() {
     assert_eq!(
         kinds("a\n    b\n        c\nd\n"),
-        [s("a"), Newline, Indent, s("b"), Newline, Indent, s("c"), Newline, Dedent, Dedent, s("d"), Newline, Eof]
+        [
+            s("a"),
+            Newline,
+            Indent,
+            s("b"),
+            Newline,
+            Indent,
+            s("c"),
+            Newline,
+            Dedent,
+            Dedent,
+            s("d"),
+            Newline,
+            Eof
+        ]
     );
 }
 
@@ -60,12 +80,32 @@ fn dedent_at_end_of_file() {
 
 #[test]
 fn any_indentation_width() {
-    assert_eq!(kinds("a\n b\n   c\n b"), [s("a"), Newline, Indent, s("b"), Newline, Indent, s("c"), Newline, Dedent, s("b"), Newline, Dedent, Eof]);
+    assert_eq!(
+        kinds("a\n b\n   c\n b"),
+        [
+            s("a"),
+            Newline,
+            Indent,
+            s("b"),
+            Newline,
+            Indent,
+            s("c"),
+            Newline,
+            Dedent,
+            s("b"),
+            Newline,
+            Dedent,
+            Eof
+        ]
+    );
 }
 
 #[test]
 fn tabs() {
-    assert_eq!(kinds("a\n\tb\n\t\tc"), [s("a"), Newline, Indent, s("b"), Newline, Indent, s("c"), Newline, Dedent, Dedent, Eof]);
+    assert_eq!(
+        kinds("a\n\tb\n\t\tc"),
+        [s("a"), Newline, Indent, s("b"), Newline, Indent, s("c"), Newline, Dedent, Dedent, Eof]
+    );
 }
 
 #[test]
@@ -102,7 +142,10 @@ fn pipes_and_record_strings() {
 
 #[test]
 fn record_string_keeps_special_characters() {
-    assert_eq!(kinds("|| to dry (tr.): \"x\" 「y」"), [r("to dry (tr.): \"x\" 「y」"), Newline, Eof]);
+    assert_eq!(
+        kinds("|| to dry (tr.): \"x\" 「y」"),
+        [r("to dry (tr.): \"x\" 「y」"), Newline, Eof]
+    );
 }
 
 #[test]
@@ -119,7 +162,10 @@ fn triple_pipe() {
 #[test]
 fn quoted_strings() {
     assert_eq!(kinds("\"a b\" \"\""), [s("a b"), s(""), Newline, Eof]);
-    assert_eq!(kinds("(\"a\") x:\"b\" \"c\"|"), [LeftParen, s("a"), RightParen, s("x"), Colon, s("b"), s("c"), Pipe, Newline, Eof]);
+    assert_eq!(
+        kinds("(\"a\") x:\"b\" \"c\"|"),
+        [LeftParen, s("a"), RightParen, s("x"), Colon, s("b"), s("c"), Pipe, Newline, Eof]
+    );
     assert_eq!(kinds("\"a(b):|c\""), [s("a(b):|c"), Newline, Eof]);
 }
 
@@ -148,7 +194,10 @@ fn disallowed_characters() {
 
 #[test]
 fn any_whitespace_between_tokens() {
-    assert_eq!(kinds("a\u{3000}b\u{a0}(c)\u{2003}"), [s("a"), s("b"), LeftParen, s("c"), RightParen, Newline, Eof]);
+    assert_eq!(
+        kinds("a\u{3000}b\u{a0}(c)\u{2003}"),
+        [s("a"), s("b"), LeftParen, s("c"), RightParen, Newline, Eof]
+    );
     assert_eq!(kinds("||\u{3000}a\u{3000}"), [r("a"), Newline, Eof]);
 }
 

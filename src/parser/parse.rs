@@ -65,7 +65,8 @@ fn expect_token(tokens: &mut Tokens, kind: TokenKind) -> Result<()> {
 }
 
 /// Reads a node.
-/// The second part of the returned tuple specifies whether the node contained any tokens after the string token.
+/// The second part of the returned tuple specifies whether the node contained
+/// any tokens after the string token.
 fn read_node_or_string(tokens: &mut Tokens) -> Result<(Node, bool)> {
     let mut node = match tokens.next()? {
         Token { pos, kind: TokenKind::Str(s) } => Node { pos, name: s, args: Vec::new() },
@@ -119,7 +120,9 @@ fn read_segments(tokens: &mut Tokens) -> Result<Vec<Node>> {
     loop {
         match tokens.next()? {
             Token { kind: TokenKind::Pipe, .. } => segments.push(read_short_record(tokens)?),
-            Token { kind: TokenKind::RecordStr(name), pos } => segments.push(Node { pos, name, args: Vec::new() }),
+            Token { kind: TokenKind::RecordStr(name), pos } => {
+                segments.push(Node { pos, name, args: Vec::new() })
+            }
             Token { kind: TokenKind::Newline, .. } => return Ok(segments),
             token => return Err(unexpected_token_error(&token)),
         }
@@ -175,7 +178,10 @@ impl Args {
 
     /// Takes the next node if it's `name` without arguments.
     pub fn take_flag(&mut self, name: &str) -> bool {
-        if let Some(node) = self.nodes.front() && node.name == name && node.args.is_empty() {
+        if let Some(node) = self.nodes.front()
+            && node.name == name
+            && node.args.is_empty()
+        {
             self.nodes.pop_front();
             true
         } else {
@@ -192,7 +198,10 @@ impl Args {
     }
 
     /// Takes the next node if it exists, and calls `f` with its name and arguments.
-    pub fn take_optional<T>(&mut self, f: impl FnOnce(String, &mut Args) -> Result<T>) -> Result<Option<T>> {
+    pub fn take_optional<T>(
+        &mut self,
+        f: impl FnOnce(String, &mut Args) -> Result<T>,
+    ) -> Result<Option<T>> {
         match self.nodes.pop_front() {
             Some(node) => Ok(Some(node.take(f)?)),
             None => Ok(None),
@@ -200,7 +209,11 @@ impl Args {
     }
 
     /// Takes the next node if it's named `name`.
-    pub fn take_optional_by_name<T>(&mut self, name: &str, f: impl FnOnce(&mut Args) -> Result<T>) -> Result<Option<T>> {
+    pub fn take_optional_by_name<T>(
+        &mut self,
+        name: &str,
+        f: impl FnOnce(&mut Args) -> Result<T>,
+    ) -> Result<Option<T>> {
         match self.nodes.pop_front_if(|node| node.name == name) {
             Some(node) => Ok(Some(node.take(|_, args| f(args))?)),
             None => Ok(None),
@@ -208,7 +221,11 @@ impl Args {
     }
 
     /// Takes all consecutive nodes named `name`.
-    pub fn take_many_by_name<T>(&mut self, name: &str, mut f: impl FnMut(&mut Args) -> Result<T>) -> Result<Vec<T>> {
+    pub fn take_many_by_name<T>(
+        &mut self,
+        name: &str,
+        mut f: impl FnMut(&mut Args) -> Result<T>,
+    ) -> Result<Vec<T>> {
         let mut values = Vec::new();
         while let Some(node) = self.nodes.pop_front_if(|node| node.name == name) {
             values.push(node.take(|_, args| f(args))?);

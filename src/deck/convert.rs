@@ -98,7 +98,12 @@ fn write_kana(w: &mut HtmlWriter, kana: &Kana) {
 
 /// A table row for the variants of a reading. They go in the same column as
 /// the described reading.
-fn write_variants(w: &mut HtmlWriter, variants: &[FreqWord], under_primary: bool, kanji: Option<char>) {
+fn write_variants(
+    w: &mut HtmlWriter,
+    variants: &[FreqWord],
+    under_primary: bool,
+    kanji: Option<char>,
+) {
     let write_text = |w: &mut HtmlWriter| {
         w.add_text("~ ");
         for (i, variant) in variants.iter().enumerate() {
@@ -205,10 +210,20 @@ pub fn json_from_entries(entries: &[Entry]) -> String {
             Entry::Kanji(entry) => {
                 for (i, part) in entry.parts.iter().enumerate() {
                     // Parts are numbered from 1, but only if there's more than one.
-                    let number = if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
-                    let classes = [(ReadingType::On, "on"), (ReadingType::Kun, "kun"), (ReadingType::Combined, "combined")];
-                    let sections = classes.map(|(reading_type, class)| (class, &part[reading_type][..]));
-                    notes.push(json_from_note(&entry.kanji.to_string(), &number, &html_from_note(&sections, Some(entry.kanji))));
+                    let number =
+                        if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
+                    let classes = [
+                        (ReadingType::On, "on"),
+                        (ReadingType::Kun, "kun"),
+                        (ReadingType::Combined, "combined"),
+                    ];
+                    let sections =
+                        classes.map(|(reading_type, class)| (class, &part[reading_type][..]));
+                    notes.push(json_from_note(
+                        &entry.kanji.to_string(),
+                        &number,
+                        &html_from_note(&sections, Some(entry.kanji)),
+                    ));
                 }
             }
             Entry::Word(entry) => {

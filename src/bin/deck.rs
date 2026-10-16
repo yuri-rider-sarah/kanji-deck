@@ -1,8 +1,8 @@
-//! Generates the Anki deck from the dictionary. With `--json`, prints the
-//! card data instead of passing it to generate.py.
+//! Generates the Anki deck from the dictionary. With `--json`, prints the card data
+//! instead of passing it to generate.py.
 //!
-//! Also checks that serializing the parsed dictionary gives back the same
-//! file. If it doesn't, the serialized version is saved for comparison.
+//! Also checks that serializing the parsed dictionary gives back the same file.
+//! If it doesn't, the serialized version is saved for comparison.
 
 use kanji::{deck, dict, parser};
 use std::io::{ErrorKind, Write};
@@ -41,7 +41,9 @@ fn check_serializer(text: &str, entries: &[dict::Entry]) {
     const PATH: &str = "dictionary_serialized";
     let serialized = dict::serialize(entries);
     if serialized != text {
-        eprintln!("Warning: the serialized dictionary doesn't match the original, saved it to {PATH}");
+        eprintln!(
+            "Warning: the serialized dictionary doesn't match the original, saved it to {PATH}"
+        );
         if let Err(e) = std::fs::write(PATH, serialized) {
             eprintln!("Can't write {PATH}: {e}");
         }
@@ -57,7 +59,8 @@ fn output(json: &str) -> ExitCode {
         print!("{json}");
         return ExitCode::SUCCESS;
     }
-    let mut child = Command::new("./generate.py").stdin(Stdio::piped()).spawn().expect("can't run generate.py");
+    let mut child =
+        Command::new("./generate.py").stdin(Stdio::piped()).spawn().expect("can't run generate.py");
     child.stdin.take().unwrap().write_all(json.as_bytes()).expect("can't write to generate.py");
     match child.wait() {
         Ok(status) if status.success() => ExitCode::SUCCESS,

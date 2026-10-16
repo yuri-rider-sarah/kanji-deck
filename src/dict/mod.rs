@@ -1,5 +1,5 @@
-//! The dictionary data model, with `load` to read and check a dictionary from
-//! the nodes of its file and `serialize` to write it back as text.
+//! The dictionary data model, with `load` to read and check a dictionary
+//! from the nodes of its file and `serialize` to write it back as text.
 
 mod check;
 mod convert;
@@ -77,10 +77,13 @@ impl Spelling {
     pub fn words(&self) -> Vec<&str> {
         match self {
             Spelling::Primary(main) => vec![main],
-            Spelling::PrimaryKanji { main, described } | Spelling::Secondary { main, described } => {
+            Spelling::PrimaryKanji { main, described }
+            | Spelling::Secondary { main, described } => {
                 vec![main, &described.word]
             }
-            Spelling::SecondaryKanji { main, main_kanji, described } => vec![main, &main_kanji.word, &described.word],
+            Spelling::SecondaryKanji { main, main_kanji, described } => {
+                vec![main, &main_kanji.word, &described.word]
+            }
         }
     }
 }

@@ -20,7 +20,11 @@ pub fn serialize(entries: &[Entry]) -> String {
                     } else {
                         lines.push(format!("kanji {}", entry.kanji));
                     }
-                    let heads = [(ReadingType::On, "on-group"), (ReadingType::Kun, "kun-group"), (ReadingType::Combined, "combined-group")];
+                    let heads = [
+                        (ReadingType::On, "on-group"),
+                        (ReadingType::Kun, "kun-group"),
+                        (ReadingType::Combined, "combined-group"),
+                    ];
                     for (reading_type, head) in heads {
                         for group in &part[reading_type] {
                             lines.push(indented!(1, "{head}"));
@@ -78,10 +82,18 @@ fn serialize_freq_word(fw: &FreqWord) -> String {
 fn serialize_spelling(spelling: &Spelling) -> String {
     match spelling {
         Spelling::Primary(main) => format!("pri-spell {main}"),
-        Spelling::PrimaryKanji { main, described } => format!("pri-kanji-spell {main} {}", serialize_freq_word(described)),
-        Spelling::Secondary { main, described } => format!("sec-spell {main} {}", serialize_freq_word(described)),
+        Spelling::PrimaryKanji { main, described } => {
+            format!("pri-kanji-spell {main} {}", serialize_freq_word(described))
+        }
+        Spelling::Secondary { main, described } => {
+            format!("sec-spell {main} {}", serialize_freq_word(described))
+        }
         Spelling::SecondaryKanji { main, main_kanji, described } => {
-            format!("sec-kanji-spell {main} {} {}", serialize_freq_word(main_kanji), serialize_freq_word(described))
+            format!(
+                "sec-kanji-spell {main} {} {}",
+                serialize_freq_word(main_kanji),
+                serialize_freq_word(described)
+            )
         }
     }
 }

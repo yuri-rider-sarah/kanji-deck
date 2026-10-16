@@ -32,11 +32,15 @@ impl fmt::Display for KanjiPartName {
 /// The hidden readings of a card, sorted so that the order of the readings
 /// doesn't matter.
 fn hidden_readings_from_part<'a>(part: &'a KanjiPart, kanji: char) -> Vec<HiddenReading<'a>> {
-    let mut readings: Vec<_> = part.readings()
+    let mut readings: Vec<_> = part
+        .readings()
         .map(|reading| HiddenReading {
-            words: reading.spelling.words().iter().map(|word|
-                   word.chars().map(|c| (c != kanji).then_some(c)).collect()
-                ).collect(),
+            words: reading
+                .spelling
+                .words()
+                .iter()
+                .map(|word| word.chars().map(|c| (c != kanji).then_some(c)).collect())
+                .collect(),
             kana: reading.kana.joined(),
             definition: &reading.definition,
         })
@@ -56,8 +60,13 @@ pub fn check(entries: &[Entry]) -> Vec<Error> {
                     kanji: entry.kanji,
                     part: if entry.parts.len() > 1 { Some(i + 1) } else { None },
                 };
-                if let Some(other) = cards.insert(hidden_readings_from_part(part, entry.kanji), name) {
-                    errors.push(Error::at_line(entry.line, format!("{other} and {name} have cards too similar to tell apart")));
+                if let Some(other) =
+                    cards.insert(hidden_readings_from_part(part, entry.kanji), name)
+                {
+                    errors.push(Error::at_line(
+                        entry.line,
+                        format!("{other} and {name} have cards too similar to tell apart"),
+                    ));
                 }
             }
         }

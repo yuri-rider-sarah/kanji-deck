@@ -21,7 +21,9 @@ fn read_str(text: &str) -> String {
 
 fn error(text: &str) -> String {
     match parse(text) {
-        Ok(args) => panic!("no error, got {}", args.nodes.iter().map(render).collect::<Vec<_>>().join("; ")),
+        Ok(args) => {
+            panic!("no error, got {}", args.nodes.iter().map(render).collect::<Vec<_>>().join("; "))
+        }
         Err(e) => e.to_string(),
     }
 }
@@ -105,7 +107,9 @@ fn unclosed_and_stray_parentheses() {
 #[test]
 fn dictionary_reading() {
     assert_eq!(
-        read_str("kanji 上 part:2\n    kun-group\n        reading #core | pri-spell 上がる | *あ*がる || to rise\n            variant rare:上る"),
+        read_str(
+            "kanji 上 part:2\n    kun-group\n        reading #core | pri-spell 上がる | *あ*がる || to rise\n            variant rare:上る"
+        ),
         "kanji(上 part(2) kun-group(reading(#core pri-spell(上がる) *あ*がる \"to rise\" variant(rare(上る)))))"
     );
 }
@@ -115,7 +119,8 @@ fn positions() {
     let args = parse("a\n\n    b | c\n        d").unwrap();
     let a = &args.nodes[0];
     let b = &a.args[0];
-    let positions = [a.pos, b.pos, b.args[0].pos, b.args[1].pos].map(|pos| format!("{}:{}", pos.line, pos.column));
+    let positions = [a.pos, b.pos, b.args[0].pos, b.args[1].pos]
+        .map(|pos| format!("{}:{}", pos.line, pos.column));
     assert_eq!(positions, ["1:1", "3:5", "3:9", "4:9"]);
 }
 
