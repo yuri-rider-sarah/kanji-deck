@@ -19000,7 +19000,7 @@ kanji 餡
         reading #core | pri-spell 餡 | *アン* || sweet bean paste; filling (e.g. of a dumpling)
 kanji 刎
     on-group
-        reading | pri-spell 刎頚 | *フン*ケイ || decapitation
+        reading | pri-spell 刎頸 | *フン*ケイ || decapitation
     kun-group
         reading #core | pri-kanji-spell はねる common:刎ねる | *は*ねる || to decapitate
 kanji 磔
@@ -23541,8 +23541,3 @@ kanji 﨑
 kanji 柒
     on-group
         reading #core | sec-spell 七 rare:柒 | *シチ* || seven (used in documents)
-kanji 𠮟
-    on-group
-        reading #core | sec-spell 叱咤 rare:𠮟咤 | *シッ*タ || scolding
-    kun-group
-        reading #core | sec-spell 叱る rare:𠮟る | *しか*る || to scold

@@ -1,10 +1,20 @@
 //! Classification and conversion of Japanese characters.
 
-use unicode_script::{Script, UnicodeScript};
-
-/// Whether a character is a kanji. Excludes the kanji iteration mark 々.
+/// Whether a character is a kanji: a character from CJK Unified Ideographs,
+/// its extensions A and B, or one of the twelve unified ideographs
+/// in the CJK Compatibility Ideographs block. Excludes the kanji iteration mark 々.
 pub fn is_kanji(c: char) -> bool {
-    c.script() == Script::Han && c != '々'
+    matches!(c,
+        // CJK Unified Ideographs.
+        '\u{4E00}'..='\u{9FFF}'
+        // Extension A.
+        | '\u{3400}'..='\u{4DBF}'
+        // Extension B.
+        | '\u{20000}'..='\u{2A6DF}'
+        // The unified ideographs in CJK Compatibility Ideographs. The rest of the block
+        // are duplicates of other kanji, kept for compatibility with older encodings.
+        | '﨎' | '﨏' | '﨑' | '﨓' | '﨔' | '﨟' | '﨡' | '﨣' | '﨤' | '﨧' | '﨨' | '﨩'
+    )
 }
 
 /// Whether a string contains a kanji.
@@ -12,22 +22,22 @@ pub fn has_kanji(text: &str) -> bool {
     text.chars().any(is_kanji)
 }
 
-/// Whether a character is hiragana.
-/// Excludes ゖ and ゕ, as they are virtually unused.
+/// Whether a character is hiragana, from ぁ to ゔ.
+/// Excludes ゕ and ゖ, as they are virtually unused.
 pub fn is_hiragana(c: char) -> bool {
-    c.script() == Script::Hiragana && !matches!(c, 'ゕ' | 'ゖ')
+    matches!(c, 'ぁ'..='ゔ')
 }
 
-/// Whether a character is katakana, including the long vowel mark ー.
-/// Excludes ヶ and ヵ, as semantically they are abbreviations of 箇, not kana.
+/// Whether a character is katakana, from ァ to ヴ, or the long vowel mark ー.
+/// Excludes ヵ and ヶ, as semantically they are abbreviations of 箇, not kana.
 pub fn is_katakana(c: char) -> bool {
-    (c.script() == Script::Katakana || c == 'ー') && !matches!(c, 'ヵ' | 'ヶ')
+    matches!(c, 'ァ'..='ヴ' | 'ー')
 }
 
-/// Whether a character can be part of a Japanese word: a kanji or kana.
-/// Includes the characters excluded by other functions: 々, ヶ, ヵ, ゖ, ゕ.
+/// Whether a character can be part of a Japanese word: a kanji, kana,
+/// or one of 々, ヵ and ヶ, which are excluded by the other functions.
 pub fn is_japanese(c: char) -> bool {
-    [Script::Han, Script::Hiragana, Script::Katakana].contains(&c.script()) || c == 'ー'
+    is_kanji(c) || is_hiragana(c) || is_katakana(c) || matches!(c, '々' | 'ヵ' | 'ヶ')
 }
 
 /// Converts katakana to hiragana, leaving other characters unchanged.

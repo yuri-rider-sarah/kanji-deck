@@ -6,20 +6,34 @@ use std::collections::HashSet;
 
 pub fn check(entries: &[Entry]) -> Result<(), Vec<Error>> {
     let mut errors = Vec::new();
+    // Kanji with an entry anywhere in the dictionary.
+    let mut all_kanji = HashSet::new();
+    for entry in entries {
+        if let Entry::Kanji(entry) = entry {
+            all_kanji.insert(entry.kanji);
+        }
+    }
     // Kanji introduced so far.
     let mut known_kanji = HashSet::new();
     // Word entries introduced so far.
     let mut known_words = HashSet::new();
     for entry in entries {
         match entry {
-            Entry::Kanji(entry) => check_kanji(entry, &mut known_kanji, &mut errors),
-            Entry::Word(entry) => check_word(entry, &known_kanji, &mut known_words, &mut errors),
+            Entry::Kanji(entry) => check_kanji(entry, &all_kanji, &mut known_kanji, &mut errors),
+            Entry::Word(entry) => {
+                check_word(entry, &all_kanji, &known_kanji, &mut known_words, &mut errors)
+            }
         }
     }
     if errors.is_empty() { Ok(()) } else { Err(errors) }
 }
 
-fn check_kanji(entry: &KanjiEntry, known_kanji: &mut HashSet<char>, errors: &mut Vec<Error>) {
+fn check_kanji(
+    entry: &KanjiEntry,
+    all_kanji: &HashSet<char>,
+    known_kanji: &mut HashSet<char>,
+    errors: &mut Vec<Error>,
+) {
     let kanji = entry.kanji;
     if !known_kanji.insert(kanji) {
         errors.push(Error::at_line(entry.line, format!("duplicate entry for kanji {kanji}")));
@@ -38,7 +52,7 @@ fn check_kanji(entry: &KanjiEntry, known_kanji: &mut HashSet<char>, errors: &mut
         for reading_type in ReadingType::ALL {
             check_groups(&part[reading_type], entry.line, errors);
             for reading in part[reading_type].iter().flatten() {
-                check_reading(reading, Some(reading_type), Some(kanji), errors);
+                check_reading(reading, Some(reading_type), Some(kanji), all_kanji, errors);
             }
         }
     }
@@ -46,6 +60,7 @@ fn check_kanji(entry: &KanjiEntry, known_kanji: &mut HashSet<char>, errors: &mut
 
 fn check_word<'a>(
     entry: &'a WordEntry,
+    all_kanji: &HashSet<char>,
     known_kanji: &HashSet<char>,
     known_words: &mut HashSet<&'a str>,
     errors: &mut Vec<Error>,
@@ -83,9 +98,10 @@ fn check_word<'a>(
     }
     check_groups(&entry.readings, entry.line, errors);
     for reading in entry.readings.iter().flatten() {
-        check_reading(reading, None, None, errors);
+        check_reading(reading, None, None, all_kanji, errors);
         for word in unique_words(reading) {
-            for c in word.chars().filter(|&c| is_kanji(c) && !known_kanji.contains(&c)) {
+            // Kanji without any entry are reported by `check_reading`.
+            for c in word.chars().filter(|&c| all_kanji.contains(&c) && !known_kanji.contains(&c)) {
                 errors.push(Error::at_line(
                     reading.line,
                     format!("{word} contains {c}, which hasn't been introduced yet"),
@@ -104,11 +120,12 @@ fn check_groups(groups: &[ReadingGroup], line: usize, errors: &mut Vec<Error>) {
 }
 
 /// Checks a reading of `kanji`. Both the reading type and the kanji are `None`
-/// for word entries.
+/// for word entries. `all_kanji` are the kanji with an entry in the dictionary.
 fn check_reading(
     reading: &Reading,
     reading_type: Option<ReadingType>,
     kanji: Option<char>,
+    all_kanji: &HashSet<char>,
     errors: &mut Vec<Error>,
 ) {
     let line = reading.line;
@@ -130,6 +147,9 @@ fn check_reading(
             errors.push(Error::at_line(line, "empty word"));
         } else if !word.chars().all(is_japanese) {
             errors.push(Error::at_line(line, format!("{word} is not a valid word")));
+        }
+        for c in word.chars().filter(|&c| is_kanji(c) && !all_kanji.contains(&c)) {
+            errors.push(Error::at_line(line, format!("{word} contains {c}, which has no entry")));
         }
     }
     check_spelling(&reading.spelling, line, errors);
