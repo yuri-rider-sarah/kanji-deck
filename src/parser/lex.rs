@@ -65,13 +65,25 @@ fn allowed_quoted(c: char) -> bool {
         )
 }
 
+/// Where the tokenizer is in the text.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum State {
+    /// At the start of a line, before its indentation has been read.
+    LineStart,
+    /// After the indentation of a line, up to and including its line break.
+    InLine,
+    /// At the end of the text. Only `Dedent` tokens for the open indentation levels
+    /// and then `Eof` are left.
+    End,
+}
+
 pub fn tokenize(text: &str) -> Tokens<'_> {
     Tokens {
         chars: text.chars(),
         pos: Pos { line: 1, column: 1 },
         peeked_token: None,
+        state: State::LineStart,
         queued_dedents: 0,
-        at_line_start: true,
         current_indent: 0,
         old_indents: Vec::new(),
         indent_char: None,
@@ -86,10 +98,9 @@ pub struct Tokens<'a> {
     pos: Pos,
     /// The next token, if it has been peeked at.
     peeked_token: Option<Token>,
+    state: State,
     /// Number of unindentations read, but not returned yet.
     queued_dedents: usize,
-    /// Whether the next character starts a line.
-    at_line_start: bool,
     /// Width of the current indentation level.
     current_indent: usize,
     /// Widths of the previous indentation levels.
@@ -147,10 +158,18 @@ impl Tokens<'_> {
 
     /// Read a token from the stream.
     fn read(&mut self) -> Result<Token> {
-        // If at start of line, process indentations.
-        if self.at_line_start {
-            self.at_line_start = false;
-            let width = self.read_indentation()?;
+        if self.state == State::LineStart {
+            let width = match self.read_indentation()? {
+                Some(width) => {
+                    self.state = State::InLine;
+                    width
+                }
+                None => {
+                    // At the end of the text, all indentation levels are closed.
+                    self.state = State::End;
+                    0
+                }
+            };
             if width > self.current_indent {
                 self.old_indents.push(self.current_indent);
                 self.current_indent = width;
@@ -170,6 +189,9 @@ impl Tokens<'_> {
         if self.queued_dedents > 0 {
             self.queued_dedents -= 1;
             return Ok(Token { pos: self.pos, kind: TokenKind::Dedent });
+        }
+        if self.state == State::End {
+            return Ok(Token { pos: self.pos, kind: TokenKind::Eof });
         }
         // Skip whitespace.
         while let Some(c) = self.peek_char()
@@ -220,16 +242,15 @@ impl Tokens<'_> {
             }
             Some('\n' | '\r') => {
                 self.skip_line_break()?;
-                self.at_line_start = true;
+                self.state = State::LineStart;
                 TokenKind::Newline
             }
             Some(c) => return Err(Error::new(pos, format!("unexpected character {c:?}"))),
+            // The last line can end without a line break, but we still
+            // emit a newline token in those cases.
             None => {
-                // The last line may end without a line break, so we still emit a newline token in
-                // those cases.
-                let kind = if self.at_line_start { TokenKind::Eof } else { TokenKind::Newline };
-                self.at_line_start = true;
-                kind
+                self.state = State::LineStart;
+                TokenKind::Newline
             }
         };
         if matches!(kind, TokenKind::Str(_))
@@ -240,8 +261,9 @@ impl Tokens<'_> {
         Ok(Token { pos, kind })
     }
 
-    /// Read the indentation at the start of a line and return its width.
-    fn read_indentation(&mut self) -> Result<usize> {
+    /// Read the indentation at the start of a line and return its width,
+    /// skipping blank lines. Returns `None` at the end of the text.
+    fn read_indentation(&mut self) -> Result<Option<usize>> {
         let mut width = 0;
         loop {
             match self.peek_char() {
@@ -262,16 +284,10 @@ impl Tokens<'_> {
                     self.skip_line_break()?;
                     width = 0;
                 }
-                None => {
-                    // Set `at_line_start` so we know not to emit a newline token before EOF.
-                    self.at_line_start = true;
-                    width = 0;
-                    break;
-                }
-                _ => break,
+                None => return Ok(None),
+                _ => return Ok(Some(width)),
             }
         }
-        Ok(width)
     }
 
     /// Read the rest of a record string after `||`.
