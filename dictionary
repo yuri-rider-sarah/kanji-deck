@@ -2477,7 +2477,7 @@ kanji 化
         reading | pri-spell 化かす | *ば*かす || to bewitch
 word 時化る
     group
-        reading #core | pri-kanji-spell しける rare:時化る | しける || to be stormy (of sea)
+        reading #core | pri-kanji-spell しける rare:時化る | シケル || to be stormy (of sea)
 kanji 我
     on-group
         reading #core | pri-spell 我慢 | *ガ*マン || endurance
@@ -3335,7 +3335,7 @@ kanji 花
         reading | sec-spell 華やか rare:花やか | *はな*やか || brilliant
 word 無花果
     group
-        reading #core | pri-kanji-spell イチジク common:無花果 | いちじく || fig
+        reading #core | pri-kanji-spell イチジク common:無花果 | イチジク || fig
 kanji 限
     on-group
         reading #core | pri-spell 制限 | セイ*ゲン* || restriction
@@ -3978,7 +3978,7 @@ word 太刀
         reading #core | pri-spell 太刀 | たち || tachi (sword)
 word 太夫
     group
-        reading #core | pri-spell 太夫 | たゆう || tayū (performer)
+        reading #core | pri-spell 太夫 | タユウ || tayū (performer)
 word 明太子
     group
         reading #core #asian | pri-spell 明太子 | メンタイコ || mentaiko (food)
@@ -4814,7 +4814,7 @@ kanji 郎
         reading | pri-spell 弥次郎兵衛 | ヤジ*ロ*ベエ || balancing toy
 word 外郎
     group
-        reading #core | pri-kanji-spell ういろう common:外郎 | ういろう || uirō (cake)
+        reading #core | pri-kanji-spell ういろう common:外郎 | ウイロウ || uirō (cake)
 kanji 査
     on-group
         reading #core | pri-spell 調査 | チョウ*サ* || investigation
@@ -5924,7 +5924,7 @@ word 香具師
         reading | pri-spell 香具師 | コウグシ || incense maker
 word お新香
     group
-        reading #core | pri-spell お新香 | おしんこ || pickled vegetables
+        reading #core | pri-spell お新香 | オシンコ || pickled vegetables
 kanji 医
     on-group
         reading #core | pri-spell 医療 | *イ*リョウ || medical treatment
@@ -6319,7 +6319,7 @@ kanji 鬼
         reading #core | pri-spell 鬼 | *おに* || oni
 word 天邪鬼
     group
-        reading #core | pri-spell 天邪鬼 | あまのじゃく || contrarian
+        reading #core | pri-spell 天邪鬼 | アマノジャク || contrarian
 kanji 導
     on-group
         reading #core | pri-spell 指導 | シ*ドウ* || guidance
@@ -6525,11 +6525,11 @@ word 弟子
 word 姉妹
     group
         reading #core | pri-spell 姉妹 | シマイ || sisters
-        reading #core | sec-spell 兄弟 rare:姉妹 | きょうだい || siblings
+        reading #core | sec-spell 兄弟 rare:姉妹 | キョウダイ || siblings
         reading #core | pri-spell 兄妹 | ケイマイ || older brother and younger sister
-        reading #core | sec-spell 兄弟 rare:兄妹 | きょうだい || siblings
+        reading #core | sec-spell 兄弟 rare:兄妹 | キョウダイ || siblings
         reading #core | pri-spell 姉弟 | シテイ || older sister and younger brother
-        reading #core | sec-spell 兄弟 rare:姉弟 | きょうだい || siblings
+        reading #core | sec-spell 兄弟 rare:姉弟 | キョウダイ || siblings
 kanji 崎
     kun-group
         reading #core | pri-spell 崎 | *さき* || cape
@@ -7013,7 +7013,7 @@ kanji 雑
         reading | sec-spell 混じる rare:雑じる | *ま*じる || to mix (intr.)
 word 雑魚
     group
-        reading #core | pri-spell 雑魚 | ざこ || small fish
+        reading #core | pri-spell 雑魚 | ザコ || small fish
 kanji 仮
     on-group
         reading #core | pri-spell 仮説 | *カ*セツ || hypothesis
@@ -8484,7 +8484,7 @@ kanji 督
         reading #core | pri-spell 監督 | カン*トク* || supervision
 word 基督
     group
-        reading #core #european | pri-kanji-spell キリスト rare:基督 | きりすと || Christ
+        reading #core #european | pri-kanji-spell キリスト rare:基督 | キリスト || Christ
 kanji 標
     on-group
         reading #core | pri-spell 標識 | *ヒョウ*シキ || sign
@@ -8832,7 +8832,7 @@ kanji 博
         reading | pri-spell 賭博 | ト*バク* || gambling
 word 博士
     group
-        reading #core | pri-spell 博士 | はかせ || doctor (title)
+        reading #core | pri-spell 博士 | ハカセ || doctor (title)
         reading #core | pri-spell 博士 | ハクシ || doctor (title) (formal)
 word 博打
     group
@@ -9174,7 +9174,7 @@ kanji 酷
         reading | sec-kanji-spell むごたらしい common:惨たらしい rare:酷たらしい | *むご*たらしい || cruel, brutal
 word 非道い
     group
-        reading #core | sec-kanji-spell ひどい common:酷い rare:非道い | ひどい || cruel, severe
+        reading #core | sec-kanji-spell ひどい common:酷い rare:非道い | ヒドイ || cruel, severe
 kanji 掃
     on-group
         reading #core | pri-spell 掃除 | *ソウ*ジ || cleaning
@@ -9725,7 +9725,7 @@ kanji 煙
         reading | pri-spell 煙に巻く | *けむ*にまく || to confuse
 word 煙管
     group
-        reading #core | pri-spell 煙管 | きせる || kiseru (smoking pipe)
+        reading #core #asian | pri-spell 煙管 | キセル || kiseru (smoking pipe)
 kanji 睨
     on-group
         reading | pri-spell 睥睨 | ヘイ*ゲイ* || glaring, scowling
@@ -10026,7 +10026,7 @@ kanji 乃
         reading | sec-kanji-spell すなわち common:即ち rare:乃ち | *すなわ*ち || namely
 word 木乃伊
     group
-        reading #core #european | pri-kanji-spell ミイラ common:木乃伊 | みいら || mummy
+        reading #core #european | pri-kanji-spell ミイラ common:木乃伊 | ミイラ || mummy
 kanji 尊
     on-group
         reading #core | pri-spell 尊重 | *ソン*チョウ || respect
@@ -10882,7 +10882,7 @@ kanji 盤
         reading | sec-spell 皿 rare:盤 | *さら* || plate
 word 算盤
     group
-        reading #core | pri-spell 算盤 | そろばん || abacus
+        reading #core | pri-spell 算盤 | ソロバン || abacus
 kanji 犠
     on-group
         reading #core | pri-spell 犠牲 | *ギ*セイ || sacrifice
@@ -10979,7 +10979,7 @@ kanji 猛
         reading | pri-spell 猛々しい | *たけ*だけしい || fierce
 word 猛者
     group
-        reading #core | pri-spell 猛者 | もさ || fearless person
+        reading #core | pri-spell 猛者 | モサ || fearless person
 kanji 鎖
     on-group
         reading #core | pri-spell 連鎖 | レン*サ* || chain
@@ -11644,7 +11644,7 @@ kanji 桃
         reading #core | pri-spell 桃 | *もも* || peach
 word 安土桃山時代
     group
-        reading #core | pri-spell 安土桃山時代 | あずちももやまじだい || Azuchi-Momoyama period
+        reading #core | pri-spell 安土桃山時代 | アズチモモヤマジダイ || Azuchi-Momoyama period
 kanji 却
     on-group
         reading #core | pri-spell 返却 | ヘン*キャク* || return, repayment
@@ -12340,7 +12340,7 @@ kanji 杏
         reading #core | pri-spell 杏 | *あんず* || apricot
 word 銀杏
     group
-        reading #core | pri-spell 銀杏 | いちょう || gingko
+        reading #core | pri-spell 銀杏 | イチョウ || gingko
 kanji 励
     on-group
         reading #core | pri-spell 激励 | ゲキ*レイ* || encouragement
@@ -12535,7 +12535,7 @@ kanji 掌
         reading | sec-spell 司る rare:掌る | *つかさど*る || to be in charge
 word 仙人掌
     group
-        reading #core | pri-kanji-spell サボテン rare:仙人掌 | さぼてん || cactus
+        reading #core #european | pri-kanji-spell サボテン rare:仙人掌 | サボテン || cactus
 kanji 斐
     on-group
         reading #core | pri-spell 甲斐 | カ*イ* || worth, avail
@@ -13559,7 +13559,7 @@ kanji 殻
         reading #core | pri-spell 殻 | *から* || shell
 word 紅殻
     group
-        reading #core | pri-spell 紅殻 | べんがら || red iron oxide
+        reading #core #european | pri-spell 紅殻 | ベンガラ || red iron oxide
 kanji 賃
     on-group
         reading #core | pri-spell 賃金 | *チン*ギン || wages
@@ -13834,7 +13834,7 @@ word 朱雀
         reading #core | pri-spell 朱雀 | スザク || Vermilion Bird of the South
 word 金糸雀
     group
-        reading #core | pri-kanji-spell カナリア rare:金糸雀 | カナリア || canary
+        reading #core #european | pri-kanji-spell カナリア rare:金糸雀 | カナリア || canary
 kanji 侮
     on-group
         reading #core | pri-spell 侮蔑 | *ブ*ベツ || disdain
@@ -14248,7 +14248,7 @@ kanji 烏
         reading #core | pri-kanji-spell カラス common:烏 | *からす* || crow, raven
 word 烏帽子
     group
-        reading #core | pri-spell 烏帽子 | えぼし || eboshi (hat)
+        reading #core | pri-spell 烏帽子 | エボシ || eboshi (hat)
 word 烏龍茶
     group
         reading #core #asian | pri-kanji-spell ウーロン茶 common:烏龍茶 | ウーロンチャ || oolong tea
@@ -14304,7 +14304,7 @@ kanji 陶
         reading #core | pri-spell 陶 | *すえ* || pottery
 word 鬱陶しい
     group
-        reading #core | pri-spell 鬱陶しい | うっとうしい || gloomy; irritating
+        reading #core | pri-spell 鬱陶しい | ウットウシイ || gloomy; irritating
 kanji 賑
     on-group
         reading | pri-spell 殷賑 | イン*シン* || bustling
@@ -15909,7 +15909,7 @@ kanji 鼠
         reading | pri-spell 銀鼠 | ぎん*ねず* || silver gray
 word 栗鼠
     group
-        reading #core | pri-kanji-spell リス common:栗鼠 | りす || squirrel
+        reading #core | pri-kanji-spell リス common:栗鼠 | リス || squirrel
 word 海鼠
     group
         reading #core | pri-kanji-spell ナマコ common:海鼠 | なまこ || sea cucumber
@@ -16460,7 +16460,7 @@ word 胡瓜
         reading #core | pri-kanji-spell キュウリ common:胡瓜 | きゅうり || cucumber
 word 南瓜
     group
-        reading #core | pri-kanji-spell カボチャ common:南瓜 | かぼちゃ || pumpkin
+        reading #core #european | pri-kanji-spell カボチャ common:南瓜 | カボチャ || pumpkin
 word 糸瓜
     group
         reading #core | pri-kanji-spell ヘチマ common:糸瓜 | へちま || sponge gourd
@@ -17824,7 +17824,7 @@ kanji 暢
         reading #core | pri-spell 流暢 | リュウ*チョウ* || fluent
 word 暢気
     group
-        reading #core | sec-kanji-spell のんき common:呑気 common:暢気 | のんき || easygoing
+        reading #core | sec-kanji-spell のんき common:呑気 common:暢気 | ノンキ || easygoing
 kanji 陀
     on-group
         reading #core | pri-spell 阿弥陀 | アミ*ダ* || Amitābha (Buddha)
@@ -19821,7 +19821,7 @@ kanji 痘
         reading #core | pri-spell 天然痘 | テンネン*トウ* || smallpox
 word 痘痕
     group
-        reading #core | pri-kanji-spell あばた common:痘痕 | あばた || pockmark
+        reading #core | pri-kanji-spell あばた common:痘痕 | アバタ || pockmark
 kanji 轡
     kun-group
         reading #core | pri-spell 轡 | *くつわ* || bit (for a horse)
@@ -20927,8 +20927,8 @@ kanji 烟
         reading #core | sec-spell 煙る rare:烟る | *けむ*る || to smoke
 word 煙草
     group
-        reading #core | pri-kanji-spell タバコ common:煙草 | たばこ || tobacco, cigarette
-        reading | sec-kanji-spell タバコ common:煙草 rare:烟草 | たばこ || tobacco, cigarette
+        reading #core #european | pri-kanji-spell タバコ common:煙草 | タバコ || tobacco, cigarette
+        reading #european | sec-kanji-spell タバコ common:煙草 rare:烟草 | タバコ || tobacco, cigarette
 kanji 蛟
     on-group
         reading #core | pri-spell 蛟龍 | *コウ*リョウ || jiaolong (mythical creature)
@@ -21072,7 +21072,7 @@ word 卓袱
         reading #core | pri-spell 卓袱 | シッポク || Chinese-style dinner table
 word 卓袱台
     group
-        reading #core | pri-kanji-spell ちゃぶ台 common:卓袱台 | ちゃぶだい || chabudai (table)
+        reading #core #asian | pri-kanji-spell ちゃぶ台 common:卓袱台 | チャブダイ || chabudai (table)
 kanji 鵞
     on-group
         reading #core | pri-kanji-spell ガチョウ common:鵞鳥 | *ガ*チョウ || goose
