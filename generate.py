@@ -7,7 +7,7 @@ import sys
 KANJI_MODEL_ID = 2138030364
 KANJI_DECK_ID = 1896983062
 
-with open('style.css') as f:
+with open('assets/style.css') as f:
     css_style = f.read()
 
 model = genanki.Model(
@@ -49,4 +49,4 @@ for entry_ord, entry in enumerate(json.load(sys.stdin)):
     )
     deck.add_note(note)
 
-genanki.Package(deck, media_files=['_NotoSansJP.ttf']).write_to_file('kanji.apkg')
+genanki.Package(deck, media_files=['assets/_NotoSansJP.ttf']).write_to_file('target/kanji.apkg')

@@ -34,11 +34,11 @@ fn main() -> ExitCode {
     ExitCode::FAILURE
 }
 
-/// Warns if the serialized entries differ from the original text, saving
-/// them to `dictionary_serialized`. Otherwise removes that file if it's left
-/// over from a previous run.
+/// Warns if the serialized entries differ from the original text,
+/// saving them to `target/dictionary_serialized`.
+/// Otherwise removes that file if it's left over from a previous run.
 fn check_serializer(text: &str, entries: &[dict::Entry]) {
-    const PATH: &str = "dictionary_serialized";
+    const PATH: &str = "target/dictionary_serialized";
     let serialized = dict::serialize(entries);
     if serialized != text {
         eprintln!(
