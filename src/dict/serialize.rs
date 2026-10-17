@@ -12,41 +12,42 @@ macro_rules! indented {
 pub fn serialize(entries: &[Entry]) -> String {
     let mut lines = Vec::new();
     for entry in entries {
-        match entry {
-            Entry::Kanji(entry) => {
-                for (i, part) in entry.parts.iter().enumerate() {
-                    if entry.parts.len() > 1 {
-                        lines.push(format!("kanji {} part:{}", entry.kanji, i + 1));
-                    } else {
-                        lines.push(format!("kanji {}", entry.kanji));
-                    }
-                    let heads = [
-                        (ReadingType::On, "on-group"),
-                        (ReadingType::Kun, "kun-group"),
-                        (ReadingType::Combined, "combined-group"),
-                    ];
-                    for (reading_type, head) in heads {
-                        for group in &part[reading_type] {
-                            lines.push(indented!(1, "{head}"));
-                            for reading in group {
-                                serialize_reading(&mut lines, reading);
-                            }
-                        }
-                    }
-                }
-            }
-            Entry::Word(entry) => {
-                lines.push(format!("word {}", entry.headword));
-                for group in &entry.readings {
-                    lines.push(indented!(1, "group"));
-                    for reading in group {
-                        serialize_reading(&mut lines, reading);
-                    }
+        let head = match &entry.key {
+            EntryKey::Kanji(kanji) => format!("kanji {kanji}"),
+            EntryKey::Word(headword) => format!("word {headword}"),
+        };
+        serialize_parts(&mut lines, &head, &entry.parts);
+    }
+    lines.join("\n") + "\n"
+}
+
+/// Adds the lines of each part of an entry, starting with `head` and a part
+/// number if there's more than one part.
+fn serialize_parts(lines: &mut Vec<String>, head: &str, parts: &[EntryPart]) {
+    for (i, part) in parts.iter().enumerate() {
+        if parts.len() > 1 {
+            lines.push(format!("{head} part:{}", i + 1));
+        } else {
+            lines.push(head.to_string());
+        }
+        for reading_type in ReadingType::ALL {
+            for group in &part[reading_type] {
+                lines.push(indented!(1, "{}", group_head(reading_type)));
+                for reading in group {
+                    serialize_reading(lines, reading);
                 }
             }
         }
     }
-    lines.join("\n") + "\n"
+}
+
+/// The name of a group of readings of the given type.
+fn group_head(reading_type: ReadingType) -> &'static str {
+    match reading_type {
+        ReadingType::On => "on-group",
+        ReadingType::Kun => "kun-group",
+        ReadingType::Combined => "combined-group",
+    }
 }
 
 fn serialize_reading(lines: &mut Vec<String>, reading: &Reading) {

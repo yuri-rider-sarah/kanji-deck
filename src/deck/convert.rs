@@ -202,35 +202,33 @@ fn json_from_note(kanji: &str, part: &str, content: &str) -> String {
     format!("{{\"kanji\":\"{kanji}\",\"part\":\"{part}\",\"content\":\"{content}\"}}")
 }
 
+/// JSON for the notes of each part of an entry, named `name` with the
+/// `kanji` highlighted (`None` for word entries).
+fn json_from_parts(name: &str, parts: &[EntryPart], kanji: Option<char>) -> Vec<String> {
+    let mut notes = Vec::new();
+    for (i, part) in parts.iter().enumerate() {
+        // Parts are numbered from 1, but only if there's more than one.
+        let number = if parts.len() > 1 { (i + 1).to_string() } else { String::new() };
+        let classes = [
+            (ReadingType::On, "on"),
+            (ReadingType::Kun, "kun"),
+            (ReadingType::Combined, "combined"),
+        ];
+        let sections = classes.map(|(reading_type, class)| (class, &part[reading_type][..]));
+        notes.push(json_from_note(name, &number, &html_from_note(&sections, kanji)));
+    }
+    notes
+}
+
 /// JSON with one object per card, in the format generate.py expects.
 pub fn json_from_entries(entries: &[Entry]) -> String {
     let mut notes = Vec::new();
     for entry in entries {
-        match entry {
-            Entry::Kanji(entry) => {
-                for (i, part) in entry.parts.iter().enumerate() {
-                    // Parts are numbered from 1, but only if there's more than one.
-                    let number =
-                        if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
-                    let classes = [
-                        (ReadingType::On, "on"),
-                        (ReadingType::Kun, "kun"),
-                        (ReadingType::Combined, "combined"),
-                    ];
-                    let sections =
-                        classes.map(|(reading_type, class)| (class, &part[reading_type][..]));
-                    notes.push(json_from_note(
-                        &entry.kanji.to_string(),
-                        &number,
-                        &html_from_note(&sections, Some(entry.kanji)),
-                    ));
-                }
-            }
-            Entry::Word(entry) => {
-                let content = html_from_note(&[("word", &entry.readings[..])], None);
-                notes.push(json_from_note(&entry.headword, "", &content));
-            }
-        }
+        let kanji = match entry.key {
+            EntryKey::Kanji(kanji) => Some(kanji),
+            EntryKey::Word(_) => None,
+        };
+        notes.extend(json_from_parts(&entry.key.to_string(), &entry.parts, kanji));
     }
     format!("[{}]", notes.join(","))
 }

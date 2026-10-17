@@ -9,6 +9,7 @@ pub use serialize::serialize;
 
 use crate::error::{Error, Result};
 use crate::parser::Args;
+use std::fmt;
 use std::ops::Index;
 
 /// Reads the dictionary from the top-level nodes of its file, and checks its
@@ -100,6 +101,16 @@ impl ReadingType {
     pub const ALL: [ReadingType; 3] = [ReadingType::On, ReadingType::Kun, ReadingType::Combined];
 }
 
+impl fmt::Display for ReadingType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            ReadingType::On => write!(f, "on"),
+            ReadingType::Kun => write!(f, "kun"),
+            ReadingType::Combined => write!(f, "combined"),
+        }
+    }
+}
+
 /// The kana used to spell a word.
 #[derive(Debug, Clone)]
 pub enum Kana {
@@ -142,22 +153,22 @@ pub struct Reading {
 /// A group of related reading examples.
 pub type ReadingGroup = Vec<Reading>;
 
-/// One part of a kanji entry. Most kanji only have a single part.
+/// One part of a kanji or word entry. Most entries only have a single part.
 #[derive(Debug, Clone)]
-pub struct KanjiPart {
+pub struct EntryPart {
     pub on: Vec<ReadingGroup>,
     pub kun: Vec<ReadingGroup>,
     pub combined: Vec<ReadingGroup>,
 }
 
-impl KanjiPart {
+impl EntryPart {
     /// All readings combined into a single list.
     pub fn readings(&self) -> impl Iterator<Item = &Reading> {
         self.on.iter().chain(&self.kun).chain(&self.combined).flatten()
     }
 }
 
-impl Index<ReadingType> for KanjiPart {
+impl Index<ReadingType> for EntryPart {
     type Output = Vec<ReadingGroup>;
 
     /// The groups of readings for a given type.
@@ -170,22 +181,28 @@ impl Index<ReadingType> for KanjiPart {
     }
 }
 
-#[derive(Debug, Clone)]
-pub struct KanjiEntry {
-    pub line: usize,
-    pub kanji: char,
-    pub parts: Vec<KanjiPart>,
+/// What an entry describes, which also names its cards.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum EntryKey {
+    Kanji(char),
+    /// A word, by its headword.
+    Word(String),
 }
 
-#[derive(Debug, Clone)]
-pub struct WordEntry {
-    pub line: usize,
-    pub headword: String,
-    pub readings: Vec<ReadingGroup>,
+impl fmt::Display for EntryKey {
+    /// The kanji or the headword.
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            EntryKey::Kanji(kanji) => write!(f, "{kanji}"),
+            EntryKey::Word(headword) => write!(f, "{headword}"),
+        }
+    }
 }
 
+/// A kanji or word entry, split into one or more parts, each with its own card.
 #[derive(Debug, Clone)]
-pub enum Entry {
-    Kanji(KanjiEntry),
-    Word(WordEntry),
+pub struct Entry {
+    pub line: usize,
+    pub key: EntryKey,
+    pub parts: Vec<EntryPart>,
 }

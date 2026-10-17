@@ -115,7 +115,7 @@ kanji 日
     kun-group
         reading | pri-spell 二日 | ふつ*か* || two days
 word 一日
-    group
+    kun-group
         reading #core #regular | pri-spell 一日 | イチニチ || one day
         reading #core | pri-spell 一日 | ついたち || first day of the month
 kanji 月
@@ -274,7 +274,7 @@ kanji 火
         reading #core | pri-spell 火 | *ひ* || fire
         reading | pri-spell 火影 | *ほ*かげ || firelight
 word 小火
-    group
+    kun-group
         reading #core | pri-kanji-spell ボヤ common:小火 | ぼや || small fire
 kanji 口
     on-group
@@ -294,18 +294,18 @@ kanji 手
         reading #core | pri-spell 手 | *て* || hand
         reading | pri-spell 手綱 | *た*づな || reins
 word 上手い
-    group
+    kun-group
         reading #core | pri-kanji-spell うまい common:上手い | うまい || skillful
         reading #core #regular | pri-spell 上手 | ジョウズ || skillful
         reading #regular | pri-spell 上手 | かみて || up; upstream
         reading #regular | pri-spell 上手 | うわて || up; superior
 word 下手
-    group
+    kun-group
         reading #core | pri-spell 下手 | へた || unskillful
         reading #regular | pri-spell 下手 | しもて || down; downstream
         reading #regular | pri-spell 下手 | したて || down; inferior
 word 手水
-    group
+    kun-group
         reading #core | pri-spell 手水 | ちょうず || water for washing hands
 kanji 足
     on-group
@@ -318,7 +318,7 @@ kanji 足
         reading #core | pri-spell 足りる | *た*りる || to suffice
         reading | pri-spell 足す | *た*す || to add
 word 百足
-    group
+    kun-group
         reading #core | pri-kanji-spell ムカデ common:百足 | むかで || centipede
 kanji 頭
     on-group
@@ -363,7 +363,7 @@ kanji 見
     kun-group
         reading | pri-kanji-spell 相まみえる common:相見える | あい*まみ*える || to meet
 word 左見右見
-    group
+    kun-group
         reading #core | pri-spell 左見右見 | とみこうみ || looking to and fro
 kanji 言
     on-group
@@ -386,7 +386,7 @@ kanji 音
     kun-group
         reading | pri-spell 音色 | *ね*いろ || timbre
 word 音頭
-    group
+    on-group
         reading #core | pri-spell 音頭 | オンド || lead (esp. in music)
 kanji 心
     on-group
@@ -417,7 +417,7 @@ kanji 人
     kun-group
         reading | pri-spell 一人 | ひと*り* || one person
 word 大人
-    group
+    kun-group
         reading #core | pri-spell 大人 | おとな || adult
         reading | pri-kanji-spell おとなしい common:大人しい | おとなしい || quiet, obedient
 kanji 子
@@ -445,7 +445,7 @@ kanji 女
     kun-group
         reading | pri-spell 女神 | *め*がみ || goddess
 word 石女
-    group
+    kun-group
         reading #core | pri-spell 石女 | うまずめ || barren woman (discriminatory)
 kanji 男
     on-group
@@ -559,7 +559,7 @@ kanji 車
     kun-group
         reading #core | pri-spell 車 | *くるま* || car
 word 山車
-    group
+    kun-group
         reading #core | pri-spell 山車 | だし || festival float
 kanji 糸
     on-group
@@ -612,7 +612,7 @@ kanji 雨
         reading | pri-spell 雨漏り | *あま*もり || roof leak
         reading | pri-spell 小雨 | こ*さめ* || drizzle
 word 五月雨
-    group
+    kun-group
         reading #core | pri-spell 五月雨 | さみだれ || early-summer rain
 kanji 風
     on-group
@@ -642,7 +642,7 @@ kanji 竹
     kun-group
         reading #core | pri-spell 竹 | *たけ* || bamboo
 word 竹刀
-    group
+    kun-group
         reading #core | pri-spell 竹刀 | しない || bamboo sword
 kanji 田
     on-group
@@ -723,7 +723,7 @@ kanji 分
         reading | pri-spell 分かつ | *わ*かつ || to divide (tr.)
             variant common:分つ
 word 大分
-    group
+    kun-group
         reading #core #regular | pri-kanji-spell だいぶ common:大分 | ダイブ || greatly, considerably
         reading #core | pri-spell 大分 | おおいた || Ōita (city, prefecture)
 kanji 気
@@ -745,7 +745,7 @@ kanji 今
     kun-group
         reading | pri-spell 今年 | *こ*とし || this year
 word 今日
-    group
+    kun-group
         reading #core | pri-spell 今日 | きょう || today
         reading #regular | pri-spell 今日 | コンニチ || today; nowadays
 kanji 私
@@ -762,7 +762,7 @@ kanji 前
     kun-group
         reading #core | pri-spell 前 | *まえ* || before
 word 手前
-    group
+    kun-group
         reading #core #regular | pri-spell 手前 | てまえ || before oneself
         reading #core | pri-kanji-spell てめえ rare:手前 | てめえ || you (derogatory)
 kanji 俺
@@ -829,7 +829,7 @@ kanji 生 part:3
     kun-group
         reading | pri-spell 芝生 | しば*ふ* || lawn
 word 生っ白い
-    group
+    kun-group
         reading #core | pri-kanji-spell なまっちろい common:生っ白い | なまっちろい || pale
 kanji 時
     on-group
@@ -837,11 +837,11 @@ kanji 時
     kun-group
         reading #core | pri-spell 時 | *とき* || time
 word 何時
-    group
+    kun-group
         reading #core #regular | pri-spell 何時 | ナンジ || what time
         reading #core | pri-kanji-spell いつ rare:何時 | いつ || when
 word 時雨
-    group
+    kun-group
         reading #core | pri-spell 時雨 | しぐれ || rain shower in late autumn or early winter
 kanji 本
     on-group
@@ -851,7 +851,7 @@ kanji 本
         reading | sec-spell 元 rare:本 | *もと* || origin
         reading | pri-spell 旗本 | はた*もと* || shogun's retainer (historical)
 word 日本
-    group
+    on-group
         reading #core | pri-spell 日本 | ニホン || Japan
         reading #core #regular | pri-spell 日本 | ニッポン || Japan
 kanji 来
@@ -864,7 +864,7 @@ kanji 来
         reading | pri-spell 来す | *きた*す || to cause
             variant common:来たす
 word 出来る
-    group
+    kun-group
         reading #core | pri-kanji-spell できる common:出来る | できる || to be able
         reading #core | pri-spell 出来す | でかす || to accomplish
 kanji 自
@@ -895,7 +895,7 @@ kanji 方
     kun-group
         reading | pri-kanji-spell そちら rare:其方 | そ*ちら* || that way
 word 行方
-    group
+    kun-group
         reading #core | pri-spell 行方 | ゆくえ || whereabouts
 kanji 様
     on-group
@@ -910,7 +910,7 @@ kanji 話
         reading #core | pri-spell 話す | *はな*す || to talk
         reading | pri-spell 話 | *はなし* || talk
 word 四方山話
-    group
+    kun-group
         reading #core | pri-spell 四方山話 | よもやまばなし || talk about various topics
 kanji 入
     on-group
@@ -925,7 +925,7 @@ kanji 入
         reading #core | pri-spell 入れる | *い*れる || to insert
         reading | pri-spell 立ち入る | たち*い*る || to enter
 word 一入
-    group
+    kun-group
         reading #core | pri-kanji-spell ひとしお common:一入 | ひとしお || even more, especially
 kanji 先
     on-group
@@ -952,7 +952,7 @@ kanji 会
     kun-group
         reading #core | pri-spell 会う | *あ*う || to meet
 word 出会す
-    group
+    kun-group
         reading #core | pri-kanji-spell 出くわす rare:出会す | でくわす || to happen to meet
 kanji 合
     on-group
@@ -967,7 +967,7 @@ kanji 合
         reading #core | pri-spell 合わせる | *あ*わせる || to match
             variant rare:合せる
 word 百合
-    group
+    kun-group
         reading #core | pri-spell 百合 | ゆり || lily
 kanji 当
     on-group
@@ -1046,7 +1046,7 @@ kanji 度
     kun-group
         reading #core | pri-spell 度 | *たび* || time, occurrence
 word 目出度い
-    group
+    kun-group
         reading #core | pri-kanji-spell めでたい common:目出度い | めでたい || happy
 kanji 彼
     on-group
@@ -1064,10 +1064,10 @@ kanji 彼
     kun-group
         reading | pri-kanji-spell あそこ rare:彼処 | *あそ*こ || there
 word 彼女
-    group
+    kun-group
         reading #core | pri-spell 彼女 | かのじょ || she
 word 彼方
-    group
+    kun-group
         reading #core | pri-spell 彼方 | かなた || beyond
 kanji 感
     on-group
@@ -1134,13 +1134,13 @@ kanji 同
     kun-group
         reading #core | pri-spell 同じ | *おな*じ || same
 word 同い年
-    group
+    kun-group
         reading #core | pri-spell 同い年 | おないどし || the same age
 kanji 意
     on-group
         reading #core | pri-spell 意味 | *イ*ミ || meaning
 word 本意ない
-    group
+    on-group
         reading #core | pri-spell 本意ない | ホイナイ || regrettable, disappointing
         reading #core #regular | pri-spell 本意 | ホンイ || one's true intentions
 kanji 僕
@@ -1195,7 +1195,7 @@ kanji 取
         reading #core | pri-spell 取れる | *と*れる || to come off
         reading | pri-spell 取っ手 | *と*って || handle
 word 鳥取
-    group
+    kun-group
         reading #core | pri-spell 鳥取 | とっとり || Tottori (city, prefecture)
 kanji 地
     on-group
@@ -1203,10 +1203,10 @@ kanji 地
     on-group
         reading | pri-spell 地面 | *ジ*メン || earth
 word 心地
-    group
+    kun-group
         reading #core | pri-spell 心地 | ここち || feeling
 word 意気地
-    group
+    on-group
         reading #core | pri-spell 意気地 | イクジ || willpower, courage
 kanji 学
     on-group
@@ -1292,14 +1292,14 @@ kanji 明 part:2
     kun-group
         reading | pri-kanji-spell さやか common:明か | *さや*か || clear, fresh, bright
 word 明日
-    group
+    kun-group
         reading #core | pri-spell 明日 | あした || tomorrow
         reading | pri-spell 明日 | あす || tomorrow
 word 明後日
-    group
+    kun-group
         reading #core | pri-spell 明後日 | あさって || day after tomorrow
 word 明々後日
-    group
+    kun-group
         reading #core | pri-spell 明々後日 | しあさって || two days after tomorrow
 kanji 待
     on-group
@@ -1327,11 +1327,11 @@ kanji 身
     kun-group
         reading #core | pri-spell 身 | *み* || body
 word 身体
-    group
+    kun-group
         reading #core | sec-spell 体 common:身体 | からだ || body
         reading #core #regular | pri-spell 身体 | シンタイ || body
 word 身動ぐ
-    group
+    kun-group
         reading #core | pri-kanji-spell 身じろぐ common:身動ぐ | みじろぐ || to move (intr.)
 kanji 的
     on-group
@@ -1351,7 +1351,7 @@ kanji 向
             variant rare:向う
             variant rare:向
 word 日向
-    group
+    kun-group
         reading #core | pri-spell 日向 | ひなた || place in the sun
 kanji 達
     on-group
@@ -1361,7 +1361,7 @@ kanji 達
     kun-group
         reading #core | pri-kanji-spell たち common:達 | *たち* || (pluralizing suffix)
 word 先達て
-    group
+    on-group
         reading #core | pri-kanji-spell 先だって rare:先達て | センダッテ || some time ago
         reading #regular | pri-spell 先達 | センダツ || pioneer
 kanji 不
@@ -1370,7 +1370,7 @@ kanji 不
     on-group
         reading | pri-spell 不気味 | *ブ*キミ || eerie
 word 不知火
-    group
+    kun-group
         reading #core | pri-spell 不知火 | しらぬい || mysterious lights on the sea
 kanji 高
     on-group
@@ -1409,7 +1409,7 @@ kanji 味
         reading #core | pri-spell 味 | *あじ* || flavor
         reading | pri-spell 味わう | *あじ*わう || to savor
 word 不味い
-    group
+    kun-group
         reading #core | pri-kanji-spell まずい common:不味い | まずい || bad-tasting
 kanji 好
     on-group
@@ -1424,7 +1424,7 @@ kanji 好
         reading | sec-kanji-spell よし common:良し rare:好し | *よ*し || good
         reading | pri-kanji-spell よしみ common:好 | *よしみ* || friendship
 word 好事家
-    group
+    on-group
         reading #core | pri-spell 好事家 | コウズカ || person with strange or refined taste
 kanji 考
     on-group
@@ -1519,7 +1519,7 @@ kanji 付
         reading #core | pri-kanji-spell つく common:付く | *つ*く || to be attached
         reading #core | pri-kanji-spell つける common:付ける | *つ*ける || to attach
 word 目付ける
-    group
+    kun-group
         reading #core | pri-spell 目付ける | めっける || to discover (colloquial)
 kanji 誰
     on-group
@@ -1556,7 +1556,7 @@ kanji 面
     kun-group
         reading | pri-spell 水の面 | みの*も* || water surface
 word 面子
-    group
+    on-group
         reading #core #asian | pri-spell 面子 | メンツ || honor
 kanji 切
     on-group
@@ -1580,7 +1580,7 @@ kanji 相
     kun-group
         reading #core | pri-spell 相手 | *あい*て || other person
 word 相好
-    group
+    on-group
         reading #core | pri-spell 相好 | ソウゴウ || appearance
 kanji 仕
     on-group
@@ -1592,7 +1592,7 @@ kanji 仕
     kun-group
         reading | pri-spell 仕る | *つかまつ*る || to serve (humble)
 word 仕様がない
-    group
+    kun-group
         reading #core | pri-kanji-spell しょうがない rare:仕様がない | しょうがない || there's no other way
         reading #regular | pri-spell 仕様 | シヨウ || method
 kanji 確
@@ -1616,7 +1616,7 @@ kanji 神
     kun-group
         reading | pri-spell 神輿 | *み*こし || portable Shinto shrine
 word 神酒
-    group
+    kun-group
         reading #core | pri-spell 神酒 | みき || sacred sake
 kanji 開
     on-group
@@ -1648,7 +1648,7 @@ kanji 用
         reading #core | pri-spell 用いる | *もち*いる || to use
         reading | pri-spell 用うる | *もち*うる || to use
 word 用達
-    group
+    kun-group
         reading #core | sec-spell 用足し common:用達 | ようたし || running errands
 kanji 屋
     on-group
@@ -1666,16 +1666,16 @@ kanji 真
     kun-group
         reading | sec-spell 誠に common:真に | *まこと*に || truly
 word 真面目
-    group
+    kun-group
         reading #core | pri-spell 真面目 | まじめ || serious, earnest
 word 真面
-    group
+    kun-group
         reading #core | pri-kanji-spell まとも rare:真面 | まとも || front; honest
 word 真っ赤
-    group
+    kun-group
         reading #core | pri-spell 真っ赤 | まっか || deep red
 word 真っ青
-    group
+    kun-group
         reading #core | pri-spell 真っ青 | まっさお || deep blue
 kanji 着
     on-group
@@ -1706,7 +1706,7 @@ kanji 勝
     kun-group
         reading | sec-spell 優れる rare:勝れる | *すぐ*れる || to surpass
 word 勝手
-    group
+    kun-group
         reading #core | pri-spell 勝手 | かって || own convenience, selfish
 kanji 近
     on-group
@@ -1737,7 +1737,7 @@ kanji 楽
     kun-group
         reading #core | pri-spell 楽しい | *たの*しい || fun
 word 神楽
-    group
+    kun-group
         reading #core | pri-spell 神楽 | かぐら || kagura (dance)
 kanji 葉
     on-group
@@ -1777,7 +1777,7 @@ kanji 以
         reading | pri-kanji-spell もって common:以て | *もっ*て || by means of
             variant rare:以って
 word 所以
-    group
+    kun-group
         reading #core | pri-spell 所以 | ゆえん || reason, grounds
 kanji 連
     on-group
@@ -1814,7 +1814,7 @@ kanji 早
     kun-group
         reading | pri-spell 早苗 | *さ*なえ || rice seedling
 word 早生
-    group
+    kun-group
         reading #core | pri-spell 早生 | わせ || early-ripening crop
 kanji 新
     on-group
@@ -1842,7 +1842,7 @@ kanji 代
     kun-group
         reading | pri-spell 千代 | ち*よ* || thousand years
 word 身代金
-    group
+    kun-group
         reading #core | pri-spell 身代金 | みのしろきん || ransom
 kanji 然
     on-group
@@ -1956,7 +1956,7 @@ kanji 現
         reading | pri-spell 現 | *うつつ* || reality
             variant rare:現つ
 word 現人神
-    group
+    kun-group
         reading #core | pri-spell 現人神 | あらひとがみ || living god
 kanji 解 part:1
     on-group
@@ -2111,7 +2111,7 @@ kanji 東
     kun-group
         reading | pri-spell 東屋 | *あずま*や || gazebo
 word 東風
-    group
+    kun-group
         reading #core | pri-spell 東風 | こち || east wind
 kanji 緒
     on-group
@@ -2143,7 +2143,7 @@ kanji 問
     kun-group
         reading #core | pri-spell 問う | *と*う || to ask
 word 問屋
-    group
+    kun-group
         reading #core | pri-spell 問屋 | とんや || wholesaler
 kanji 受
     on-group
@@ -2292,10 +2292,10 @@ kanji 可
     on-group
         reading #core | pri-spell 可能 | *カ*ノウ || possible
 word 可愛い
-    group
+    on-group
         reading #core | pri-spell 可愛い | カワイイ || cute
 word 可笑しい
-    group
+    kun-group
         reading #core | pri-kanji-spell おかしい common:可笑しい | おかしい || funny, strange
 kanji 始
     on-group
@@ -2315,7 +2315,7 @@ kanji 母
     kun-group
         reading | pri-spell 母屋 | *おも*や || main building of a manor
 word 小母さん
-    group
+    kun-group
         reading #core | pri-spell 小母さん | おばさん || middle-aged lady
 kanji 成
     on-group
@@ -2332,7 +2332,7 @@ kanji 残
         reading #core | pri-spell 残る | *のこ*る || to remain
         reading #core | pri-spell 残す | *のこ*す || to leave behind
 word 名残
-    group
+    kun-group
         reading #core | pri-spell 名残 | なごり || remains
             variant common:名残り
 kanji 数
@@ -2346,7 +2346,7 @@ kanji 数
         reading #core | pri-spell 数 | *かず* || number
         reading #core | pri-spell 数える | *かぞ*える || to count
 word 数多
-    group
+    kun-group
         reading #core | pri-spell 数多 | あまた || many
 kanji 機
     on-group
@@ -2379,7 +2379,7 @@ kanji 業
     kun-group
         reading #core | pri-spell 仕業 | し*わざ* || one's doing
 word 生業
-    group
+    kun-group
         reading #core | pri-spell 生業 | なりわい || occupation
 kanji 員
     on-group
@@ -2414,11 +2414,11 @@ kanji 美
     kun-group
         reading | sec-spell 見事 rare:美事 | *み*ごと || splendid
 word 美味い
-    group
+    kun-group
         reading #core | pri-kanji-spell うまい common:美味い | うまい || delicious
         reading #regular | pri-spell 美味 | ビミ || delicious
 word 美味しい
-    group
+    kun-group
         reading #core | pri-kanji-spell おいしい common:美味しい | おいしい || delicious
         reading #regular | pri-spell 美味 | ビミ || delicious
 kanji 社
@@ -2436,7 +2436,7 @@ kanji 親
     kun-group
         reading #core | pri-spell 親しい | *した*しい || close, familiar
 word 親不知
-    group
+    kun-group
         reading #core | sec-spell 親知らず common:親不知 | おやしらず || wisdom tooth
 kanji 起
     on-group
@@ -2455,7 +2455,7 @@ kanji 野
     kun-group
         reading #core | pri-spell 野 | *の* || plain
 word 野分
-    group
+    kun-group
         reading #core | pri-spell 野分 | のわき || typhoon in early autumn (archaic)
 kanji 調
     on-group
@@ -2485,7 +2485,7 @@ kanji 化
         reading #core | pri-spell 化ける | *ば*ける || to transform
         reading | pri-spell 化かす | *ば*かす || to bewitch
 word 時化る
-    group
+    on-group
         reading #core | pri-kanji-spell しける rare:時化る | シケル || to be stormy (of sea)
 kanji 我
     on-group
@@ -2548,7 +2548,7 @@ kanji 飛
         reading #core | pri-spell 飛ぶ | *と*ぶ || to fly
         reading #core | pri-spell 飛ばす | *と*ばす || to make fly
 word 飛鳥時代
-    group
+    kun-group
         reading #core | pri-spell 飛鳥時代 | あすかじだい || Asuka period
 kanji 重
     on-group
@@ -2565,7 +2565,7 @@ kanji 重
     kun-group
         reading | pri-spell 八重 | や*え* || multilayered
 word 重石
-    group
+    kun-group
         reading #core | pri-kanji-spell 重し common:重石 | おもし || stone weight
 kanji 頼
     on-group
@@ -2581,10 +2581,10 @@ kanji 夜
         reading #core | pri-spell 夜 | *よる* || night
         reading | pri-spell 夜中 | *よ*なか || middle of the night
 word 通夜
-    group
+    on-group
         reading #core | pri-spell 通夜 | ツヤ || all-night vigil
 word 十六夜
-    group
+    kun-group
         reading #core | pri-spell 十六夜 | いざよい || sixteen-day-old moon
 kanji 応
     on-group
@@ -2594,7 +2594,7 @@ kanji 応
     kun-group
         reading #core | pri-spell 応える | *こた*える || to answer (expectations)
 word 相応しい
-    group
+    kun-group
         reading #core | pri-kanji-spell ふさわしい common:相応しい | ふさわしい || appropriate
         reading #regular | pri-spell 相応 | ソウオウ || appropriate
 kanji 海
@@ -2606,16 +2606,16 @@ kanji 海
         reading #core | pri-spell 海 | *うみ* || sea
         reading | pri-spell 海原 | *うな*ばら || ocean
 word 上海
-    group
+    on-group
         reading #core #asian | pri-spell 上海 | シャンハイ || Shanghai
 word 海人
-    group
+    kun-group
         reading #core | pri-spell 海人 | あま || diver (who collects shells, seaweed, etc.)
         reading #core | pri-spell 海女 | あま || female diver (who collects shells, seaweed, etc.)
         reading | sec-spell 海人 common:海士 | あま || male diver (who collects shells, seaweed, etc.)
         reading #regular | pri-spell 海士 | カイシ || seaman (rank)
 word 海月
-    group
+    kun-group
         reading #core | pri-kanji-spell クラゲ common:海月 | くらげ || jellyfish
         reading | sec-kanji-spell クラゲ common:海月 common:水母 | くらげ || jellyfish
 kanji 京
@@ -2637,14 +2637,14 @@ kanji 流
         reading #core | pri-spell 流れる | *なが*れる || to flow
         reading #core | pri-spell 流す | *なが*す || to pour
 word 流行る
-    group
+    kun-group
         reading #core | pri-spell 流行る | はやる || to be popular
         reading #regular | pri-spell 流行 | リュウコウ || fashion, trend
 word 流石
-    group
+    kun-group
         reading #core | pri-kanji-spell さすが common:流石 | さすが || as expected
 word 無手勝流
-    group
+    kun-group
         reading #core | pri-spell 無手勝流 | むてかつりゅう || winning without fighting
 kanji 伝
     on-group
@@ -2658,19 +2658,19 @@ kanji 伝
         reading | pri-spell 伝 | *つて* || connections, influence
             variant rare:伝て
 word 手伝う
-    group
+    kun-group
         reading #core | pri-spell 手伝う | てつだう || to help
 word 伝手
-    group
+    kun-group
         reading #core | sec-spell 伝 common:伝手 | つて || connections, influence
 kanji 線
     on-group
         reading #core | pri-spell 線 | *セン* || line
 word 三味線
-    group
+    on-group
         reading #core | pri-spell 三味線 | シャミセン || shamisen (lute)
 word 三線
-    group
+    on-group
         reading #core | pri-spell 三線 | サンシン || sanshin (instrument)
 kanji 突
     on-group
@@ -2781,13 +2781,13 @@ kanji 他
     kun-group
         reading #core | pri-spell 他 | *ほか* || other
 word 他愛ない
-    group
+    on-group
         reading #core | pri-spell 他愛ない | タワイナイ || silly, childish; trifling
 word 他人事
-    group
+    kun-group
         reading #core | pri-spell 他人事 | ひとごと || other people's affairs
 word 他人様
-    group
+    kun-group
         reading #core | sec-spell 人様 common:他人様 | ひとさま || other people
 kanji 県
     on-group
@@ -2806,7 +2806,7 @@ kanji 点
     kun-group
         reading | pri-spell 点てる | *た*てる || to make matcha
 word 点前
-    group
+    kun-group
         reading #core | pri-spell 点前 | てまえ || tea ceremony procedure
 kanji 優
     on-group
@@ -2838,7 +2838,7 @@ kanji 離
         reading #core | pri-spell 離れる | *はな*れる || to separate (intr.)
         reading #core | pri-spell 離す | *はな*す || to separate (tr.)
 word 流離う
-    group
+    kun-group
         reading #core | pri-kanji-spell さすらう common:流離う | さすらう || to wander
 kanji 題
     on-group
@@ -2872,7 +2872,7 @@ kanji 光
         reading #core | pri-spell 光る | *ひか*る || to shine
         reading #core | pri-spell 光 | *ひかり* || light
 word 竹光
-    group
+    kun-group
         reading #core | pri-spell 竹光 | たけみつ || bamboo sword
 kanji 画
     on-group
@@ -2889,7 +2889,7 @@ kanji 想
     kun-group
         reading | sec-spell 思う rare:想う | *おも*う || to think
 word 愛想
-    group
+    on-group
         reading #core | pri-spell 愛想 | アイソ || amiability
 kanji 特
     on-group
@@ -2962,7 +2962,7 @@ kanji 息
         reading #core | pri-spell 息 | *いき* || breath
         reading | pri-kanji-spell いきむ common:息む | *いき*む || to strain, to bear down on (one's stomach)
 word 息子
-    group
+    kun-group
         reading #core | pri-spell 息子 | むすこ || son
 kanji 貴
     on-group
@@ -2972,7 +2972,7 @@ kanji 貴
         reading | sec-spell 尊ぶ common:貴ぶ | *とうと*ぶ || to respect, to value
         reading | sec-spell 尊む common:貴む | *とうと*む || to respect, to value
 word 貴方
-    group
+    kun-group
         reading #core | pri-kanji-spell あなた common:貴方 | あなた || you
         reading | sec-kanji-spell あなた common:貴方 rare:貴女 | あなた || you
         reading | sec-kanji-spell あなた common:貴方 rare:貴男 | あなた || you
@@ -3042,10 +3042,10 @@ kanji 倒
     kun-group
         reading | sec-spell 逆さ rare:倒さ | *さか*さ || reversed
 word 面倒
-    group
+    on-group
         reading #core | pri-spell 面倒 | メンドウ || trouble, bother
 word 張っ倒す
-    group
+    kun-group
         reading #core | pri-kanji-spell はっ倒す common:張っ倒す | はったおす || to knock down
 kanji 姿
     on-group
@@ -3072,7 +3072,7 @@ kanji 果
     kun-group
         reading | pri-kanji-spell おおせる common:果せる | *おお*せる || to accomplish
 word 果物
-    group
+    kun-group
         reading #core | pri-spell 果物 | くだもの || fruit
 kanji 苦
     on-group
@@ -3085,10 +3085,10 @@ kanji 苦
         reading #core | pri-spell 苦い | *にが*い || bitter
         reading | pri-spell 苦る | *にが*る || to feel bitter
 word 苦力
-    group
+    on-group
         reading #core #asian | pri-spell 苦力 | クーリー || coolie (Asian low-wage laborer) (historical, discriminatory)
 word 苦無
-    group
+    kun-group
         reading #core | pri-kanji-spell くない common:苦無 | くない || kunai (ninja knife)
 kanji 買
     on-group
@@ -3110,10 +3110,10 @@ kanji 平
     kun-group
         reading | sec-spell 均す common:平す | *なら*す || to make even
 word 助平
-    group
+    on-group
         reading #core | pri-kanji-spell スケベ common:助平 | スケベ || perverted
 word 平生
-    group
+    on-group
         reading #core | pri-spell 平生 | ヘイゼイ || ordinary
 kanji 任
     on-group
@@ -3163,7 +3163,7 @@ kanji 転
     kun-group
         reading | pri-kanji-spell こける common:転ける | *こ*ける || to fall over
 word 七転八倒
-    group
+    on-group
         reading #core | pri-spell 七転八倒 | シチテンバットウ || writhing in agony
 kanji 由
     on-group
@@ -3206,7 +3206,7 @@ kanji 朝
     kun-group
         reading #core | pri-spell 朝 | *あさ* || morning
 word 今朝
-    group
+    kun-group
         reading #core | pri-spell 今朝 | けさ || this morning
 kanji 存
     on-group
@@ -3280,10 +3280,10 @@ kanji 素
     kun-group
         reading | pri-spell 素 | *もと* || raw material, base
 word 素人
-    group
+    kun-group
         reading #core | pri-spell 素人 | しろうと || amateur
 word 素面
-    group
+    kun-group
         reading #core | pri-kanji-spell しらふ common:素面 | しらふ || soberness
         reading #regular | pri-spell 素面 | スメン || without a mask
 kanji 原
@@ -3293,7 +3293,7 @@ kanji 原
     kun-group
         reading #core | pri-spell 原 | *はら* || meadow
 word 高天原
-    group
+    kun-group
         reading #core | pri-spell 高天原 | たかまがはら || Heaven (Shinto)
 kanji 友
     on-group
@@ -3307,7 +3307,7 @@ kanji 半
         reading #core | pri-spell 半ば | *なか*ば || halfway
         reading | pri-spell 生半 | なま*なか* || half-hearted
 word 三行半
-    group
+    kun-group
         reading #core | pri-spell 三行半 | みくだりはん || letter of divorce (historical)
         reading #core #regular | pri-spell 三行半 | サンギョウハン || three and a half lines
 kanji 送
@@ -3342,7 +3342,7 @@ kanji 花
         reading #core | pri-spell 花 | *はな* || flower
         reading | sec-spell 華やか rare:花やか | *はな*やか || brilliant
 word 無花果
-    group
+    on-group
         reading #core | pri-kanji-spell イチジク common:無花果 | イチジク || fig
 kanji 限
     on-group
@@ -3357,7 +3357,7 @@ kanji 位
     kun-group
         reading #core | pri-spell 位 | *くらい* || throne, rank
 word 三位一体
-    group
+    on-group
         reading #core | pri-spell 三位一体 | サンミイッタイ || Holy Trinity
 kanji 備
     on-group
@@ -3438,7 +3438,7 @@ kanji 背
         reading | pri-spell 背く | *そむ*く || to go against
         reading | pri-spell 背ける | *そむ*ける || to turn away (one's face or eyes)
 word 背負って立つ
-    group
+    kun-group
         reading #core | pri-spell 背負って立つ | しょってたつ || to bear responsibility for
 kanji 仲
     on-group
@@ -3446,7 +3446,7 @@ kanji 仲
     kun-group
         reading #core | pri-spell 仲 | *なか* || relationship
 word 仲人
-    group
+    kun-group
         reading #core | pri-spell 仲人 | なこうど || matchmaker
 kanji 告
     on-group
@@ -3461,7 +3461,7 @@ kanji 格
     on-group
         reading | pri-spell 格子 | *コウ*シ || lattice
 word 格好良い
-    group
+    on-group
         reading #core | pri-kanji-spell カッコイイ common:格好良い | カッコイイ || cool
         reading #core #regular | pri-spell 格好 | カッコウ || form, appearance
 kanji 血
@@ -3503,7 +3503,7 @@ kanji 師
     on-group
         reading | pri-spell 禅師 | ゼン*ジ* || high-ranking Zen monk
 word 師走
-    group
+    kun-group
         reading #core | pri-spell 師走 | しわす || twelfth lunar month
 kanji 礼
     on-group
@@ -3530,7 +3530,7 @@ kanji 広
         reading | pri-spell 広まる | *ひろ*まる || to propagate (intr.)
         reading | pri-spell 広める | *ひろ*める || to propagate (tr.)
 word 広東
-    group
+    on-group
         reading #core #asian | pri-spell 広東 | カントン || Guangdong, Canton
 kanji 計
     on-group
@@ -3538,7 +3538,7 @@ kanji 計
     kun-group
         reading #core | pri-spell 計る | *はか*る || to measure
 word 時計
-    group
+    on-group
         reading #core | pri-spell 時計 | トケイ || clock
 kanji 望
     on-group
@@ -3569,7 +3569,7 @@ kanji 幸
     kun-group
         reading | pri-spell 幸 | *さち* || fortune
 word 幸先
-    group
+    kun-group
         reading #core | pri-spell 幸先 | さいさき || good sign
 kanji 品
     on-group
@@ -3612,14 +3612,14 @@ kanji 和 part:2
     kun-group
         reading | pri-spell 和毛 | *にこ*げ || downy hair
 word 日和
-    group
+    kun-group
         reading #core | pri-spell 日和 | ひより || weather
         reading #core | pri-spell 日和る | ひよる || to wait and see
 word 大和
-    group
+    kun-group
         reading #core | pri-spell 大和 | やまと || Ancient Japan
 word 三和土
-    group
+    kun-group
         reading #core | pri-spell 三和土 | たたき || hard-packed dirt floor
 kanji 欲
     on-group
@@ -3747,19 +3747,19 @@ kanji 昨
     on-group
         reading #core | pri-spell 昨晩 | *サク*バン || last night
 word 昨日
-    group
+    kun-group
         reading #core | pri-spell 昨日 | きのう || yesterday
 word 一昨日
-    group
+    kun-group
         reading #core | pri-spell 一昨日 | おととい || day before yesterday
 word 一昨々日
-    group
+    kun-group
         reading #core | pri-spell 一昨々日 | さきおととい || two days before yesterday
 word 一昨年
-    group
+    kun-group
         reading #core | pri-spell 一昨年 | おととし || year before last
 word 一昨々年
-    group
+    kun-group
         reading #core | pri-spell 一昨々年 | さきおととし || two years before last
 kanji 兵
     on-group
@@ -3773,7 +3773,7 @@ kanji 売
         reading #core | pri-spell 売る | *う*る || to sell (tr.)
         reading #core | pri-spell 売れる | *う*れる || to sell (intr.)
 word 売女
-    group
+    on-group
         reading #core | pri-spell 売女 | バイタ || prostitute (derogatory)
 kanji 有
     on-group
@@ -3791,7 +3791,7 @@ kanji 押
             variant rare:押える
         reading | pri-spell 押っ取り刀 | *お*っとりがたな || making great haste
 word 長押
-    group
+    kun-group
         reading #core | pri-spell 長押 | なげし || beam running between columns in traditional Japanese architecture
 kanji 念
     on-group
@@ -3822,7 +3822,7 @@ kanji 浮
     kun-group
         reading | pri-spell 浮気 | *うわ*き || affair, cheating
 word 浮子
-    group
+    kun-group
         reading #core | sec-spell 浮き rare:浮子 | うき || floating
 kanji 院
     on-group
@@ -3865,10 +3865,10 @@ kanji 北
     kun-group
         reading #core | pri-spell 北 | *きた* || north
 word 北京
-    group
+    on-group
         reading #core #asian | pri-spell 北京 | ペキン || Beijing
 word 台北
-    group
+    on-group
         reading #core #asian | pri-spell 台北 | タイペイ || Taipei
 kanji 段
     on-group
@@ -3928,7 +3928,7 @@ kanji 触
     kun-group
         reading #core | pri-spell 触る | *さわ*る || to touch
 word 気触れる
-    group
+    kun-group
         reading #core | pri-kanji-spell かぶれる rare:気触れる | かぶれる || to develop a rash
 kanji 恐
     on-group
@@ -3946,7 +3946,7 @@ kanji 居
     kun-group
         reading | pri-kanji-spell いる common:居る | *い*る || to be
 word 安居
-    group
+    on-group
         reading #core #regular | pri-spell 安居 | アンキョ || easy life
         reading | pri-spell 安居 | アンゴ || ango (meditation retreat)
 kanji 泣
@@ -3961,7 +3961,7 @@ kanji 器
     kun-group
         reading #core | pri-spell 器 | *うつわ* || container
 word 神器
-    group
+    on-group
         reading #core | pri-spell 神器 | ジンギ || sacred treasure (of Japan)
 kanji 再
     on-group
@@ -3982,16 +3982,16 @@ kanji 太
         reading #core | pri-spell 太る | *ふと*る || to gain weight
         reading | pri-kanji-spell ふてぶてしい common:太々しい | *ふて*ぶてしい || brazen
 word 太刀
-    group
+    kun-group
         reading #core | pri-spell 太刀 | たち || tachi (sword)
 word 太夫
-    group
+    on-group
         reading #core | pri-spell 太夫 | タユウ || tayū (performer)
 word 明太子
-    group
+    on-group
         reading #core #asian | pri-spell 明太子 | メンタイコ || mentaiko (food)
 word 心太
-    group
+    kun-group
         reading #core | pri-kanji-spell ところてん common:心太 | ところてん || tokoroten (food)
 kanji 危
     on-group
@@ -4054,7 +4054,7 @@ kanji 病
         reading #core | pri-spell 病 | *やまい* || illness
         reading | pri-spell 病む | *や*む || to fall ill
 word 病葉
-    group
+    kun-group
         reading #core | pri-spell 病葉 | わくらば || blighted leaf
 kanji 保
     on-group
@@ -4072,7 +4072,7 @@ kanji 際
     kun-group
         reading #core | pri-spell 際 | *きわ* || edge
 word 今際
-    group
+    kun-group
         reading #core | pri-kanji-spell いまわ common:今際 | いまわ || one's last moments
 kanji 円
     on-group
@@ -4086,7 +4086,7 @@ kanji 円
     kun-group
         reading | pri-kanji-spell つぶら common:円ら | *つぶ*ら || round and cute
 word 円居
-    group
+    kun-group
         reading #core | pri-kanji-spell まどい rare:円居 | まどい || sitting in a circle
 kanji 宮
     on-group
@@ -4196,10 +4196,10 @@ kanji 読
     kun-group
         reading #core | pri-spell 読む | *よ*む || to read
 word 読経
-    group
+    on-group
         reading #core | pri-spell 読経 | ドキョウ || sutra chanting
 word 読本
-    group
+    on-group
         reading #core | pri-spell 読本 | トクホン || reading book
 kanji 程
     on-group
@@ -4208,10 +4208,10 @@ kanji 程
     kun-group
         reading #core | pri-kanji-spell ほど common:程 | *ほど* || extent
 word 道程
-    group
+    kun-group
         reading #core | pri-kanji-spell 道のり common:道程 | みちのり || distance
 word 成程
-    group
+    kun-group
         reading #core | pri-kanji-spell なるほど rare:成程 | なるほど || I see
 kanji 腕
     on-group
@@ -4274,7 +4274,7 @@ kanji 勢
     kun-group
         reading | sec-spell 弾む rare:勢む | *はず*む || to bounce
 word 勢子
-    group
+    on-group
         reading #core | pri-spell 勢子 | セコ || beater (hunting)
 kanji 隠
     on-group
@@ -4316,7 +4316,7 @@ kanji 余
         reading #core | pri-spell 余る | *あま*る || to remain
         reading #core | pri-spell 余す | *あま*す || to leave over
 word 他所
-    group
+    kun-group
         reading #core | pri-kanji-spell よそ common:他所 | よそ || somewhere else
             variant common:余所
 kanji 参
@@ -4328,7 +4328,7 @@ kanji 参
     kun-group
         reading #core | pri-spell 参る | *まい*る || to go (humble)
 word 人参
-    group
+    on-group
         reading #core | pri-kanji-spell ニンジン common:人参 | ニンジン || carrot
 kanji 遊
     on-group
@@ -4340,7 +4340,7 @@ kanji 遊
     kun-group
         reading | sec-spell 荒む rare:遊む | *すさ*む || to do as one pleases
 word 遊説
-    group
+    on-group
         reading #core | pri-spell 遊説 | ユウゼイ || election tour
 kanji 腹
     on-group
@@ -4382,7 +4382,7 @@ kanji 御
     kun-group
         reading | pri-spell 御霊 | *み*たま || spirit of a deceased person
 word 御時
-    group
+    kun-group
         reading #core | pri-spell 御時 | おおんとき || reign of an emperor of Japan (honorific, archaic)
 kanji 察
     on-group
@@ -4395,7 +4395,7 @@ kanji 髪
     kun-group
         reading | pri-spell 御髪 | お*ぐし* || hair (honorific)
 word 白髪
-    group
+    kun-group
         reading #core | pri-spell 白髪 | しらが || gray hair
 kanji 護
     on-group
@@ -4414,7 +4414,7 @@ kanji 傷
     kun-group
         reading | sec-spell 深手 common:深傷 | ふか*で* || severe wound
 word 火傷
-    group
+    kun-group
         reading #core | pri-spell 火傷 | やけど || burn, scald
 kanji 犯
     on-group
@@ -4499,11 +4499,11 @@ kanji 質
     kun-group
         reading | pri-kanji-spell ただす common:質す | *ただ*す || to ask
 word 気質
-    group
+    kun-group
         reading #core #regular | pri-spell 気質 | キシツ || disposition, nature
         reading #core | pri-spell 気質 | かたぎ || disposition, nature (as suffix)
 word 言質
-    group
+    on-group
         reading #core | pri-spell 言質 | ゲンチ || commitment
 kanji 異
     on-group
@@ -4523,7 +4523,7 @@ kanji 練
     kun-group
         reading #core | pri-spell 練る | *ね*る || to knead; to refine, to work out
 word 手練れ
-    group
+    kun-group
         reading #core | pri-spell 手練れ | てだれ || mastery; expert
 kanji 未
     on-group
@@ -4534,7 +4534,7 @@ kanji 未
     kun-group
         reading | pri-spell 未 | *ひつじ* || Sheep (Zodiac)
 word 未通女
-    group
+    kun-group
         reading #core | pri-kanji-spell おぼこ common:未通女 | おぼこ || innocent, inexperienced; virgin
 kanji 側
     on-group
@@ -4573,10 +4573,10 @@ kanji 茶
     on-group
         reading | pri-spell 喫茶店 | キッ*サ*テン || cafe
 word 茶髪
-    group
+    on-group
         reading #core | pri-spell 茶髪 | チャパツ || brown hair
 word 飲茶
-    group
+    on-group
         reading #core #asian | pri-spell 飲茶 | ヤムチャ || yum cha
 kanji 証
     on-group
@@ -4585,7 +4585,7 @@ kanji 証
         reading #core | pri-spell 証 | *あかし* || proof
         reading | sec-spell 明かす rare:証す | *あか*す || to prove
 word 内証
-    group
+    on-group
         reading #core | sec-spell 内緒 rare:内証 | ナイショ || secret
 kanji 冷
     on-group
@@ -4606,7 +4606,7 @@ kanji 習
     kun-group
         reading #core | pri-spell 習う | *なら*う || to learn
 word 近習
-    group
+    on-group
         reading #core | pri-spell 近習 | キンジュ || attendant
 kanji 静
     on-group
@@ -4667,7 +4667,7 @@ kanji 星
     kun-group
         reading #core | pri-spell 星 | *ほし* || star
 word 海星
-    group
+    kun-group
         reading #core | pri-kanji-spell ヒトデ common:海星 | ひとで || starfish
 kanji 育
     on-group
@@ -4720,13 +4720,13 @@ kanji 産
     kun-group
         reading | pri-spell 産声 | *うぶ*ごえ || first cry
 word 土産
-    group
+    kun-group
         reading #core | pri-spell 土産 | みやげ || souvenir
 word 道産子
-    group
+    on-group
         reading #core | pri-spell 道産子 | ドサンコ || horse native to Hokkaido; person native to Hokkaido
 word 産土神
-    group
+    kun-group
         reading #core | pri-spell 産土神 | うぶすながみ || birthplace's guardian deity (Shinto)
 kanji 徒
     on-group
@@ -4742,10 +4742,10 @@ kanji 徒
     kun-group
         reading | sec-kanji-spell ただ rare:唯 rare:徒 | *ただ* || mere
 word 徒士
-    group
+    kun-group
         reading #core | pri-spell 徒士 | かち || Edo period foot soldier
 word 徒然
-    group
+    kun-group
         reading #core | pri-spell 徒然 | つれづれ || tedium
 kanji 街
     on-group
@@ -4763,10 +4763,10 @@ kanji 故
     kun-group
         reading | sec-spell 古い rare:故い | *ふる*い || old
 word 何故
-    group
+    kun-group
         reading #core | pri-kanji-spell なぜ common:何故 | なぜ || why
 word 反故
-    group
+    on-group
         reading #core | pri-spell 反故 | ホゴ || wastepaper
         reading | sec-spell 反故 common:反古 | ホゴ || wastepaper
 kanji 歌
@@ -4783,7 +4783,7 @@ kanji 局
     kun-group
         reading | pri-spell 局 | *つぼね* || court lady (historical)
 word 美人局
-    group
+    kun-group
         reading #core | pri-spell 美人局 | つつもたせ || badger game
 kanji 移
     on-group
@@ -4821,7 +4821,7 @@ kanji 郎
     on-group
         reading | pri-spell 弥次郎兵衛 | ヤジ*ロ*ベエ || balancing toy
 word 外郎
-    group
+    on-group
         reading #core | pri-kanji-spell ういろう common:外郎 | ウイロウ || uirō (cake)
 kanji 査
     on-group
@@ -4833,7 +4833,7 @@ kanji 邪
         reading | pri-spell 邪 | *よこしま* || wicked
             variant rare:邪ま
 word 風邪
-    group
+    kun-group
         reading #core | pri-spell 風邪 | かぜ || common cold
 kanji 娘
     kun-group
@@ -4841,10 +4841,10 @@ kanji 娘
     kun-group
         reading | sec-spell 子 rare:娘 | *こ* || daughter, girl
 word 父娘
-    group
+    kun-group
         reading #core | pri-spell 父娘 | おやこ || father and daughter
 word 母娘
-    group
+    kun-group
         reading #core | pri-spell 母娘 | おやこ || mother and daughter
 kanji 投
     on-group
@@ -4877,7 +4877,7 @@ kanji 焼
     kun-group
         reading | pri-kanji-spell くべる rare:焼べる | *く*べる || to throw on the fire
 word 焼売
-    group
+    on-group
         reading #core #asian | pri-kanji-spell シュウマイ common:焼売 | シュウマイ || shumai (food)
 kanji 辺
     on-group
@@ -4889,7 +4889,7 @@ kanji 辺
     kun-group
         reading | sec-kanji-spell ほとり common:畔 rare:辺 | *ほとり* || bank, shore
 word 天辺
-    group
+    on-group
         reading #core | pri-kanji-spell てっぺん common:天辺 | テッペン || top
 kanji 示
     on-group
@@ -4902,7 +4902,7 @@ kanji 案
     on-group
         reading #core | pri-spell 提案 | テイ*アン* || proposal
 word 案山子
-    group
+    kun-group
         reading #core | pri-spell 案山子 | かかし || scarecrow
 kanji 若
     on-group
@@ -4919,7 +4919,7 @@ kanji 若
     kun-group
         reading | sec-spell 如く common:若く | *し*く || to match, to equal
 word 若人
-    group
+    kun-group
         reading #core | pri-spell 若人 | わこうど || young person
 kanji 住
     on-group
@@ -4951,7 +4951,7 @@ kanji 謝
     kun-group
         reading #core | pri-spell 謝る | *あやま*る || to apologize
 word 謝謝
-    group
+    on-group
         reading #core #asian | pri-spell 謝謝 | シェシェ || thanks (Chinese)
 kanji 越
     on-group
@@ -4968,7 +4968,7 @@ kanji 映
     kun-group
         reading | pri-spell 映える | *は*える || to shine
 word 面映ゆい
-    group
+    kun-group
         reading #core | pri-spell 面映ゆい | おもはゆい || bashful
             variant common:面映い
 kanji 階
@@ -4990,16 +4990,16 @@ kanji 束
     kun-group
         reading | pri-spell 束の間 | *つか*のま || moment
 word 装束
-    group
+    on-group
         reading #core | pri-spell 装束 | ショウゾク || attire
 word 覚束ない
-    group
+    kun-group
         reading #core | pri-kanji-spell おぼつかない common:覚束ない | おぼつかない || uncertain
 word 不束
-    group
+    kun-group
         reading #core | pri-kanji-spell ふつつか common:不束 | ふつつか || inept
 word 束子
-    group
+    kun-group
         reading #core | pri-kanji-spell たわし common:束子 | たわし || scrubbing brush
 kanji 接
     on-group
@@ -5058,7 +5058,7 @@ kanji 増
         reading | pri-spell 増す | *ま*す || to increase (tr.)
         reading | sec-kanji-spell ますます common:益々 rare:増々 | *ます*ます || more and more
 word 年増
-    group
+    kun-group
         reading #core | pri-spell 年増 | としま || woman who has aged past her prime
 kanji 論
     on-group
@@ -5066,7 +5066,7 @@ kanji 論
     kun-group
         reading | pri-kanji-spell あげつらう common:論う | *あげつら*う || to discuss; to criticize
 word 目論む
-    group
+    on-group
         reading #core | pri-spell 目論む | モクロム || to plan
 kanji 船
     on-group
@@ -5101,7 +5101,7 @@ kanji 路
     kun-group
         reading | sec-spell 道 rare:路 | *みち* || path
 word 小路
-    group
+    kun-group
         reading #core | pri-spell 小路 | こうじ || alley
 kanji 観
     on-group
@@ -5109,7 +5109,7 @@ kanji 観
     kun-group
         reading #core | sec-spell 見る rare:観る | *み*る || to see, to look
 word 観音
-    group
+    on-group
         reading #core | pri-spell 観音 | カンノン || Kannon
 kanji 割
     on-group
@@ -5126,7 +5126,7 @@ kanji 復
     kun-group
         reading | sec-kanji-spell また common:又 rare:復 | *また* || again
 word 復習
-    group
+    kun-group
         reading #core #regular | pri-spell 復習 | フクシュウ || review (of learned material)
         reading #core | pri-spell 復習う | さらう || to rehearse
 kanji 悲
@@ -5161,7 +5161,7 @@ kanji 端
     kun-group
         reading | pri-kanji-spell はした金 common:端金 | *はした*がね || paltry sum of money
 word 木端
-    group
+    kun-group
         reading #core | sec-spell 木っ端 common:木端 | こっぱ || wood chip
 kanji 夏
     on-group
@@ -5190,10 +5190,10 @@ kanji 戸
     kun-group
         reading #core | pri-spell 戸 | *と* || door
 word 神戸
-    group
+    kun-group
         reading #core | pri-spell 神戸 | こうべ || Kōbe (city)
 word 破落戸
-    group
+    kun-group
         reading #core | pri-kanji-spell ゴロツキ common:破落戸 | ごろつき || rogue, thug
 kanji 惑
     on-group
@@ -5202,7 +5202,7 @@ kanji 惑
         reading #core | pri-spell 惑う | *まど*う || to get lost
         reading #core | pri-spell 惑わす | *まど*わす || to bewilder
 word 思惑
-    group
+    kun-group
         reading #core | pri-spell 思惑 | おもわく || expectation
 kanji 聖
     on-group
@@ -5240,11 +5240,11 @@ kanji 散
         reading #core | pri-spell 散る | *ち*る || to scatter (intr.)
         reading #core | pri-spell 散らす | *ち*らす || to scatter (tr.)
 word 散々
-    group
+    on-group
         reading #core | pri-spell 散々 | サンザン || thoroughly, severely
         reading | pri-kanji-spell さんざっぱら rare:散々っぱら | サンザッパラ || thoroughly, severely
 word 散切り
-    group
+    on-group
         reading #core | pri-kanji-spell ざんぎり common:散切り | ザンギリ || cropped hairstyle (Meiji era)
 kanji 工
     on-group
@@ -5288,7 +5288,7 @@ kanji 歳
     kun-group
         reading | pri-spell 千歳 | ち*とせ* || millennium
 word 二十歳
-    group
+    kun-group
         reading #core | pri-spell 二十歳 | はたち || twenty years old
         reading #core | pri-spell 二十日 | はつか || twenty days
         reading | pri-spell 二十重 | はたえ || many-fold
@@ -5321,7 +5321,7 @@ kanji 逆
         reading #core | pri-spell 逆さ | *さか*さ || reversed
         reading | pri-spell 逆立ち | *さか*だち || headstand
 word 逆上せる
-    group
+    kun-group
         reading #core | pri-kanji-spell のぼせる rare:逆上せる | のぼせる || to feel dizzy, to lose one's mind, to be conceited
 kanji 極
     on-group
@@ -5337,7 +5337,7 @@ kanji 極
             variant rare:極まる
         reading | sec-spell 決める rare:極める | *き*める || to decide
 word 極く
-    group
+    on-group
         reading #core | sec-kanji-spell ごく common:極 rare:極く | ゴク || very
 kanji 根
     on-group
@@ -5377,10 +5377,10 @@ kanji 政
     kun-group
         reading | pri-spell 政 | *まつりごと* || politics (archaic)
 word 太政官
-    group
+    on-group
         reading #core | pri-spell 太政官 | ダイジョウカン || Daijōkan (office) (historical)
 word 政所
-    group
+    kun-group
         reading #core | pri-spell 政所 | まんどころ || mandokoro (official) (historical)
 kanji 了
     on-group
@@ -5400,7 +5400,7 @@ kanji 宿
         reading #core | pri-spell 宿る | *やど*る || to stay at
         reading #core | pri-spell 宿す | *やど*す || to house
 word 寄生木
-    group
+    kun-group
         reading #core | sec-kanji-spell ヤドリギ common:宿り木 rare:寄生木 | やどりぎ || mistletoe
 kanji 演
     on-group
@@ -5408,7 +5408,7 @@ kanji 演
     kun-group
         reading | pri-kanji-spell やる rare:演る | *や*る || to act, to perform
 word 演し物
-    group
+    kun-group
         reading #core | sec-spell 出し物 rare:演し物 | だしもの || program, performance
 kanji 求
     on-group
@@ -5426,7 +5426,7 @@ kanji 字
     kun-group
         reading | pri-spell 字 | *あざな* || courtesy name
 word 文字
-    group
+    on-group
         reading #core | pri-spell 文字 | モジ || character, letter
 kanji 捕
     on-group
@@ -5440,7 +5440,7 @@ kanji 捕
         reading | sec-spell 囚われる common:捕らわれる | *と*らわれる || to be caught
             variant common:捕われる
 word 追捕
-    group
+    on-group
         reading #core | pri-spell 追捕 | ツイブ || pursuit and capture (historical)
 kanji 微
     on-group
@@ -5450,11 +5450,11 @@ kanji 微
     kun-group
         reading #core | pri-kanji-spell かすか common:微か | *かす*か || faint
 word 微笑む
-    group
+    kun-group
         reading #core | pri-spell 微笑む | ほほえむ || to smile
         reading #regular | pri-spell 微笑 | ビショウ || smile
 word 微風
-    group
+    kun-group
         reading #core | pri-kanji-spell そよ風 common:微風 | そよかぜ || gentle breeze
         reading #core #regular | pri-spell 微風 | ビフウ || gentle breeze
 kanji 響
@@ -5482,7 +5482,7 @@ kanji 帯
         reading #core | pri-spell 帯びる | *お*びる || to wear, to carry (e.g. a sword); to have a trace of (a quality)
         reading #core | pri-spell 帯 | *おび* || obi (kimono sash)
 word 世帯
-    group
+    on-group
         reading #core #regular | pri-spell 世帯 | セタイ || household
         reading #core | pri-spell 世帯 | ショタイ || household
 kanji 霊
@@ -5511,7 +5511,7 @@ kanji 弱
         reading | pri-spell 弱る | *よわ*る || to weaken (intr.)
         reading | pri-spell 弱める | *よわ*める || to weaken (tr.)
 word 手弱女
-    group
+    kun-group
         reading #core | pri-spell 手弱女 | たおやめ || graceful young woman
 kanji 南
     on-group
@@ -5533,7 +5533,7 @@ kanji 済
     kun-group
         reading #core | pri-spell 済む | *す*む || to finish (intr.)
 word 百済
-    group
+    kun-group
         reading #core | pri-spell 百済 | くだら || Baekje (Korean kingdom)
 kanji 更
     on-group
@@ -5566,13 +5566,13 @@ kanji 舞
     kun-group
         reading #core | pri-spell 舞う | *ま*う || to dance
 word 振舞う
-    group
+    kun-group
         reading #core | sec-spell 振る舞う common:振舞う | ふるまう || to behave
 kanji 職
     on-group
         reading #core | pri-spell 職業 | *ショク*ギョウ || occupation
 word 有職故実
-    group
+    on-group
         reading #core | pri-spell 有職故実 | ユウソクコジツ || studies in court and military practices
 kanji 紙
     on-group
@@ -5644,7 +5644,7 @@ kanji 商
     kun-group
         reading | pri-spell 商う | *あきな*う || to trade in
 word 商人
-    group
+    kun-group
         reading #core | pri-spell 商人 | あきんど || merchant
         reading #core #regular | pri-spell 商人 | ショウニン || merchant
 kanji 途
@@ -5716,7 +5716,7 @@ kanji 将
     kun-group
         reading | pri-kanji-spell まさに rare:将に | *まさ*に || just about to
 word 女将
-    group
+    kun-group
         reading #core | pri-spell 女将 | おかみ || proprietress (of a traditional inn or restaurant)
 kanji 館
     on-group
@@ -5754,19 +5754,19 @@ kanji 為
     kun-group
         reading | pri-kanji-spell する rare:為る | *す*る || to do
 word 所為
-    group
+    on-group
         reading #core | pri-kanji-spell せい rare:所為 | セイ || cause, reason
 word 為人
-    group
+    kun-group
         reading #core | pri-kanji-spell 人となり common:為人 | ひととなり || temperament, nature
 word 為体
-    group
+    kun-group
         reading #core | sec-spell 体たらく rare:為体 | ていたらく || predicament
 kanji 席
     on-group
         reading #core | pri-spell 席 | *セキ* || seat
 word 寄席
-    group
+    kun-group
         reading #core | pri-spell 寄席 | よせ || entertainment hall
 kanji 減
     on-group
@@ -5789,7 +5789,7 @@ kanji 曲
     kun-group
         reading | pri-spell 曲者 | *くせ*もの || villain
 word 音曲
-    group
+    on-group
         reading #core | pri-spell 音曲 | オンギョク || song with shamisen accompaniment
 kanji 嬢
     on-group
@@ -5844,7 +5844,7 @@ kanji 井
     kun-group
         reading #core | pri-spell 井戸 | *い*ど || water well
 word 天井
-    group
+    on-group
         reading #core | pri-spell 天井 | テンジョウ || ceiling
 kanji 与
     on-group
@@ -5931,11 +5931,11 @@ kanji 香
         reading #core | pri-spell 香ばしい | *こう*ばしい || fragrant
         reading | sec-spell 芳しい common:香しい | *かんば*しい || fragrant
 word 香具師
-    group
+    kun-group
         reading #core | pri-spell 香具師 | やし || stallkeeper (at a festival)
         reading #regular | pri-spell 香具師 | コウグシ || incense maker
 word お新香
-    group
+    on-group
         reading #core | pri-spell お新香 | オシンコ || pickled vegetables
 kanji 医
     on-group
@@ -5959,7 +5959,7 @@ kanji 温
         reading | pri-kanji-spell ぬるい common:温い | *ぬる*い || lukewarm
         reading | pri-spell 温む | *ぬる*む || to become lukewarm
 word 温気
-    group
+    on-group
         reading #core | pri-spell 温気 | ウンキ || warmth
 kanji 姫
     on-group
@@ -5975,7 +5975,7 @@ kanji 研
     kun-group
         reading | sec-spell 磨く rare:研く | *みが*く || to polish
 word 薬研
-    group
+    on-group
         reading #core | pri-spell 薬研 | ヤゲン || yagen (mortar)
 kanji 密
     on-group
@@ -6028,10 +6028,10 @@ kanji 衛
     on-group
         reading | pri-spell 近衛 | コノ*エ* || imperial guards
 word 近衛
-    group
+    on-group
         reading #core | pri-spell 近衛 | コノエ || imperial guards
 word 飲兵衛
-    group
+    kun-group
         reading #core | pri-spell 飲兵衛 | のんべえ || heavy drinker (colloquial)
 kanji 昼
     on-group
@@ -6065,7 +6065,7 @@ kanji 並
     kun-group
         reading | pri-kanji-spell おしなべて common:押し並べて | おし*な*べて || in general
 word 月次
-    group
+    kun-group
         reading #core | sec-spell 月並み common:月次 | つきなみ || every month, commonplace
 kanji 援
     on-group
@@ -6090,7 +6090,7 @@ kanji 滅
         reading #core | pri-spell 滅ぼす | *ほろ*ぼす || to destroy
             variant rare:滅す
 word 滅茶苦茶
-    group
+    on-group
         reading #core | pri-spell 滅茶苦茶 | メチャクチャ || unreasonable; disordered
 kanji 波
     on-group
@@ -6098,13 +6098,13 @@ kanji 波
     kun-group
         reading #core | pri-spell 波 | *なみ* || wave
 word 波止場
-    group
+    kun-group
         reading #core | pri-spell 波止場 | はとば || wharf
 word 細波
-    group
+    kun-group
         reading #core | pri-kanji-spell さざ波 rare:細波 | さざなみ || ripple
 word 乱波
-    group
+    on-group
         reading #core | pri-spell 乱波 | ラッパ || spy (historical)
 kanji 鉄
     on-group
@@ -6135,7 +6135,7 @@ kanji 替
         reading #core | pri-spell 替わる | *か*わる || to replace (intr.)
             variant rare:替る
 word 為替
-    group
+    kun-group
         reading #core | pri-spell 為替 | かわせ || money order, money exchange
 kanji 伸
     on-group
@@ -6155,13 +6155,13 @@ kanji 刺
     kun-group
         reading | sec-spell 棘 common:刺 | *とげ* || thorn
 word 肉刺
-    group
+    kun-group
         reading #core | pri-kanji-spell マメ rare:肉刺 | まめ || blister
 kanji 簡
     on-group
         reading #core | pri-spell 簡単 | *カン*タン || simple
 word 了見
-    group
+    on-group
         reading #core | pri-spell 了見 | リョウケン || idea
         reading | sec-spell 了見 common:料簡 | リョウケン || idea
         reading | sec-spell 了見 common:了簡 | リョウケン || idea
@@ -6178,7 +6178,7 @@ kanji 被
     kun-group
         reading | sec-spell 着せる rare:被せる | *き*せる || to put on (on someone)
 word 半被
-    group
+    on-group
         reading #core | sec-spell 法被 rare:半被 | ハッピ || happi (coat)
 kanji 究
     on-group
@@ -6204,7 +6204,7 @@ kanji 迎
         reading #core | pri-spell 迎える | *むか*える || to greet
         reading | pri-spell 迎い | *むか*い || welcome
 word 来迎
-    group
+    on-group
         reading #core | pri-spell 来迎 | ライゴウ || coming of Amida Buddha to welcome the spirits of the dead
 kanji 旅
     on-group
@@ -6284,7 +6284,7 @@ kanji 払
     kun-group
         reading #core | pri-spell 払う | *はら*う || to pay, to sweep
 word 売っ払う
-    group
+    kun-group
         reading #core | pri-kanji-spell 売っぱらう common:売っ払う | うっぱらう || to sell off (colloquial)
 kanji 非
     on-group
@@ -6292,7 +6292,7 @@ kanji 非
     kun-group
         reading | pri-kanji-spell あらず common:非ず | *あら*ず || not
 word 似非
-    group
+    kun-group
         reading #core | pri-kanji-spell エセ common:似非 | えせ || false, pseudo-
 kanji 価
     on-group
@@ -6315,7 +6315,7 @@ kanji 吐
     kun-group
         reading | sec-spell 抜かす rare:吐かす | *ぬ*かす || to say (vulgar)
 word 反吐
-    group
+    kun-group
         reading #core | pri-spell 反吐 | へど || vomit
 kanji 憶
     on-group
@@ -6330,7 +6330,7 @@ kanji 鬼
     kun-group
         reading #core | pri-spell 鬼 | *おに* || oni
 word 天邪鬼
-    group
+    on-group
         reading #core | pri-spell 天邪鬼 | アマノジャク || contrarian
 kanji 導
     on-group
@@ -6378,10 +6378,10 @@ kanji 検
     kun-group
         reading | sec-spell 改める rare:検める | *あらた*める || to inspect
 word 検校
-    group
+    on-group
         reading #core | pri-spell 検校 | ケンギョウ || inspection, administrator (historical)
 word 検非違使
-    group
+    on-group
         reading #core | pri-spell 検非違使 | ケビイシ || police and judicial chief (Heian and Kamakura periods)
 kanji 妙
     on-group
@@ -6462,10 +6462,10 @@ kanji 晴
         reading #core | pri-spell 晴れる | *は*れる || to clear up
         reading #core | pri-spell 晴らす | *は*らす || to clear away
 word 五月晴れ
-    group
+    kun-group
         reading #core | pri-spell 五月晴れ | さつきばれ || fine weather in May
 word 天晴れ
-    group
+    kun-group
         reading #core | pri-kanji-spell あっぱれ common:天晴れ | あっぱれ || splendid
 kanji 争
     on-group
@@ -6532,10 +6532,10 @@ kanji 弟
     kun-group
         reading #core | pri-spell 弟 | *おとうと* || younger brother
 word 弟子
-    group
+    on-group
         reading #core | pri-spell 弟子 | デシ || disciple
 word 姉妹
-    group
+    on-group
         reading #core #regular | pri-spell 姉妹 | シマイ || sisters
         reading #core | sec-spell 兄弟 rare:姉妹 | キョウダイ || siblings
         reading #core #regular | pri-spell 兄妹 | ケイマイ || older brother and younger sister
@@ -6553,7 +6553,7 @@ kanji 吹
         reading | pri-spell 吹っ飛ぶ | *ふ*っとぶ || to be blown off
         reading | pri-spell 吹聴 | *ふい*ちょう || spreading (information)
 word 息吹
-    group
+    kun-group
         reading #core | pri-spell 息吹 | いぶき || breath
         reading | pri-spell 息吹く | いぶく || to breathe
 kanji 提
@@ -6579,7 +6579,7 @@ kanji 独
     kun-group
         reading #core | sec-spell 一人 common:独り | *ひと*り || alone
 word 独楽
-    group
+    kun-group
         reading #core | pri-spell 独楽 | こま || spinning top
 kanji 雪
     on-group
@@ -6590,13 +6590,13 @@ kanji 雪
         reading | pri-kanji-spell そそぐ common:雪ぐ | *そそ*ぐ || to vindicate
         reading | pri-kanji-spell すすぐ common:雪ぐ | *すす*ぐ || to vindicate
 word 吹雪く
-    group
+    kun-group
         reading #core | pri-spell 吹雪く | ふぶく || to blow snow violently
 word 細雪
-    group
+    kun-group
         reading #core | pri-spell 細雪 | ささめゆき || light snowfall
 word 雪隠
-    group
+    on-group
         reading #core | pri-spell 雪隠 | セッチン || toilet (archaic)
 kanji 勉
     on-group
@@ -6608,7 +6608,7 @@ kanji 奈
         reading #core | pri-spell 奈落 | *ナ*ラク || Naraka, hell
         reading #core | pri-spell 奈良 | *ナ*ラ || Nara (city)
 word 神奈川
-    group
+    kun-group
         reading #core | pri-spell 神奈川 | かながわ || Kanagawa (prefecture)
 kanji 竜
     on-group
@@ -6618,7 +6618,7 @@ kanji 竜
     kun-group
         reading #core | pri-spell 竜巻 | *たつ*まき || tornado
 word 土竜
-    group
+    kun-group
         reading #core | pri-kanji-spell モグラ common:土竜 | もぐら || mole
 kanji 整
     on-group
@@ -6643,7 +6643,7 @@ kanji 染
     kun-group
         reading | pri-kanji-spell 煮しめる common:煮染める | に*し*める || to boil down
 word 伝染る
-    group
+    kun-group
         reading #core | pri-kanji-spell うつる common:伝染る | うつる || to be infected
         reading #regular | pri-spell 伝染 | デンセン || contagion
 kanji 互
@@ -6692,10 +6692,10 @@ kanji 納
         reading #core | pri-spell 納める | *おさ*める || to pay, to supply
         reading #core | pri-spell 納まる | *おさ*まる || to be paid, to be supplied
 word 納戸
-    group
+    on-group
         reading #core | pri-spell 納戸 | ナンド || storage room
 word 出納
-    group
+    on-group
         reading #core | pri-spell 出納 | スイトウ || receipts and expenditures
 kanji 志
     on-group
@@ -6742,7 +6742,7 @@ kanji 従
         reading #core | pri-spell 従う | *したが*う || to follow
         reading #core | pri-spell 従える | *したが*える || to be accompanied
 word 従兄弟
-    group
+    kun-group
         reading #core | pri-kanji-spell いとこ common:従兄弟 | いとこ || cousin (male)
         reading #core | pri-kanji-spell いとこ common:従姉妹 | いとこ || cousin (female)
         reading #core | pri-kanji-spell いとこ common:従兄 | いとこ || cousin (elder male)
@@ -6750,7 +6750,7 @@ word 従兄弟
         reading #core | pri-kanji-spell いとこ common:従姉 | いとこ || cousin (elder female)
         reading #core | pri-kanji-spell いとこ common:従妹 | いとこ || cousin (younger female)
 word 再従姉妹
-    group
+    kun-group
         reading #core | pri-kanji-spell はとこ common:再従姉妹 | はとこ || second cousin (female)
         reading #core | pri-kanji-spell はとこ common:再従兄弟 | はとこ || second cousin (male)
 kanji 騒
@@ -6772,10 +6772,10 @@ kanji 折
         reading #core | pri-spell 折る | *お*る || to fold, to break (tr.)
         reading | pri-spell 折 | *おり* || opportunity
 word 端折る
-    group
+    kun-group
         reading #core | pri-spell 端折る | はしょる || to cut short
 word 九十九折り
-    group
+    kun-group
         reading #core | pri-kanji-spell つづら折り common:九十九折り | つづらおり || winding, meandering
             variant common:九十九折
 kanji 監
@@ -6799,7 +6799,7 @@ kanji 布
     kun-group
         reading | pri-kanji-spell ワカメ rare:若布 | わか*め* || wakame (seaweed)
 word お布令
-    group
+    on-group
         reading #core | sec-spell お触れ rare:お布令 | オフレ || official notice
 kanji 暮
     on-group
@@ -6814,7 +6814,7 @@ kanji 夕
     kun-group
         reading #core | pri-spell 夕 | *ゆう* || evening
 word 七夕
-    group
+    kun-group
         reading #core | pri-spell 七夕 | たなばた || Tanabata (festival)
 kanji 属
     on-group
@@ -6841,7 +6841,7 @@ kanji 跡
     kun-group
         reading | sec-spell 途絶える rare:跡絶える | *と*だえる || to cease
 word 門跡
-    group
+    on-group
         reading #core | pri-spell 門跡 | モンゼキ || monzeki (priest)
 kanji 担
     on-group
@@ -6879,7 +6879,7 @@ kanji 絵
     on-group
         reading | pri-spell 絵画 | *カイ*ガ || picture
 word 絵具
-    group
+    on-group
         reading #core | sec-spell 絵の具 common:絵具 | エノグ || paint
 kanji 底
     on-group
@@ -6909,7 +6909,7 @@ kanji 松
     kun-group
         reading #core | pri-spell 松 | *まつ* || pine tree
 word 松明
-    group
+    kun-group
         reading #core | pri-spell 松明 | たいまつ || torch
 kanji 羽
     on-group
@@ -6937,7 +6937,7 @@ kanji 奇
     kun-group
         reading | pri-spell 奇しくも | *く*しくも || strangely
 word 数寄
-    group
+    on-group
         reading #core | pri-spell 数寄 | スキ || refined taste
         reading | sec-spell 数寄 common:数奇 | スキ || refined taste
 kanji 陽
@@ -6960,7 +6960,7 @@ kanji 麗
         reading | pri-kanji-spell うららか common:麗らか | *うら*らか || bright (e.g. of weather)
             variant rare:麗か
 word 高麗
-    group
+    on-group
         reading #core | pri-spell 高麗 | コウライ || Goryeo (Korean kingdom)
 kanji 角
     on-group
@@ -6989,7 +6989,7 @@ kanji 闇
     kun-group
         reading | sec-spell 暗い rare:闇い | *くら*い || dark
 word 無暗
-    group
+    kun-group
         reading #core | sec-kanji-spell むやみ common:無闇 common:無暗 | むやみ || thoughtless
 kanji 慢
     on-group
@@ -7025,7 +7025,7 @@ kanji 雑
     kun-group
         reading | sec-spell 混じる rare:雑じる | *ま*じる || to mix (intr.)
 word 雑魚
-    group
+    on-group
         reading #core | pri-spell 雑魚 | ザコ || small fish
 kanji 仮
     on-group
@@ -7035,7 +7035,7 @@ kanji 仮
     kun-group
         reading #core | pri-spell 仮 | *かり* || temporary
 word 仮令
-    group
+    kun-group
         reading #core | pri-kanji-spell たとえ rare:仮令 | たとえ || even if
 kanji 英
     on-group
@@ -7114,7 +7114,7 @@ kanji 庫
     kun-group
         reading | sec-spell 倉 common:庫 | *くら* || warehouse
 word 兵庫
-    group
+    on-group
         reading #core | pri-spell 兵庫 | ヒョウゴ || Hyōgo (prefecture)
 kanji 杯
     on-group
@@ -7159,7 +7159,7 @@ kanji 照
         reading #core | pri-spell 照る | *て*る || to shine
         reading #core | pri-spell 照れる | *て*れる || to be shy
 word 天照大神
-    group
+    kun-group
         reading #core | pri-spell 天照大神 | あまてらすおおかみ || Amaterasu Ōmikami (goddess)
 kanji 録
     on-group
@@ -7181,7 +7181,7 @@ kanji 包
         reading | pri-kanji-spell くるまる common:包まる | *くる*まる || to be wrapped
         reading | pri-kanji-spell くるめる common:包める | *くる*める || to lump together
 word 包子
-    group
+    on-group
         reading #core #asian | pri-spell 包子 | パオズ || baozi (bun)
 kanji 液
     on-group
@@ -7206,7 +7206,7 @@ kanji 毛
     kun-group
         reading #core | pri-spell 毛 | *け* || hair
 word 生毛
-    group
+    kun-group
         reading #core | sec-spell 産毛 rare:生毛 | うぶげ || soft hair
 kanji 遺
     on-group
@@ -7230,7 +7230,7 @@ kanji 洗
     kun-group
         reading #core | pri-spell 洗う | *あら*う || to wash
 word 御手洗
-    group
+    kun-group
         reading #core | pri-spell 御手洗 | みたらし || place for washing hands and mouth before entering a shrine
         reading | sec-spell お手洗い rare:御手洗 | おてあらい || toilet
 kanji 炎
@@ -7239,7 +7239,7 @@ kanji 炎
     kun-group
         reading #core | pri-spell 炎 | *ほのお* || flame
 word 陽炎
-    group
+    kun-group
         reading #core | pri-spell 陽炎 | かげろう || heat haze
 kanji 悟
     on-group
@@ -7274,7 +7274,7 @@ kanji 盗
     kun-group
         reading | sec-spell 取る rare:盗る | *と*る || to steal
 word 盗人
-    group
+    kun-group
         reading #core | pri-spell 盗人 | ぬすびと || thief
         reading | pri-spell 盗っ人 | ぬすっと || thief
 kanji 衣
@@ -7287,24 +7287,24 @@ kanji 衣
     kun-group
         reading | pri-spell 衣擦れ | *きぬ*ずれ || rustling of clothes
 word 黒衣
-    group
+    kun-group
         reading #core | pri-spell 黒衣 | くろご || stage assistant dressed in black
         reading #core #regular | pri-spell 黒衣 | コクイ || black clothes
 word 黒子
-    group
+    kun-group
         reading #core | pri-kanji-spell ほくろ common:黒子 | ほくろ || mole (on skin)
         reading #core #regular | sec-spell 黒衣 rare:黒子 | くろご || stage assistant dressed in black
 word 単衣
-    group
+    kun-group
         reading #core | pri-spell 単衣 | ひとえ || unlined kimono
 word 母衣
-    group
+    kun-group
         reading #core | pri-spell 母衣 | ほろ || horo (cloak)
 word 直衣
-    group
+    kun-group
         reading #core | pri-spell 直衣 | のうし || nōshi (clothing)
 word 衣更え
-    group
+    kun-group
         reading #core | sec-spell 衣替え rare:衣更え | ころもがえ || seasonal change of clothing
 kanji 借
     on-group
@@ -7460,7 +7460,7 @@ kanji 規
     on-group
         reading #core | pri-spell 規定 | *キ*テイ || stipulation
 word 定規
-    group
+    on-group
         reading #core | pri-spell 定規 | ジョウギ || ruler (tool)
 kanji 模
     on-group
@@ -7523,7 +7523,7 @@ kanji 甲
     kun-group
         reading | sec-spell 兜 rare:甲 | *かぶと* || helmet
 word 手甲
-    group
+    kun-group
         reading #core | pri-spell 手甲 | てっこう || covering for the back of the hand and wrist
 kanji 老
     on-group
@@ -7533,7 +7533,7 @@ kanji 老
     kun-group
         reading | pri-spell 老ける | *ふ*ける || to grow old
 word 海老
-    group
+    kun-group
         reading #core | pri-kanji-spell エビ common:海老 | えび || shrimp
 kanji 因
     on-group
@@ -7558,7 +7558,7 @@ kanji 荒
         reading | pri-spell 荒む | *すさ*む || to become rough
         reading | pri-spell 荒ぶ | *すさ*ぶ || to become rough
 word 荒屋
-    group
+    kun-group
         reading #core | pri-kanji-spell あばら家 rare:荒屋 | あばらや || run-down house
             variant rare:荒ら屋
 kanji 鼻
@@ -7567,7 +7567,7 @@ kanji 鼻
     kun-group
         reading #core | pri-spell 鼻 | *はな* || nose
 word 鼻白む
-    group
+    kun-group
         reading #core | pri-spell 鼻白む | はなじろむ || to look daunted
 kanji 厳
     on-group
@@ -7606,10 +7606,10 @@ kanji 崩
         reading #core | pri-spell 崩れる | *くず*れる || to collapse
         reading #core | pri-spell 崩す | *くず*す || to destroy
 word 雪崩れる
-    group
+    kun-group
         reading #core | pri-spell 雪崩れる | なだれる || to slide down in a mass (e.g. of snow)
 word 済し崩し的に
-    group
+    kun-group
         reading #core | pri-kanji-spell なし崩し的に rare:済し崩し的に | なしくずしてきに || gradually (e.g. of destruction)
 kanji 各
     on-group
@@ -7626,7 +7626,7 @@ kanji 勘
     on-group
         reading #core | pri-spell 勘 | *カン* || intuition
 word 勘当
-    group
+    on-group
         reading #core | pri-spell 勘当 | カンドウ || disowning
 kanji 尾
     on-group
@@ -7636,7 +7636,7 @@ kanji 尾
     kun-group
         reading | sec-kanji-spell つける common:付ける rare:尾ける | *つ*ける || to tail
 word 交尾む
-    group
+    kun-group
         reading #core | pri-kanji-spell つるむ rare:交尾む | つるむ || to copulate
         reading #regular | pri-spell 交尾 | コウビ || copulation
 kanji 華
@@ -7672,7 +7672,7 @@ kanji 繰
     kun-group
         reading #core | pri-spell 繰る | *く*る || to reel
 word 絡繰り
-    group
+    kun-group
         reading #core | pri-kanji-spell からくり common:絡繰り | からくり || mechanism
 kanji 辛
     on-group
@@ -7742,7 +7742,7 @@ kanji 陣
     on-group
         reading #core | pri-spell 陣営 | *ジン*エイ || military camp, faction
 word 殺陣
-    group
+    kun-group
         reading #core | pri-spell 殺陣 | たて || staged fight
 kanji 幼
     on-group
@@ -7751,7 +7751,7 @@ kanji 幼
         reading #core | pri-spell 幼い | *おさな*い || very young
             variant rare:幼ない
 word 幼気
-    group
+    kun-group
         reading #core | pri-kanji-spell いたいけ common:幼気 | いたいけ || young and adorable
 kanji 州
     on-group
@@ -7870,7 +7870,7 @@ kanji 港
     kun-group
         reading #core | pri-spell 港 | *みなと* || harbor
 word 香港
-    group
+    on-group
         reading #core #asian | pri-spell 香港 | ホンコン || Hong Kong
 kanji 樹
     on-group
@@ -7889,7 +7889,7 @@ kanji 寂
         reading | pri-spell 寂 | *さび* || quiet simplicity
         reading | pri-kanji-spell わびさび common:侘び寂び | わび*さ*び || wabi-sabi
 word 心寂しい
-    group
+    kun-group
         reading #core | pri-kanji-spell うら寂しい common:心寂しい | うらさびしい || lonely
 kanji 施
     on-group
@@ -7911,7 +7911,7 @@ kanji 坊
             variant common:坊っちゃん
         reading | pri-spell 坊様 | *ボン*サマ || Buddhist priest
 word 坊主
-    group
+    on-group
         reading #core | pri-spell 坊主 | ボウズ || Buddhist priest
 kanji 委
     on-group
@@ -7958,7 +7958,7 @@ kanji 討
     kun-group
         reading #core | pri-spell 討つ | *う*つ || to attack
 word 討っ手
-    group
+    kun-group
         reading #core | pri-spell 討っ手 | うって || attacking party
 kanji 順
     on-group
@@ -7982,7 +7982,7 @@ kanji 児
     kun-group
         reading | sec-spell 子 rare:児 | *こ* || child
 word 兵児帯
-    group
+    on-group
         reading #core | pri-spell 兵児帯 | ヘコオビ || hekoobi (waistband)
 kanji 略
     on-group
@@ -7994,7 +7994,7 @@ kanji 尻
     kun-group
         reading #core | pri-spell 尻 | *しり* || buttocks
 word 尻尾
-    group
+    kun-group
         reading #core | pri-spell 尻尾 | しっぽ || tail
 kanji 呟
     kun-group
@@ -8048,7 +8048,7 @@ kanji 懐
     kun-group
         reading | sec-spell 思う rare:懐う | *おも*う || to think
 word 手懐ける
-    group
+    kun-group
         reading #core | pri-spell 手懐ける | てなずける || to tame
 kanji 吉
     on-group
@@ -8196,7 +8196,7 @@ kanji 乳
         reading #core | pri-spell 乳 | *ちち* || breast, milk
         reading | pri-spell 乳房 | *ち*ぶさ || breast
 word 乳母
-    group
+    kun-group
         reading #core | pri-spell 乳母 | うば || wet nurse
 kanji 央
     on-group
@@ -8223,10 +8223,10 @@ kanji 袋
     kun-group
         reading #core | pri-spell 袋 | *ふくろ* || bag
 word 布袋
-    group
+    on-group
         reading #core | pri-spell 布袋 | ホテイ || Budai (god)
 word 足袋
-    group
+    kun-group
         reading #core | pri-spell 足袋 | たび || tabi (sock)
 kanji 河
     on-group
@@ -8236,7 +8236,7 @@ kanji 河
     kun-group
         reading #core | sec-spell 川 common:河 | *かわ* || river
 word 河原
-    group
+    kun-group
         reading #core | pri-spell 河原 | かわら || dry riverbed
 kanji 伏
     on-group
@@ -8248,10 +8248,10 @@ kanji 伏
         reading #core | pri-spell 伏せる | *ふ*せる || to lay face down
         reading #core | pri-spell 伏す | *ふ*す || to lie face down, to bow
 word 平伏す
-    group
+    kun-group
         reading #core | pri-spell 平伏す | ひれふす || to prostrate oneself
 word 折伏
-    group
+    on-group
         reading #core | pri-spell 折伏 | シャクブク || conversion to Buddhism by breaking down false beliefs
 kanji 板
     on-group
@@ -8284,13 +8284,13 @@ kanji 額
     kun-group
         reading | pri-kanji-spell ぬかずく common:額ずく | *ぬか*ずく || to kowtow
 word 額突く
-    group
+    kun-group
         reading #core | pri-kanji-spell ぬかづく common:額突く | ぬかづく || to kowtow
 kanji 儀
     on-group
         reading #core | pri-spell 儀式 | *ギ*シキ || ceremony
 word お内儀さん
-    group
+    kun-group
         reading #core | pri-kanji-spell おかみさん common:お内儀さん | おかみさん || missus
 kanji 威
     on-group
@@ -8332,7 +8332,7 @@ kanji 衝
     kun-group
         reading | sec-spell 突く common:衝く | *つ*く || to strike
 word 衝立
-    group
+    kun-group
         reading #core | pri-spell 衝立 | ついたて || partitioning screen
 kanji 芸
     on-group
@@ -8346,7 +8346,7 @@ kanji 鏡
     kun-group
         reading #core | pri-spell 鏡 | *かがみ* || mirror
 word 眼鏡
-    group
+    kun-group
         reading #core | pri-spell 眼鏡 | めがね || glasses
 kanji 健
     on-group
@@ -8356,14 +8356,14 @@ kanji 健
     kun-group
         reading | sec-kanji-spell したたか common:強か rare:健か | *したた*か || tough; tenacious; severely
 word 健気
-    group
+    on-group
         reading #core | pri-spell 健気 | ケナゲ || admirable
 kanji 伊
     on-group
         reading #core | pri-kanji-spell イブキ common:伊吹 | *イ*ブキ || Chinese juniper
         reading | pri-spell 伊 | *イ* || Italy (abbrev.)
 word 伊達
-    group
+    kun-group
         reading #core | pri-kanji-spell だて common:伊達 | だて || dandyism, showing off
 kanji 党
     on-group
@@ -8420,10 +8420,10 @@ kanji 欠
     kun-group
         reading | sec-kanji-spell あくび common:欠伸 rare:欠 | *あくび* || yawn
 word 欠片
-    group
+    kun-group
         reading #core | pri-spell 欠片 | かけら || fragment
 word 欠伸
-    group
+    kun-group
         reading #core | pri-kanji-spell あくび common:欠伸 | あくび || yawn
 kanji 屈
     on-group
@@ -8464,7 +8464,7 @@ kanji 清
     kun-group
         reading | sec-kanji-spell さやか common:明か rare:清か | *さや*か || clear, fresh, bright
 word 清水
-    group
+    kun-group
         reading #core | pri-spell 清水 | しみず || spring water
 kanji 縁
     on-group
@@ -8474,10 +8474,10 @@ kanji 縁
     kun-group
         reading | pri-kanji-spell へり common:縁 | *へり* || edge
 word 因縁
-    group
+    on-group
         reading #core | pri-spell 因縁 | インネン || fate
 word 縁起
-    group
+    on-group
         reading #core | pri-spell 縁起 | エンギ || omen
 kanji 燃
     on-group
@@ -8502,7 +8502,7 @@ kanji 督
     on-group
         reading #core | pri-spell 監督 | カン*トク* || supervision
 word 基督
-    group
+    on-group
         reading #core #european | pri-kanji-spell キリスト rare:基督 | キリスト || Christ
 kanji 標
     on-group
@@ -8557,7 +8557,7 @@ kanji 雄
         reading #core | pri-spell 雄 | *おす* || male
         reading | pri-spell 雄叫び | *お*たけび || war cry
 word 雄叫び
-    group
+    kun-group
         reading #core | pri-spell 雄叫び | おたけび || war cry
 kanji 砂
     on-group
@@ -8601,7 +8601,7 @@ kanji 蔵
     kun-group
         reading #core | sec-spell 倉 common:蔵 | *くら* || warehouse
 word 蔵人
-    group
+    kun-group
         reading #core | pri-spell 蔵人 | くろうど || keeper of imperial archives
 kanji 房
     on-group
@@ -8614,7 +8614,7 @@ kanji 雲
     kun-group
         reading #core | pri-spell 雲 | *くも* || cloud
 word 東雲
-    group
+    kun-group
         reading #core | pri-spell 東雲 | しののめ || daybreak
 kanji 源
     on-group
@@ -8622,7 +8622,7 @@ kanji 源
     kun-group
         reading #core | pri-spell 源 | *みなもと* || source
 word 源氏
-    group
+    on-group
         reading #core | pri-spell 源氏 | ゲンジ || Genji (character)
 kanji 句
     on-group
@@ -8641,7 +8641,7 @@ kanji 魂
         reading #core | pri-spell 魂 | *たましい* || spirit, soul
         reading | sec-spell 御霊 common:御魂 | み*たま* || spirit of a deceased person
 word 魂消る
-    group
+    kun-group
         reading #core | pri-kanji-spell たまげる common:魂消る | たまげる || to be astonished
 kanji 充
     on-group
@@ -8663,16 +8663,16 @@ kanji 黄
         reading #core | pri-spell 黄色 | *き*いろ || yellow
         reading #core | pri-spell 黄色い | *き*いろい || yellow
 word 紅葉
-    group
+    kun-group
         reading #core #regular | pri-spell 紅葉 | コウヨウ || red autumn leaves
         reading #core | pri-spell 紅葉 | もみじ || autumn leaves
         reading #core #regular | pri-spell 黄葉 | コウヨウ || yellow autumn leaves
         reading #core | sec-spell 紅葉 rare:黄葉 | もみじ || autumn leaves
 word 黄金色
-    group
+    kun-group
         reading #core | pri-spell 黄金色 | こがねいろ || golden
 word 黄泉
-    group
+    kun-group
         reading #core | pri-spell 黄泉 | よみ || land of the dead
 kanji 柔
     on-group
@@ -8734,7 +8734,7 @@ kanji 肌
     kun-group
         reading #core | pri-spell 肌 | *はだ* || skin
 word 肌理
-    group
+    kun-group
         reading #core | pri-kanji-spell きめ common:肌理 | きめ || texture
 kanji 晩
     on-group
@@ -8789,7 +8789,7 @@ kanji 傾
     kun-group
         reading | sec-spell 雪崩れる rare:傾れる | *なだ*れる || to slide down in a mass (e.g. of snow)
 word 傾城
-    group
+    on-group
         reading #core | pri-spell 傾城 | ケイセイ || beautiful woman, courtesan (historical)
 kanji 及
     on-group
@@ -8820,7 +8820,7 @@ kanji 障
     kun-group
         reading #core | pri-spell 障る | *さわ*る || to be harmful
 word 気障
-    group
+    kun-group
         reading #core | pri-spell 気障 | きざ || affected, disagreeable
 kanji 湯
     on-group
@@ -8828,14 +8828,14 @@ kanji 湯
     kun-group
         reading #core | pri-spell 湯 | *ゆ* || hot water
 word 白湯
-    group
+    kun-group
         reading #core | pri-spell 白湯 | さゆ || plain hot water
 word 微温い
-    group
+    kun-group
         reading #core | sec-kanji-spell ぬるい common:温い rare:微温い | ぬるい || lukewarm
         reading | pri-kanji-spell ぬるま湯 rare:微温湯 | ぬるまゆ || lukewarm water
 word 湯女
-    group
+    kun-group
         reading #core | pri-spell 湯女 | ゆな || woman assisting bathers in a hot spring (historical)
 kanji 称
     on-group
@@ -8850,11 +8850,11 @@ kanji 博
     on-group
         reading | pri-spell 賭博 | ト*バク* || gambling
 word 博士
-    group
+    on-group
         reading #core | pri-spell 博士 | ハカセ || doctor (title)
         reading #core #regular | pri-spell 博士 | ハクシ || doctor (title) (formal)
 word 博打
-    group
+    kun-group
         reading #core | pri-spell 博打 | ばくち || gambling
 kanji 訓
     on-group
@@ -8871,7 +8871,7 @@ kanji 富
         reading #core | pri-spell 富む | *と*む || to be rich in
         reading | pri-spell 富める | *と*める || rich
 word 富山
-    group
+    kun-group
         reading #core | pri-spell 富山 | とやま || Toyama (city, prefecture)
 kanji 拳
     on-group
@@ -8896,7 +8896,7 @@ kanji 冬
     kun-group
         reading #core | pri-spell 冬 | *ふゆ* || winter
 word 冬至
-    group
+    on-group
         reading #core | pri-spell 冬至 | トウジ || winter solstice
 kanji 褒
     on-group
@@ -8985,7 +8985,7 @@ kanji 舎
     kun-group
         reading | pri-spell 学び舎 | まなび*や* || school
 word 田舎
-    group
+    kun-group
         reading #core | pri-spell 田舎 | いなか || rural area
 kanji 呆
     on-group
@@ -8997,7 +8997,7 @@ kanji 呆
     kun-group
         reading #core | pri-spell 呆ける | *ぼ*ける || to grow senile
 word 呆気
-    group
+    kun-group
         reading #core | pri-kanji-spell あっけ common:呆気 | あっけ || dumbfoundedness
 kanji 脚
     on-group
@@ -9007,10 +9007,10 @@ kanji 脚
     kun-group
         reading #core | pri-spell 脚 | *あし* || leg
 word 行脚
-    group
+    on-group
         reading #core | pri-spell 行脚 | アンギャ || pilgrimage
 word 脚気
-    group
+    on-group
         reading #core | pri-spell 脚気 | カッケ || beriberi
 kanji 汗
     on-group
@@ -9024,7 +9024,7 @@ kanji 忍
     kun-group
         reading #core | pri-spell 忍ぶ | *しの*ぶ || to conceal, to endure
 word 押忍
-    group
+    kun-group
         reading #core | pri-kanji-spell おっす common:押忍 | おっす || hi (male, casual)
 kanji 競
     on-group
@@ -9113,10 +9113,10 @@ kanji 浴
         reading #core | pri-spell 浴びる | *あ*びる || to bathe
         reading #core | pri-spell 浴びせる | *あ*びせる || to pour on
 word 湯浴み
-    group
+    kun-group
         reading #core | pri-spell 湯浴み | ゆあみ || bathing
 word 浴衣
-    group
+    kun-group
         reading #core | pri-spell 浴衣 | ゆかた || yukata (kimono)
 kanji 複
     on-group
@@ -9138,13 +9138,13 @@ kanji 如
     kun-group
         reading | pri-spell 如く | *し*く || to match, to equal
 word 如何
-    group
+    kun-group
         reading #core | pri-kanji-spell いかが common:如何 | いかが || how
         reading | pri-kanji-spell いかがわしい rare:如何わしい | いかがわしい || suspicious
         reading | pri-kanji-spell いかな common:如何な | いかな || what kind of
         reading | pri-kanji-spell いかに common:如何に | いかに || how
 word 如月
-    group
+    kun-group
         reading #core | pri-spell 如月 | きさらぎ || second lunar month
 kanji 侵
     on-group
@@ -9192,7 +9192,7 @@ kanji 酷
     kun-group
         reading | sec-kanji-spell むごたらしい common:惨たらしい rare:酷たらしい | *むご*たらしい || cruel, brutal
 word 非道い
-    group
+    on-group
         reading #core | sec-kanji-spell ひどい common:酷い rare:非道い | ヒドイ || cruel, severe
         reading #regular | pri-spell 非道 | ヒドウ || inhuman, unjust
 kanji 掃
@@ -9249,10 +9249,10 @@ kanji 栄
         reading | pri-spell 栄え | *は*え || glory
         reading | sec-spell 映える rare:栄える | *は*える || to shine
 word 見栄
-    group
+    kun-group
         reading #core | pri-spell 見栄 | みえ || display, vanity
 word 栄華
-    group
+    on-group
         reading #core | pri-spell 栄華 | エイガ || prosperity, glory
         reading | sec-spell 栄華 rare:栄花 | エイガ || prosperity, glory
 kanji 洋
@@ -9314,16 +9314,16 @@ kanji 干
     kun-group
         reading | pri-spell 干る | *ひ*る || to dry
 word 干支
-    group
+    kun-group
         reading #core | pri-spell 干支 | えと || sexagenary cycle
 kanji 伯
     on-group
         reading #core | pri-spell 伯爵 | *ハク*シャク || count
 word 伯父
-    group
+    kun-group
         reading #core | pri-spell 伯父 | おじ || uncle (older than parent)
 word 伯母
-    group
+    kun-group
         reading #core | pri-spell 伯母 | おば || aunt (older than parent)
 kanji 氷
     on-group
@@ -9368,11 +9368,11 @@ kanji 祖
     on-group
         reading | pri-spell 先祖 | セン*ゾ* || ancestor
 word 祖父さん
-    group
+    kun-group
         reading #core | pri-kanji-spell じいさん common:祖父さん | じいさん || grandfather
         reading #regular | pri-spell 祖父 | ソフ || grandfather
 word 祖母さん
-    group
+    kun-group
         reading #core | pri-kanji-spell ばあさん common:祖母さん | ばあさん || grandmother
         reading #regular | pri-spell 祖母 | ソボ || grandmother
 kanji 嫁
@@ -9383,11 +9383,11 @@ kanji 嫁
     kun-group
         reading #core | pri-spell 嫁ぐ | *とつ*ぐ || to marry (of a woman)
 word 許嫁
-    group
+    kun-group
         reading #core | pri-spell 許嫁 | いいなずけ || fiancé, fiancée
         reading #core | sec-spell 許嫁 common:許婚 | いいなずけ || fiancé, fiancée
 word 嫁き遅れ
-    group
+    kun-group
         reading #core | sec-spell 行き遅れ rare:嫁き遅れ | いきおくれ || woman who missed the chance of getting married (derogatory)
 kanji 衆
     on-group
@@ -9435,7 +9435,7 @@ kanji 就
         reading #core | pri-spell 就く | *つ*く || to take (a position)
         reading | pri-spell 就ける | *つ*ける || to appoint
 word 就中
-    group
+    kun-group
         reading #core | pri-kanji-spell なかんずく common:就中 | なかんずく || especially
 kanji 飾
     on-group
@@ -9523,10 +9523,10 @@ kanji 仰
     kun-group
         reading | pri-kanji-spell のけぞる common:仰け反る | *の*けぞる || to bend backwards
 word 仰向け
-    group
+    kun-group
         reading #core | pri-spell 仰向け | あおむけ || facing upward
 word 仰有る
-    group
+    kun-group
         reading #core | sec-kanji-spell おっしゃる common:仰る rare:仰有る | おっしゃる || to say (honorific)
 kanji 択
     on-group
@@ -9554,7 +9554,7 @@ kanji 憎
         reading #core | pri-spell 憎む | *にく*む || to hate
         reading #core | pri-spell 憎しみ | *にく*しみ || hatred
 word 生憎
-    group
+    kun-group
         reading #core | pri-kanji-spell あいにく common:生憎 | あいにく || unfortunately
 kanji 災
     on-group
@@ -9658,7 +9658,7 @@ kanji 刃
     kun-group
         reading | pri-spell 刃 | *やいば* || sword, blade
 word 刃傷
-    group
+    on-group
         reading #core | pri-spell 刃傷 | ニンジョウ || wounding with a blade
 kanji 灯
     on-group
@@ -9712,7 +9712,7 @@ kanji 双
     kun-group
         reading | sec-spell 諸手 common:双手 | *もろ*て || both hands
 word 双六
-    group
+    on-group
         reading #core | pri-spell 双六 | スゴロク || sugoroku (board game)
 kanji 鮮
     on-group
@@ -9746,7 +9746,7 @@ kanji 煙
         reading | pri-spell 煙い | *けむ*い || smoky
         reading | pri-spell 煙に巻く | *けむ*にまく || to confuse
 word 煙管
-    group
+    on-group
         reading #core #asian | pri-spell 煙管 | キセル || kiseru (smoking pipe)
 kanji 睨
     on-group
@@ -9765,7 +9765,7 @@ kanji 易
         reading #core | pri-kanji-spell やすい common:易い | *やす*い || easy
         reading | pri-spell 易しい | *やさ*しい || easy
 word 容易い
-    group
+    kun-group
         reading #core | pri-spell 容易い | たやすい || easy
         reading #regular | pri-spell 容易 | ヨウイ || easy
 kanji 採
@@ -9821,7 +9821,7 @@ kanji 梅
     kun-group
         reading #core | pri-spell 梅 | *うめ* || Japanese plum
 word 梅雨
-    group
+    kun-group
         reading #core | pri-spell 梅雨 | つゆ || rainy season
 kanji 郷
     on-group
@@ -9838,7 +9838,7 @@ kanji 宣
     kun-group
         reading | sec-spell 述べる rare:宣べる | *の*べる || to state
 word 院宣
-    group
+    on-group
         reading #core | pri-spell 院宣 | インゼン || decree of cloistered emperor
 kanji 喉
     on-group
@@ -9922,7 +9922,7 @@ kanji 請
     kun-group
         reading #core | sec-spell 乞う common:請う | *こ*う || to beg
 word 強請る
-    group
+    kun-group
         reading #core | pri-kanji-spell ねだる common:強請る | ねだる || to beg
         reading #core | pri-kanji-spell ゆする common:強請る | ゆする || to extort
 kanji 幾
@@ -9933,7 +9933,7 @@ kanji 幾
         reading | pri-kanji-spell いくら common:幾ら | *いく*ら || how much
         reading | pri-spell 幾分 | *いく*ぶん || somewhat
 word 幾許
-    group
+    kun-group
         reading #core | pri-kanji-spell いくばく common:幾許 | いくばく || how much
 kanji 署
     on-group
@@ -9958,7 +9958,7 @@ kanji 偶
     kun-group
         reading | pri-kanji-spell たまたま rare:偶々 | *たま*たま || occasionally
 word 木偶
-    group
+    kun-group
         reading #core | pri-spell 木偶 | でく || wooden doll
 kanji 咲
     kun-group
@@ -9992,7 +9992,7 @@ kanji 穏
     kun-group
         reading #core | pri-spell 穏やか | *おだ*やか || calm
 word 安穏
-    group
+    on-group
         reading #core | pri-spell 安穏 | アンノン || peace
 kanji 律
     on-group
@@ -10000,7 +10000,7 @@ kanji 律
     on-group
         reading | pri-spell 律儀 | *リチ*ギ || upright
 word 呂律
-    group
+    on-group
         reading #core | pri-spell 呂律 | ロレツ || articulation
 kanji 傍
     on-group
@@ -10048,7 +10048,7 @@ kanji 乃
     kun-group
         reading | sec-kanji-spell すなわち common:即ち rare:乃ち | *すなわ*ち || namely
 word 木乃伊
-    group
+    on-group
         reading #core #european | pri-kanji-spell ミイラ common:木乃伊 | ミイラ || mummy
 kanji 尊
     on-group
@@ -10136,7 +10136,7 @@ kanji 狩
     kun-group
         reading #core | pri-spell 狩る | *か*る || to hunt
 word 狩人
-    group
+    kun-group
         reading #core | pri-spell 狩人 | かりゅうど || hunter
 kanji 狭
     on-group
@@ -10149,7 +10149,7 @@ kanji 狭
     kun-group
         reading | pri-spell 狭霧 | *さ*ぎり || mist
 word 狭間
-    group
+    kun-group
         reading #core | pri-spell 狭間 | はざま || interval
 kanji 鈴
     on-group
@@ -10269,11 +10269,11 @@ kanji 詞
     kun-group
         reading | pri-spell 枕詞 | まくら*ことば* || pillow word
 word 台詞
-    group
+    kun-group
         reading #core | pri-kanji-spell セリフ common:台詞 | せりふ || spoken line
         reading #core | sec-kanji-spell セリフ common:台詞 rare:科白 | せりふ || spoken line
 word 祝詞
-    group
+    kun-group
         reading #core | pri-spell 祝詞 | のりと || norito (ritual prayer)
 kanji 免
     on-group
@@ -10295,7 +10295,7 @@ kanji 豆
     kun-group
         reading #core | pri-spell 豆 | *まめ* || bean
 word 小豆
-    group
+    kun-group
         reading #core | pri-spell 小豆 | あずき || adzuki bean
 kanji 典
     on-group
@@ -10318,7 +10318,7 @@ kanji 癒
             variant common:癒やす
         reading #core | pri-spell 癒える | *い*える || to recover
 word 腹癒せ
-    group
+    kun-group
         reading #core | pri-kanji-spell 腹いせ rare:腹癒せ | はらいせ || retaliation
 kanji 筆
     on-group
@@ -10422,10 +10422,10 @@ kanji 粉
         reading #core | pri-spell 粉 | *こな* || flour, powder
         reading | pri-spell 小麦粉 | こむぎ*こ* || wheat flour
 word 白粉
-    group
+    kun-group
         reading #core | pri-spell 白粉 | おしろい || white makeup powder
 word 黄粉
-    group
+    kun-group
         reading #core | pri-kanji-spell きなこ rare:黄粉 | きなこ || kinako (food)
 kanji 呑
     on-group
@@ -10459,7 +10459,7 @@ kanji 狼
     kun-group
         reading #core | pri-spell 狼 | *おおかみ* || wolf
 word 狼煙
-    group
+    kun-group
         reading #core | pri-spell 狼煙 | のろし || smoke signal
 kanji 亜
     on-group
@@ -10532,17 +10532,17 @@ kanji 縄
     kun-group
         reading #core | pri-spell 縄 | *なわ* || rope
 word 注連縄
-    group
+    kun-group
         reading #core | pri-spell 注連縄 | しめなわ || shimenawa (rope used in Shinto)
 word 延縄
-    group
+    kun-group
         reading #core | pri-spell 延縄 | はえなわ || longline
 kanji 羅
     on-group
         reading #core | pri-spell 網羅 | モウ*ラ* || encompassing
         reading | pri-spell 修羅 | シュ*ラ* || Asura (Buddhist demigod); fighting
 word 新羅
-    group
+    kun-group
         reading #core | pri-spell 新羅 | しらぎ || Silla (Korean kingdom)
 kanji 徳
     on-group
@@ -10550,7 +10550,7 @@ kanji 徳
     on-group
         reading | pri-spell 功徳 | ク*ドク* || merit (Buddhism)
 word 徳利
-    group
+    on-group
         reading #core | pri-spell 徳利 | トックリ || tokkuri (sake bottle)
 kanji 拒
     on-group
@@ -10581,7 +10581,7 @@ kanji 賢
     kun-group
         reading | pri-spell 賢しい | *さか*しい || clever
 word 普賢
-    group
+    on-group
         reading #core | pri-spell 普賢 | フゲン || Samantabhadra (bodhisattva)
 kanji 哀
     on-group
@@ -10592,7 +10592,7 @@ kanji 哀
     kun-group
         reading | sec-spell 悲しい common:哀しい | *かな*しい || sad
 word 可哀想
-    group
+    on-group
         reading #core | pri-kanji-spell かわいそう common:可哀想 | カワイソウ || poor, pitiable
 kanji 虚
     on-group
@@ -10620,7 +10620,7 @@ kanji 逸
     kun-group
         reading | pri-spell 逸る | *はや*る || to be eager
 word 都々逸
-    group
+    on-group
         reading #core | pri-spell 都々逸 | ドドイツ || dodoitsu (poem)
 kanji 熊
     kun-group
@@ -10646,7 +10646,7 @@ kanji 玄
     on-group
         reading #core | pri-spell 幽玄 | ユウ*ゲン* || mysteriously profound
 word 玄人
-    group
+    kun-group
         reading #core | pri-spell 玄人 | くろうと || expert
 kanji 童
     on-group
@@ -10656,17 +10656,17 @@ kanji 童
         reading | pri-kanji-spell 大わらわ common:大童 | おお*わらわ* || working feverishly
         reading | pri-spell 小童 | こ*わっぱ* || child (derogatory)
 word 河童
-    group
+    kun-group
         reading #core | pri-spell 河童 | かっぱ || kappa (mythical creature)
 word 座敷童
-    group
+    kun-group
         reading #core | pri-spell 座敷童 | ざしきわらし || zashiki-warashi (spirit)
         reading #core | sec-spell 座敷童 common:座敷童子 | ざしきわらし || zashiki-warashi (spirit)
 word 山童
-    group
+    kun-group
         reading #core | pri-spell 山童 | やまわろ || yamawaro (spirit)
 word 酒呑童子
-    group
+    on-group
         reading #core | pri-spell 酒呑童子 | シュテンドウジ || Shuten-Dōji (oni)
 kanji 岸
     on-group
@@ -10674,7 +10674,7 @@ kanji 岸
     kun-group
         reading #core | pri-spell 岸 | *きし* || shore
 word 河岸
-    group
+    kun-group
         reading #core | pri-spell 河岸 | かし || riverside
 kanji 貨
     on-group
@@ -10696,7 +10696,7 @@ kanji 農
     on-group
         reading #core | pri-spell 農業 | *ノウ*ギョウ || agriculture
 word 加農砲
-    group
+    on-group
         reading #core #european | pri-kanji-spell カノン砲 rare:加農砲 | カノンホウ || cannon
 kanji 忠
     on-group
@@ -10794,7 +10794,7 @@ kanji 侍
     kun-group
         reading #core | pri-spell 侍 | *さむらい* || samurai
 word 内侍
-    group
+    on-group
         reading #core | pri-spell 内侍 | ナイシ || naishi (court official) (historical)
 kanji 寿
     on-group
@@ -10807,7 +10807,7 @@ kanji 寿
     kun-group
         reading | pri-spell 寿ぐ | *ことほ*ぐ || to congratulate
 word 言祝ぐ
-    group
+    kun-group
         reading #core | sec-spell 寿ぐ common:言祝ぐ | ことほぐ || to congratulate
 kanji 絞
     on-group
@@ -10825,7 +10825,7 @@ kanji 塩
     kun-group
         reading | pri-kanji-spell しょっぱい rare:塩っぱい | *しょ*っぱい || salty
 word 塩梅
-    group
+    on-group
         reading #core | pri-spell 塩梅 | アンバイ || seasoning, condition
 kanji 没
     on-group
@@ -10834,7 +10834,7 @@ kanji 没
     on-group
         reading | pri-spell 没薬 | *モツ*ヤク || myrrh
 word 没義道
-    group
+    on-group
         reading #core | pri-spell 没義道 | モギドウ || inhuman, cruel
 kanji 棄
     on-group
@@ -10842,7 +10842,7 @@ kanji 棄
     kun-group
         reading | sec-spell 捨てる rare:棄てる | *す*てる || to discard
 word 自棄
-    group
+    kun-group
         reading #core | pri-kanji-spell やけ common:自棄 | やけ || desperation
 kanji 脇
     on-group
@@ -10879,7 +10879,7 @@ kanji 殊
     kun-group
         reading #core | pri-spell 殊に | *こと*に || especially
 word 文殊
-    group
+    on-group
         reading #core | pri-spell 文殊 | モンジュ || Manjushri (bodhisattva)
 kanji 裸
     on-group
@@ -10895,7 +10895,7 @@ kanji 益
         reading | pri-kanji-spell ますます common:益々 | *ます*ます || more and more
         reading | sec-kanji-spell ますます common:益々 rare:益 | *ますます* || more and more
 word 益荒男
-    group
+    kun-group
         reading #core | pri-spell 益荒男 | ますらお || brave man
 kanji 盤
     on-group
@@ -10904,7 +10904,7 @@ kanji 盤
     kun-group
         reading | sec-spell 皿 rare:盤 | *さら* || plate
 word 算盤
-    group
+    on-group
         reading #core | pri-spell 算盤 | ソロバン || abacus
 kanji 犠
     on-group
@@ -10952,7 +10952,7 @@ kanji 垂
     kun-group
         reading | sec-spell 紙垂 common:垂 | *しで* || shide (zigzag-shaped streamer)
 word 紙垂
-    group
+    kun-group
         reading #core | pri-spell 紙垂 | しで || shide (zigzag-shaped streamer)
 kanji 貧
     on-group
@@ -10968,7 +10968,7 @@ kanji 惜
         reading #core | pri-spell 惜しい | *お*しい || regrettable
         reading | pri-spell 惜しむ | *お*しむ || to be frugal, to hold dear
 word 不惜身命
-    group
+    on-group
         reading #core | pri-spell 不惜身命 | フシャクシンミョウ || complete devotion to Buddhism
 kanji 酸
     on-group
@@ -11001,7 +11001,7 @@ kanji 猛
         reading | pri-spell 猛る | *たけ*る || to rage
         reading | pri-spell 猛々しい | *たけ*だけしい || fierce
 word 猛者
-    group
+    on-group
         reading #core | pri-spell 猛者 | モサ || fearless person
 kanji 鎖
     on-group
@@ -11028,7 +11028,7 @@ kanji 蛇
     kun-group
         reading #core | pri-spell 蛇 | *へび* || snake
 word 大蛇
-    group
+    kun-group
         reading #core #regular | pri-spell 大蛇 | ダイジャ || big snake
         reading #core | pri-spell 大蛇 | おろち || giant snake
 kanji 幅
@@ -11072,11 +11072,11 @@ kanji 塔
     on-group
         reading #core | pri-spell 塔 | *トウ* || tower
 word 塔頭
-    group
+    on-group
         reading #core | pri-spell 塔頭 | タッチュウ || small Zen temple built to commemorate the death of a high priest
         reading | sec-spell 塔頭 common:塔中 | タッチュウ || small Zen temple built to commemorate the death of a high priest
 word 五重塔
-    group
+    on-group
         reading #core | pri-spell 五重塔 | ゴジュウノトウ || five-storied pagoda
 kanji 爪
     on-group
@@ -11109,7 +11109,7 @@ kanji 韓
     kun-group
         reading | sec-spell 唐 common:韓 | *から* || Korea (archaic)
 word 韓流
-    group
+    on-group
         reading #core #asian | pri-spell 韓流 | ハンリュウ || Korean Wave
 kanji 寧
     on-group
@@ -11134,10 +11134,10 @@ kanji 枝
     kun-group
         reading #core | pri-spell 枝 | *えだ* || branch
 word 下枝
-    group
+    kun-group
         reading #core | pri-spell 下枝 | しずえ || lower branches of a tree
 word 上枝
-    group
+    kun-group
         reading #core | pri-spell 上枝 | ほつえ || upper branches of a tree
 kanji 寮
     on-group
@@ -11179,7 +11179,7 @@ kanji 掘
     kun-group
         reading #core | pri-spell 掘る | *ほ*る || to dig
 word 掘っ立て小屋
-    group
+    kun-group
         reading #core | pri-spell 掘っ立て小屋 | ほったてごや || hut built by burying pillars directly in the soil; shack, hovel
             variant common:掘立小屋
 kanji 芝
@@ -11204,11 +11204,11 @@ kanji 惚
     kun-group
         reading | sec-spell 遊び呆ける common:遊び惚ける | あそび*ほう*ける || to spend all time in idle amusement
 word 自惚れる
-    group
+    kun-group
         reading #core | pri-spell 自惚れる | うぬぼれる || to be conceited
         reading | sec-spell 自惚れる common:己惚れる | うぬぼれる || to be conceited
 word 惚気
-    group
+    kun-group
         reading #core | pri-spell 惚気 | のろけ || talking fondly about one's love
 kanji 幽
     on-group
@@ -11218,7 +11218,7 @@ kanji 幽
     kun-group
         reading | sec-kanji-spell かすか common:微か rare:幽か | *かす*か || faint
 word 幽世
-    group
+    kun-group
         reading #core | pri-spell 幽世 | かくりよ || afterlife
         reading | sec-spell 幽世 common:隠世 | かくりよ || afterlife
             variant rare:隠り世
@@ -11282,7 +11282,7 @@ kanji 馴
         reading #core | pri-spell 馴れる | *な*れる || to become tame
         reading #core | pri-spell 馴らす | *な*らす || to tame
 word 馴染む
-    group
+    kun-group
         reading #core | pri-spell 馴染む | なじむ || to get used to
 kanji 尉
     on-group
@@ -11311,7 +11311,7 @@ kanji 柱
     kun-group
         reading #core | pri-spell 柱 | *はしら* || pillar
 word 氷柱
-    group
+    kun-group
         reading #core | pri-spell 氷柱 | つらら || icicle
 kanji 埼
     kun-group
@@ -11331,7 +11331,7 @@ kanji 詩
     on-group
         reading #core | pri-spell 詩 | *シ* || poetry
 word 詩歌
-    group
+    on-group
         reading #core | pri-spell 詩歌 | シイカ || poetry (esp. Japanese and Chinese)
 kanji 潮
     on-group
@@ -11339,7 +11339,7 @@ kanji 潮
     kun-group
         reading #core | pri-spell 潮 | *しお* || tide
 word 潮騒
-    group
+    kun-group
         reading #core | pri-spell 潮騒 | しおさい || roar of the sea
 kanji 伺
     on-group
@@ -11359,7 +11359,7 @@ kanji 伴
             variant rare:伴なう
         reading | sec-spell 供 rare:伴 | *とも* || companion
 word 伴天連
-    group
+    on-group
         reading #core | pri-kanji-spell バテレン common:伴天連 | バテレン || Portuguese Jesuit missionary (historical)
 kanji 弓
     on-group
@@ -11391,7 +11391,7 @@ kanji 湿
         reading | pri-spell 湿す | *しめ*す || to dampen
         reading | pri-spell 湿っぽい | *しめ*っぽい || damp
 word 湿気る
-    group
+    on-group
         reading #core | pri-spell 湿気る | シケル || to get damp
         reading #regular | pri-spell 湿気 | シッケ || moisture
 kanji 磨
@@ -11405,7 +11405,7 @@ kanji 磨
         reading | sec-spell 擦る rare:磨る | *す*る || to rub (tr.)
         reading | sec-spell 擦れる rare:磨れる | *す*れる || to rub (intr.)
 word 達磨
-    group
+    on-group
         reading #core | pri-kanji-spell だるま common:達磨 | ダルマ || daruma (doll)
 kanji 淡
     on-group
@@ -11429,13 +11429,13 @@ kanji 阿
     kun-group
         reading #core | pri-kanji-spell おもねる common:阿る | *おもね*る || to flatter
 word 阿呆
-    group
+    on-group
         reading #core | pri-kanji-spell アホ common:阿呆 | アホ || idiot
 word 四阿
-    group
+    kun-group
         reading #core | sec-spell 東屋 common:四阿 | あずまや || gazebo
 word 阿房
-    group
+    on-group
         reading #core | sec-kanji-spell あほう common:阿呆 rare:阿房 | アホウ || fool
 kanji 粋
     on-group
@@ -11443,7 +11443,7 @@ kanji 粋
     kun-group
         reading #core | pri-spell 粋 | *いき* || stylish
 word 生粋
-    group
+    kun-group
         reading #core | pri-spell 生粋 | きっすい || pure, genuine
 kanji 隅
     on-group
@@ -11468,7 +11468,7 @@ kanji 睡
         reading #core | sec-spell 眠る rare:睡る | *ねむ*る || to sleep
         reading | sec-spell 眠い rare:睡い | *ねむ*い || sleepy
 word 微睡む
-    group
+    kun-group
         reading #core | pri-kanji-spell まどろむ common:微睡む | まどろむ || to doze off
 kanji 塚
     kun-group
@@ -11528,10 +11528,10 @@ kanji 豚
     kun-group
         reading #core | pri-spell 豚 | *ぶた* || pig
 word 海豚
-    group
+    kun-group
         reading #core | pri-kanji-spell イルカ common:海豚 | いるか || dolphin
 word 河豚
-    group
+    kun-group
         reading #core | pri-kanji-spell フグ common:河豚 | ふぐ || puffer fish
 kanji 鼓
     on-group
@@ -11579,16 +11579,16 @@ kanji 汁
     kun-group
         reading | pri-spell 汁 | *つゆ* || broth
 word 出汁
-    group
+    kun-group
         reading #core | pri-spell 出汁 | だし || dashi (soup stock)
 kanji 葵
     kun-group
         reading #core | pri-spell 葵 | *あおい* || mallow
 word 向日葵
-    group
+    kun-group
         reading #core | pri-kanji-spell ひまわり common:向日葵 | ひまわり || sunflower
 word 山葵
-    group
+    kun-group
         reading #core | pri-kanji-spell わさび common:山葵 | わさび || wasabi
 kanji 籠
     on-group
@@ -11602,13 +11602,13 @@ kanji 籠
     kun-group
         reading | pri-spell 籠手 | *こ*て || gauntlet
 word 魚籠
-    group
+    kun-group
         reading #core | pri-kanji-spell びく common:魚籠 | びく || fish basket
 word 小籠包
-    group
+    on-group
         reading #core #asian | pri-spell 小籠包 | ショウロンポウ || xiaolongbao (Chinese dumpling)
 word 旅籠
-    group
+    kun-group
         reading #core | pri-spell 旅籠 | はたご || hatago (inn)
 kanji 撤
     on-group
@@ -11628,7 +11628,7 @@ kanji 籍
         reading #core | pri-spell 戸籍 | コ*セキ* || family register
         reading #core | pri-spell 書籍 | ショ*セキ* || book
 word 落籍
-    group
+    kun-group
         reading #core #regular | pri-spell 落籍 | ラクセキ || being removed from the family register; redeeming a geisha's debts
         reading #core | sec-spell 引かす rare:落籍す | ひかす || to redeem debts of a geisha
 kanji 暖
@@ -11659,7 +11659,7 @@ kanji 灰
     kun-group
         reading #core | pri-spell 灰 | *はい* || ash
 word 灰汁
-    group
+    kun-group
         reading #core | pri-kanji-spell アク common:灰汁 | あく || lye; soup scum; harshness
 kanji 桃
     on-group
@@ -11667,7 +11667,7 @@ kanji 桃
     kun-group
         reading #core | pri-spell 桃 | *もも* || peach
 word 安土桃山時代
-    group
+    on-group
         reading #core | pri-spell 安土桃山時代 | アズチモモヤマジダイ || Azuchi-Momoyama period
 kanji 却
     on-group
@@ -11679,7 +11679,7 @@ kanji 釈
         reading #core | pri-spell 解釈 | カイ*シャク* || interpretation
         reading #core | pri-spell 釈放 | *シャク*ホウ || release
 word 帝釈天
-    group
+    on-group
         reading #core | pri-spell 帝釈天 | タイシャクテン || Śakra (Buddhist god)
 kanji 把
     on-group
@@ -11691,7 +11691,7 @@ kanji 把
     kun-group
         reading | sec-spell 束 rare:把 | *たば* || bundle
 word 把手
-    group
+    kun-group
         reading #core | sec-spell 取っ手 common:把手 | とって || handle
             variant rare:把っ手
 kanji 羨
@@ -11787,7 +11787,7 @@ kanji 丘
     kun-group
         reading #core | pri-spell 丘 | *おか* || hill
 word 比丘
-    group
+    on-group
         reading #core | pri-spell 比丘 | ビク || bhikkhu (Buddhist monk)
 kanji 仁
     on-group
@@ -11810,10 +11810,10 @@ kanji 岐
     kun-group
         reading | sec-spell 巷 rare:岐 | *ちまた* || forked road
 word 八岐大蛇
-    group
+    kun-group
         reading #core | pri-kanji-spell ヤマタノオロチ common:八岐大蛇 | やまたのおろち || Yamata no Orochi (mythical serpent)
 word 伊邪那美
-    group
+    on-group
         reading #core | pri-spell 伊邪那美 | イザナミ || Izanami (god)
         reading #core | pri-spell 伊邪那岐 | イザナギ || Izanagi (god)
 kanji 勧
@@ -11844,7 +11844,7 @@ kanji 稲
         reading #core | pri-spell 稲 | *いね* || rice plant
         reading | pri-spell 稲作 | *いな*さく || rice cultivation
 word 稲荷
-    group
+    kun-group
         reading #core | pri-spell 稲荷 | いなり || Inari (god)
 kanji 促
     on-group
@@ -11861,7 +11861,7 @@ kanji 這
         reading #core | pri-spell 這う | *は*う || to crawl
         reading | pri-spell 這々の体 | *ほう*ほうのてい || scurrying away
 word 這入る
-    group
+    kun-group
         reading #core | sec-spell 入る rare:這入る | はいる || to enter
 kanji 杖
     on-group
@@ -11929,10 +11929,10 @@ kanji 戯
     kun-group
         reading | pri-kanji-spell じゃれ合う rare:戯れ合う | *じゃ*れあう || to frolic
 word 悪戯
-    group
+    kun-group
         reading #core | pri-kanji-spell いたずら common:悪戯 | いたずら || mischief
 word 戯言
-    group
+    kun-group
         reading #core | pri-kanji-spell たわごと common:戯言 | たわごと || nonsense
 kanji 妬
     on-group
@@ -11949,7 +11949,7 @@ kanji 寸
     on-group
         reading | pri-spell 寸胴 | *ズン*ドウ || cylindrical
 word 一寸
-    group
+    kun-group
         reading #core | pri-kanji-spell ちょっと rare:一寸 | ちょっと || a little bit
         reading #core #regular | pri-spell 一寸 | イッスン || one sun, little bit
 kanji 託
@@ -12034,10 +12034,10 @@ kanji 此
         reading | pri-kanji-spell この rare:此の | *こ*の || this
         reading | pri-kanji-spell ここ rare:此処 | *こ*こ || here
 word 此度
-    group
+    kun-group
         reading #core | pri-kanji-spell この度 common:此度 | このたび || this occasion
 word 此間
-    group
+    kun-group
         reading #core | pri-kanji-spell こないだ rare:此間 | こないだ || lately, the other day
 kanji 侯
     on-group
@@ -12050,7 +12050,7 @@ kanji 掻
         reading | pri-kanji-spell かいくぐる common:掻い潜る | *か*いくぐる || to slip through
         reading | pri-kanji-spell かっさらう common:掻っ攫う | *か*っさらう || to snatch
 word 足掻く
-    group
+    kun-group
         reading #core | pri-kanji-spell あがく common:足掻く | あがく || to paw at the ground, to struggle
 kanji 摩
     on-group
@@ -12156,7 +12156,7 @@ kanji 凝
     kun-group
         reading | pri-kanji-spell こごる common:凝る | *こご*る || to congeal
 word 混凝土
-    group
+    on-group
         reading #core #european | pri-kanji-spell コンクリート rare:混凝土 | コンクリート || concrete
 kanji 欺
     on-group
@@ -12251,10 +12251,10 @@ kanji 弥
     kun-group
         reading | sec-spell 渡る rare:弥る | *わた*る || to cross
 word 弥生
-    group
+    kun-group
         reading #core | pri-spell 弥生 | やよい || third lunar month; Yayoi (period)
 word 弥栄
-    group
+    kun-group
         reading #core | pri-spell 弥栄 | いやさか || prosperity
 kanji 駒
     kun-group
@@ -12267,7 +12267,7 @@ kanji 瓶
     kun-group
         reading | pri-spell 水瓶 | みず*がめ* || water jug
 word 釣瓶
-    group
+    kun-group
         reading #core | pri-spell 釣瓶 | つるべ || well bucket
 kanji 贈
     on-group
@@ -12281,7 +12281,7 @@ kanji 麺
     on-group
         reading #core | pri-spell 麺 | *メン* || noodles
 word 素麺
-    group
+    on-group
         reading #core | pri-kanji-spell そうめん common:素麺 | ソウメン || sōmen (noodles)
 kanji 沿
     on-group
@@ -12353,7 +12353,7 @@ kanji 網
         reading #core | pri-spell 網 | *あみ* || net
         reading | pri-spell 網代 | *あ*じろ || wickerwork
 word 投網
-    group
+    on-group
         reading #core | pri-spell 投網 | トアミ || cast net
 kanji 杏
     on-group
@@ -12363,7 +12363,7 @@ kanji 杏
     kun-group
         reading #core | pri-spell 杏 | *あんず* || apricot
 word 銀杏
-    group
+    on-group
         reading #core | pri-spell 銀杏 | イチョウ || gingko
 kanji 励
     on-group
@@ -12407,7 +12407,7 @@ kanji 胆
     kun-group
         reading | pri-spell 熊の胆 | くまの*い* || bear's gall
 word 海胆
-    group
+    kun-group
         reading #core | pri-kanji-spell ウニ rare:海胆 | うに || sea urchin
 kanji 徐
     on-group
@@ -12441,7 +12441,7 @@ kanji 柳
     kun-group
         reading #core | pri-spell 柳 | *やなぎ* || willow
 word 青柳
-    group
+    kun-group
         reading #core | pri-spell 青柳 | あおやぎ || budding willow
 kanji 蘇
     on-group
@@ -12464,7 +12464,7 @@ kanji 阻
     kun-group
         reading #core | pri-spell 阻む | *はば*む || to prevent
 word 悪阻
-    group
+    kun-group
         reading #core | pri-kanji-spell つわり common:悪阻 | つわり || morning sickness
 kanji 遮
     on-group
@@ -12482,7 +12482,7 @@ kanji 緯
     kun-group
         reading | pri-spell 緯糸 | *よこ*いと || weft
 word 経緯
-    group
+    kun-group
         reading #core | pri-spell 経緯 | いきさつ || details, circumstances
         reading #regular | pri-spell 経緯 | ケイイ || longitude and latitude
 kanji 宜
@@ -12514,7 +12514,7 @@ kanji 爺
         reading | pri-kanji-spell ジジイ common:爺 | *じじい* || old man (derogatory)
         reading #core | pri-kanji-spell じいさん common:爺さん | *じい*さん || old man
 word 親爺
-    group
+    kun-group
         reading #core | sec-spell 親父 rare:親爺 | おやじ || father
 kanji 囁
     kun-group
@@ -12529,7 +12529,7 @@ kanji 蒸
     kun-group
         reading | pri-spell 蒸かす | *ふ*かす || to steam
 word 蒸籠
-    group
+    on-group
         reading #core | pri-spell 蒸籠 | セイロ || bamboo steamer
 kanji 塾
     on-group
@@ -12558,13 +12558,13 @@ kanji 掌
     kun-group
         reading | sec-spell 司る rare:掌る | *つかさど*る || to be in charge
 word 仙人掌
-    group
+    on-group
         reading #core #european | pri-kanji-spell サボテン rare:仙人掌 | サボテン || cactus
 kanji 斐
     on-group
         reading #core | pri-spell 甲斐 | カ*イ* || worth, avail
 word 甲斐
-    group
+    on-group
         reading #core | pri-spell 甲斐 | カイ || worth, avail
 kanji 佳
     on-group
@@ -12587,7 +12587,7 @@ kanji 畳
         reading #core | pri-spell 畳む | *たた*む || to fold
         reading #core | pri-spell 畳 | *たたみ* || tatami mat
 word 畳紙
-    group
+    kun-group
         reading #core | pri-spell 畳紙 | たとうがみ || kimono wrapping paper
 kanji 胞
     on-group
@@ -12595,7 +12595,7 @@ kanji 胞
     on-group
         reading | pri-spell 細胞 | サイ*ボウ* || cell
 word 胞衣
-    group
+    kun-group
         reading #core | pri-spell 胞衣 | えな || placenta (archaic)
 kanji 滝
     kun-group
@@ -12617,7 +12617,7 @@ kanji 叱
     kun-group
         reading #core | pri-spell 叱る | *しか*る || to scold
 word 叱言
-    group
+    kun-group
         reading #core | sec-spell 小言 rare:叱言 | こごと || scolding
 kanji 枠
     kun-group
@@ -12637,7 +12637,7 @@ kanji 稽
         reading #core | pri-spell 稽古 | *ケイ*コ || practice
         reading #core | pri-spell 滑稽 | コッ*ケイ* || funny, ridiculous
 word 滑稽
-    group
+    on-group
         reading #core | pri-spell 滑稽 | コッケイ || comical
 kanji 拐
     on-group
@@ -12712,10 +12712,10 @@ kanji 炭
     kun-group
         reading #core | pri-spell 炭 | *すみ* || charcoal
 word 炭団
-    group
+    on-group
         reading #core | pri-kanji-spell たどん common:炭団 | タドン || charcoal briquette
 word 備長炭
-    group
+    on-group
         reading #core | pri-spell 備長炭 | ビンチョウタン || high-grade charcoal
 kanji 峰
     on-group
@@ -12874,7 +12874,7 @@ kanji 躇
     on-group
         reading #core | pri-spell 躊躇 | チュウ*チョ* || hesitation
 word 躊躇う
-    group
+    kun-group
         reading #core | pri-kanji-spell ためらう common:躊躇う | ためらう || to hesitate
         reading #regular | pri-spell 躊躇 | チュウチョ || hesitation
 kanji 妊
@@ -12937,7 +12937,7 @@ kanji 漁
     kun-group
         reading #core | pri-spell 漁る | *あさ*る || to fish, to forage, to search for
 word 漁り火
-    group
+    kun-group
         reading #core | pri-spell 漁り火 | いさりび || fire for luring fish at night
 kanji 顧
     on-group
@@ -12971,7 +12971,7 @@ kanji 鬱
     kun-group
         reading | sec-spell 塞ぐ rare:鬱ぐ | *ふさ*ぐ || to feel depressed
 word 鬱金
-    group
+    on-group
         reading #core | pri-kanji-spell ウコン common:鬱金 | ウコン || turmeric
 kanji 婆
     on-group
@@ -12981,10 +12981,10 @@ kanji 婆
         reading | pri-kanji-spell ババア common:婆 | *ばばあ* || old woman (derogatory)
         reading #core | pri-kanji-spell ばあさん common:婆さん | *ばあ*さん || old woman
 word 麻婆豆腐
-    group
+    on-group
         reading #core #asian | pri-spell 麻婆豆腐 | マーボードウフ || mapo tofu
 word 卒塔婆
-    group
+    on-group
         reading #core | pri-spell 卒塔婆 | ソトバ || stupa
 kanji 乏
     on-group
@@ -13028,10 +13028,10 @@ kanji 泡
     kun-group
         reading #core | pri-spell 泡 | *あわ* || bubble, foam
 word 夢幻泡影
-    group
+    on-group
         reading #core | pri-spell 夢幻泡影 | ムゲンホウヨウ || transience of life
 word 泡銭
-    group
+    kun-group
         reading #core | pri-kanji-spell あぶく銭 common:泡銭 | あぶくぜに || easy money
 kanji 窟
     on-group
@@ -13051,10 +13051,10 @@ kanji 巫
     kun-group
         reading #core | pri-spell 巫 | *かんなぎ* || shaman, medium (female)
 word 巫女
-    group
+    kun-group
         reading #core | pri-spell 巫女 | みこ || shrine maiden
 word 巫山戯る
-    group
+    kun-group
         reading #core | pri-kanji-spell ふざける common:巫山戯る | ふざける || to joke
 kanji 浄
     on-group
@@ -13070,7 +13070,7 @@ kanji 鎮
         reading #core | pri-spell 鎮める | *しず*める || to suppress
         reading #core | pri-spell 鎮まる | *しず*まる || to subside
 word 鎮守
-    group
+    on-group
         reading #core | pri-spell 鎮守 | チンジュ || local Shinto deity
 kanji 貌
     on-group
@@ -13101,7 +13101,7 @@ kanji 骸
     kun-group
         reading #core | pri-spell 骸 | *むくろ* || corpse
 word 亡骸
-    group
+    kun-group
         reading #core | pri-spell 亡骸 | なきがら || corpse
 kanji 羊
     on-group
@@ -13109,10 +13109,10 @@ kanji 羊
     kun-group
         reading #core | pri-spell 羊 | *ひつじ* || sheep
 word 山羊
-    group
+    kun-group
         reading #core | pri-spell 山羊 | やぎ || goat
 word 羊歯
-    group
+    kun-group
         reading #core | pri-kanji-spell シダ common:羊歯 | しだ || fern
 kanji 昧
     on-group
@@ -13137,7 +13137,7 @@ kanji 旋
     on-group
         reading #core | pri-spell 旋回 | *セン*カイ || rotation
 word 旋毛
-    group
+    kun-group
         reading #core | pri-kanji-spell つむじ common:旋毛 | つむじ || hair whorl
 kanji 嗅
     on-group
@@ -13186,10 +13186,10 @@ kanji 濁
         reading #core | pri-spell 濁る | *にご*る || to become muddy
         reading #core | pri-spell 濁す | *にご*す || to make muddy
 word 濁声
-    group
+    kun-group
         reading #core | pri-kanji-spell だみ声 common:濁声 | だみごえ || hoarse voice
 word 濁酒
-    group
+    kun-group
         reading #core | pri-kanji-spell どぶろく common:濁酒 | どぶろく || doburoku (sake)
 kanji 茂
     on-group
@@ -13206,7 +13206,7 @@ kanji 捧
     kun-group
         reading #core | pri-spell 捧げる | *ささ*げる || to hold up, to give
 word 捧げ銃
-    group
+    kun-group
         reading #core | pri-spell 捧げ銃 | ささげつつ || present arms
 kanji 孝
     on-group
@@ -13218,7 +13218,7 @@ kanji 荘
     on-group
         reading | pri-spell 荘園 | *ショウ*エン || manor
 word 連荘
-    group
+    on-group
         reading #core #asian | pri-kanji-spell 連チャン common:連荘 | レンチャン || repeated events
 kanji 牢
     on-group
@@ -13233,7 +13233,7 @@ kanji 垣
     kun-group
         reading #core | pri-spell 垣 | *かき* || fence, wall
 word 垣間見る
-    group
+    kun-group
         reading #core | pri-spell 垣間見る | かいまみる || to catch a glimpse
 kanji 俯
     on-group
@@ -13256,7 +13256,7 @@ kanji 丹
     kun-group
         reading #core | pri-spell 丹 | *に* || red earth
 word 雲丹
-    group
+    on-group
         reading #core | pri-kanji-spell ウニ rare:雲丹 | ウニ || sea urchin (as food)
 kanji 暁
     on-group
@@ -13302,7 +13302,7 @@ kanji 隼
     kun-group
         reading #core | pri-spell 隼 | *はやぶさ* || falcon
 word 隼人
-    group
+    kun-group
         reading #core | pri-spell 隼人 | はやと || Hayato (ancient people)
 kanji 爽
     on-group
@@ -13320,7 +13320,7 @@ kanji 貞
         reading #core | pri-spell 貞操 | *テイ*ソウ || chastity
         reading #core | pri-spell 不貞 | フ*テイ* || unfaithful, unchaste
 word 不貞腐れる
-    group
+    on-group
         reading #core | pri-kanji-spell ふてくされる common:不貞腐れる | フテクサレル || to become sulky
         reading #core | pri-kanji-spell ふて寝 common:不貞寝 | フテネ || sulking in bed
 kanji 尖
@@ -13370,7 +13370,7 @@ kanji 舗
         reading #core | pri-spell 店舗 | テン*ポ* || shop
         reading #core | pri-spell 舗装 | *ホ*ソウ || paving
 word 老舗
-    group
+    kun-group
         reading #core | pri-spell 老舗 | しにせ || long-established shop
 kanji 吾
     kun-group
@@ -13380,7 +13380,7 @@ kanji 吾
     kun-group
         reading | pri-spell 吾子 | *あ*こ || my child (archaic)
 word 吾輩
-    group
+    kun-group
         reading #core | sec-spell 我輩 common:吾輩 | わがはい || I (archaic)
 kanji 郵
     on-group
@@ -13420,7 +13420,7 @@ kanji 奢
     kun-group
         reading #core | pri-kanji-spell おごる common:奢る | *おご*る || to treat (to something); to live in luxury
 word 華奢
-    group
+    on-group
         reading #core | pri-spell 華奢 | キャシャ || dainty, delicate
         reading | sec-spell 華奢 rare:花車 | キャシャ || dainty, delicate
 kanji 艶
@@ -13434,7 +13434,7 @@ kanji 艶
         reading | pri-spell 艶めかしい | *なま*めかしい || charming, seductive
             variant common:艶かしい
 word 艶姿
-    group
+    kun-group
         reading #core | pri-spell 艶姿 | あですがた || charming figure
 kanji 亭
     on-group
@@ -13453,7 +13453,7 @@ kanji 擬
     kun-group
         reading | sec-kanji-spell なぞらえる common:準える rare:擬える | *なぞら*える || to liken, to imitate
 word 擬宝珠
-    group
+    on-group
         reading #core | pri-spell 擬宝珠 | ギボシ || giboshi (ornament)
 kanji 雫
     kun-group
@@ -13507,7 +13507,7 @@ kanji 憑
         reading | sec-spell 依代 common:憑代 | *より*しろ || yorishiro (Shinto)
             variant rare:憑り代
 word 神憑り
-    group
+    kun-group
         reading #core | pri-kanji-spell 神がかり common:神憑り | かみがかり || divine possession
 kanji 扇
     on-group
@@ -13517,7 +13517,7 @@ kanji 扇
     kun-group
         reading #core | pri-spell 扇ぐ | *あお*ぐ || to fan
 word 団扇
-    group
+    kun-group
         reading #core | pri-kanji-spell うちわ common:団扇 | うちわ || uchiwa (fan)
 kanji 阜
     on-group
@@ -13550,11 +13550,11 @@ kanji 鶏
         reading #core | pri-spell 鶏 | *にわとり* || chicken
         reading | pri-spell 鶏肉 | *とり*にく || chicken meat
 word 雄鶏
-    group
+    kun-group
         reading #core | pri-spell 雄鶏 | おんどり || cock
         reading | sec-spell 雄鶏 rare:雄鳥 | おんどり || cock
 word 鶏冠
-    group
+    kun-group
         reading #core | pri-kanji-spell とさか common:鶏冠 | とさか || comb (of a bird)
 kanji 凡
     on-group
@@ -13568,7 +13568,7 @@ kanji 凡
     kun-group
         reading | pri-kanji-spell あらゆる rare:凡ゆる | *あら*ゆる || every
 word 大凡
-    group
+    kun-group
         reading #core | pri-kanji-spell おおよそ rare:大凡 | おおよそ || roughly
 kanji 閃
     on-group
@@ -13583,7 +13583,7 @@ kanji 殻
     kun-group
         reading #core | pri-spell 殻 | *から* || shell
 word 紅殻
-    group
+    on-group
         reading #core #european | pri-spell 紅殻 | ベンガラ || red iron oxide
 kanji 賃
     on-group
@@ -13642,7 +13642,7 @@ kanji 稚
     kun-group
         reading #core | pri-spell 稚い | *いとけな*い || very young
 word 丁稚
-    group
+    on-group
         reading #core | pri-spell 丁稚 | デッチ || apprentice
 kanji 宰
     on-group
@@ -13755,7 +13755,7 @@ kanji 俗
         reading #core | pri-spell 俗 | *ゾク* || worldly, common, vulgar
         reading #core | pri-spell 風俗 | フウ*ゾク* || customs
 word 還俗
-    group
+    on-group
         reading #core | pri-spell 還俗 | ゲンゾク || return to a secular life
 kanji 薔
     combined-group
@@ -13797,7 +13797,7 @@ kanji 肯
         reading | pri-spell 肯んじる | *がえ*んじる || to allow
             variant common:肯じる
 word 首肯く
-    group
+    kun-group
         reading #core | sec-spell 頷く rare:首肯く | うなずく || to nod
 kanji 暫
     on-group
@@ -13833,7 +13833,7 @@ kanji 喪
     kun-group
         reading | sec-spell 失う rare:喪う | *うしな*う || to lose
 word 付喪神
-    group
+    kun-group
         reading #core | pri-spell 付喪神 | つくもがみ || tsukumogami (spirit)
         reading | sec-spell 付喪神 common:九十九神 | つくもがみ || tsukumogami (spirit)
 kanji 捻
@@ -13855,10 +13855,10 @@ kanji 雀
     kun-group
         reading #core | pri-spell 雀 | *すずめ* || sparrow
 word 朱雀
-    group
+    on-group
         reading #core | pri-spell 朱雀 | スザク || Vermilion Bird of the South
 word 金糸雀
-    group
+    on-group
         reading #core #european | pri-kanji-spell カナリア rare:金糸雀 | カナリア || canary
 kanji 侮
     on-group
@@ -13905,7 +13905,7 @@ kanji 腫
         reading #core | pri-spell 腫れる | *は*れる || to swell
         reading | pri-spell 腫らす | *は*らす || to cause to swell
 word 浮腫む
-    group
+    kun-group
         reading #core | pri-kanji-spell むくむ common:浮腫む | むくむ || to swell
 kanji 鞄
     kun-group
@@ -13918,7 +13918,7 @@ kanji 嘲
             variant rare:嘲ける
         reading | sec-spell 嘲笑う rare:嘲う | *あざわら*う || to ridicule
 word 嘲笑う
-    group
+    kun-group
         reading #core | pri-spell 嘲笑う | あざわらう || to ridicule
 kanji 脂
     on-group
@@ -13928,7 +13928,7 @@ kanji 脂
     kun-group
         reading | pri-kanji-spell ヤニ common:脂 | *やに* || resin
 word 雲脂
-    group
+    kun-group
         reading #core | pri-kanji-spell フケ rare:雲脂 | ふけ || dandruff
 kanji 刷
     on-group
@@ -13938,7 +13938,7 @@ kanji 刷
     kun-group
         reading | pri-spell 刷く | *は*く || to daub
 word 刷毛
-    group
+    kun-group
         reading #core | pri-spell 刷毛 | はけ || brush
 kanji 唸
     kun-group
@@ -13951,7 +13951,7 @@ kanji 撲
     kun-group
         reading | sec-spell 打つ rare:撲つ | *ぶ*つ || to hit
 word 相撲
-    group
+    kun-group
         reading #core | pri-spell 相撲 | すもう || sumo wrestling
         reading | sec-spell 相撲 rare:角力 | すもう || sumo wrestling
 kanji 葛
@@ -13964,7 +13964,7 @@ kanji 葛
     kun-group
         reading | sec-kanji-spell つづら折り common:九十九折り rare:葛折り | *つづら*おり || winding, meandering
 word 葛籠
-    group
+    kun-group
         reading #core | pri-kanji-spell つづら common:葛籠 | つづら || wicker clothes hamper
 kanji 虹
     on-group
@@ -14000,7 +14000,7 @@ kanji 疾
     kun-group
         reading | sec-kanji-spell やましい common:疚しい rare:疾しい | *やま*しい || feeling guilty
 word 疾風
-    group
+    kun-group
         reading #core | pri-spell 疾風 | はやて || gale
         reading #core #regular | pri-spell 疾風 | シップウ || gale
 kanji 菌
@@ -14074,7 +14074,7 @@ kanji 抽
     on-group
         reading #core | pri-spell 抽出 | *チュウ*シュツ || extraction
 word 抽斗
-    group
+    kun-group
         reading #core | sec-spell 引き出し rare:抽斗 | ひきだし || drawer
             variant rare:抽き出し
 kanji 帆
@@ -14231,7 +14231,7 @@ kanji 澪
     kun-group
         reading #core | pri-spell 澪 | *みお* || waterway
 word 澪標
-    group
+    kun-group
         reading #core | pri-spell 澪標 | みおつくし || daybeacon
 kanji 胴
     on-group
@@ -14258,10 +14258,10 @@ kanji 某
     kun-group
         reading | sec-kanji-spell なにがし common:何某 common:某 | *なにがし* || certain amount, certain person
 word 何某
-    group
+    kun-group
         reading #core | pri-kanji-spell なにがし common:何某 | なにがし || certain amount, certain person
 word 誰某
-    group
+    kun-group
         reading #core | pri-kanji-spell 誰それ rare:誰某 | だれそれ || certain person
 kanji 薩
     on-group
@@ -14272,13 +14272,13 @@ kanji 烏
     kun-group
         reading #core | pri-kanji-spell カラス common:烏 | *からす* || crow, raven
 word 烏帽子
-    group
+    on-group
         reading #core | pri-spell 烏帽子 | エボシ || eboshi (hat)
 word 烏龍茶
-    group
+    on-group
         reading #core #asian | pri-kanji-spell ウーロン茶 common:烏龍茶 | ウーロンチャ || oolong tea
 word 烏賊
-    group
+    kun-group
         reading #core | pri-kanji-spell イカ common:烏賊 | いか || squid
 kanji 渇
     on-group
@@ -14286,7 +14286,7 @@ kanji 渇
     kun-group
         reading #core | pri-spell 渇く | *かわ*く || to be thirsty
 word 渇仰
-    group
+    on-group
         reading #core | pri-spell 渇仰 | カツゴウ || adoration
 kanji 宵
     on-group
@@ -14294,7 +14294,7 @@ kanji 宵
     kun-group
         reading #core | pri-spell 宵 | *よい* || evening
 word 宵宮
-    group
+    kun-group
         reading #core | pri-spell 宵宮 | よみや || festival-eve vigil
 kanji 蟲
     kun-group
@@ -14328,7 +14328,7 @@ kanji 陶
     kun-group
         reading #core | pri-spell 陶 | *すえ* || pottery
 word 鬱陶しい
-    group
+    on-group
         reading #core | pri-spell 鬱陶しい | ウットウシイ || gloomy; irritating
 kanji 賑
     on-group
@@ -14355,7 +14355,7 @@ kanji 箇
     on-group
         reading | sec-spell 一個 rare:一箇 | イッ*コ* || one item
 word 三箇日
-    group
+    on-group
         reading #core | pri-kanji-spell 三が日 common:三箇日 | サンガニチ || first three days of the year
 kanji 曹
     on-group
@@ -14409,7 +14409,7 @@ kanji 舟
         reading #core | pri-spell 舟 | *ふね* || boat
         reading | pri-spell 舟橋 | *ふな*ばし || pontoon bridge
 word 方舟
-    group
+    kun-group
         reading #core | pri-spell 方舟 | はこぶね || ark
 kanji 瓦
     on-group
@@ -14537,7 +14537,7 @@ kanji 只
     kun-group
         reading #core | sec-kanji-spell ただ rare:唯 rare:只 | *ただ* || mere
 word 只管
-    group
+    kun-group
         reading #core | pri-kanji-spell ひたすら rare:只管 | ひたすら || intently
 kanji 岳
     on-group
@@ -14552,7 +14552,7 @@ kanji 垢
     kun-group
         reading #core | pri-spell 垢 | *あか* || dirt, grime
 word 垢離
-    group
+    on-group
         reading #core | pri-spell 垢離 | コリ || cold-water ablution
 kanji 煽
     on-group
@@ -14597,7 +14597,7 @@ kanji 肥
     kun-group
         reading | sec-spell 太る rare:肥る | *ふと*る || to gain weight
 word 求肥
-    group
+    on-group
         reading #core | pri-spell 求肥 | ギュウヒ || gyūhi (confection)
 kanji 睦
     on-group
@@ -14606,10 +14606,10 @@ kanji 睦
         reading #core | pri-spell 睦まじい | *むつ*まじい || happy, harmonious
         reading | pri-spell 睦む | *むつ*む || to be harmonious, to get on well
 word 睦言
-    group
+    kun-group
         reading #core | pri-spell 睦言 | むつごと || lovers' talk
 word 睦月
-    group
+    kun-group
         reading #core | pri-spell 睦月 | むつき || first lunar month
 kanji 懇
     on-group
@@ -14654,7 +14654,7 @@ kanji 綿
     kun-group
         reading #core | pri-kanji-spell わた common:綿 | *わた* || cotton
 word 木綿
-    group
+    on-group
         reading #core | pri-spell 木綿 | モメン || cotton
 kanji 漆
     on-group
@@ -14759,7 +14759,7 @@ kanji 顕
         reading | pri-spell 顕す | *あらわ*す || to make widely known
         reading | sec-spell 露わ common:顕 | *あらわ* || exposed
 word 顕界
-    group
+    on-group
         reading #core | pri-spell 顕界 | ゲンカイ || world of the living
 kanji 胡
     on-group
@@ -14769,10 +14769,10 @@ kanji 胡
     on-group
         reading | pri-kanji-spell ゴマ common:胡麻 | *ゴ*マ || sesame
 word 胡乱
-    group
+    on-group
         reading #core | pri-spell 胡乱 | ウロン || suspicious
 word 胡桃
-    group
+    kun-group
         reading #core | pri-kanji-spell クルミ common:胡桃 | くるみ || walnut
 kanji 泰
     on-group
@@ -14840,7 +14840,7 @@ kanji 昏
         reading #core | sec-spell 暗い rare:昏い | *くら*い || dark
         reading | sec-spell 暮れる rare:昏れる | *く*れる || to get dark
 word 黄昏れる
-    group
+    kun-group
         reading #core | pri-spell 黄昏れる | たそがれる || to get dark after sunset
 kanji 軸
     on-group
@@ -14900,11 +14900,11 @@ kanji 薙
     kun-group
         reading #core | pri-spell 薙ぐ | *な*ぐ || to mow down
 word 薙刀
-    group
+    kun-group
         reading #core | pri-spell 薙刀 | なぎなた || naginata (polearm)
         reading #core | sec-spell 薙刀 common:長刀 | なぎなた || naginata (polearm)
 word 草薙剣
-    group
+    kun-group
         reading #core | pri-spell 草薙剣 | くさなぎのつるぎ || Kusanagi no Tsurugi (legendary sword)
 kanji 恒
     on-group
@@ -14950,7 +14950,7 @@ kanji 滋
     on-group
         reading #core | pri-spell 滋養 | *ジ*ヨウ || nourishment
 word 滋賀
-    group
+    on-group
         reading #core | pri-spell 滋賀 | シガ || Shiga (prefecture)
 kanji 襟
     on-group
@@ -15023,7 +15023,7 @@ kanji 蒲
         reading | pri-spell 蒲焼 | *かば*やき || kabayaki (dish)
         reading | pri-kanji-spell かまぼこ common:蒲鉾 | *かま*ぼこ || kamaboko (food)
 word 蒲公英
-    group
+    kun-group
         reading #core | pri-kanji-spell タンポポ rare:蒲公英 | たんぽぽ || dandelion
 kanji 轄
     on-group
@@ -15093,7 +15093,7 @@ kanji 冶
     on-group
         reading #core | pri-spell 冶金 | *ヤ*キン || metallurgy
 word 鍛冶
-    group
+    kun-group
         reading #core | pri-spell 鍛冶 | かじ || smithing; blacksmith
 kanji 畏
     on-group
@@ -15109,7 +15109,7 @@ kanji 鳩
     kun-group
         reading #core | pri-spell 鳩 | *はと* || pigeon
 word 鳩尾
-    group
+    kun-group
         reading #core | pri-kanji-spell みぞおち common:鳩尾 | みぞおち || solar plexus
 kanji 鉛
     on-group
@@ -15164,7 +15164,7 @@ kanji 釜
     kun-group
         reading #core | pri-spell 釜 | *かま* || iron pot
 word 釜山
-    group
+    on-group
         reading #core #asian | pri-spell 釜山 | プサン || Busan
 kanji 逐
     on-group
@@ -15183,11 +15183,11 @@ kanji 燈
         reading #core | sec-spell 灯る rare:燈る | *とも*る || to be lit
         reading #core | sec-spell 灯す rare:燈す | *とも*す || to light
 word 提灯
-    group
+    on-group
         reading #core | pri-spell 提灯 | チョウチン || paper lantern
         reading | sec-spell 提灯 rare:提燈 | チョウチン || paper lantern
 word 行灯
-    group
+    on-group
         reading #core | pri-spell 行灯 | アンドン || paper lamp with frame
         reading | sec-spell 行灯 common:行燈 | アンドン || paper lamp with frame
 kanji 凌
@@ -15214,7 +15214,7 @@ kanji 尿
     on-group
         reading #core | pri-spell 尿 | *ニョウ* || urine
 word 尿瓶
-    group
+    kun-group
         reading #core | pri-spell 尿瓶 | しびん || urine bottle
 kanji 咎
     kun-group
@@ -15226,7 +15226,7 @@ kanji 蚊
     kun-group
         reading #core | pri-spell 蚊 | *か* || mosquito
 word 蚊帳
-    group
+    kun-group
         reading #core | pri-spell 蚊帳 | かや || mosquito net
 kanji 奔
     on-group
@@ -15254,7 +15254,7 @@ kanji 魁
     kun-group
         reading #core | sec-spell 先駆け common:魁 | *さきがけ* || forerunner
 word 花魁
-    group
+    kun-group
         reading #core | pri-spell 花魁 | おいらん || oiran (courtesan)
 kanji 笹
     kun-group
@@ -15270,7 +15270,7 @@ kanji 穢
     kun-group
         reading #core | sec-spell 汚い common:穢い | *きたな*い || dirty
 word 寝穢い
-    group
+    kun-group
         reading #core | pri-spell 寝穢い | いぎたない || being a heavy sleeper
         reading #core | sec-spell 寝穢い common:寝汚い | いぎたない || being a heavy sleeper
 kanji 壺
@@ -15284,10 +15284,10 @@ kanji 閑
     kun-group
         reading | sec-spell 静か rare:閑か | *しず*か || quiet
 word 長閑
-    group
+    kun-group
         reading #core | pri-kanji-spell のどか common:長閑 | のどか || tranquil
 word 等閑
-    group
+    kun-group
         reading #core | pri-kanji-spell なおざり common:等閑 | なおざり || neglect
 kanji 挫
     on-group
@@ -15356,7 +15356,7 @@ kanji 紺
     on-group
         reading #core | pri-spell 紺色 | *コン*イロ || deep blue
 word 紺屋
-    group
+    on-group
         reading #core | pri-spell 紺屋 | コウヤ || dyer
 kanji 髭
     kun-group
@@ -15437,7 +15437,7 @@ kanji 甚
     kun-group
         reading | pri-kanji-spell いたく rare:甚く | *いた*く || extremely
 word 甚平
-    group
+    on-group
         reading #core | pri-spell 甚平 | ジンベイ || jinbei (summer clothes)
 kanji 芯
     on-group
@@ -15483,7 +15483,7 @@ kanji 后
     kun-group
         reading #core | pri-spell 后 | *きさき* || queen consort
 word 午后
-    group
+    on-group
         reading #core | sec-spell 午後 rare:午后 | ゴゴ || p.m.
 kanji 贄
     kun-group
@@ -15591,7 +15591,7 @@ kanji 磐
     kun-group
         reading #core | sec-spell 岩 rare:磐 | *いわ* || rock
 word 常磐木
-    group
+    kun-group
         reading #core | pri-spell 常磐木 | ときわぎ || evergreen tree
 kanji 猪
     on-group
@@ -15603,10 +15603,10 @@ kanji 猪
     kun-group
         reading | pri-spell 猪鍋 | *しし*なべ || boar stew
 word 猪口
-    group
+    on-group
         reading #core | pri-kanji-spell ちょこ common:猪口 | チョコ || sake cup
 word 猪牙舟
-    group
+    kun-group
         reading #core | pri-spell 猪牙舟 | ちょきぶね || chokibune (boat)
 kanji 槽
     on-group
@@ -15638,7 +15638,7 @@ kanji 郭
     kun-group
         reading #core | pri-spell 郭 | *くるわ* || enclosure; enclosed area; red-light district
 word 曲輪
-    group
+    kun-group
         reading #core | sec-spell 郭 common:曲輪 | くるわ || district, wall
 kanji 陵
     on-group
@@ -15666,7 +15666,7 @@ kanji 洒
     on-group
         reading #core | pri-kanji-spell おしゃれ common:お洒落 | オ*シャ*レ || stylish, fashionable
 word お洒落
-    group
+    on-group
         reading #core | pri-kanji-spell おしゃれ common:お洒落 | オシャレ || stylish, fashionable
 kanji 伎
     on-group
@@ -15687,7 +15687,7 @@ kanji 鴨
     kun-group
         reading #core | pri-kanji-spell カモ common:鴨 | *かも* || duck
 word 家鴨
-    group
+    kun-group
         reading #core | pri-kanji-spell アヒル common:家鴨 | あひる || domestic duck
 kanji 賜
     on-group
@@ -15731,7 +15731,7 @@ kanji 媛
     kun-group
         reading #core | sec-spell 姫 rare:媛 | *ひめ* || noble lady
 word 愛媛
-    group
+    on-group
         reading #core | pri-spell 愛媛 | エヒメ || Ehime (prefecture)
 kanji 煌
     on-group
@@ -15741,7 +15741,7 @@ kanji 煌
             variant rare:煌く
         reading #core | pri-kanji-spell きらびやか common:煌びやか | *きら*びやか || gorgeous, dazzling
 word 煌星
-    group
+    kun-group
         reading #core | sec-spell 綺羅星 rare:煌星 | きらぼし || glittering stars
 kanji 逝
     on-group
@@ -15761,7 +15761,7 @@ kanji 礫
     kun-group
         reading | sec-spell 小石 rare:礫 | *こいし* || pebble
 word 飛礫
-    group
+    kun-group
         reading #core | sec-kanji-spell つぶて common:礫 common:飛礫 | つぶて || stone for throwing
 kanji 兜
     on-group
@@ -15769,7 +15769,7 @@ kanji 兜
     kun-group
         reading #core | pri-spell 兜 | *かぶと* || helmet
 word 頭襟
-    group
+    on-group
         reading #core | sec-spell 兜巾 common:頭襟 | トキン || tokin (hat)
         reading | sec-spell 兜巾 rare:頭巾 | トキン || tokin (hat)
         reading #regular | pri-spell 頭巾 | ズキン || hood
@@ -15777,7 +15777,7 @@ kanji 燐
     on-group
         reading #core | pri-kanji-spell リン common:燐 | *リン* || phosphorus
 word 燐寸
-    group
+    on-group
         reading #core #european | pri-kanji-spell マッチ rare:燐寸 | マッチ || match (to light fire)
 kanji 彷
     on-group
@@ -15799,11 +15799,11 @@ kanji 蕩
     kun-group
         reading | sec-kanji-spell たらす common:誑す rare:蕩す | *たら*す || to coax
 word 見惚れる
-    group
+    kun-group
         reading #core | pri-spell 見惚れる | みとれる || to be captivated
         reading | sec-spell 見惚れる rare:見蕩れる | みとれる || to be captivated
 word 揺蕩う
-    group
+    kun-group
         reading #core | pri-kanji-spell たゆたう common:揺蕩う | たゆたう || to sway
 kanji 祓
     on-group
@@ -15817,7 +15817,7 @@ kanji 硝
     on-group
         reading #core | pri-spell 硝石 | *ショウ*セキ || saltpeter
 word 硝子
-    group
+    on-group
         reading #core #european | pri-kanji-spell ガラス common:硝子 | ガラス || glass
 kanji 措
     on-group
@@ -15828,7 +15828,7 @@ kanji 餃
     on-group
         reading #core | pri-spell 餃子 | *ギョー*ザ || gyōza
 word 餃子
-    group
+    on-group
         reading #core #asian | pri-spell 餃子 | ギョーザ || gyōza
 kanji 胎
     on-group
@@ -15887,7 +15887,7 @@ kanji 昆
     on-group
         reading #core | pri-spell 昆虫 | *コン*チュウ || insect
 word 昆布
-    group
+    on-group
         reading #core | pri-spell 昆布 | コンブ || kombu (kelp)
 kanji 顰
     on-group
@@ -15916,7 +15916,7 @@ kanji 玩
     kun-group
         reading | sec-spell 弄ぶ rare:玩ぶ | *もてあそ*ぶ || to play with
 word 玩具
-    group
+    kun-group
         reading #core | pri-kanji-spell おもちゃ common:玩具 | おもちゃ || toy
 kanji 姐
     kun-group
@@ -15933,10 +15933,10 @@ kanji 鼠
         reading #core | pri-kanji-spell ネズミ common:鼠 | *ねずみ* || rat, mouse
         reading | pri-spell 銀鼠 | ぎん*ねず* || silver gray
 word 栗鼠
-    group
+    on-group
         reading #core | pri-kanji-spell リス common:栗鼠 | リス || squirrel
 word 海鼠
-    group
+    kun-group
         reading #core | pri-kanji-spell ナマコ common:海鼠 | なまこ || sea cucumber
 kanji 謁
     on-group
@@ -16021,7 +16021,7 @@ kanji 嗚
     on-group
         reading #core | pri-spell 嗚咽 | *オ*エツ || sobbing
 word 嗚呼
-    group
+    kun-group
         reading #core | pri-kanji-spell ああ rare:嗚呼 | ああ || ah
 kanji 柵
     on-group
@@ -16124,7 +16124,7 @@ kanji 慄
     kun-group
         reading #core | pri-kanji-spell おののく common:慄く | *おのの*く || to tremble
 word 戦慄く
-    group
+    kun-group
         reading #core | pri-kanji-spell わななく common:戦慄く | わななく || to tremble
         reading #regular | pri-spell 戦慄 | センリツ || trembling
 kanji 螺
@@ -16133,7 +16133,7 @@ kanji 螺
     kun-group
         reading #core | pri-spell 螺 | *にし* || spiral-shelled snail
 word 螺子
-    group
+    kun-group
         reading #core | pri-kanji-spell ネジ common:螺子 | ねじ || screw
         reading | sec-kanji-spell ネジ common:螺子 rare:捻子 | ねじ || screw
 kanji 皐
@@ -16145,7 +16145,7 @@ kanji 恰
     kun-group
         reading | pri-kanji-spell あたかも common:恰も | *あたか*も || as if
 word 恰度
-    group
+    on-group
         reading #core | sec-kanji-spell ちょうど common:丁度 rare:恰度 | チョウド || exactly
 kanji 郊
     on-group
@@ -16175,7 +16175,7 @@ kanji 焚
     kun-group
         reading #core | pri-spell 焚く | *た*く || to burn
 word 火焼き
-    group
+    kun-group
         reading #core | sec-spell 火焚 rare:火焼き | ひたき || building a fire
 kanji 躱
     kun-group
@@ -16234,7 +16234,7 @@ kanji 嬌
     on-group
         reading #core | pri-spell 愛嬌 | アイ*キョウ* || charm
 word 愛敬
-    group
+    on-group
         reading #core | sec-spell 愛嬌 rare:愛敬 | アイキョウ || charm
 kanji 朔
     on-group
@@ -16251,7 +16251,7 @@ kanji 儚
         reading #core | pri-spell 儚い | *はかな*い || fleeting
         reading | pri-spell 儚む | *はかな*む || to see the vanity of
 word 果敢ない
-    group
+    kun-group
         reading #core | sec-spell 儚い rare:果敢ない | はかない || fleeting
         reading #regular | pri-spell 果敢 | カカン || bold
 kanji 蕎
@@ -16291,7 +16291,7 @@ kanji 牡
         reading #core | sec-spell 雄 common:牡 | *おす* || male
         reading | pri-spell 牡鹿 | *お*じか || male deer
 word 牡丹餅
-    group
+    on-group
         reading #core | pri-kanji-spell ぼた餅 common:牡丹餅 | ボタモチ || botamochi
         reading #core #regular | pri-spell 牡丹 | ボタン || tree peony
 kanji 裟
@@ -16313,7 +16313,7 @@ kanji 狸
     kun-group
         reading #core | pri-spell 狸 | *たぬき* || tanuki, raccoon dog
 word 狐狗狸
-    group
+    on-group
         reading #core | pri-kanji-spell コックリ rare:狐狗狸 | コックリ || kokkuri (divination technique)
 kanji 瘴
     on-group
@@ -16342,7 +16342,7 @@ kanji 鮎
     kun-group
         reading #core | pri-spell 鮎 | *あゆ* || sweetfish
 word 香魚
-    group
+    kun-group
         reading #core | sec-spell 鮎 common:香魚 | あゆ || sweetfish
 kanji 叡
     on-group
@@ -16392,10 +16392,10 @@ kanji 徨
     on-group
         reading #core | pri-spell 彷徨 | ホウ*コウ* || wandering
 word 彷徨う
-    group
+    kun-group
         reading #core | pri-kanji-spell さまよう common:彷徨う | さまよう || to wander
 word 彷徨く
-    group
+    kun-group
         reading #core | pri-kanji-spell うろつく rare:彷徨く | うろつく || to loiter
 kanji 迅
     on-group
@@ -16404,7 +16404,7 @@ kanji 狽
     on-group
         reading #core | pri-spell 狼狽 | ロウ*バイ* || confusion
 word 狼狽える
-    group
+    kun-group
         reading #core | pri-kanji-spell うろたえる common:狼狽える | うろたえる || to be flustered
 kanji 貿
     on-group
@@ -16467,7 +16467,7 @@ kanji 娼
     on-group
         reading #core | pri-spell 娼婦 | *ショウ*フ || prostitute
 word 敵娼
-    group
+    kun-group
         reading #core | sec-spell 相方 rare:敵娼 | あいかた || partner (in a brothel)
 kanji 隈
     on-group
@@ -16480,16 +16480,16 @@ kanji 瓜
     kun-group
         reading #core | pri-spell 瓜 | *うり* || melon, gourd
 word 西瓜
-    group
+    on-group
         reading #core | pri-kanji-spell スイカ common:西瓜 | スイカ || watermelon
 word 胡瓜
-    group
+    kun-group
         reading #core | pri-kanji-spell キュウリ common:胡瓜 | きゅうり || cucumber
 word 南瓜
-    group
+    on-group
         reading #core #european | pri-kanji-spell カボチャ common:南瓜 | カボチャ || pumpkin
 word 糸瓜
-    group
+    kun-group
         reading #core | pri-kanji-spell ヘチマ common:糸瓜 | へちま || sponge gourd
 kanji 賓
     on-group
@@ -16500,7 +16500,7 @@ kanji 劫
     on-group
         reading #core | pri-spell 永劫 | エイ*ゴウ* || eternity
 word 億劫
-    group
+    on-group
         reading #core | pri-spell 億劫 | オックウ || troublesome
 kanji 昌
     on-group
@@ -16529,7 +16529,7 @@ kanji 尺
     on-group
         reading | pri-spell 咫尺 | シ*セキ* || very short distance
 word 曲尺
-    group
+    kun-group
         reading #core | pri-spell 曲尺 | かねじゃく || carpenter's square
 kanji 宏
     on-group
@@ -16568,7 +16568,7 @@ kanji 沫
     kun-group
         reading | sec-spell 泡 rare:沫 | *あわ* || bubble, foam
 word 飛沫
-    group
+    kun-group
         reading #core | pri-kanji-spell しぶき common:飛沫 | しぶき || splash, spray
 kanji 蝕
     on-group
@@ -16593,7 +16593,7 @@ kanji 耶
         reading #core | pri-kanji-spell うやむや common:有耶無耶 | ウ*ヤ*ムヤ || indefinite, vague
         reading #core | pri-spell 耶蘇 | *ヤ*ソ || Jesus (archaic)
 word 阿頼耶識
-    group
+    on-group
         reading #core | pri-spell 阿頼耶識 | アラヤシキ || ālaya-vijñāna (basic consciousness in Buddhism)
 kanji 循
     on-group
@@ -16671,11 +16671,11 @@ kanji 坐
     kun-group
         reading | sec-spell 在す common:坐す | *ましま*す || to be (honorific)
 word 胡坐
-    group
+    kun-group
         reading #core | pri-kanji-spell あぐら common:胡坐 | あぐら || sitting cross-legged
         reading #core | sec-kanji-spell あぐら common:胡坐 common:胡座 | あぐら || sitting cross-legged
 word 憑坐
-    group
+    kun-group
         reading #core | pri-kanji-spell よりまし rare:憑坐 | よりまし || yorimashi (spirit medium)
 kanji 斑
     on-group
@@ -16689,7 +16689,7 @@ kanji 斑
     kun-group
         reading | pri-spell 斑入り | *ふ*いり || variegated
 word 雀斑
-    group
+    kun-group
         reading #core | pri-kanji-spell そばかす common:雀斑 | そばかす || freckles
 kanji 眸
     on-group
@@ -16796,7 +16796,7 @@ kanji 豹
     on-group
         reading #core | pri-spell 豹 | *ヒョウ* || leopard
 word 海豹
-    group
+    kun-group
         reading #core | pri-kanji-spell アザラシ common:海豹 | あざらし || true seal
 kanji 鯨
     on-group
@@ -16902,7 +16902,7 @@ kanji 蟹
         reading #core | pri-kanji-spell カニ common:蟹 | *かに* || crab
         reading | pri-spell 巨蟹宮 | きょ*かい*きゅう || Cancer (Zodiac)
 word 蟹股
-    group
+    kun-group
         reading #core | pri-kanji-spell がに股 common:蟹股 | がにまた || bowleg
 kanji 舵
     on-group
@@ -16970,7 +16970,7 @@ kanji 謂
         reading #core | sec-spell 言う rare:謂う | *い*う || to say
         reading | pri-kanji-spell いわれ common:謂れ | *いわ*れ || reason
 word 所謂
-    group
+    kun-group
         reading #core | pri-kanji-spell いわゆる common:所謂 | いわゆる || so-called
 kanji 瘍
     on-group
@@ -16992,7 +16992,7 @@ kanji 蔓
     kun-group
         reading #core | pri-spell 蔓 | *つる* || vine
 word 蔓延る
-    group
+    kun-group
         reading #core | pri-kanji-spell はびこる common:蔓延る | はびこる || to become overgrown
         reading #regular | pri-spell 蔓延 | マンエン || spread
 kanji 棘
@@ -17080,7 +17080,7 @@ kanji 苔
     kun-group
         reading #core | pri-spell 苔 | *こけ* || moss
 word 海苔
-    group
+    kun-group
         reading #core | pri-kanji-spell のり common:海苔 | のり || nori (dried seaweed)
 kanji 埒
     on-group
@@ -17122,7 +17122,7 @@ kanji 但
         reading #core | pri-kanji-spell ただし rare:但し | *ただ*し || however
         reading | pri-kanji-spell ただ rare:但 | *ただ* || however
 word 但書
-    group
+    kun-group
         reading #core | sec-spell 但し書き common:但書 | ただしがき || proviso
 kanji 凸
     on-group
@@ -17224,7 +17224,7 @@ kanji 剃
     kun-group
         reading #core | pri-spell 剃る | *そ*る || to shave
 word 剃刀
-    group
+    kun-group
         reading #core | pri-spell 剃刀 | かみそり || razor
 kanji 蔦
     kun-group
@@ -17268,7 +17268,7 @@ kanji 叉
     kun-group
         reading #core | pri-spell 叉 | *また* || fork, split
 word 刺股
-    group
+    kun-group
         reading #core | pri-kanji-spell さすまた common:刺股 | さすまた || sasumata (weapon)
             variant common:刺叉
             variant common:刺又
@@ -17290,7 +17290,7 @@ kanji 穀
     on-group
         reading #core | pri-spell 穀物 | *コク*モツ || grain
 word 穀潰し
-    group
+    on-group
         reading #core | pri-spell 穀潰し | ゴクツブシ || good-for-nothing
 kanji 鵬
     on-group
@@ -17351,7 +17351,7 @@ kanji 斯
     kun-group
         reading #core | pri-kanji-spell こう rare:斯う | *こ*う || like this
 word 斯様
-    group
+    kun-group
         reading #core | pri-kanji-spell かよう rare:斯様 | かよう || this kind of
 kanji 梯
     on-group
@@ -17401,7 +17401,7 @@ kanji 曾
     kun-group
         reading | sec-kanji-spell かつて rare:嘗て rare:曾て | *かつ*て || once, before
 word 未曾有
-    group
+    on-group
         reading #core | pri-spell 未曾有 | ミゾウ || unprecedented
 kanji 藪
     kun-group
@@ -17444,16 +17444,16 @@ kanji 迦
     on-group
         reading #core | pri-spell 釈迦 | シャ*カ* || Gautama Buddha
 word 釈迦
-    group
+    on-group
         reading #core | pri-spell 釈迦 | シャカ || Gautama Buddha
 word 莫迦
-    group
+    on-group
         reading #core | sec-kanji-spell バカ common:馬鹿 rare:莫迦 | バカ || idiot
 word 迦楼羅
-    group
+    on-group
         reading #core | pri-spell 迦楼羅 | カルラ || Karura (mythical creature)
 word 迦陵頻伽
-    group
+    on-group
         reading #core | pri-spell 迦陵頻伽 | カリョウビンガ || Kalaviṅka (mythical bird)
 kanji 吼
     on-group
@@ -17484,7 +17484,7 @@ kanji 鷺
     kun-group
         reading #core | pri-kanji-spell サギ common:鷺 | *さぎ* || heron
 word 朱鷺
-    group
+    kun-group
         reading #core | pri-kanji-spell トキ common:朱鷺 | とき || Japanese crested ibis
 kanji 捗
     on-group
@@ -17518,7 +17518,7 @@ kanji 捏
     kun-group
         reading #core | pri-kanji-spell こねる common:捏ねる | *こ*ねる || to knead
 word 捏ち上げる
-    group
+    kun-group
         reading #core | pri-kanji-spell でっち上げる rare:捏ち上げる | でっちあげる || to fabricate
 kanji 蹟
     on-group
@@ -17531,7 +17531,7 @@ kanji 饅
     on-group
         reading #core | pri-spell 饅頭 | *マン*ジュウ || manjū
 word 饅頭
-    group
+    on-group
         reading #core | pri-spell 饅頭 | マンジュウ || manjū
 kanji 宥
     on-group
@@ -17733,7 +17733,7 @@ kanji 勾
     on-group
         reading #core | pri-spell 勾配 | *コウ*バイ || slope
 word 勾玉
-    group
+    kun-group
         reading #core | pri-spell 勾玉 | まがたま || magatama (bead)
 kanji 腎
     on-group
@@ -17823,7 +17823,7 @@ kanji 揄
     on-group
         reading #core | pri-spell 揶揄 | ヤ*ユ* || ridicule
 word 揶揄う
-    group
+    kun-group
         reading #core | pri-kanji-spell からかう rare:揶揄う | からかう || to tease
         reading #regular | pri-spell 揶揄 | ヤユ || ridicule
 kanji 儡
@@ -17839,7 +17839,7 @@ kanji 硫
     on-group
         reading #core | pri-spell 硫酸 | *リュウ*サン || sulfuric acid
 word 硫黄
-    group
+    kun-group
         reading #core | pri-spell 硫黄 | いおう || sulfur
 kanji 醐
     on-group
@@ -17852,13 +17852,13 @@ kanji 暢
     on-group
         reading #core | pri-spell 流暢 | リュウ*チョウ* || fluent
 word 暢気
-    group
+    on-group
         reading #core | sec-kanji-spell のんき common:呑気 common:暢気 | ノンキ || easygoing
 kanji 陀
     on-group
         reading #core | pri-spell 阿弥陀 | アミ*ダ* || Amitābha (Buddha)
 word 仏陀
-    group
+    on-group
         reading #core | pri-spell 仏陀 | ブッダ || Buddha
 kanji 鴉
     on-group
@@ -17872,7 +17872,7 @@ kanji 樺
     kun-group
         reading #core | pri-spell 樺 | *かば* || birch
 word 樺太
-    group
+    kun-group
         reading #core | pri-spell 樺太 | からふと || Sakhalin
 kanji 芥
     on-group
@@ -17880,8 +17880,9 @@ kanji 芥
     kun-group
         reading #core | pri-spell 芥 | *あくた* || trash
 word 芥子
-    group
+    on-group
         reading #core | pri-kanji-spell ケシ common:芥子 | ケシ || poppy
+    kun-group
         reading #core | sec-kanji-spell からし common:辛子 common:芥子 | からし || mustard
 kanji 鋒
     on-group
@@ -17949,7 +17950,7 @@ kanji 屓
     on-group
         reading #core | pri-spell 贔屓 | ヒイ*キ* || favor, partiality
 word 判官贔屓
-    group
+    on-group
         reading #core | pri-spell 判官贔屓 | ホウガンビイキ || rooting for the underdog
 kanji 呵
     on-group
@@ -17977,7 +17978,7 @@ kanji 嘔
     on-group
         reading #core | pri-spell 嘔吐 | *オウ*ト || vomiting
 word 嘔吐く
-    group
+    kun-group
         reading #core | pri-kanji-spell えずく common:嘔吐く | えずく || to retch, to vomit
         reading #regular | pri-spell 嘔吐 | オウト || vomiting
 kanji 蜥
@@ -17995,7 +17996,7 @@ kanji 蝦
     kun-group
         reading #core | sec-kanji-spell エビ common:海老 rare:蝦 | *えび* || shrimp
 word 蝦夷
-    group
+    kun-group
         reading #core | pri-spell 蝦夷 | えぞ || Ezo (historical name for Hokkaidō and its people)
         reading #core | pri-spell 蝦夷 | えみし || Emishi (historical ethnic group)
 kanji 漸
@@ -18010,7 +18011,7 @@ kanji 扶
     kun-group
         reading | sec-spell 助ける rare:扶ける | *たす*ける || to save, to help
 word 扶持
-    group
+    on-group
         reading #core | pri-spell 扶持 | フチ || retainer's salary (historical); food expenses
 kanji 屠
     on-group
@@ -18105,7 +18106,7 @@ kanji 桟
     on-group
         reading #core | pri-spell 桟橋 | *サン*バシ || pier
 word 桟敷
-    group
+    on-group
         reading #core | pri-spell 桟敷 | サジキ || gallery (seat)
 kanji 暈
     on-group
@@ -18116,7 +18117,7 @@ kanji 暈
         reading #core | pri-kanji-spell ぼかす rare:暈す | *ぼか*す || to blur (tr.)
         reading #core | pri-kanji-spell ぼける rare:暈ける | *ぼ*ける || to be blurred
 word 目眩
-    group
+    kun-group
         reading #core | pri-kanji-spell めまい common:目眩 | めまい || dizziness
             variant rare:目眩い
         reading #core | sec-kanji-spell めまい common:目眩 common:眩暈 | めまい || dizziness
@@ -18186,7 +18187,7 @@ kanji 桔
     on-group
         reading #core | pri-spell 桔梗 | *キ*キョウ || Chinese bellflower
 word 桔梗
-    group
+    on-group
         reading #core | pri-spell 桔梗 | キキョウ || Chinese bellflower
 kanji 噤
     kun-group
@@ -18207,7 +18208,7 @@ kanji 撥
     kun-group
         reading #core | pri-kanji-spell はねる common:撥ねる | *は*ねる || to hit (esp. of a vehicle), to reject
 word 発条
-    group
+    kun-group
         reading #core | pri-kanji-spell バネ common:発条 | ばね || spring (device)
         reading | sec-kanji-spell バネ common:発条 rare:撥条 | ばね || spring (device)
         reading | sec-kanji-spell バネ common:発条 rare:弾機 | ばね || spring (device)
@@ -18283,7 +18284,7 @@ kanji 壌
     on-group
         reading #core | pri-spell 土壌 | ド*ジョウ* || soil
 word 平壌
-    group
+    on-group
         reading #core #asian | pri-spell 平壌 | ピョンヤン || Pyongyang
 kanji 舶
     on-group
@@ -18343,7 +18344,7 @@ kanji 臥
         reading #core | pri-spell 臥せる | *ふ*せる || to lie down
         reading #core | pri-spell 臥す | *ふ*す || to lie down
 word 草臥れる
-    group
+    kun-group
         reading #core | pri-kanji-spell くたびれる rare:草臥れる | くたびれる || to get tired
 kanji 曝
     on-group
@@ -18478,7 +18479,7 @@ kanji 茗
     on-group
         reading #core | pri-kanji-spell みょうが common:茗荷 | *ミョウ*ガ || Japanese ginger
 word 茗荷
-    group
+    on-group
         reading #core | pri-kanji-spell みょうが common:茗荷 | ミョウガ || Japanese ginger
 kanji 韋
     on-group
@@ -18490,7 +18491,7 @@ kanji 牝
         reading #core | sec-kanji-spell メス common:雌 common:牝 | *めす* || female
         reading | sec-spell 雌牛 common:牝牛 | *め*うし || female cow
 word 雌鶏
-    group
+    kun-group
         reading #core | pri-kanji-spell めんどり common:雌鶏 | めんどり || hen
         reading | sec-kanji-spell めんどり common:雌鶏 common:牝鶏 | めんどり || hen
         reading | sec-kanji-spell めんどり common:雌鶏 common:雌鳥 | めんどり || hen
@@ -18550,7 +18551,7 @@ kanji 窄
         reading #core | pri-kanji-spell すぼまる common:窄まる | *すぼ*まる || to contract (intr.)
         reading #core | pri-kanji-spell すぼめる common:窄める | *すぼ*める || to contract (tr.)
 word 見窄らしい
-    group
+    kun-group
         reading #core | pri-kanji-spell みすぼらしい rare:見窄らしい | みすぼらしい || unkempt
 kanji 錐
     on-group
@@ -18584,7 +18585,7 @@ kanji 毘
     on-group
         reading #core | pri-spell 毘沙門天 | *ビ*シャモンテン || Vaiśravaṇa (god)
 word 金毘羅
-    group
+    on-group
         reading #core | pri-spell 金毘羅 | コンピラ || Konpira (god)
 kanji 蛾
     on-group
@@ -18599,13 +18600,13 @@ kanji 柑
     on-group
         reading #core | pri-spell 柑橘 | *カン*キツ || citrus
 word 蜜柑
-    group
+    on-group
         reading #core | pri-kanji-spell みかん common:蜜柑 | ミカン || Japanese mandarin
 kanji 蠅
     kun-group
         reading #core | pri-spell 蠅 | *はえ* || fly
 word 五月蠅い
-    group
+    kun-group
         reading #core | sec-kanji-spell うるさい rare:煩い rare:五月蠅い | うるさい || noisy
 kanji 膠
     on-group
@@ -18637,7 +18638,7 @@ kanji 簾
         reading #core | pri-kanji-spell すだれ common:簾 | *すだれ* || bamboo blind
         reading | pri-spell 御簾 | み*す* || bamboo blind
 word 暖簾
-    group
+    on-group
         reading #core | pri-spell 暖簾 | ノレン || doorway curtain
 kanji 轍
     on-group
@@ -18735,7 +18736,7 @@ kanji 叛
     kun-group
         reading #core | sec-spell 背く rare:叛く | *そむ*く || to go against
 word 謀反
-    group
+    on-group
         reading #core | pri-spell 謀反 | ムホン || rebellion (primarily historical)
         reading | sec-spell 謀反 common:謀叛 | ムホン || rebellion (primarily historical)
 kanji 憮
@@ -18765,7 +18766,7 @@ kanji 葦
         reading #core | sec-spell 芦 common:葦 | *あし* || reed [1]
         reading #core | sec-spell 芦 common:葦 | *よし* || reed [1]
 word 葦原中国
-    group
+    kun-group
         reading #core | pri-spell 葦原中国 | あしはらのなかつくに || Japan (in mythology)
 kanji 肴
     on-group
@@ -18782,7 +18783,7 @@ kanji 疹
     on-group
         reading #core | pri-spell 発疹 | ハッ*シン* || rash
 word 汗疹
-    group
+    kun-group
         reading #core | pri-spell 汗疹 | あせも || heat rash
 kanji 奄
     on-group
@@ -18922,10 +18923,10 @@ kanji 吃
     kun-group
         reading #core | pri-kanji-spell どもる common:吃る | *ども*る || to stutter
 word 吃驚
-    group
+    kun-group
         reading #core | pri-kanji-spell びっくり rare:吃驚 | びっくり || surprise
 word 吃逆
-    group
+    kun-group
         reading #core | pri-kanji-spell しゃっくり rare:吃逆 | しゃっくり || hiccup
 kanji 彿
     on-group
@@ -18952,13 +18953,13 @@ kanji 脛
     kun-group
         reading | pri-kanji-spell ふくらはぎ common:脹脛 | ふくら*はぎ* || calf
 word 脛巾
-    group
+    kun-group
         reading #core | pri-kanji-spell はばき common:脛巾 | はばき || leggings
 kanji 朶
     on-group
         reading #core | pri-spell 粗朶 | ソ*ダ* || brushwood
 word 耳朶
-    group
+    kun-group
         reading #core | pri-spell 耳朶 | みみたぶ || earlobe
 kanji 魄
     on-group
@@ -19304,7 +19305,7 @@ kanji 犀
     on-group
         reading #core | pri-kanji-spell サイ common:犀 | *サイ* || rhinoceros
 word 木犀
-    group
+    on-group
         reading #core | pri-spell 木犀 | モクセイ || fragrant olive
 kanji 餞
     on-group
@@ -19332,7 +19333,7 @@ kanji 鏑
     kun-group
         reading #core | pri-spell 鏑矢 | *かぶら*や || arrow with whistle attached
 word 流鏑馬
-    group
+    kun-group
         reading #core | pri-spell 流鏑馬 | やぶさめ || horseback archery
 kanji 胤
     on-group
@@ -19383,7 +19384,7 @@ kanji 鋸
         reading #core | pri-spell 鋸 | *のこぎり* || saw
         reading | pri-spell 糸鋸 | いと*のこ* || fretsaw
 word 大鋸
-    group
+    kun-group
         reading #core | pri-kanji-spell おが common:大鋸 | おが || large saw
 kanji 碇
     on-group
@@ -19416,7 +19417,7 @@ kanji 屏
     on-group
         reading #core | pri-spell 藩屏 | ハン*ペイ* || bulwark
 word 屏風
-    group
+    on-group
         reading #core | pri-spell 屏風 | ビョウブ || folding screen
 kanji 註
     on-group
@@ -19571,7 +19572,7 @@ kanji 腋
     kun-group
         reading #core | sec-spell 脇 rare:腋 | *わき* || armpit, side
 word 腋臭
-    group
+    kun-group
         reading #core | pri-spell 腋臭 | わきが || body odor
 kanji 瓢
     on-group
@@ -19582,7 +19583,7 @@ kanji 簀
     kun-group
         reading #core | pri-spell 簀 | *す* || bamboo mat
 word 簀子
-    group
+    kun-group
         reading #core | pri-kanji-spell すのこ common:簀子 | すのこ || duckboard
 kanji 莢
     on-group
@@ -19632,10 +19633,10 @@ kanji 杓
     on-group
         reading #core | pri-spell 杓子 | *シャク*シ || ladle, scoop
 word 柄杓
-    group
+    kun-group
         reading #core | pri-spell 柄杓 | ひしゃく || ladle
 word 杓文字
-    group
+    on-group
         reading #core | pri-kanji-spell しゃもじ rare:杓文字 | シャモジ || rice scoop
 kanji 櫃
     kun-group
@@ -19697,7 +19698,7 @@ kanji 灌
     kun-group
         reading | sec-spell 注ぐ rare:灌ぐ | *そそ*ぐ || to pour
 word 灌頂
-    group
+    on-group
         reading #core | pri-spell 灌頂 | カンジョウ || abhisheka (Buddhist rite)
 kanji 竪
     kun-group
@@ -19780,13 +19781,13 @@ kanji 漿
     on-group
         reading #core | pri-spell 血漿 | ケッ*ショウ* || blood plasma
 word 鉄漿
-    group
+    kun-group
         reading #core | pri-spell 鉄漿 | かね || tooth-blackening dye
 kanji 啄
     kun-group
         reading #core | pri-kanji-spell ついばむ common:啄む | *ついば*む || to peck at
 word 啄木鳥
-    group
+    kun-group
         reading #core | pri-kanji-spell キツツキ common:啄木鳥 | きつつき || woodpecker
 kanji 廓
     on-group
@@ -19802,7 +19803,7 @@ kanji 蝗
     kun-group
         reading #core | pri-kanji-spell イナゴ common:蝗 | *いなご* || grasshopper
 word 飛蝗
-    group
+    kun-group
         reading #core | pri-kanji-spell バッタ common:飛蝗 | ばった || grasshopper
         reading #core #regular | pri-spell 飛蝗 | ヒコウ || swarming locusts
 kanji 咫
@@ -19811,10 +19812,10 @@ kanji 咫
     kun-group
         reading #core | pri-spell 咫 | *あた* || ata (unit)
 word 八咫
-    group
+    kun-group
         reading #core | pri-spell 八咫 | やた || large
 word 八咫鏡
-    group
+    kun-group
         reading #core | pri-spell 八咫鏡 | やたのかがみ || Yata no Kagami (legendary mirror)
 kanji 衾
     on-group
@@ -19850,7 +19851,7 @@ kanji 痘
     on-group
         reading #core | pri-spell 天然痘 | テンネン*トウ* || smallpox
 word 痘痕
-    group
+    on-group
         reading #core | pri-kanji-spell あばた common:痘痕 | アバタ || pockmark
 kanji 轡
     kun-group
@@ -20154,7 +20155,7 @@ kanji 悄
     on-group
         reading #core | pri-spell 悄然 | *ショウ*ゼン || dejected
 word 悄気る
-    group
+    kun-group
         reading #core | pri-kanji-spell しょげる common:悄気る | しょげる || to be dejected
 kanji 魑
     on-group
@@ -20278,7 +20279,7 @@ kanji 雉
     kun-group
         reading #core | pri-kanji-spell キジ common:雉 | *きじ* || pheasant
 word 雉子
-    group
+    kun-group
         reading #core | sec-kanji-spell キジ common:雉 common:雉子 | きじ || pheasant
 kanji 傅
     kun-group
@@ -20325,7 +20326,7 @@ kanji 綽
     on-group
         reading #core | pri-spell 余裕綽々 | ヨユウ*シャク*シャク || calm and collected
 word 渾名
-    group
+    kun-group
         reading #core | pri-kanji-spell あだ名 common:渾名 | あだな || nickname
         reading | sec-kanji-spell あだ名 common:渾名 rare:綽名 | あだな || nickname
 kanji 勒
@@ -20359,7 +20360,7 @@ kanji 撓
     kun-group
         reading | pri-kanji-spell たわわ rare:撓わ | *たわ*わ || heavily laden, sagging (of a branch)
 word 撓垂れる
-    group
+    kun-group
         reading #core | pri-kanji-spell しなだれる rare:撓垂れる | しなだれる || to droop
 kanji 蕁
     on-group
@@ -20390,7 +20391,7 @@ kanji 帷
     kun-group
         reading #core | sec-kanji-spell とばり common:帳 common:帷 | *とばり* || curtain
 word 帷子
-    group
+    kun-group
         reading #core | pri-spell 帷子 | かたびら || thin kimono
 kanji 蕉
     on-group
@@ -20414,7 +20415,7 @@ kanji 鞋
     kun-group
         reading #core | sec-spell 靴 rare:鞋 | *くつ* || shoe
 word 草鞋
-    group
+    kun-group
         reading #core | pri-spell 草鞋 | わらじ || straw sandals
 kanji 愧
     on-group
@@ -20425,7 +20426,7 @@ kanji 瓊
     kun-group
         reading #core | pri-spell 八尺瓊勾玉 | やさか*にの*まがたま || Yasakani no Magatama (legendary object)
 word 八尺瓊勾玉
-    group
+    kun-group
         reading #core | pri-spell 八尺瓊勾玉 | やさかにのまがたま || Yasakani no Magatama (legendary object)
 kanji 鰯
     kun-group
@@ -20456,7 +20457,7 @@ kanji 竟
     kun-group
         reading | sec-kanji-spell ついに common:遂に rare:竟に | *つい*に || finally
 word 究竟
-    group
+    on-group
         reading #core | pri-spell 究竟 | クッキョウ || in the end
 kanji 襦
     on-group
@@ -20486,7 +20487,7 @@ kanji 頽
     kun-group
         reading #core | pri-kanji-spell くずおれる common:頽れる | *くずお*れる || to collapse
 word 崩折れる
-    group
+    kun-group
         reading #core | sec-kanji-spell くずおれる common:頽れる common:崩折れる | くずおれる || to collapse
 kanji 拌
     on-group
@@ -20504,7 +20505,7 @@ kanji 圃
     on-group
         reading #core | pri-spell 圃場 | *ホ*ジョウ || field
 word 田圃
-    group
+    on-group
         reading #core | sec-spell 田んぼ common:田圃 | タンボ || rice paddy
 kanji 聊
     on-group
@@ -20532,7 +20533,7 @@ kanji 髷
     kun-group
         reading #core | pri-spell 髷 | *まげ* || topknot
 word 丁髷
-    group
+    on-group
         reading #core | pri-kanji-spell ちょんまげ rare:丁髷 | チョンマゲ || chonmage (hairstyle)
 kanji 寓
     on-group
@@ -20593,7 +20594,7 @@ kanji 脹
         reading | sec-spell 膨らむ rare:脹らむ | *ふく*らむ || to swell
         reading | sec-spell 膨れる rare:脹れる | *ふく*れる || to swell
 word 脹脛
-    group
+    kun-group
         reading #core | pri-kanji-spell ふくらはぎ common:脹脛 | ふくらはぎ || calf
             variant rare:脹ら脛
 kanji 噎
@@ -20830,7 +20831,7 @@ kanji 柾
     kun-group
         reading #core | pri-kanji-spell マサキ common:柾 | *まさき* || Japanese spindle
 word 柾目
-    group
+    kun-group
         reading #core | pri-spell 柾目 | まさめ || straight grain (wood)
 kanji 漉
     kun-group
@@ -20925,13 +20926,13 @@ kanji 鑼
     on-group
         reading #core | pri-spell 銅鑼 | ド*ラ* || gong
 word 銅鑼
-    group
+    on-group
         reading #core | pri-spell 銅鑼 | ドラ || gong
 kanji 掏
     kun-group
         reading #core | pri-kanji-spell する common:掏る | *す*る || to pickpocket
 word 掏摸
-    group
+    kun-group
         reading #core | pri-kanji-spell スリ common:掏摸 | すり || pickpocket
 kanji 籤
     on-group
@@ -20956,7 +20957,7 @@ kanji 烟
         reading #core | sec-spell 煙 rare:烟 | *けむり* || smoke
         reading #core | sec-spell 煙る rare:烟る | *けむ*る || to smoke
 word 煙草
-    group
+    on-group
         reading #core #european | pri-kanji-spell タバコ common:煙草 | タバコ || tobacco, cigarette
         reading #european | sec-kanji-spell タバコ common:煙草 rare:烟草 | タバコ || tobacco, cigarette
 kanji 蛟
@@ -21031,7 +21032,7 @@ kanji 濘
     on-group
         reading #core | pri-spell 泥濘 | デイ*ネイ* || mud, mire
 word 泥濘む
-    group
+    kun-group
         reading #core | pri-kanji-spell ぬかるむ common:泥濘む | ぬかるむ || to be muddy
 kanji 逓
     on-group
@@ -21095,19 +21096,19 @@ kanji 袱
     on-group
         reading #core | pri-spell 袱紗 | *フク*サ || fukusa (fabric for wrapping gifts)
 word 帛紗
-    group
+    on-group
         reading #core | sec-spell 袱紗 common:帛紗 | フクサ || fukusa (fabric for wrapping gifts)
 word 卓袱
-    group
+    on-group
         reading #core | pri-spell 卓袱 | シッポク || Chinese-style dinner table
 word 卓袱台
-    group
+    on-group
         reading #core #asian | pri-kanji-spell ちゃぶ台 common:卓袱台 | チャブダイ || chabudai (table)
 kanji 鵞
     on-group
         reading #core | pri-kanji-spell ガチョウ common:鵞鳥 | *ガ*チョウ || goose
 word 天鵞絨
-    group
+    on-group
         reading #core #european | pri-kanji-spell ビロード common:天鵞絨 | ビロード || velvet
 kanji 駱
     on-group
@@ -21263,7 +21264,7 @@ kanji 譫
     on-group
         reading #core | pri-spell 譫妄 | *セン*モウ || delirium
 word 譫言
-    group
+    kun-group
         reading #core | pri-kanji-spell うわごと common:譫言 | うわごと || delirious talk
 kanji 沱
     on-group
@@ -21312,7 +21313,7 @@ kanji 緬
     on-group
         reading #core | pri-spell 縮緬 | チリ*メン* || crepe (fabric)
 word 縮緬
-    group
+    kun-group
         reading #core | pri-spell 縮緬 | ちりめん || crepe (fabric)
 kanji 炮
     on-group
@@ -21327,7 +21328,7 @@ kanji 臙
     on-group
         reading #core | pri-spell 臙脂 | *エン*ジ || dark red, rouge (pigment)
 word 臙脂
-    group
+    on-group
         reading #core | pri-spell 臙脂 | エンジ || dark red, rouge (pigment)
 kanji 堝
     combined-group
@@ -21428,7 +21429,7 @@ kanji 俎
     kun-group
         reading | sec-spell まな板 rare:俎 | *まないた* || chopping board
 word 俎板
-    group
+    kun-group
         reading #core | pri-kanji-spell まな板 rare:俎板 | まないた || chopping board
 kanji 寇
     on-group
@@ -21566,7 +21567,7 @@ kanji 袍
     on-group
         reading #core | pri-spell 袍 | *ホウ* || hou (robe)
 word 旗袍
-    group
+    on-group
         reading #core #asian | pri-spell 旗袍 | チーパオ || qipao (dress)
 kanji 蹊
     on-group
@@ -21601,7 +21602,7 @@ kanji 奕
     on-group
         reading #core | pri-spell 赫奕 | カク*エキ* || bright, brilliant
 word 博奕
-    group
+    kun-group
         reading #core | sec-spell 博打 common:博奕 | ばくち || gambling
 kanji 諷
     on-group
@@ -21639,7 +21640,7 @@ kanji 縒
         reading #core | pri-spell 縒る | *よ*る || to twist
         reading | pri-spell 縒れる | *よ*れる || to get twisted
 word 紙縒り
-    group
+    kun-group
         reading #core | pri-kanji-spell こより common:紙縒り | こより || string made from twisted paper
 kanji 槓
     on-group
@@ -21695,7 +21696,7 @@ kanji 昵
     on-group
         reading #core | pri-spell 昵懇 | *ジッ*コン || intimacy, closeness
 word 入魂
-    group
+    on-group
         reading #core | sec-spell 昵懇 rare:入魂 | ジッコン || intimacy, closeness
         reading #core #regular | pri-spell 入魂 | ニュウコン || putting one's heart into something
 kanji 橈
@@ -21777,7 +21778,7 @@ kanji 搏
     kun-group
         reading #core | sec-spell 打つ rare:搏つ | *う*つ || to hit
 word 羽撃く
-    group
+    kun-group
         reading #core | pri-kanji-spell 羽ばたく rare:羽撃く | はばたく || to flap (wings)
         reading #core | sec-kanji-spell 羽ばたく rare:羽撃く rare:羽搏く | はばたく || to flap (wings)
 kanji 絽
@@ -21882,7 +21883,7 @@ kanji 絣
     kun-group
         reading #core | pri-spell 絣 | *かすり* || kasuri (dyeing technique)
 word 飛白
-    group
+    kun-group
         reading #core | sec-spell 絣 common:飛白 | かすり || kasuri (dyeing technique)
 kanji 踝
     kun-group
@@ -22010,7 +22011,7 @@ kanji 踉
     on-group
         reading #core | pri-spell 蹌踉 | ソウ*ロウ* || staggering, tottering
 word 蹌踉めく
-    group
+    kun-group
         reading #core | pri-kanji-spell よろめく rare:蹌踉めく | よろめく || to stagger
         reading #core | pri-kanji-spell よろける rare:蹌踉ける | よろける || to stagger
 kanji 廂
@@ -22101,7 +22102,7 @@ kanji 跣
     kun-group
         reading #core | sec-spell 裸足 rare:跣 | *はだし* || barefoot
 word 裸足
-    group
+    kun-group
         reading #core | pri-spell 裸足 | はだし || barefoot
         reading | sec-spell 裸足 common:跣足 | はだし || barefoot
 kanji 懶
@@ -22333,7 +22334,7 @@ kanji 眄
     on-group
         reading #core | pri-spell 右顧左眄 | ウコサ*ベン* || wavering
 word 流眄
-    group
+    kun-group
         reading #core | sec-spell 流し目 rare:流眄 | ながしめ || sidelong glance
 kanji 霙
     kun-group
@@ -22555,7 +22556,7 @@ kanji 稈
     on-group
         reading #core | pri-spell 稈 | *カン* || culm
 word 麦稈
-    group
+    kun-group
         reading #core | sec-kanji-spell 麦わら common:麦藁 rare:麦稈 | むぎわら || wheat or barley straw
 kanji 婀
     on-group
@@ -22993,7 +22994,7 @@ kanji 骰
     combined-group
         reading #core | pri-kanji-spell サイコロ common:骰子 | さいころ || die
 word 賽子
-    group
+    kun-group
         reading #core | sec-kanji-spell サイコロ common:骰子 rare:賽子 | さいころ || die
 kanji 顴
     on-group
@@ -23317,7 +23318,7 @@ kanji 蝨
     kun-group
         reading #core | sec-kanji-spell しらみ common:虱 rare:蝨 | *しらみ* || louse
 word 壁蝨
-    group
+    kun-group
         reading #core | pri-kanji-spell ダニ rare:壁蝨 | だに || tick
 kanji 簗
     kun-group
@@ -23443,7 +23444,7 @@ kanji 鑞
     on-group
         reading #core | pri-spell 鑞 | *ロウ* || solder
 word 白鑞
-    group
+    kun-group
         reading #core | pri-spell 白鑞 | しろめ || pewter
 kanji 弍
     on-group

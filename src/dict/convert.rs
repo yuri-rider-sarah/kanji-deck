@@ -10,65 +10,43 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
     let mut errors = Vec::new();
     let mut last_part_no = None;
     loop {
-        let mut parse_entry = |head: String, args: &mut Args| match head.as_str() {
-            "kanji" => {
-                let name = args.take_string()?;
-                let mut chars = name.chars();
-                let (Some(kanji), None) = (chars.next(), chars.next()) else {
-                    return Err(Error::new(
-                        args.pos(),
-                        format!("{name} is not a single character"),
-                    ));
-                };
-                let part_no = args.take_optional_by_name("part", |args| {
-                    args.take_string()?
-                        .parse()
-                        .ok()
-                        .filter(|&n| n > 0)
-                        .ok_or_else(|| Error::new(args.pos(), "bad part number"))
-                })?;
-                let data = KanjiPart {
-                    on: args.take_many_by_name("on-group", parse_group)?,
-                    kun: args.take_many_by_name("kun-group", parse_group)?,
-                    combined: args.take_many_by_name("combined-group", parse_group)?,
-                };
-                match part_no {
-                    None | Some(1) => {
-                        entries.push(Entry::Kanji(KanjiEntry {
-                            line: args.pos().line,
-                            kanji,
-                            parts: vec![data],
-                        }));
-                    }
-                    Some(part_no) => {
-                        // If there was a part number above 1,
-                        // it must follow the part number in the last entry.
-                        match entries.last_mut() {
-                            Some(Entry::Kanji(entry))
-                                if entry.kanji == kanji && last_part_no == Some(part_no - 1) =>
-                            {
-                                entry.parts.push(data);
-                            }
-                            _ => {
-                                return Err(Error::new(
-                                    args.pos(),
-                                    format!("part:{part_no} doesn't follow part:{}", part_no - 1),
-                                ));
-                            }
-                        }
-                    }
+        let mut parse_entry = |head: String, args: &mut Args| {
+            let key = match head.as_str() {
+                "kanji" => {
+                    let name = args.take_string()?;
+                    let mut chars = name.chars();
+                    let (Some(kanji), None) = (chars.next(), chars.next()) else {
+                        return Err(Error::new(
+                            args.pos(),
+                            format!("{name} is not a single character"),
+                        ));
+                    };
+                    EntryKey::Kanji(kanji)
                 }
-                last_part_no = part_no;
-                Ok(())
+                "word" => EntryKey::Word(args.take_string()?),
+                _ => return Err(Error::unexpected_node(args.pos(), &head)),
+            };
+            let part_no = parse_part_no(args)?;
+            let part = parse_part(args)?;
+            match part_no {
+                None | Some(1) => {
+                    entries.push(Entry { line: args.pos().line, key, parts: vec![part] });
+                }
+                // A part number above 1 must follow the previous part of the same entry.
+                Some(part_no) => match entries.last_mut() {
+                    Some(entry) if entry.key == key && last_part_no == Some(part_no - 1) => {
+                        entry.parts.push(part);
+                    }
+                    _ => {
+                        return Err(Error::new(
+                            args.pos(),
+                            format!("part:{part_no} doesn't follow part:{}", part_no - 1),
+                        ));
+                    }
+                },
             }
-            "word" => {
-                let headword = args.take_string()?;
-                let readings = args.take_many_by_name("group", parse_group)?;
-                entries.push(Entry::Word(WordEntry { line: args.pos().line, headword, readings }));
-                last_part_no = None;
-                Ok(())
-            }
-            _ => Err(Error::unexpected_node(args.pos(), &head)),
+            last_part_no = part_no;
+            Ok(())
         };
         match root.take_optional(&mut parse_entry) {
             Ok(Some(())) => (),
@@ -80,6 +58,26 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
         }
     }
     if errors.is_empty() { Ok(entries) } else { Err(errors) }
+}
+
+/// Parses the optional part number of an entry, `part:N` with N above 0.
+fn parse_part_no(args: &mut Args) -> Result<Option<usize>> {
+    args.take_optional_by_name("part", |args| {
+        args.take_string()?
+            .parse()
+            .ok()
+            .filter(|&n| n > 0)
+            .ok_or_else(|| Error::new(args.pos(), "bad part number"))
+    })
+}
+
+/// Parses the groups of a part, which must be in the order on, kun, combined.
+fn parse_part(args: &mut Args) -> Result<EntryPart> {
+    Ok(EntryPart {
+        on: args.take_many_by_name("on-group", parse_group)?,
+        kun: args.take_many_by_name("kun-group", parse_group)?,
+        combined: args.take_many_by_name("combined-group", parse_group)?,
+    })
 }
 
 fn parse_group(args: &mut Args) -> Result<ReadingGroup> {

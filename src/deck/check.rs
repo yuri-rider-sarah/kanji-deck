@@ -31,7 +31,7 @@ impl fmt::Display for KanjiPartName {
 
 /// The hidden readings of a card, sorted so that the order of the readings
 /// doesn't matter.
-fn hidden_readings_from_part<'a>(part: &'a KanjiPart, kanji: char) -> Vec<HiddenReading<'a>> {
+fn hidden_readings_from_part<'a>(part: &'a EntryPart, kanji: char) -> Vec<HiddenReading<'a>> {
     let mut readings: Vec<_> = part
         .readings()
         .map(|reading| HiddenReading {
@@ -53,21 +53,18 @@ pub fn check(entries: &[Entry]) -> Vec<Error> {
     let mut errors = Vec::new();
     let mut cards = HashMap::new();
     for entry in entries {
-        if let Entry::Kanji(entry) = entry {
-            for (i, part) in entry.parts.iter().enumerate() {
-                // Parts are numbered from 1, but only if there's more than one.
-                let name = KanjiPartName {
-                    kanji: entry.kanji,
-                    part: if entry.parts.len() > 1 { Some(i + 1) } else { None },
-                };
-                if let Some(other) =
-                    cards.insert(hidden_readings_from_part(part, entry.kanji), name)
-                {
-                    errors.push(Error::at_line(
-                        entry.line,
-                        format!("{other} and {name} have cards too similar to tell apart"),
-                    ));
-                }
+        let EntryKey::Kanji(kanji) = entry.key else { continue };
+        for (i, part) in entry.parts.iter().enumerate() {
+            // Parts are numbered from 1, but only if there's more than one.
+            let name = KanjiPartName {
+                kanji,
+                part: if entry.parts.len() > 1 { Some(i + 1) } else { None },
+            };
+            if let Some(other) = cards.insert(hidden_readings_from_part(part, kanji), name) {
+                errors.push(Error::at_line(
+                    entry.line,
+                    format!("{other} and {name} have cards too similar to tell apart"),
+                ));
             }
         }
     }
