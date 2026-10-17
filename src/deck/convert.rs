@@ -160,17 +160,17 @@ fn write_reading(w: &mut HtmlWriter, reading: &Reading, group_top: bool, kanji: 
 }
 
 /// A table with one `<tbody>` per non-empty section, named by its class.
-fn html_from_note(sections: &[(&str, &[ReadingGroup])], kanji: Option<char>) -> String {
+fn html_from_note(part: &EntryPart, kanji: Option<char>) -> String {
     let mut w = HtmlWriter::new();
     w.add_tag("table", &[], |w| {
         w.add_line_break();
-        for (class, groups) in sections.iter() {
-            if groups.is_empty() {
+        for reading_type in ReadingType::ALL {
+            if part[reading_type].is_empty() {
                 continue;
             }
-            w.add_tag("tbody", &[class], |w| {
+            w.add_tag("tbody", &[&reading_type.to_string()], |w| {
                 w.add_line_break();
-                for group in *groups {
+                for group in &part[reading_type] {
                     for (i, reading) in group.iter().enumerate() {
                         write_reading(w, reading, i == 0, kanji);
                     }
@@ -209,13 +209,7 @@ fn json_from_parts(name: &str, parts: &[EntryPart], kanji: Option<char>) -> Vec<
     for (i, part) in parts.iter().enumerate() {
         // Parts are numbered from 1, but only if there's more than one.
         let number = if parts.len() > 1 { (i + 1).to_string() } else { String::new() };
-        let classes = [
-            (ReadingType::On, "on"),
-            (ReadingType::Kun, "kun"),
-            (ReadingType::Combined, "combined"),
-        ];
-        let sections = classes.map(|(reading_type, class)| (class, &part[reading_type][..]));
-        notes.push(json_from_note(name, &number, &html_from_note(&sections, kanji)));
+        notes.push(json_from_note(name, &number, &html_from_note(part, kanji)));
     }
     notes
 }

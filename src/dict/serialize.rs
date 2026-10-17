@@ -32,21 +32,12 @@ fn serialize_parts(lines: &mut Vec<String>, head: &str, parts: &[EntryPart]) {
         }
         for reading_type in ReadingType::ALL {
             for group in &part[reading_type] {
-                lines.push(indented!(1, "{}", group_head(reading_type)));
+                lines.push(indented!(1, "{}-group", reading_type));
                 for reading in group {
                     serialize_reading(lines, reading);
                 }
             }
         }
-    }
-}
-
-/// The name of a group of readings of the given type.
-fn group_head(reading_type: ReadingType) -> &'static str {
-    match reading_type {
-        ReadingType::On => "on-group",
-        ReadingType::Kun => "kun-group",
-        ReadingType::Combined => "combined-group",
     }
 }
 
