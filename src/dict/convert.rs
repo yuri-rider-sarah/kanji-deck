@@ -88,6 +88,7 @@ fn parse_group(args: &mut Args) -> Result<ReadingGroup> {
 
 fn parse_reading(args: &mut Args) -> Result<Reading> {
     let core = args.take_flag("#core");
+    let regular = args.take_flag("#regular");
     let origin = if args.take_flag("#asian") {
         Some(ReadingOrigin::Asian)
     } else if args.take_flag("#european") {
@@ -98,6 +99,7 @@ fn parse_reading(args: &mut Args) -> Result<Reading> {
     Ok(Reading {
         line: args.pos().line,
         core,
+        regular,
         origin,
         spelling: args.take_one(parse_spelling)?,
         kana: args.take_one(parse_kana)?,

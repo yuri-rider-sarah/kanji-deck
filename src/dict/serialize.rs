@@ -54,6 +54,9 @@ fn serialize_reading(lines: &mut Vec<String>, reading: &Reading) {
     if reading.core {
         head += " #core";
     }
+    if reading.regular {
+        head += " #regular";
+    }
     match reading.origin {
         Some(ReadingOrigin::Asian) => head += " #asian",
         Some(ReadingOrigin::European) => head += " #european",

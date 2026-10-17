@@ -53,6 +53,12 @@ fn check_kanji(
             check_groups(&part[reading_type], entry.line, errors);
             for reading in part[reading_type].iter().flatten() {
                 check_reading(reading, Some(reading_type), Some(kanji), all_kanji, errors);
+                if reading.regular {
+                    errors.push(Error::at_line(
+                        reading.line,
+                        "#regular is only allowed in word entries",
+                    ));
+                }
             }
         }
     }

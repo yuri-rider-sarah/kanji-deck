@@ -131,6 +131,7 @@ pub enum ReadingOrigin {
 pub struct Reading {
     pub line: usize,
     pub core: bool,
+    pub regular: bool,
     pub spelling: Spelling,
     pub kana: Kana,
     pub definition: String,
