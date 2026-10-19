@@ -2055,8 +2055,9 @@ kanji 父
         reading #core | pri-spell 父 | *ちち* || father
     kun-group
         reading #core | pri-spell 父さん | *とう*さん || father
+word 小父さん
     kun-group
-        reading | pri-spell 親父 | おや*じ* || father
+        reading #core | pri-spell 小父さん | おじさん || old man
 kanji 空 part:1
     on-group
         reading #core | pri-spell 空間 | *クウ*カン || space
@@ -2316,7 +2317,7 @@ kanji 母
         reading | pri-spell 母屋 | *おも*や || main building of a manor
 word 小母さん
     kun-group
-        reading #core | pri-spell 小母さん | おばさん || middle-aged lady
+        reading #core | pri-spell 小母さん | おばさん || old lady
 kanji 成
     on-group
         reading #core | pri-spell 作成 | サク*セイ* || making
@@ -2435,6 +2436,9 @@ kanji 親
         reading #core | pri-spell 親 | *おや* || parent
     kun-group
         reading #core | pri-spell 親しい | *した*しい || close, familiar
+word 親父
+    kun-group
+        reading #core | pri-spell 親父 | おやじ || father
 word 親不知
     kun-group
         reading #core | sec-spell 親知らず common:親不知 | おやしらず || wisdom tooth
