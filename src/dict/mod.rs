@@ -93,12 +93,11 @@ impl Spelling {
 pub enum ReadingType {
     On,
     Kun,
-    Combined,
 }
 
 impl ReadingType {
-    /// All types, in the order they're written in a kanji entry.
-    pub const ALL: [ReadingType; 3] = [ReadingType::On, ReadingType::Kun, ReadingType::Combined];
+    /// All types, in the order they're written in an entry.
+    pub const ALL: [ReadingType; 2] = [ReadingType::On, ReadingType::Kun];
 }
 
 impl fmt::Display for ReadingType {
@@ -106,7 +105,6 @@ impl fmt::Display for ReadingType {
         match self {
             ReadingType::On => write!(f, "on"),
             ReadingType::Kun => write!(f, "kun"),
-            ReadingType::Combined => write!(f, "combined"),
         }
     }
 }
@@ -158,13 +156,12 @@ pub type ReadingGroup = Vec<Reading>;
 pub struct EntryPart {
     pub on: Vec<ReadingGroup>,
     pub kun: Vec<ReadingGroup>,
-    pub combined: Vec<ReadingGroup>,
 }
 
 impl EntryPart {
-    /// All readings combined into a single list.
+    /// All readings in a single list, in order.
     pub fn readings(&self) -> impl Iterator<Item = &Reading> {
-        self.on.iter().chain(&self.kun).chain(&self.combined).flatten()
+        self.on.iter().chain(&self.kun).flatten()
     }
 }
 
@@ -176,25 +173,23 @@ impl Index<ReadingType> for EntryPart {
         match reading_type {
             ReadingType::On => &self.on,
             ReadingType::Kun => &self.kun,
-            ReadingType::Combined => &self.combined,
         }
     }
 }
 
 /// What an entry describes, which also names its cards.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum EntryKey {
+#[derive(Debug, Clone)]
+pub enum EntryType {
     Kanji(char),
-    /// A word, by its headword.
-    Word(String),
+    Word { headword: String, introduced_kanji: Vec<char> },
 }
 
-impl fmt::Display for EntryKey {
+impl EntryType {
     /// The kanji or the headword.
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    pub fn key(&self) -> String {
         match self {
-            EntryKey::Kanji(kanji) => write!(f, "{kanji}"),
-            EntryKey::Word(headword) => write!(f, "{headword}"),
+            EntryType::Kanji(kanji) => kanji.to_string(),
+            EntryType::Word { headword, .. } => headword.clone(),
         }
     }
 }
@@ -203,6 +198,6 @@ impl fmt::Display for EntryKey {
 #[derive(Debug, Clone)]
 pub struct Entry {
     pub line: usize,
-    pub key: EntryKey,
+    pub entry_type: EntryType,
     pub parts: Vec<EntryPart>,
 }

@@ -11,7 +11,7 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
     let mut last_part_no = None;
     loop {
         let mut parse_entry = |head: String, args: &mut Args| {
-            let key = match head.as_str() {
+            let (entry_type, part_no) = match head.as_str() {
                 "kanji" => {
                     let name = args.take_string()?;
                     let mut chars = name.chars();
@@ -21,20 +21,38 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
                             format!("{name} is not a single character"),
                         ));
                     };
-                    EntryKey::Kanji(kanji)
+                    (EntryType::Kanji(kanji), parse_part_no(args)?)
                 }
-                "word" => EntryKey::Word(args.take_string()?),
+                "word" => {
+                    let headword = args.take_string()?;
+                    let part_no = parse_part_no(args)?;
+                    let introduced_kanji = match args
+                        .take_optional_by_name("introduces", |args| args.take_string())?
+                    {
+                        Some(introduced_kanji) => introduced_kanji.chars().collect(),
+                        None => Vec::new(),
+                    };
+                    (EntryType::Word { headword, introduced_kanji }, part_no)
+                }
                 _ => return Err(Error::unexpected_node(args.pos(), &head)),
             };
-            let part_no = parse_part_no(args)?;
             let part = parse_part(args)?;
             match part_no {
                 None | Some(1) => {
-                    entries.push(Entry { line: args.pos().line, key, parts: vec![part] });
+                    entries.push(Entry { line: args.pos().line, entry_type, parts: vec![part] });
+                }
+                Some(_)
+                    if matches!(&entry_type, EntryType::Word { introduced_kanji, .. }
+                        if !introduced_kanji.is_empty()) =>
+                {
+                    return Err(Error::new(args.pos(), "introduces is only allowed in part:1"));
                 }
                 // A part number above 1 must follow the previous part of the same entry.
                 Some(part_no) => match entries.last_mut() {
-                    Some(entry) if entry.key == key && last_part_no == Some(part_no - 1) => {
+                    Some(entry)
+                        if is_same_entry(&entry.entry_type, &entry_type)
+                            && last_part_no == Some(part_no - 1) =>
+                    {
                         entry.parts.push(part);
                     }
                     _ => {
@@ -60,6 +78,18 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
     if errors.is_empty() { Ok(entries) } else { Err(errors) }
 }
 
+/// Whether two entry types belong to the same entry: the same kanji, or the
+/// same headword. Words only list introduced kanji in their first part.
+fn is_same_entry(first: &EntryType, other: &EntryType) -> bool {
+    match (first, other) {
+        (EntryType::Kanji(first), EntryType::Kanji(other)) => first == other,
+        (EntryType::Word { headword: first, .. }, EntryType::Word { headword: other, .. }) => {
+            first == other
+        }
+        _ => false,
+    }
+}
+
 /// Parses the optional part number of an entry, `part:N` with N above 0.
 fn parse_part_no(args: &mut Args) -> Result<Option<usize>> {
     args.take_optional_by_name("part", |args| {
@@ -71,12 +101,11 @@ fn parse_part_no(args: &mut Args) -> Result<Option<usize>> {
     })
 }
 
-/// Parses the groups of a part, which must be in the order on, kun, combined.
+/// Parses the groups of a part, which must be in the order on, kun.
 fn parse_part(args: &mut Args) -> Result<EntryPart> {
     Ok(EntryPart {
         on: args.take_many_by_name("on-group", parse_group)?,
         kun: args.take_many_by_name("kun-group", parse_group)?,
-        combined: args.take_many_by_name("combined-group", parse_group)?,
     })
 }
 

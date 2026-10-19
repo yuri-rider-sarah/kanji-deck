@@ -182,6 +182,25 @@ fn html_from_note(part: &EntryPart, kanji: Option<char>) -> String {
     w.finish()
 }
 
+/// The kanji or headword shown on a card, with the kanji a word introduces
+/// underlined.
+fn html_from_entry_type(entry_type: &EntryType) -> String {
+    let mut w = HtmlWriter::new();
+    match entry_type {
+        EntryType::Kanji(kanji) => w.add_text(&kanji.to_string()),
+        EntryType::Word { headword, introduced_kanji } => {
+            for c in headword.chars() {
+                if introduced_kanji.contains(&c) {
+                    w.add_tag("span", &["introduced"], |w| w.add_text(&c.to_string()));
+                } else {
+                    w.add_text(&c.to_string());
+                }
+            }
+        }
+    }
+    w.finish()
+}
+
 /// Escapes a string so it can be put between quotes in JSON.
 fn escape_json(text: &str) -> String {
     let mut escaped = String::new();
@@ -197,19 +216,30 @@ fn escape_json(text: &str) -> String {
     escaped
 }
 
-fn json_from_note(kanji: &str, part: &str, content: &str) -> String {
-    let (kanji, part, content) = (escape_json(kanji), escape_json(part), escape_json(content));
-    format!("{{\"kanji\":\"{kanji}\",\"part\":\"{part}\",\"content\":\"{content}\"}}")
+/// A note as JSON. `id` is the plain kanji or headword that the note's GUID
+/// is made from, and `kanji` the same as HTML.
+fn json_from_note(id: &str, kanji: &str, part: &str, content: &str) -> String {
+    let (id, kanji) = (escape_json(id), escape_json(kanji));
+    let (part, content) = (escape_json(part), escape_json(content));
+    format!(
+        "{{\"id\":\"{id}\",\"kanji\":\"{kanji}\",\"part\":\"{part}\",\"content\":\"{content}\"}}"
+    )
 }
 
-/// JSON for the notes of each part of an entry, named `name` with the
-/// `kanji` highlighted (`None` for word entries).
-fn json_from_parts(name: &str, parts: &[EntryPart], kanji: Option<char>) -> Vec<String> {
+/// JSON for the notes of each part of an entry.
+fn json_from_entry(entry: &Entry) -> Vec<String> {
     let mut notes = Vec::new();
-    for (i, part) in parts.iter().enumerate() {
+    for (i, part) in entry.parts.iter().enumerate() {
         // Parts are numbered from 1, but only if there's more than one.
-        let number = if parts.len() > 1 { (i + 1).to_string() } else { String::new() };
-        notes.push(json_from_note(name, &number, &html_from_note(part, kanji)));
+        let number = if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
+        let id = entry.entry_type.key();
+        let kanji_html = html_from_entry_type(&entry.entry_type);
+        let kanji = match entry.entry_type {
+            EntryType::Kanji(kanji) => Some(kanji),
+            EntryType::Word { .. } => None,
+        };
+        let content = html_from_note(part, kanji);
+        notes.push(json_from_note(&id, &kanji_html, &number, &content));
     }
     notes
 }
@@ -218,11 +248,7 @@ fn json_from_parts(name: &str, parts: &[EntryPart], kanji: Option<char>) -> Vec<
 pub fn json_from_entries(entries: &[Entry]) -> String {
     let mut notes = Vec::new();
     for entry in entries {
-        let kanji = match entry.key {
-            EntryKey::Kanji(kanji) => Some(kanji),
-            EntryKey::Word(_) => None,
-        };
-        notes.extend(json_from_parts(&entry.key.to_string(), &entry.parts, kanji));
+        notes.extend(json_from_entry(entry));
     }
     format!("[{}]", notes.join(","))
 }

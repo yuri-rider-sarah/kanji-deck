@@ -12,23 +12,30 @@ macro_rules! indented {
 pub fn serialize(entries: &[Entry]) -> String {
     let mut lines = Vec::new();
     for entry in entries {
-        let head = match &entry.key {
-            EntryKey::Kanji(kanji) => format!("kanji {kanji}"),
-            EntryKey::Word(headword) => format!("word {headword}"),
-        };
-        serialize_parts(&mut lines, &head, &entry.parts);
+        serialize_entry(&mut lines, entry);
     }
     lines.join("\n") + "\n"
 }
 
-/// Adds the lines of each part of an entry, starting with `head` and a part
-/// number if there's more than one part.
-fn serialize_parts(lines: &mut Vec<String>, head: &str, parts: &[EntryPart]) {
-    for (i, part) in parts.iter().enumerate() {
-        if parts.len() > 1 {
+/// Adds the lines of each part of an entry, with a part number if there's
+/// more than one part.
+fn serialize_entry(lines: &mut Vec<String>, entry: &Entry) {
+    let head = match &entry.entry_type {
+        EntryType::Kanji(kanji) => format!("kanji {kanji}"),
+        EntryType::Word { headword, .. } => format!("word {headword}"),
+    };
+    for (i, part) in entry.parts.iter().enumerate() {
+        if entry.parts.len() > 1 {
             lines.push(format!("{head} part:{}", i + 1));
         } else {
-            lines.push(head.to_string());
+            lines.push(head.clone());
+        }
+        if i == 0
+            && let EntryType::Word { introduced_kanji, .. } = &entry.entry_type
+            && !introduced_kanji.is_empty()
+        {
+            let introduced_kanji: String = introduced_kanji.iter().collect();
+            lines.push(indented!(1, "introduces {introduced_kanji}"));
         }
         for reading_type in ReadingType::ALL {
             for group in &part[reading_type] {

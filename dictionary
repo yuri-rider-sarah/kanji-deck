@@ -12218,10 +12218,13 @@ kanji 凛
         reading #core | pri-spell 凛 | *リン* || cold, dignified
     on-group
         reading | pri-spell 凛々しい | *リ*リシイ || gallant
-kanji 叔
-    combined-group
+word 叔父
+    introduces 叔
+    kun-group
         reading #core | pri-spell 叔父 | おじ || uncle (younger than parent)
-    combined-group
+word 叔母
+    introduces 叔
+    kun-group
         reading #core | pri-spell 叔母 | おば || aunt (younger than parent)
 kanji 潟
     kun-group
@@ -13757,8 +13760,9 @@ kanji 俗
 word 還俗
     on-group
         reading #core | pri-spell 還俗 | ゲンゾク || return to a secular life
-kanji 薔
-    combined-group
+word 薔薇
+    introduces 薔
+    kun-group
         reading #core | pri-spell 薔薇 | ばら || rose
 kanji 漠
     on-group
@@ -14637,11 +14641,9 @@ kanji 呻
         reading #core | pri-spell 呻く | *うめ*く || to groan
     kun-group
         reading | sec-spell 唸る rare:呻る | *うな*る || to groan
-kanji 蜘
-    combined-group
-        reading #core | pri-spell 蜘蛛 | くも || spider
-kanji 蛛
-    combined-group
+word 蜘蛛
+    introduces 蜘蛛
+    kun-group
         reading #core | pri-spell 蜘蛛 | くも || spider
 kanji 弦
     on-group
@@ -16254,8 +16256,9 @@ word 果敢ない
     kun-group
         reading #core | sec-spell 儚い rare:果敢ない | はかない || fleeting
         reading #regular | pri-spell 果敢 | カカン || bold
-kanji 蕎
-    combined-group
+word 蕎麦
+    introduces 蕎
+    kun-group
         reading #core | pri-kanji-spell そば common:蕎麦 | そば || buckwheat
 kanji 嶺
     on-group
@@ -17981,18 +17984,14 @@ word 嘔吐く
     kun-group
         reading #core | pri-kanji-spell えずく common:嘔吐く | えずく || to retch, to vomit
         reading #regular | pri-spell 嘔吐 | オウト || vomiting
-kanji 蜥
-    combined-group
-        reading #core | pri-kanji-spell トカゲ common:蜥蜴 | とかげ || lizard
 kanji 菩
     on-group
         reading #core | pri-spell 菩薩 | *ボ*サツ || bodhisattva (Buddhism)
-kanji 蜴
-    combined-group
+word 蜥蜴
+    introduces 蜥蜴
+    kun-group
         reading #core | pri-kanji-spell トカゲ common:蜥蜴 | とかげ || lizard
 kanji 蝦
-    on-group
-        reading | pri-kanji-spell シャコ rare:蝦蛄 | *シャ*コ || mantis shrimp
     kun-group
         reading #core | sec-kanji-spell エビ common:海老 rare:蝦 | *えび* || shrimp
 word 蝦夷
@@ -18227,8 +18226,9 @@ kanji 蓬
 kanji 汎
     on-group
         reading #core | pri-spell 汎用 | *ハン*ヨウ || general-purpose
-kanji 滸
-    combined-group
+word 烏滸
+    introduces 滸
+    on-group
         reading #core | pri-kanji-spell おこ rare:烏滸 | オコ || foolish
 kanji 囃
     kun-group
@@ -18376,14 +18376,12 @@ kanji 且
     kun-group
         reading #core | pri-kanji-spell かつ common:且つ | *か*つ || moreover, at the same time
             variant rare:且
-kanji 蝠
-    combined-group
-        reading #core | pri-kanji-spell コウモリ common:蝙蝠 | こうもり || bat
 kanji 鯖
     kun-group
         reading #core | pri-kanji-spell サバ common:鯖 | *さば* || mackerel
-kanji 蝙
-    combined-group
+word 蝙蝠
+    introduces 蝙蝠
+    kun-group
         reading #core | pri-kanji-spell コウモリ common:蝙蝠 | こうもり || bat
 kanji 叢
     on-group
@@ -18795,10 +18793,11 @@ kanji 悉
         reading #core | pri-kanji-spell ことごとく common:悉く | *ことごと*く || altogether
     kun-group
         reading | sec-kanji-spell つぶさに rare:備に rare:悉に | *つぶさ*に || in detail
-kanji 菖
+word 菖蒲
+    introduces 菖
     on-group
-        reading #core | pri-spell 菖蒲 | *ショウ*ブ || sweet flag
-    combined-group
+        reading #core | pri-spell 菖蒲 | ショウブ || sweet flag
+    kun-group
         reading #core | pri-kanji-spell アヤメ common:菖蒲 | あやめ || iris (flower)
 kanji 牟
     on-group
@@ -19184,10 +19183,10 @@ kanji 臀
         reading #core | pri-spell 臀部 | *デン*ブ || buttocks
     kun-group
         reading #core | sec-spell 尻 rare:臀 | *しり* || buttocks
-kanji 柘
-    combined-group
+word 柘榴
+    introduces 柘
+    kun-group
         reading #core | pri-kanji-spell ザクロ common:柘榴 | ざくろ || pomegranate
-    combined-group
         reading #core | sec-kanji-spell ザクロ common:柘榴 common:石榴 | ざくろ || pomegranate
 kanji 鍬
     kun-group
@@ -19245,8 +19244,9 @@ kanji 啖
         reading #core | pri-spell 健啖 | ケン*タン* || having a heavy appetite
     kun-group
         reading | sec-spell 食う rare:啖う | *く*う || to eat
-kanji 蠣
-    combined-group
+word 牡蠣
+    introduces 蠣
+    kun-group
         reading #core | pri-spell 牡蠣 | かき || oyster
 kanji 驕
     on-group
@@ -19666,9 +19666,6 @@ kanji 痔
 kanji 饗
     on-group
         reading #core | pri-spell 饗宴 | *キョウ*エン || banquet
-kanji 蜻
-    combined-group
-        reading #core | pri-kanji-spell トンボ common:蜻蛉 | とんぼ || dragonfly
 kanji 鄙
     on-group
         reading #core | pri-spell 辺鄙 | ヘン*ピ* || remote place
@@ -19712,8 +19709,9 @@ kanji 呷
 kanji 蛆
     kun-group
         reading #core | pri-spell 蛆 | *うじ* || maggot
-kanji 蛉
-    combined-group
+word 蜻蛉
+    introduces 蜻蛉
+    kun-group
         reading #core | pri-kanji-spell トンボ common:蜻蛉 | とんぼ || dragonfly
 kanji 磋
     on-group
@@ -19871,9 +19869,6 @@ kanji 胱
 kanji 膀
     on-group
         reading #core | pri-spell 膀胱 | *ボウ*コウ || bladder
-kanji 蜀
-    combined-group
-        reading #core | pri-kanji-spell トウモロコシ common:玉蜀黍 | とうもろこし || corn
 kanji 饉
     on-group
         reading #core | pri-spell 飢饉 | キ*キン* || famine
@@ -20042,11 +20037,6 @@ kanji 歎
         reading #core | sec-spell 悲嘆 rare:悲歎 | ヒ*タン* || grief
     kun-group
         reading #core | sec-spell 嘆く rare:歎く | *なげ*く || to lament
-kanji 螂
-    on-group
-        reading #core | pri-spell 蟷螂の斧 | トウ*ロウ*ノオノ || reckless resistance against a stronger enemy
-    combined-group
-        reading | pri-kanji-spell カマキリ common:蟷螂 | かまきり || praying mantis
 kanji 誼
     on-group
         reading #core | pri-spell 友誼 | ユウ*ギ* || friendship
@@ -20060,10 +20050,11 @@ kanji 瀉
     on-group
         reading #core | pri-spell 瀉血 | *シャ*ケツ || bloodletting
         reading #core | pri-spell 吐瀉 | ト*シャ* || vomiting and diarrhea
-kanji 蟷
+word 蟷螂
+    introduces 蟷螂
     on-group
-        reading #core | pri-spell 蟷螂の斧 | *トウ*ロウノオノ || courageous but doomed resistance
-    combined-group
+        reading #core | pri-spell 蟷螂の斧 | トウロウノオノ || reckless resistance against a stronger enemy
+    kun-group
         reading | pri-kanji-spell カマキリ common:蟷螂 | かまきり || praying mantis
 kanji 佩
     on-group
@@ -20682,6 +20673,10 @@ kanji 筍
 kanji 黍
     kun-group
         reading #core | pri-kanji-spell キビ common:黍 | *きび* || millet
+word 玉蜀黍
+    introduces 蜀
+    kun-group
+        reading #core | pri-kanji-spell トウモロコシ common:玉蜀黍 | とうもろこし || corn
 kanji 瀟
     on-group
         reading #core | pri-spell 瀟洒 | *ショウ*シャ || stylish, elegant
@@ -20703,11 +20698,9 @@ kanji 鈎
 kanji 愾
     on-group
         reading #core | pri-spell 敵愾心 | テキ*ガイ*シン || hostility
-kanji 褸
-    combined-group
-        reading #core | pri-kanji-spell ボロ common:襤褸 | ぼろ || rag
-kanji 襤
-    combined-group
+word 襤褸
+    introduces 襤褸
+    kun-group
         reading #core | pri-kanji-spell ボロ common:襤褸 | ぼろ || rag
 kanji 鱒
     kun-group
@@ -20728,14 +20721,12 @@ kanji 獺
 kanji 稍
     kun-group
         reading #core | pri-kanji-spell やや rare:稍 | *やや* || slightly
-kanji 躅
-    combined-group
-        reading #core | pri-kanji-spell つつじ common:躑躅 | つつじ || azalea
 kanji 拿
     on-group
         reading #core | pri-spell 拿捕 | *ダ*ホ || capture of a vessel
-kanji 躑
-    combined-group
+word 躑躅
+    introduces 躑躅
+    kun-group
         reading #core | pri-kanji-spell つつじ common:躑躅 | つつじ || azalea
 kanji 獪
     on-group
@@ -21009,8 +21000,9 @@ kanji 肇
 kanji 茲
     kun-group
         reading #core | sec-kanji-spell ここ rare:此処 rare:茲 | *ここ* || here [1]
-kanji 匕
-    combined-group
+word 匕首
+    introduces 匕
+    kun-group
         reading #core | pri-spell 匕首 | あいくち || dagger
 kanji 鸚
     on-group
@@ -21071,10 +21063,11 @@ kanji 抛
         reading #core | sec-spell 放る rare:抛る | *ほう*る || to throw
     kun-group
         reading | sec-kanji-spell なげうつ common:投げ打つ rare:抛つ | *なげう*つ || to throw away, to abandon
-kanji 蝸
+word 蝸牛
+    introduces 蝸
     on-group
-        reading #core | pri-spell 蝸牛 | *カ*ギュウ || cochlea
-    combined-group
+        reading #core | pri-spell 蝸牛 | カギュウ || cochlea
+    kun-group
         reading | pri-kanji-spell カタツムリ common:蝸牛 | かたつむり || snail
 kanji 匍
     on-group
@@ -21123,7 +21116,10 @@ kanji 狄
     on-group
         reading #core | pri-spell 夷狄 | イ*テキ* || barbarians
 kanji 蒜
-    combined-group
+    kun-group
+        reading #core | pri-kanji-spell ノビル common:野蒜 | の*びる* || Japanese wild onion
+word 大蒜
+    kun-group
         reading #core | pri-kanji-spell ニンニク rare:大蒜 | にんにく || garlic
 kanji 箝
     on-group
@@ -21321,17 +21317,15 @@ kanji 炮
 kanji 酋
     on-group
         reading #core | pri-spell 酋長 | *シュウ*チョウ || chieftain
-kanji 坩
-    combined-group
-        reading #core | pri-spell 坩堝 | るつぼ || crucible
 kanji 臙
     on-group
         reading #core | pri-spell 臙脂 | *エン*ジ || dark red, rouge (pigment)
 word 臙脂
     on-group
         reading #core | pri-spell 臙脂 | エンジ || dark red, rouge (pigment)
-kanji 堝
-    combined-group
+word 坩堝
+    introduces 坩堝
+    kun-group
         reading #core | pri-spell 坩堝 | るつぼ || crucible
 kanji 炯
     on-group
@@ -21379,11 +21373,9 @@ kanji 廬
 kanji 楡
     kun-group
         reading #core | pri-spell 楡 | *にれ* || elm
-kanji 蚓
-    combined-group
-        reading #core | pri-kanji-spell ミミズ common:蚯蚓 | みみず || earthworm
-kanji 蚯
-    combined-group
+word 蚯蚓
+    introduces 蚯蚓
+    kun-group
         reading #core | pri-kanji-spell ミミズ common:蚯蚓 | みみず || earthworm
 kanji 嫂
     kun-group
@@ -21583,9 +21575,6 @@ kanji 鎚
 kanji 僑
     on-group
         reading #core | pri-spell 華僑 | カ*キョウ* || overseas Chinese
-kanji 蜷
-    combined-group
-        reading #core | sec-kanji-spell とぐろ common:塒 common:蜷局 | とぐろ || coil
 kanji 餮
     on-group
         reading #core | pri-spell 饕餮 | トウ*テツ* || taotie (legendary creature)
@@ -21668,8 +21657,9 @@ kanji 犇
         reading #core | pri-kanji-spell ひしめく rare:犇めく | *ひし*めく || to crowd
             variant rare:犇く
         reading | pri-kanji-spell ひしひし rare:犇々 | *ひし*ひし || tightly
-kanji 你
-    combined-group
+word 你好
+    introduces 你
+    on-group
         reading #core #asian | pri-kanji-spell ニーハオ common:你好 | ニーハオ || hi (Chinese)
 kanji 谺
     kun-group
@@ -21805,8 +21795,9 @@ kanji 倆
 kanji 弑
     on-group
         reading #core | pri-spell 弑逆 | *シイ*ギャク || to kill one's lord or father
-kanji 熨
-    combined-group
+word 熨斗
+    introduces 熨
+    kun-group
         reading #core | pri-kanji-spell のし common:熨斗 | のし || noshi (gift ornament)
 kanji 嫣
     on-group
@@ -21888,9 +21879,6 @@ word 飛白
 kanji 踝
     kun-group
         reading #core | pri-kanji-spell くるぶし common:踝 | *くるぶし* || ankle
-kanji 蹈
-    combined-group
-        reading #core | pri-kanji-spell たたら common:蹈鞴 | たたら || foot-operated bellows
 kanji 哩
     on-group
         reading #core #european | pri-kanji-spell マイル common:哩 | *マイル* || mile
@@ -21923,11 +21911,9 @@ kanji 飩
 kanji 庖
     on-group
         reading #core | sec-spell 包丁 common:庖丁 | *ホウ*チョウ || kitchen knife
-kanji 蛞
-    combined-group
-        reading #core | pri-kanji-spell ナメクジ common:蛞蝓 | なめくじ || slug
-kanji 蝓
-    combined-group
+word 蛞蝓
+    introduces 蛞蝓
+    kun-group
         reading #core | pri-kanji-spell ナメクジ common:蛞蝓 | なめくじ || slug
 kanji 饂
     on-group
@@ -21950,8 +21936,9 @@ kanji 蓙
         reading #core | pri-kanji-spell ござ common:茣蓙 | ゴ*ザ* || rush mat
     kun-group
         reading | sec-kanji-spell ござ common:茣蓙 rare:蓙 | *ござ* || rush mat
-kanji 罌
-    combined-group
+word 罌粟
+    introduces 罌
+    kun-group
         reading #core | sec-kanji-spell ケシ common:芥子 common:罌粟 | けし || poppy
 kanji 鶉
     kun-group
@@ -22023,6 +22010,10 @@ kanji 煥
 kanji 鞴
     kun-group
         reading #core | pri-spell 鞴 | *ふいご* || bellows
+word 蹈鞴
+    introduces 蹈
+    kun-group
+        reading #core | pri-kanji-spell たたら common:蹈鞴 | たたら || foot-operated bellows
 kanji 瀝
     on-group
         reading #core | pri-spell 披瀝 | ヒ*レキ* || speaking one's mind
@@ -22050,8 +22041,9 @@ kanji 溯
 kanji 讒
     on-group
         reading #core | pri-spell 讒言 | *ザン*ゲン || false charge
-kanji 鍍
-    combined-group
+word 鍍金
+    introduces 鍍
+    kun-group
         reading #core | pri-kanji-spell メッキ common:鍍金 | めっき || plating
 kanji 娜
     on-group
@@ -22236,11 +22228,6 @@ kanji 鋪
 kanji 兀
     on-group
         reading #core | pri-spell 突兀 | トッ*コツ* || lofty, towering
-kanji 蟀
-    combined-group
-        reading #core | pri-kanji-spell コオロギ common:蟋蟀 | こおろぎ || cricket
-    combined-group
-        reading | sec-kanji-spell こめかみ rare:顳顬 rare:蟀谷 | こめかみ || temple (of head)
 kanji 忝
     kun-group
         reading #core | pri-kanji-spell かたじけない common:忝い | *かたじけな*い || grateful (archaic)
@@ -22290,8 +22277,9 @@ kanji 繹
 kanji 襴
     on-group
         reading #core | pri-spell 金襴 | キン*ラン* || gold brocade
-kanji 蟋
-    combined-group
+word 蟋蟀
+    introduces 蟋蟀
+    kun-group
         reading #core | pri-kanji-spell コオロギ common:蟋蟀 | こおろぎ || cricket
 kanji 爰
     kun-group
@@ -22358,11 +22346,6 @@ kanji 腮
 kanji 欷
     on-group
         reading #core | pri-spell 歔欷 | キョ*キ* || sobbing
-kanji 顳
-    kun-group
-        reading #core | sec-kanji-spell こめかみ rare:顳顬 rare:顳 | *こめかみ* || temple (of head)
-    combined-group
-        reading #core | pri-kanji-spell こめかみ rare:顳顬 | こめかみ || temple (of head)
 kanji 賺
     kun-group
         reading #core | pri-spell 賺す | *すか*す || to coax
@@ -22408,6 +22391,10 @@ kanji 塒
         reading #core | pri-kanji-spell ねぐら common:塒 | *ねぐら* || roost
     kun-group
         reading | pri-kanji-spell とぐろ common:塒 | *とぐろ* || coil
+word 蜷局
+    introduces 蜷
+    kun-group
+        reading #core | sec-kanji-spell とぐろ common:塒 common:蜷局 | とぐろ || coil
 kanji 嘸
     kun-group
         reading #core | pri-kanji-spell さぞ rare:嘸 | *さぞ* || surely
@@ -22604,17 +22591,15 @@ kanji 沛
 kanji 躪
     on-group
         reading #core | sec-spell 蹂躙 rare:蹂躪 | ジュウ*リン* || trampling, infringement
-kanji 褓
-    combined-group
-        reading #core | pri-kanji-spell むつき common:襁褓 | むつき || diaper
 kanji 嚊
     kun-group
         reading #core | sec-spell 嬶 common:嚊 | *かかあ* || wife
 kanji 噸
     on-group
         reading #core | pri-kanji-spell トン rare:噸 | *トン* || ton (unit)
-kanji 褞
-    combined-group
+word 褞袍
+    introduces 褞
+    kun-group
         reading #core | pri-kanji-spell どてら common:褞袍 | どてら || padded kimono
 kanji 筥
     kun-group
@@ -22645,8 +22630,9 @@ kanji 恚
 kanji 諂
     kun-group
         reading #core | pri-kanji-spell へつらう common:諂う | *へつら*う || to flatter
-kanji 襁
-    combined-group
+word 襁褓
+    introduces 襁褓
+    kun-group
         reading #core | pri-kanji-spell むつき common:襁褓 | むつき || diaper
 kanji 苞
     on-group
@@ -22990,11 +22976,10 @@ kanji 猖
 kanji 嚆
     on-group
         reading #core | pri-spell 嚆矢 | *コウ*シ || whistling arrow, start
-kanji 骰
-    combined-group
-        reading #core | pri-kanji-spell サイコロ common:骰子 | さいころ || die
-word 賽子
+word 骰子
+    introduces 骰
     kun-group
+        reading #core | pri-kanji-spell サイコロ common:骰子 | さいころ || die
         reading #core | sec-kanji-spell サイコロ common:骰子 rare:賽子 | さいころ || die
 kanji 顴
     on-group
@@ -23014,11 +22999,11 @@ kanji 旒
 kanji 悋
     on-group
         reading #core | pri-spell 悋気 | *リン*キ || jealousy
-kanji 蟒
+word 蟒蛇
+    introduces 蟒
     kun-group
-        reading #core | sec-kanji-spell うわばみ common:蟒蛇 rare:蟒 | *うわばみ* || large snake
-    combined-group
-        reading | pri-kanji-spell うわばみ common:蟒蛇 | うわばみ || large snake
+        reading #core | pri-kanji-spell うわばみ common:蟒蛇 | うわばみ || large snake
+        reading | sec-kanji-spell うわばみ common:蟒蛇 rare:蟒 | うわばみ || large snake
 kanji 痾
     on-group
         reading #core | pri-spell 宿痾 | シュク*ア* || chronic illness
@@ -23095,22 +23080,12 @@ kanji 廐
 kanji 帙
     on-group
         reading #core | pri-spell 帙 | *チツ* || protective cover for a book
-kanji 鞦
-    combined-group
-        reading #core | pri-kanji-spell ブランコ rare:鞦韆 | ぶらんこ || swing
 kanji 鑠
     on-group
         reading #core | pri-spell 矍鑠 | カク*シャク* || old but vigorous
 kanji 蘚
     on-group
         reading #core | pri-spell 蘚苔 | *セン*タイ || moss
-kanji 胝
-    on-group
-        reading #core | pri-spell 胼胝 | ベン*チ* || callus
-    kun-group
-        reading #core | sec-kanji-spell タコ common:胼胝 common:胝 | *たこ* || callus
-    combined-group
-        reading | pri-kanji-spell タコ common:胼胝 | たこ || callus
 kanji 竃
     kun-group
         reading #core | pri-kanji-spell かまど common:竃 | *かまど* || kamado (stove)
@@ -23137,11 +23112,13 @@ kanji 醋
 kanji 輳
     on-group
         reading #core | pri-spell 輻輳 | フク*ソウ* || congestion
-kanji 胼
+word 胼胝
+    introduces 胼胝
     on-group
-        reading #core | pri-spell 胼胝 | *ベン*チ || callus
-    combined-group
-        reading | pri-kanji-spell タコ common:胼胝 | たこ || callus
+        reading #core | pri-spell 胼胝 | ベンチ || callus
+    kun-group
+        reading #core | pri-kanji-spell タコ common:胼胝 | たこ || callus
+        reading | sec-kanji-spell タコ common:胼胝 common:胝 | たこ || callus
 kanji 霍
     on-group
         reading #core | pri-spell 霍乱 | *カク*ラン || heatstroke (archaic)
@@ -23169,14 +23146,10 @@ kanji 矍
 kanji 坏
     kun-group
         reading #core | pri-spell 高坏 | たか*つき* || takatsuki (bowl)
-kanji 蜊
-    combined-group
-        reading #core | pri-kanji-spell アサリ common:浅蜊 | あさり || Manila clam
-kanji 螻
+word 浅蜊
+    introduces 蜊
     kun-group
-        reading #core | sec-kanji-spell ケラ rare:螻蛄 rare:螻 | *けら* || mole cricket
-    combined-group
-        reading | pri-kanji-spell ケラ rare:螻蛄 | けら || mole cricket
+        reading #core | pri-kanji-spell アサリ common:浅蜊 | あさり || Manila clam
 kanji 粽
     kun-group
         reading #core | pri-kanji-spell ちまき common:粽 | *ちまき* || rice cake wrapped in bamboo leaves
@@ -23215,8 +23188,9 @@ kanji 腓
 kanji 眥
     kun-group
         reading #core | sec-spell 眦 rare:眥 | *まなじり* || corner of the eye
-kanji 韆
-    combined-group
+word 鞦韆
+    introduces 鞦韆
+    kun-group
         reading #core | pri-kanji-spell ブランコ rare:鞦韆 | ぶらんこ || swing
 kanji 跏
     on-group
@@ -23226,9 +23200,6 @@ kanji 豺
         reading #core | pri-spell 豺狼 | *サイ*ロウ || wolf
     kun-group
         reading #core | sec-spell 山犬 common:豺 | *やまいぬ* || Japanese wolf; wild dog
-kanji 蜈
-    combined-group
-        reading #core | sec-kanji-spell ムカデ common:百足 rare:蜈蚣 | むかで || centipede
 kanji 蘂
     kun-group
         reading #core | pri-spell 蘂 | *しべ* || pistil, stamen
@@ -23238,19 +23209,19 @@ kanji 耘
 kanji 褶
     on-group
         reading #core | pri-spell 褶曲 | *シュウ*キョク || fold (geology)
-kanji 蛄
-    on-group
-        reading #core | pri-kanji-spell シャコ rare:蝦蛄 | シャ*コ* || mantis shrimp
-    combined-group
-        reading | pri-kanji-spell ケラ rare:螻蛄 | けら || mole cricket
+word 螻蛄
+    introduces 螻蛄
+    kun-group
+        reading #core | pri-kanji-spell ケラ rare:螻蛄 | けら || mole cricket
 kanji 糯
     kun-group
         reading #core | pri-spell 糯米 | *もち*ごめ || glutinous rice
 kanji 簫
     on-group
         reading #core | pri-spell 簫 | *ショウ* || xiao (instrument)
-kanji 皰
-    combined-group
+word 面皰
+    introduces 皰
+    kun-group
         reading #core | pri-kanji-spell ニキビ rare:面皰 | にきび || pimple
 kanji 殃
     kun-group
@@ -23273,8 +23244,9 @@ kanji 皹
 kanji 疥
     on-group
         reading #core | pri-spell 疥癬 | *カイ*セン || scabies
-kanji 蚣
-    combined-group
+word 蜈蚣
+    introduces 蜈蚣
+    kun-group
         reading #core | sec-kanji-spell ムカデ common:百足 rare:蜈蚣 | むかで || centipede
 kanji 碼
     on-group
@@ -23382,11 +23354,9 @@ kanji 挌
 kanji 侃
     on-group
         reading #core | pri-spell 侃々諤々 | *カン*カンガクガク || outspoken, honest
-kanji 萵
-    combined-group
-        reading #core | pri-kanji-spell ちしゃ rare:萵苣 | ちしゃ || lettuce
-kanji 苣
-    combined-group
+word 萵苣
+    introduces 萵苣
+    kun-group
         reading #core | pri-kanji-spell ちしゃ rare:萵苣 | ちしゃ || lettuce
 kanji 粍
     on-group
@@ -23458,9 +23428,11 @@ kanji 腟
 kanji 踠
     kun-group
         reading #core | sec-kanji-spell もがく rare:藻掻く rare:踠く | *もが*く || to struggle
-kanji 顬
-    combined-group
+word 顳顬
+    introduces 顳顬
+    kun-group
         reading #core | pri-kanji-spell こめかみ rare:顳顬 | こめかみ || temple (of head)
+        reading | sec-kanji-spell こめかみ rare:顳顬 rare:蟀谷 | こめかみ || temple (of head)
 kanji 咜
     on-group
         reading #core | sec-spell 叱咤 rare:叱咜 | シッ*タ* || scolding

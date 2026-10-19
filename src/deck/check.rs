@@ -53,7 +53,7 @@ pub fn check(entries: &[Entry]) -> Vec<Error> {
     let mut errors = Vec::new();
     let mut cards = HashMap::new();
     for entry in entries {
-        let EntryKey::Kanji(kanji) = entry.key else { continue };
+        let EntryType::Kanji(kanji) = entry.entry_type else { continue };
         for (i, part) in entry.parts.iter().enumerate() {
             // Parts are numbered from 1, but only if there's more than one.
             let name = KanjiPartName {

@@ -38,7 +38,7 @@ model = genanki.Model(
 deck = genanki.Deck(KANJI_DECK_ID, 'Kanji')
 
 for entry_ord, entry in enumerate(json.load(sys.stdin)):
-    entry_id = entry['kanji']
+    entry_id = entry['id']
     if entry['part']:
         entry_id += ' (' + entry['part'] + ')'
     note = genanki.Note(

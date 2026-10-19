@@ -2,15 +2,39 @@
 
 use super::*;
 use crate::japanese::*;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
+
+/// How a kanji is introduced.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum IntroducedBy {
+    /// Its own kanji entry.
+    KanjiEntry,
+    /// One or more word entries, as the kanji has no readings of its own.
+    WordEntries,
+}
 
 pub fn check(entries: &[Entry]) -> Result<(), Vec<Error>> {
     let mut errors = Vec::new();
-    // Kanji with an entry anywhere in the dictionary.
-    let mut all_kanji = HashSet::new();
+    // Every kanji with a kanji entry or introduced by a word entry.
+    let mut all_kanji = HashMap::new();
     for entry in entries {
-        if let EntryKey::Kanji(kanji) = entry.key {
-            all_kanji.insert(kanji);
+        match &entry.entry_type {
+            EntryType::Kanji(kanji) => {
+                if all_kanji.insert(*kanji, IntroducedBy::KanjiEntry)
+                    == Some(IntroducedBy::KanjiEntry)
+                {
+                    errors.push(Error::at_line(
+                        entry.line,
+                        format!("duplicate entry for kanji {kanji}"),
+                    ));
+                }
+            }
+            EntryType::Word { introduced_kanji, .. } => {
+                for &kanji in introduced_kanji {
+                    // A kanji entry takes precedence, so that words introducing it are reported.
+                    all_kanji.entry(kanji).or_insert(IntroducedBy::WordEntries);
+                }
+            }
         }
     }
     // Kanji introduced so far.
@@ -18,29 +42,36 @@ pub fn check(entries: &[Entry]) -> Result<(), Vec<Error>> {
     // Word entries introduced so far.
     let mut known_words = HashSet::new();
     for entry in entries {
-        match &entry.key {
-            EntryKey::Kanji(kanji) => {
-                check_kanji(entry, *kanji, &all_kanji, &mut known_kanji, &mut errors)
+        match &entry.entry_type {
+            EntryType::Kanji(kanji) => {
+                known_kanji.insert(*kanji);
+                check_kanji(entry, *kanji, &all_kanji, &mut errors);
             }
-            EntryKey::Word(headword) => {
-                check_word(entry, headword, &all_kanji, &known_kanji, &mut known_words, &mut errors)
+            EntryType::Word { headword, introduced_kanji } => {
+                check_introduced_kanji(entry, headword, introduced_kanji, &all_kanji, &mut errors);
+                known_kanji.extend(introduced_kanji);
+                check_word(
+                    entry,
+                    headword,
+                    &all_kanji,
+                    &known_kanji,
+                    &mut known_words,
+                    &mut errors,
+                );
             }
         }
     }
     if errors.is_empty() { Ok(()) } else { Err(errors) }
 }
 
-/// Checks the entry of `kanji`.
+/// Checks the entry of `kanji`. `all_kanji` has every kanji in the dictionary
+/// and how it's introduced.
 fn check_kanji(
     entry: &Entry,
     kanji: char,
-    all_kanji: &HashSet<char>,
-    known_kanji: &mut HashSet<char>,
+    all_kanji: &HashMap<char, IntroducedBy>,
     errors: &mut Vec<Error>,
 ) {
-    if !known_kanji.insert(kanji) {
-        errors.push(Error::at_line(entry.line, format!("duplicate entry for kanji {kanji}")));
-    }
     if !is_kanji(kanji) {
         errors.push(Error::at_line(entry.line, format!("{kanji} is not a kanji")));
     }
@@ -58,11 +89,41 @@ fn check_kanji(
     }
 }
 
-/// Checks the entry of the word `headword`.
+/// Checks the kanji introduced by the word `headword`. A kanji can be
+/// introduced by several words, but not if it has a kanji entry.
+fn check_introduced_kanji(
+    entry: &Entry,
+    headword: &str,
+    introduced_kanji: &[char],
+    all_kanji: &HashMap<char, IntroducedBy>,
+    errors: &mut Vec<Error>,
+) {
+    for &kanji in introduced_kanji {
+        if !is_kanji(kanji) {
+            errors.push(Error::at_line(entry.line, format!("{kanji} is not a kanji")));
+        }
+        if !headword.contains(kanji) {
+            errors.push(Error::at_line(
+                entry.line,
+                format!("word {headword} introduces {kanji}, which isn't in its headword"),
+            ));
+        }
+        if all_kanji.get(&kanji) == Some(&IntroducedBy::KanjiEntry) {
+            errors.push(Error::at_line(
+                entry.line,
+                format!("word {headword} introduces {kanji}, which has a kanji entry"),
+            ));
+        }
+    }
+}
+
+/// Checks the entry of the word `headword`. `all_kanji` has every kanji in the
+/// dictionary and how it's introduced, and `known_kanji` are those introduced
+/// up to and including this entry.
 fn check_word<'a>(
     entry: &Entry,
     headword: &'a str,
-    all_kanji: &HashSet<char>,
+    all_kanji: &HashMap<char, IntroducedBy>,
     known_kanji: &HashSet<char>,
     known_words: &mut HashSet<&'a str>,
     errors: &mut Vec<Error>,
@@ -85,23 +146,15 @@ fn check_word<'a>(
     if !first.core {
         errors.push(Error::at_line(entry.line, "word entry doesn't start with a core reading"));
     }
-    if headword != first.spelling.described() {
+    if !entry.parts.iter().flat_map(EntryPart::readings).any(|r| r.spelling.described() == headword)
+    {
         errors.push(Error::at_line(
             entry.line,
-            format!(
-                "word {headword} doesn't match its first example {}",
-                first.spelling.described()
-            ),
+            format!("word {headword} isn't the example spelling of any of its readings"),
         ));
     }
     for part in &entry.parts {
         check_part(entry, part, all_kanji, errors);
-        if !part.combined.is_empty() {
-            errors.push(Error::at_line(
-                entry.line,
-                format!("word {headword} has combined readings, which are only allowed for kanji"),
-            ));
-        }
         for group in part.on.iter().chain(&part.kun) {
             // Empty groups are reported by `check_part`.
             if let Some(first) = group.first()
@@ -112,9 +165,10 @@ fn check_word<'a>(
         }
         for reading in part.readings() {
             for word in unique_words(reading) {
-                // Kanji without any entry are reported by `check_reading`.
-                for c in
-                    word.chars().filter(|&c| all_kanji.contains(&c) && !known_kanji.contains(&c))
+                // Kanji that no entry introduces are reported by `check_reading`.
+                for c in word
+                    .chars()
+                    .filter(|&c| all_kanji.contains_key(&c) && !known_kanji.contains(&c))
                 {
                     errors.push(Error::at_line(
                         reading.line,
@@ -127,15 +181,22 @@ fn check_word<'a>(
 }
 
 /// Checks the groups and readings in a part of an entry.
-fn check_part(entry: &Entry, part: &EntryPart, all_kanji: &HashSet<char>, errors: &mut Vec<Error>) {
+fn check_part(
+    entry: &Entry,
+    part: &EntryPart,
+    all_kanji: &HashMap<char, IntroducedBy>,
+    errors: &mut Vec<Error>,
+) {
     if part.readings().next().is_none() {
-        errors
-            .push(Error::at_line(entry.line, format!("{} has a part without readings", entry.key)));
+        errors.push(Error::at_line(
+            entry.line,
+            format!("{} has a part without readings", entry.entry_type.key()),
+        ));
         return;
     }
-    let kanji = match entry.key {
-        EntryKey::Kanji(kanji) => Some(kanji),
-        EntryKey::Word(_) => None,
+    let kanji = match entry.entry_type {
+        EntryType::Kanji(kanji) => Some(kanji),
+        EntryType::Word { .. } => None,
     };
     for reading_type in ReadingType::ALL {
         check_groups(&part[reading_type], entry.line, errors);
@@ -154,12 +215,11 @@ fn check_groups(groups: &[ReadingGroup], line: usize, errors: &mut Vec<Error>) {
 }
 
 /// Checks a reading of `kanji`, which is `None` for word entries.
-/// `all_kanji` are the kanji with an entry in the dictionary.
 fn check_reading(
     reading: &Reading,
     reading_type: ReadingType,
     kanji: Option<char>,
-    all_kanji: &HashSet<char>,
+    all_kanji: &HashMap<char, IntroducedBy>,
     errors: &mut Vec<Error>,
 ) {
     let line = reading.line;
@@ -185,16 +245,14 @@ fn check_reading(
         } else if !word.chars().all(is_japanese) {
             errors.push(Error::at_line(line, format!("{word} is not a valid word")));
         }
-        for c in word.chars().filter(|&c| is_kanji(c) && !all_kanji.contains(&c)) {
-            errors.push(Error::at_line(line, format!("{word} contains {c}, which has no entry")));
+        for c in word.chars().filter(|&c| is_kanji(c) && !all_kanji.contains_key(&c)) {
+            errors.push(Error::at_line(
+                line,
+                format!("{word} contains {c}, which no entry introduces"),
+            ));
         }
     }
     check_spelling(&reading.spelling, line, errors);
-    // Combined readings are vestigial, and are often for words with kanji
-    // that are only introduced later.
-    if reading_type == ReadingType::Combined {
-        return;
-    }
     if let Some(kanji) = kanji {
         let examples = std::iter::once(reading.spelling.described())
             .chain(reading.variants.iter().map(|v| v.word.as_str()));
@@ -252,10 +310,7 @@ fn kanji_kana_fits(kana: &Kana, reading_type: ReadingType) -> bool {
         (Kana::Split { pre, mid, post }, ReadingType::Kun) => {
             !mid.is_empty() && [pre, mid, post].iter().all(|s| s.chars().all(is_hiragana))
         }
-        (Kana::Unsplit(kana), ReadingType::Combined) => {
-            !kana.is_empty() && (kana.chars().all(is_hiragana) || kana.chars().all(is_katakana))
-        }
-        _ => false,
+        (Kana::Unsplit(_), _) => false,
     }
 }
 
@@ -275,7 +330,6 @@ fn word_kana_fits(kana: &Kana, reading_type: ReadingType, regular: bool) -> bool
     match reading_type {
         ReadingType::On => in_katakana,
         ReadingType::Kun => in_hiragana,
-        ReadingType::Combined => false,
     }
 }
 
