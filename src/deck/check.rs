@@ -31,7 +31,10 @@ impl fmt::Display for KanjiPartName {
 
 /// The hidden readings of a card, sorted so that the order of the readings
 /// doesn't matter.
-fn hidden_readings_from_part<'a>(part: &'a EntryPart, kanji: char) -> Vec<HiddenReading<'a>> {
+fn hidden_readings_from_part<'a>(
+    part: &'a EntryPart<SplitKana>,
+    kanji: char,
+) -> Vec<HiddenReading<'a>> {
     let mut readings: Vec<_> = part
         .readings()
         .map(|reading| HiddenReading {
@@ -53,7 +56,8 @@ pub fn check(entries: &[Entry]) -> Vec<Error> {
     let mut errors = Vec::new();
     let mut cards = HashMap::new();
     for entry in entries {
-        let EntryType::Kanji(kanji) = entry.entry_type else { continue };
+        let Entry::Kanji(entry) = entry else { continue };
+        let kanji = entry.kanji;
         for (i, part) in entry.parts.iter().enumerate() {
             // Parts are numbered from 1, but only if there's more than one.
             let name = KanjiPartName {

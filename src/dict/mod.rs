@@ -115,61 +115,74 @@ impl fmt::Display for ReadingType {
     }
 }
 
-/// The kana used to spell a word.
-#[derive(Debug, Clone)]
-pub enum Kana {
-    /// A reading with the middle part marked as written by a given kanji.
-    Split { pre: String, mid: String, post: String },
-    /// A reading with no section distinguished.
-    Unsplit(String),
+/// The kana used to spell the example word of a reading.
+pub trait ReadingKana {
+    /// The kana as a single string.
+    fn joined(&self) -> String;
 }
 
-impl Kana {
-    /// The kana joined into a single string.
-    pub fn joined(&self) -> String {
-        match self {
-            Kana::Split { pre, mid, post } => format!("{pre}{mid}{post}"),
-            Kana::Unsplit(kana) => kana.clone(),
-        }
+/// The kana of a reading in a kanji entry, with the middle part marked as
+/// written by the kanji.
+#[derive(Debug, Clone)]
+pub struct SplitKana {
+    pub pre: String,
+    pub mid: String,
+    pub post: String,
+}
+
+impl ReadingKana for SplitKana {
+    fn joined(&self) -> String {
+        format!("{}{}{}", self.pre, self.mid, self.post)
     }
 }
 
-/// A specific example of a kanji reading.
+/// The kana of a reading in a word entry, which all belongs to the word.
 #[derive(Debug, Clone)]
-pub struct Reading {
+pub struct UnsplitKana(pub String);
+
+impl ReadingKana for UnsplitKana {
+    fn joined(&self) -> String {
+        self.0.clone()
+    }
+}
+
+/// A specific example of a kanji or word reading, with the kana `K` dependent
+/// on the kind of entry it's in.
+#[derive(Debug, Clone)]
+pub struct Reading<K> {
     pub line: usize,
     pub core: bool,
     pub regular: bool,
     pub spelling: Spelling,
-    pub kana: Kana,
+    pub kana: K,
     pub definition: String,
     pub variants: Vec<FreqWord>,
 }
 
 /// A group of related reading examples.
-pub type ReadingGroup = Vec<Reading>;
+pub type ReadingGroup<K> = Vec<Reading<K>>;
 
 /// One part of a kanji or word entry. Most entries only have a single part.
 #[derive(Debug, Clone)]
-pub struct EntryPart {
-    pub on: Vec<ReadingGroup>,
-    pub kun: Vec<ReadingGroup>,
-    pub asian: Vec<ReadingGroup>,
-    pub european: Vec<ReadingGroup>,
+pub struct EntryPart<K> {
+    pub on: Vec<ReadingGroup<K>>,
+    pub kun: Vec<ReadingGroup<K>>,
+    pub asian: Vec<ReadingGroup<K>>,
+    pub european: Vec<ReadingGroup<K>>,
 }
 
-impl EntryPart {
+impl<K> EntryPart<K> {
     /// All readings in a single list, in order.
-    pub fn readings(&self) -> impl Iterator<Item = &Reading> {
+    pub fn readings(&self) -> impl Iterator<Item = &Reading<K>> {
         ReadingType::ALL.into_iter().flat_map(|reading_type| &self[reading_type]).flatten()
     }
 }
 
-impl Index<ReadingType> for EntryPart {
-    type Output = Vec<ReadingGroup>;
+impl<K> Index<ReadingType> for EntryPart<K> {
+    type Output = Vec<ReadingGroup<K>>;
 
     /// The groups of readings for a given type.
-    fn index(&self, reading_type: ReadingType) -> &Vec<ReadingGroup> {
+    fn index(&self, reading_type: ReadingType) -> &Vec<ReadingGroup<K>> {
         match reading_type {
             ReadingType::On => &self.on,
             ReadingType::Kun => &self.kun,
@@ -179,27 +192,26 @@ impl Index<ReadingType> for EntryPart {
     }
 }
 
-/// What an entry describes, which also names its cards.
+/// The entry of a kanji, split into one or more parts, each with its own card.
 #[derive(Debug, Clone)]
-pub enum EntryType {
-    Kanji(char),
-    Word { headword: String, introduced_kanji: Vec<char> },
-}
-
-impl EntryType {
-    /// The kanji or the headword.
-    pub fn key(&self) -> String {
-        match self {
-            EntryType::Kanji(kanji) => kanji.to_string(),
-            EntryType::Word { headword, .. } => headword.clone(),
-        }
-    }
-}
-
-/// A kanji or word entry, split into one or more parts, each with its own card.
-#[derive(Debug, Clone)]
-pub struct Entry {
+pub struct KanjiEntry {
     pub line: usize,
-    pub entry_type: EntryType,
-    pub parts: Vec<EntryPart>,
+    pub kanji: char,
+    pub parts: Vec<EntryPart<SplitKana>>,
+}
+
+/// The entry of a word taught outside a specific kanji, split into one or more parts.
+#[derive(Debug, Clone)]
+pub struct WordEntry {
+    pub line: usize,
+    pub headword: String,
+    pub introduced_kanji: Vec<char>,
+    pub parts: Vec<EntryPart<UnsplitKana>>,
+}
+
+/// An entry of the dictionary.
+#[derive(Debug, Clone)]
+pub enum Entry {
+    Kanji(KanjiEntry),
+    Word(WordEntry),
 }

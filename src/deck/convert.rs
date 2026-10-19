@@ -85,14 +85,23 @@ fn write_other_spellings(w: &mut HtmlWriter, spelling: &Spelling, kanji: Option<
     }
 }
 
-fn write_kana(w: &mut HtmlWriter, kana: &Kana) {
-    match kana {
-        Kana::Split { pre, mid, post } => {
-            w.add_text(pre);
-            w.add_tag("span", &["kana"], |w| w.add_text(mid));
-            w.add_text(post);
-        }
-        Kana::Unsplit(kana) => w.add_tag("span", &["kana"], |w| w.add_text(kana)),
+/// Kana of a reading, with the part that belongs to the kanji or word
+/// highlighted.
+trait WriteKana {
+    fn write_kana(&self, w: &mut HtmlWriter);
+}
+
+impl WriteKana for SplitKana {
+    fn write_kana(&self, w: &mut HtmlWriter) {
+        w.add_text(&self.pre);
+        w.add_tag("span", &["kana"], |w| w.add_text(&self.mid));
+        w.add_text(&self.post);
+    }
+}
+
+impl WriteKana for UnsplitKana {
+    fn write_kana(&self, w: &mut HtmlWriter) {
+        w.add_tag("span", &["kana"], |w| w.add_text(&self.0));
     }
 }
 
@@ -130,7 +139,12 @@ fn write_variants(
 
 /// A table row for a reading, and one for its variants if it has any.
 /// `group-top` is set for the first reading in a group.
-fn write_reading(w: &mut HtmlWriter, reading: &Reading, group_top: bool, kanji: Option<char>) {
+fn write_reading<K: WriteKana>(
+    w: &mut HtmlWriter,
+    reading: &Reading<K>,
+    group_top: bool,
+    kanji: Option<char>,
+) {
     let mut classes = Vec::new();
     if group_top {
         classes.push("group-top");
@@ -144,7 +158,7 @@ fn write_reading(w: &mut HtmlWriter, reading: &Reading, group_top: bool, kanji: 
     w.add_tag("tr", &classes, |w| {
         w.add_tag("td", &[], |w| write_other_spellings(w, &reading.spelling, kanji));
         w.add_tag("td", &[], |w| write_word(w, reading.spelling.main(), kanji));
-        w.add_tag("td", &[], |w| write_kana(w, &reading.kana));
+        w.add_tag("td", &[], |w| reading.kana.write_kana(w));
         w.add_tag("td", &[], |w| w.add_text(&reading.definition));
     });
     w.add_line_break();
@@ -155,7 +169,7 @@ fn write_reading(w: &mut HtmlWriter, reading: &Reading, group_top: bool, kanji: 
 }
 
 /// A table with one `<tbody>` per non-empty section, named by its class.
-fn html_from_note(part: &EntryPart, kanji: Option<char>) -> String {
+fn html_from_note<K: WriteKana>(part: &EntryPart<K>, kanji: Option<char>) -> String {
     let mut w = HtmlWriter::new();
     w.add_tag("table", &[], |w| {
         w.add_line_break();
@@ -177,20 +191,15 @@ fn html_from_note(part: &EntryPart, kanji: Option<char>) -> String {
     w.finish()
 }
 
-/// The kanji or headword shown on a card, with the kanji a word introduces
-/// underlined.
-fn html_from_entry_type(entry_type: &EntryType) -> String {
+/// The headword of a word entry shown on its cards, with the kanji it
+/// introduces underlined.
+fn html_from_headword(entry: &WordEntry) -> String {
     let mut w = HtmlWriter::new();
-    match entry_type {
-        EntryType::Kanji(kanji) => w.add_text(&kanji.to_string()),
-        EntryType::Word { headword, introduced_kanji } => {
-            for c in headword.chars() {
-                if introduced_kanji.contains(&c) {
-                    w.add_tag("span", &["introduced"], |w| w.add_text(&c.to_string()));
-                } else {
-                    w.add_text(&c.to_string());
-                }
-            }
+    for c in entry.headword.chars() {
+        if entry.introduced_kanji.contains(&c) {
+            w.add_tag("span", &["introduced"], |w| w.add_text(&c.to_string()));
+        } else {
+            w.add_text(&c.to_string());
         }
     }
     w.finish()
@@ -223,18 +232,24 @@ fn json_from_note(id: &str, kanji: &str, part: &str, content: &str) -> String {
 
 /// JSON for the notes of each part of an entry.
 fn json_from_entry(entry: &Entry) -> Vec<String> {
+    // The plain kanji or headword, the same as HTML, and the content of each part.
+    let (id, kanji_html, contents): (String, String, Vec<String>) = match entry {
+        Entry::Kanji(entry) => (
+            entry.kanji.to_string(),
+            entry.kanji.to_string(),
+            entry.parts.iter().map(|part| html_from_note(part, Some(entry.kanji))).collect(),
+        ),
+        Entry::Word(entry) => (
+            entry.headword.clone(),
+            html_from_headword(entry),
+            entry.parts.iter().map(|part| html_from_note(part, None)).collect(),
+        ),
+    };
     let mut notes = Vec::new();
-    for (i, part) in entry.parts.iter().enumerate() {
+    for (i, content) in contents.iter().enumerate() {
         // Parts are numbered from 1, but only if there's more than one.
-        let number = if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
-        let id = entry.entry_type.key();
-        let kanji_html = html_from_entry_type(&entry.entry_type);
-        let kanji = match entry.entry_type {
-            EntryType::Kanji(kanji) => Some(kanji),
-            EntryType::Word { .. } => None,
-        };
-        let content = html_from_note(part, kanji);
-        notes.push(json_from_note(&id, &kanji_html, &number, &content));
+        let number = if contents.len() > 1 { (i + 1).to_string() } else { String::new() };
+        notes.push(json_from_note(&id, &kanji_html, &number, content));
     }
     notes
 }

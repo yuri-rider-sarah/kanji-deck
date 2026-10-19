@@ -17,38 +17,48 @@ pub fn serialize(entries: &[Entry]) -> String {
     lines.join("\n") + "\n"
 }
 
-/// Adds the lines of each part of an entry, with a part number if there's
-/// more than one part.
+/// Adds the lines of each part of an entry.
 fn serialize_entry(lines: &mut Vec<String>, entry: &Entry) {
-    let head = match &entry.entry_type {
-        EntryType::Kanji(kanji) => format!("kanji {kanji}"),
-        EntryType::Word { headword, .. } => format!("word {headword}"),
-    };
-    for (i, part) in entry.parts.iter().enumerate() {
-        if entry.parts.len() > 1 {
-            lines.push(format!("{head} part:{}", i + 1));
-        } else {
-            lines.push(head.clone());
+    match entry {
+        Entry::Kanji(entry) => {
+            let head = format!("kanji {}", entry.kanji);
+            for (i, part) in entry.parts.iter().enumerate() {
+                lines.push(serialize_part_head(&head, i, entry.parts.len()));
+                serialize_part(lines, part);
+            }
         }
-        if i == 0
-            && let EntryType::Word { introduced_kanji, .. } = &entry.entry_type
-            && !introduced_kanji.is_empty()
-        {
-            let introduced_kanji: String = introduced_kanji.iter().collect();
-            lines.push(indented!(1, "introduces {introduced_kanji}"));
-        }
-        for reading_type in ReadingType::ALL {
-            for group in &part[reading_type] {
-                lines.push(indented!(1, "{}-group", reading_type));
-                for reading in group {
-                    serialize_reading(lines, reading);
+        Entry::Word(entry) => {
+            let head = format!("word {}", entry.headword);
+            for (i, part) in entry.parts.iter().enumerate() {
+                lines.push(serialize_part_head(&head, i, entry.parts.len()));
+                if i == 0 && !entry.introduced_kanji.is_empty() {
+                    let introduced_kanji: String = entry.introduced_kanji.iter().collect();
+                    lines.push(indented!(1, "introduces {introduced_kanji}"));
                 }
+                serialize_part(lines, part);
             }
         }
     }
 }
 
-fn serialize_reading(lines: &mut Vec<String>, reading: &Reading) {
+/// The first line of the part at `index` of an entry starting with `head`,
+/// with a part number if there's more than one part.
+fn serialize_part_head(head: &str, index: usize, part_count: usize) -> String {
+    if part_count > 1 { format!("{head} part:{}", index + 1) } else { head.to_string() }
+}
+
+fn serialize_part<K: SerializeKana>(lines: &mut Vec<String>, part: &EntryPart<K>) {
+    for reading_type in ReadingType::ALL {
+        for group in &part[reading_type] {
+            lines.push(indented!(1, "{}-group", reading_type));
+            for reading in group {
+                serialize_reading(lines, reading);
+            }
+        }
+    }
+}
+
+fn serialize_reading<K: SerializeKana>(lines: &mut Vec<String>, reading: &Reading<K>) {
     let mut head = String::from("reading");
     if reading.core {
         head += " #core";
@@ -60,7 +70,7 @@ fn serialize_reading(lines: &mut Vec<String>, reading: &Reading) {
         2,
         "{head} | {} | {} || {}",
         serialize_spelling(&reading.spelling),
-        serialize_kana(&reading.kana),
+        reading.kana.serialize_kana(),
         reading.definition
     ));
     for variant in &reading.variants {
@@ -95,9 +105,19 @@ fn serialize_spelling(spelling: &Spelling) -> String {
     }
 }
 
-fn serialize_kana(kana: &Kana) -> String {
-    match kana {
-        Kana::Split { pre, mid, post } => format!("{pre}*{mid}*{post}"),
-        Kana::Unsplit(kana) => kana.clone(),
+/// Kana of a reading, serialized differently for kanji and word entries.
+trait SerializeKana {
+    fn serialize_kana(&self) -> String;
+}
+
+impl SerializeKana for SplitKana {
+    fn serialize_kana(&self) -> String {
+        format!("{}*{}*{}", self.pre, self.mid, self.post)
+    }
+}
+
+impl SerializeKana for UnsplitKana {
+    fn serialize_kana(&self) -> String {
+        self.0.clone()
     }
 }
