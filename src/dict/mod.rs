@@ -89,15 +89,19 @@ impl Spelling {
     }
 }
 
+/// The kind of a reading, which decides the group it's in.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReadingType {
     On,
     Kun,
+    Asian,
+    European,
 }
 
 impl ReadingType {
     /// All types, in the order they're written in an entry.
-    pub const ALL: [ReadingType; 2] = [ReadingType::On, ReadingType::Kun];
+    pub const ALL: [ReadingType; 4] =
+        [ReadingType::On, ReadingType::Kun, ReadingType::Asian, ReadingType::European];
 }
 
 impl fmt::Display for ReadingType {
@@ -105,6 +109,8 @@ impl fmt::Display for ReadingType {
         match self {
             ReadingType::On => write!(f, "on"),
             ReadingType::Kun => write!(f, "kun"),
+            ReadingType::Asian => write!(f, "asian"),
+            ReadingType::European => write!(f, "european"),
         }
     }
 }
@@ -128,13 +134,6 @@ impl Kana {
     }
 }
 
-/// The origin of a reading, for more recent loanwords.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum ReadingOrigin {
-    Asian,
-    European,
-}
-
 /// A specific example of a kanji reading.
 #[derive(Debug, Clone)]
 pub struct Reading {
@@ -144,7 +143,6 @@ pub struct Reading {
     pub spelling: Spelling,
     pub kana: Kana,
     pub definition: String,
-    pub origin: Option<ReadingOrigin>,
     pub variants: Vec<FreqWord>,
 }
 
@@ -156,12 +154,14 @@ pub type ReadingGroup = Vec<Reading>;
 pub struct EntryPart {
     pub on: Vec<ReadingGroup>,
     pub kun: Vec<ReadingGroup>,
+    pub asian: Vec<ReadingGroup>,
+    pub european: Vec<ReadingGroup>,
 }
 
 impl EntryPart {
     /// All readings in a single list, in order.
     pub fn readings(&self) -> impl Iterator<Item = &Reading> {
-        self.on.iter().chain(&self.kun).flatten()
+        ReadingType::ALL.into_iter().flat_map(|reading_type| &self[reading_type]).flatten()
     }
 }
 
@@ -173,6 +173,8 @@ impl Index<ReadingType> for EntryPart {
         match reading_type {
             ReadingType::On => &self.on,
             ReadingType::Kun => &self.kun,
+            ReadingType::Asian => &self.asian,
+            ReadingType::European => &self.european,
         }
     }
 }

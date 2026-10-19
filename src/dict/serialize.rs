@@ -56,11 +56,6 @@ fn serialize_reading(lines: &mut Vec<String>, reading: &Reading) {
     if reading.regular {
         head += " #regular";
     }
-    match reading.origin {
-        Some(ReadingOrigin::Asian) => head += " #asian",
-        Some(ReadingOrigin::European) => head += " #european",
-        None => {}
-    }
     lines.push(indented!(
         2,
         "{head} | {} | {} || {}",

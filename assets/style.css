@@ -114,12 +114,13 @@ tr.variant td {
     font-size: 80%;
 }
 
-/* Loanwords. The colors are translucent so that they work in night mode too. */
-tr.european {
+/* Loanwords. The colors are translucent so that they work in night mode too.
+   They're set on the cells, so that the space before the section stays uncolored. */
+tbody.european td {
     background-color: #00F2;
 }
 
-tr.asian {
+tbody.asian td {
     background-color: #F002;
 }
 

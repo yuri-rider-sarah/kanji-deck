@@ -101,11 +101,14 @@ fn parse_part_no(args: &mut Args) -> Result<Option<usize>> {
     })
 }
 
-/// Parses the groups of a part, which must be in the order on, kun.
+/// Parses the groups of a part, which must be in the order on, kun, asian,
+/// european.
 fn parse_part(args: &mut Args) -> Result<EntryPart> {
     Ok(EntryPart {
         on: args.take_many_by_name("on-group", parse_group)?,
         kun: args.take_many_by_name("kun-group", parse_group)?,
+        asian: args.take_many_by_name("asian-group", parse_group)?,
+        european: args.take_many_by_name("european-group", parse_group)?,
     })
 }
 
@@ -116,18 +119,10 @@ fn parse_group(args: &mut Args) -> Result<ReadingGroup> {
 fn parse_reading(args: &mut Args) -> Result<Reading> {
     let core = args.take_flag("#core");
     let regular = args.take_flag("#regular");
-    let origin = if args.take_flag("#asian") {
-        Some(ReadingOrigin::Asian)
-    } else if args.take_flag("#european") {
-        Some(ReadingOrigin::European)
-    } else {
-        None
-    };
     Ok(Reading {
         line: args.pos().line,
         core,
         regular,
-        origin,
         spelling: args.take_one(parse_spelling)?,
         kana: args.take_one(parse_kana)?,
         definition: args.take_string()?,

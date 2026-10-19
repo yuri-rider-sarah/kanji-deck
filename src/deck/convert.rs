@@ -132,11 +132,6 @@ fn write_variants(
 /// `group-top` is set for the first reading in a group.
 fn write_reading(w: &mut HtmlWriter, reading: &Reading, group_top: bool, kanji: Option<char>) {
     let mut classes = Vec::new();
-    match reading.origin {
-        Some(ReadingOrigin::Asian) => classes.push("asian"),
-        Some(ReadingOrigin::European) => classes.push("european"),
-        None => {}
-    }
     if group_top {
         classes.push("group-top");
     }

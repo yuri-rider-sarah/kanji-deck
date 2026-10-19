@@ -155,12 +155,14 @@ fn check_word<'a>(
     }
     for part in &entry.parts {
         check_part(entry, part, all_kanji, errors);
-        for group in part.on.iter().chain(&part.kun) {
-            // Empty groups are reported by `check_part`.
-            if let Some(first) = group.first()
-                && group.iter().all(|reading| reading.regular)
-            {
-                errors.push(Error::at_line(first.line, "group with only #regular readings"));
+        for reading_type in ReadingType::ALL {
+            for group in &part[reading_type] {
+                // Empty groups are reported by `check_part`.
+                if let Some(first) = group.first()
+                    && group.iter().all(|reading| reading.regular)
+                {
+                    errors.push(Error::at_line(first.line, "group with only #regular readings"));
+                }
             }
         }
         for reading in part.readings() {
@@ -301,12 +303,13 @@ fn check_spelling(spelling: &Spelling, line: usize, errors: &mut Vec<Error>) {
 }
 
 /// Whether the kana has the right form for a reading of the given type in a
-/// kanji entry.
+/// kanji entry: split, in hiragana for kun readings and katakana otherwise.
 fn kanji_kana_fits(kana: &Kana, reading_type: ReadingType) -> bool {
     match (kana, reading_type) {
-        (Kana::Split { pre, mid, post }, ReadingType::On) => {
-            !mid.is_empty() && [pre, mid, post].iter().all(|s| s.chars().all(is_katakana))
-        }
+        (
+            Kana::Split { pre, mid, post },
+            ReadingType::On | ReadingType::Asian | ReadingType::European,
+        ) => !mid.is_empty() && [pre, mid, post].iter().all(|s| s.chars().all(is_katakana)),
         (Kana::Split { pre, mid, post }, ReadingType::Kun) => {
             !mid.is_empty() && [pre, mid, post].iter().all(|s| s.chars().all(is_hiragana))
         }
@@ -315,8 +318,8 @@ fn kanji_kana_fits(kana: &Kana, reading_type: ReadingType) -> bool {
 }
 
 /// Whether the kana has the right form for a reading of the given type in a
-/// word entry: unsplit, in katakana for on readings and hiragana for kun
-/// readings. Regular readings can be in either script.
+/// word entry: unsplit, in hiragana for kun readings and katakana otherwise.
+/// Regular readings can be in either script.
 fn word_kana_fits(kana: &Kana, reading_type: ReadingType, regular: bool) -> bool {
     let kana = match kana {
         Kana::Split { .. } => return false,
@@ -328,7 +331,7 @@ fn word_kana_fits(kana: &Kana, reading_type: ReadingType, regular: bool) -> bool
         return in_katakana || in_hiragana;
     }
     match reading_type {
-        ReadingType::On => in_katakana,
+        ReadingType::On | ReadingType::Asian | ReadingType::European => in_katakana,
         ReadingType::Kun => in_hiragana,
     }
 }
