@@ -141,44 +141,40 @@ fn check_word<'a>(
     if !known_words.insert(headword) {
         errors.push(Error::at_line(entry.line, format!("duplicate entry for word {headword}")));
     }
-    let Some(first) = entry.parts.iter().flat_map(EntryPart::readings).next() else {
+    let Some(first) = entry.part.readings().next() else {
         errors.push(Error::at_line(entry.line, "word without readings"));
         return;
     };
     if !first.core {
         errors.push(Error::at_line(entry.line, "word entry doesn't start with a core reading"));
     }
-    if !entry.parts.iter().flat_map(EntryPart::readings).any(|r| r.spelling.described() == headword)
-    {
+    if !entry.part.readings().any(|r| r.spelling.described() == headword) {
         errors.push(Error::at_line(
             entry.line,
             format!("word {headword} isn't the example spelling of any of its readings"),
         ));
     }
-    for part in &entry.parts {
-        check_part(part, headword, entry.line, all_kanji, errors);
-        for reading_type in ReadingType::ALL {
-            for group in &part[reading_type] {
-                // Empty groups are reported by `check_part`.
-                if let Some(first) = group.first()
-                    && group.iter().all(|reading| reading.regular)
-                {
-                    errors.push(Error::at_line(first.line, "group with only #regular readings"));
-                }
+    check_part(&entry.part, headword, entry.line, all_kanji, errors);
+    for reading_type in ReadingType::ALL {
+        for group in &entry.part[reading_type] {
+            // Empty groups are reported by `check_part`.
+            if let Some(first) = group.first()
+                && group.iter().all(|reading| reading.regular)
+            {
+                errors.push(Error::at_line(first.line, "group with only #regular readings"));
             }
         }
-        for reading in part.readings() {
-            for word in unique_words(reading) {
-                // Kanji that no entry introduces are reported by `check_reading`.
-                for c in word
-                    .chars()
-                    .filter(|&c| all_kanji.contains_key(&c) && !known_kanji.contains(&c))
-                {
-                    errors.push(Error::at_line(
-                        reading.line,
-                        format!("{word} contains {c}, which hasn't been introduced yet"),
-                    ));
-                }
+    }
+    for reading in entry.part.readings() {
+        for word in unique_words(reading) {
+            // Kanji that no entry introduces are reported by `check_reading`.
+            for c in
+                word.chars().filter(|&c| all_kanji.contains_key(&c) && !known_kanji.contains(&c))
+            {
+                errors.push(Error::at_line(
+                    reading.line,
+                    format!("{word} contains {c}, which hasn't been introduced yet"),
+                ));
             }
         }
     }

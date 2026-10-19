@@ -3,7 +3,7 @@
 //! Errors are collected per entry, so all broken entries are reported at once.
 
 use super::*;
-use crate::parser::{Args, Pos};
+use crate::parser::Args;
 
 pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
     let mut entries = Vec::new();
@@ -13,7 +13,11 @@ pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
         let mut parse_entry = |head: String, args: &mut Args| {
             let part_no = match head.as_str() {
                 "kanji" => parse_kanji_entry(args, &mut entries, last_part_no)?,
-                "word" => parse_word_entry(args, &mut entries, last_part_no)?,
+                "word" => {
+                    entries.push(Entry::Word(parse_word_entry(args)?));
+                    // Word entries have no parts for a following entry to continue.
+                    None
+                }
                 _ => return Err(Error::unexpected_node(args.pos(), &head)),
             };
             last_part_no = part_no;
@@ -60,56 +64,26 @@ fn parse_kanji_entry(
             {
                 last.parts.push(part);
             }
-            _ => return Err(part_order_error(args.pos(), part_no)),
+            _ => {
+                return Err(Error::new(
+                    args.pos(),
+                    format!("part:{part_no} doesn't follow part:{}", part_no - 1),
+                ));
+            }
         },
     }
     Ok(part_no)
 }
 
-/// Parses a part of a word entry, and adds it to `entries` as a new entry or
-/// as the next part of the last one, whose part number is `last_part_no`.
-/// Returns the part number of the new part.
-fn parse_word_entry(
-    args: &mut Args,
-    entries: &mut Vec<Entry>,
-    last_part_no: Option<usize>,
-) -> Result<Option<usize>> {
+/// Parses a word entry, which unlike a kanji entry is never split into parts.
+fn parse_word_entry(args: &mut Args) -> Result<WordEntry> {
     let headword = args.take_string()?;
-    let part_no = parse_part_no(args)?;
-    let introduced_kanji: Vec<char> =
+    let introduced_kanji =
         match args.take_optional_by_name("introduces", |args| args.take_string())? {
             Some(introduced_kanji) => introduced_kanji.chars().collect(),
             None => Vec::new(),
         };
-    let part = parse_part(args)?;
-    match part_no {
-        None | Some(1) => {
-            entries.push(Entry::Word(WordEntry {
-                line: args.pos().line,
-                headword,
-                introduced_kanji,
-                parts: vec![part],
-            }));
-        }
-        Some(_) if !introduced_kanji.is_empty() => {
-            return Err(Error::new(args.pos(), "introduces is only allowed in part:1"));
-        }
-        Some(part_no) => match entries.last_mut() {
-            Some(Entry::Word(last))
-                if last.headword == headword && last_part_no == Some(part_no - 1) =>
-            {
-                last.parts.push(part);
-            }
-            _ => return Err(part_order_error(args.pos(), part_no)),
-        },
-    }
-    Ok(part_no)
-}
-
-/// The error for a part number above 1 that doesn't follow the previous part
-/// of the same entry.
-fn part_order_error(pos: Pos, part_no: usize) -> Error {
-    Error::new(pos, format!("part:{part_no} doesn't follow part:{}", part_no - 1))
+    Ok(WordEntry { line: args.pos().line, headword, introduced_kanji, part: parse_part(args)? })
 }
 
 /// Parses the optional part number of an entry, `part:N` with N above 0.

@@ -28,15 +28,12 @@ fn serialize_entry(lines: &mut Vec<String>, entry: &Entry) {
             }
         }
         Entry::Word(entry) => {
-            let head = format!("word {}", entry.headword);
-            for (i, part) in entry.parts.iter().enumerate() {
-                lines.push(serialize_part_head(&head, i, entry.parts.len()));
-                if i == 0 && !entry.introduced_kanji.is_empty() {
-                    let introduced_kanji: String = entry.introduced_kanji.iter().collect();
-                    lines.push(indented!(1, "introduces {introduced_kanji}"));
-                }
-                serialize_part(lines, part);
+            lines.push(format!("word {}", entry.headword));
+            if !entry.introduced_kanji.is_empty() {
+                let introduced_kanji: String = entry.introduced_kanji.iter().collect();
+                lines.push(indented!(1, "introduces {introduced_kanji}"));
             }
+            serialize_part(lines, &entry.part);
         }
     }
 }

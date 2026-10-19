@@ -230,28 +230,26 @@ fn json_from_note(id: &str, kanji: &str, part: &str, content: &str) -> String {
     )
 }
 
-/// JSON for the notes of each part of an entry.
+/// JSON for the notes of an entry: one per part for kanji, and one for words.
 fn json_from_entry(entry: &Entry) -> Vec<String> {
-    // The plain kanji or headword, the same as HTML, and the content of each part.
-    let (id, kanji_html, contents): (String, String, Vec<String>) = match entry {
-        Entry::Kanji(entry) => (
-            entry.kanji.to_string(),
-            entry.kanji.to_string(),
-            entry.parts.iter().map(|part| html_from_note(part, Some(entry.kanji))).collect(),
-        ),
-        Entry::Word(entry) => (
-            entry.headword.clone(),
-            html_from_headword(entry),
-            entry.parts.iter().map(|part| html_from_note(part, None)).collect(),
-        ),
-    };
-    let mut notes = Vec::new();
-    for (i, content) in contents.iter().enumerate() {
-        // Parts are numbered from 1, but only if there's more than one.
-        let number = if contents.len() > 1 { (i + 1).to_string() } else { String::new() };
-        notes.push(json_from_note(&id, &kanji_html, &number, content));
+    match entry {
+        Entry::Kanji(entry) => {
+            let kanji = entry.kanji.to_string();
+            let mut notes = Vec::new();
+            for (i, part) in entry.parts.iter().enumerate() {
+                // Parts are numbered from 1, but only if there's more than one.
+                let number =
+                    if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
+                let content = html_from_note(part, Some(entry.kanji));
+                notes.push(json_from_note(&kanji, &kanji, &number, &content));
+            }
+            notes
+        }
+        Entry::Word(entry) => {
+            let content = html_from_note(&entry.part, None);
+            vec![json_from_note(&entry.headword, &html_from_headword(entry), "", &content)]
+        }
     }
-    notes
 }
 
 /// JSON with one object per card, in the format generate.py expects.

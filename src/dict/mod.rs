@@ -162,7 +162,8 @@ pub struct Reading<K> {
 /// A group of related reading examples.
 pub type ReadingGroup<K> = Vec<Reading<K>>;
 
-/// One part of a kanji or word entry. Most entries only have a single part.
+/// The readings of a word entry, or one part of a kanji entry. Most kanji
+/// entries only have a single part.
 #[derive(Debug, Clone)]
 pub struct EntryPart<K> {
     pub on: Vec<ReadingGroup<K>>,
@@ -200,13 +201,13 @@ pub struct KanjiEntry {
     pub parts: Vec<EntryPart<SplitKana>>,
 }
 
-/// The entry of a word taught outside a specific kanji, split into one or more parts.
+/// The entry of a word taught outside a specific kanji, on a single card.
 #[derive(Debug, Clone)]
 pub struct WordEntry {
     pub line: usize,
     pub headword: String,
     pub introduced_kanji: Vec<char>,
-    pub parts: Vec<EntryPart<UnsplitKana>>,
+    pub part: EntryPart<UnsplitKana>,
 }
 
 /// An entry of the dictionary.
