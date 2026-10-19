@@ -20,6 +20,7 @@ pub fn check(entries: &[Entry]) -> Result<(), Vec<Error>> {
     for entry in entries {
         match entry {
             Entry::Kanji(entry) => {
+                // Check that no other kanji entry has the same kanji.
                 if all_kanji.insert(entry.kanji, IntroducedBy::KanjiEntry)
                     == Some(IntroducedBy::KanjiEntry)
                 {
@@ -65,19 +66,29 @@ fn check_kanji(
     errors: &mut Vec<Error>,
 ) {
     let kanji = entry.kanji;
+    // Check that the entry is for a kanji, not some other character.
     if !is_kanji(kanji) {
         errors.push(Error::at_line(entry.line, format!("{kanji} is not a kanji")));
     }
+    // Check that at least one reading in the whole entry is marked as core.
     if !entry.parts.iter().flat_map(EntryPart::readings).any(|r| r.core) {
         errors.push(Error::at_line(entry.line, format!("{kanji} has no core reading")));
     }
     for part in &entry.parts {
-        check_part(part, &kanji.to_string(), entry.line, all_kanji, errors);
+        // Check that every part has at least one reading.
+        if part.readings().next().is_none() {
+            errors.push(Error::at_line(entry.line, format!("{kanji} has a part without readings")));
+            continue;
+        }
+        check_part(part, entry.line, all_kanji, errors);
         for reading in part.readings() {
+            // Check that no reading is marked as regular, as that's only for word entries.
             if reading.regular {
                 errors
                     .push(Error::at_line(reading.line, "#regular is only allowed in word entries"));
             }
+            // Check that the example spelling and all variants are written with the kanji.
+            // The other spellings may be in kana.
             let examples = std::iter::once(reading.spelling.described())
                 .chain(reading.variants.iter().map(|v| v.word.as_str()));
             for word in examples {
@@ -101,15 +112,18 @@ fn check_introduced_kanji(
 ) {
     let headword = &entry.headword;
     for &kanji in &entry.introduced_kanji {
+        // Check that the introduced character is a kanji.
         if !is_kanji(kanji) {
             errors.push(Error::at_line(entry.line, format!("{kanji} is not a kanji")));
         }
+        // Check that the introduced kanji appears in the headword.
         if !headword.contains(kanji) {
             errors.push(Error::at_line(
                 entry.line,
                 format!("word {headword} introduces {kanji}, which isn't in its headword"),
             ));
         }
+        // Check that the introduced kanji doesn't also have its own kanji entry.
         if all_kanji.get(&kanji) == Some(&IntroducedBy::KanjiEntry) {
             errors.push(Error::at_line(
                 entry.line,
@@ -130,6 +144,8 @@ fn check_word<'a>(
     errors: &mut Vec<Error>,
 ) {
     let headword = &entry.headword;
+    // Check that the headword has at least two characters,
+    // as single kanji belong in kanji entries.
     match headword.chars().count() {
         0 => errors.push(Error::at_line(entry.line, "word with empty headword")),
         1 => errors.push(Error::at_line(
@@ -138,25 +154,30 @@ fn check_word<'a>(
         )),
         _ => (),
     }
+    // Check that no earlier word entry has the same headword.
     if !known_words.insert(headword) {
         errors.push(Error::at_line(entry.line, format!("duplicate entry for word {headword}")));
     }
+    // Check that the word has at least one reading.
     let Some(first) = entry.part.readings().next() else {
         errors.push(Error::at_line(entry.line, "word without readings"));
         return;
     };
+    // Check that the first reading is marked as core.
     if !first.core {
         errors.push(Error::at_line(entry.line, "word entry doesn't start with a core reading"));
     }
+    // Check that the headword is the example spelling of one of the readings.
     if !entry.part.readings().any(|r| r.spelling.described() == headword) {
         errors.push(Error::at_line(
             entry.line,
             format!("word {headword} isn't the example spelling of any of its readings"),
         ));
     }
-    check_part(&entry.part, headword, entry.line, all_kanji, errors);
+    check_part(&entry.part, entry.line, all_kanji, errors);
     for reading_type in ReadingType::ALL {
         for group in &entry.part[reading_type] {
+            // Check that every group has a reading that isn't marked as regular.
             // Empty groups are reported by `check_part`.
             if let Some(first) = group.first()
                 && group.iter().all(|reading| reading.regular)
@@ -167,45 +188,36 @@ fn check_word<'a>(
     }
     for reading in entry.part.readings() {
         for word in unique_words(reading) {
-            // Kanji that no entry introduces are reported by `check_reading`.
-            for c in
-                word.chars().filter(|&c| all_kanji.contains_key(&c) && !known_kanji.contains(&c))
-            {
-                errors.push(Error::at_line(
-                    reading.line,
-                    format!("{word} contains {c}, which hasn't been introduced yet"),
-                ));
+            for c in word.chars() {
+                // Check that every kanji in the word has already been introduced.
+                // Kanji that no entry introduces are reported by `check_reading`.
+                if all_kanji.contains_key(&c) && !known_kanji.contains(&c) {
+                    errors.push(Error::at_line(
+                        reading.line,
+                        format!("{word} contains {c}, which hasn't been introduced yet"),
+                    ));
+                }
             }
         }
     }
 }
 
-/// Checks the groups and readings in a part of the entry named `name` (the
-/// kanji or headword) at `line`.
+/// Checks the groups and readings in a non-empty part of an entry at `line`.
 fn check_part<K: CheckKana>(
     part: &EntryPart<K>,
-    name: &str,
     line: usize,
     all_kanji: &HashMap<char, IntroducedBy>,
     errors: &mut Vec<Error>,
 ) {
-    if part.readings().next().is_none() {
-        errors.push(Error::at_line(line, format!("{name} has a part without readings")));
-        return;
-    }
     for reading_type in ReadingType::ALL {
-        check_groups(&part[reading_type], line, errors);
+        // Check that no group is empty.
+        // Groups have no line, so the error is reported at the entry's.
+        if part[reading_type].iter().any(Vec::is_empty) {
+            errors.push(Error::at_line(line, "empty group"));
+        }
         for reading in part[reading_type].iter().flatten() {
             check_reading(reading, reading_type, all_kanji, errors);
         }
-    }
-}
-
-/// Checks that none of the groups is empty. Groups have no line, so errors
-/// are reported at the entry's.
-fn check_groups<K>(groups: &[ReadingGroup<K>], line: usize, errors: &mut Vec<Error>) {
-    if groups.iter().any(Vec::is_empty) {
-        errors.push(Error::at_line(line, "empty group"));
     }
 }
 
@@ -217,49 +229,52 @@ fn check_reading<K: CheckKana>(
     errors: &mut Vec<Error>,
 ) {
     let line = reading.line;
+    // Check that the reading has a definition.
     if reading.definition.trim().is_empty() {
         errors.push(Error::at_line(line, "empty definition"));
     }
+    let kana = reading.kana.joined();
+    // Check that the kana is in the right script for the type of reading.
     if !reading.kana.kana_fits(reading_type, reading.regular) {
         errors.push(Error::at_line(
             line,
-            format!(
-                "{} is not valid kana for {reading_type} {}",
-                reading.kana.joined(),
-                K::KIND_OF_READINGS
-            ),
+            format!("{kana} is not valid kana for {reading_type} {}", K::KIND_OF_READINGS),
         ));
     }
+    check_spelling(&reading.spelling, line, errors);
+    let kana_in_hiragana = katakana_to_hiragana(&kana);
     for word in unique_words(reading) {
+        // Check that the word isn't empty and is made up only of Japanese characters.
         if word.is_empty() {
             errors.push(Error::at_line(line, "empty word"));
         } else if !word.chars().all(is_japanese) {
             errors.push(Error::at_line(line, format!("{word} is not a valid word")));
         }
-        for c in word.chars().filter(|&c| is_kanji(c) && !all_kanji.contains_key(&c)) {
-            errors.push(Error::at_line(
-                line,
-                format!("{word} contains {c}, which no entry introduces"),
-            ));
+        for c in word.chars() {
+            // Check that every kanji in the word has an entry or is introduced by a word entry.
+            if is_kanji(c) && !all_kanji.contains_key(&c) {
+                errors.push(Error::at_line(
+                    line,
+                    format!("{word} contains {c}, which no entry introduces"),
+                ));
+            }
         }
-    }
-    check_spelling(&reading.spelling, line, errors);
-    let kana = katakana_to_hiragana(&reading.kana.joined());
-    for word in unique_words(reading) {
-        if !hiragana_matches(&katakana_to_hiragana(word), &kana) {
-            errors.push(Error::at_line(
-                line,
-                format!("{word} doesn't match its reading {}", reading.kana.joined()),
-            ));
+        // Check that the kana at the start and end of the word matches the reading.
+        if !hiragana_matches(&katakana_to_hiragana(word), &kana_in_hiragana) {
+            errors.push(Error::at_line(line, format!("{word} doesn't match its reading {kana}")));
         }
     }
 }
 
+/// Checks the spellings of a reading at `line`.
 fn check_spelling(spelling: &Spelling, line: usize, errors: &mut Vec<Error>) {
     let words = spelling.words();
-    if (1..words.len()).any(|i| words[..i].contains(&words[i])) {
+    // Check that the spellings are all different, as equal ones are marked by the spelling tag.
+    let distinct_words: HashSet<&str> = words.iter().copied().collect();
+    if distinct_words.len() < words.len() {
         errors.push(Error::at_line(line, "spelling contains a repeated word"));
     }
+    // Check that the example spelling is written with kanji.
     if !has_kanji(spelling.described()) {
         errors.push(Error::at_line(
             line,
@@ -267,12 +282,14 @@ fn check_spelling(spelling: &Spelling, line: usize, errors: &mut Vec<Error>) {
         ));
     }
     if let Spelling::SecondaryKanji { main_kanji, described, .. } = spelling {
+        // Check that the main kanji spelling is written with kanji.
         if !has_kanji(&main_kanji.word) {
             errors.push(Error::at_line(
                 line,
                 format!("kanji spelling {} contains no kanji", main_kanji.word),
             ));
         }
+        // Check that the example spelling isn't more common than the main kanji spelling.
         if described.freq > main_kanji.freq {
             errors.push(Error::at_line(
                 line,
@@ -327,22 +344,18 @@ impl CheckKana for UnsplitKana {
     }
 }
 
-/// Whether the kana at the start and end of a word matches its reading. Both
-/// should have their katakana converted to hiragana.
+/// Whether the kana at the start and end of a word matches its reading, leaving
+/// at least one kana for the rest of the word. Both should have their katakana
+/// converted to hiragana.
 fn hiragana_matches(word: &str, kana: &str) -> bool {
     if word.chars().all(is_hiragana) {
         return word == kana;
     }
-    let pre: String = word.chars().take_while(|&c| is_hiragana(c)).collect();
-    let post: String = word
-        .chars()
-        .rev()
-        .take_while(|&c| is_hiragana(c))
-        .collect::<Vec<_>>()
-        .into_iter()
-        .rev()
-        .collect();
-    kana.len() > pre.len() + post.len() && kana.starts_with(&pre) && kana.ends_with(&post)
+    let word_without_pre = word.trim_start_matches(is_hiragana);
+    let pre = &word[..word.len() - word_without_pre.len()];
+    let word_without_post = word.trim_end_matches(is_hiragana);
+    let post = &word[word_without_post.len()..];
+    kana.len() > pre.len() + post.len() && kana.starts_with(pre) && kana.ends_with(post)
 }
 
 /// All spellings in a reading including variants, without repetitions.
