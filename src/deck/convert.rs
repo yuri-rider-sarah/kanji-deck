@@ -1,8 +1,21 @@
-//! Generates JSON for Anki deck which is passed to generate.py.
-//! Each note contains the kanji, part number (if present), and the content,
-//! which is HTML generated from dictionary entries.
+//! Converts dictionary entries into Anki notes, with the kanji or headword
+//! and the content as HTML.
 
 use crate::dict::*;
+
+/// An Anki note, which has a card asking for the readings and one asking
+/// for the kanji.
+pub struct Note {
+    /// The plain kanji or headword, which the note's GUID is made from.
+    pub id: String,
+    /// The part of a kanji entry split over several notes, numbered from 1.
+    /// `None` for kanji entries with a single part and for words.
+    pub part_number: Option<usize>,
+    /// The kanji or headword as HTML.
+    pub kanji: String,
+    /// The readings as HTML.
+    pub content: String,
+}
 
 /// Collects HTML, escaping text and closing tags automatically.
 #[derive(Default)]
@@ -169,7 +182,7 @@ fn write_reading<K: WriteKana>(
 }
 
 /// A table with one `<tbody>` per non-empty section, named by its class.
-fn html_from_note<K: WriteKana>(part: &EntryPart<K>, kanji: Option<char>) -> String {
+fn html_from_part<K: WriteKana>(part: &EntryPart<K>, kanji: Option<char>) -> String {
     let mut w = HtmlWriter::new();
     w.add_tag("table", &[], |w| {
         w.add_line_break();
@@ -205,58 +218,37 @@ fn html_from_headword(entry: &WordEntry) -> String {
     w.finish()
 }
 
-/// Escapes a string so it can be put between quotes in JSON.
-fn escape_json(text: &str) -> String {
-    let mut escaped = String::new();
-    for c in text.chars() {
-        match c {
-            '"' => escaped += "\\\"",
-            '\\' => escaped += "\\\\",
-            '\n' => escaped += "\\n",
-            c if c.is_control() => escaped += &format!("\\u{:04x}", c as u32),
-            c => escaped.push(c),
-        }
-    }
-    escaped
-}
-
-/// A note as JSON. `id` is the plain kanji or headword that the note's GUID
-/// is made from, and `kanji` the same as HTML.
-fn json_from_note(id: &str, kanji: &str, part: &str, content: &str) -> String {
-    let (id, kanji) = (escape_json(id), escape_json(kanji));
-    let (part, content) = (escape_json(part), escape_json(content));
-    format!(
-        "{{\"id\":\"{id}\",\"kanji\":\"{kanji}\",\"part\":\"{part}\",\"content\":\"{content}\"}}"
-    )
-}
-
-/// JSON for the notes of an entry: one per part for kanji, and one for words.
-fn json_from_entry(entry: &Entry) -> Vec<String> {
+/// The notes of an entry: one per part for kanji, and one for words.
+fn notes_from_entry(entry: &Entry) -> Vec<Note> {
     match entry {
         Entry::Kanji(entry) => {
             let kanji = entry.kanji.to_string();
-            let mut notes = Vec::new();
-            for (i, part) in entry.parts.iter().enumerate() {
-                // Parts are numbered from 1, but only if there's more than one.
-                let number =
-                    if entry.parts.len() > 1 { (i + 1).to_string() } else { String::new() };
-                let content = html_from_note(part, Some(entry.kanji));
-                notes.push(json_from_note(&kanji, &kanji, &number, &content));
-            }
-            notes
+            entry
+                .parts
+                .iter()
+                .enumerate()
+                .map(|(i, part)| {
+                    // Parts are numbered from 1, but only if there's more than one.
+                    let part_number = if entry.parts.len() > 1 { Some(i + 1) } else { None };
+                    Note {
+                        id: kanji.clone(),
+                        part_number,
+                        kanji: escape_html(&kanji),
+                        content: html_from_part(part, Some(entry.kanji)),
+                    }
+                })
+                .collect()
         }
-        Entry::Word(entry) => {
-            let content = html_from_note(&entry.part, None);
-            vec![json_from_note(&entry.headword, &html_from_headword(entry), "", &content)]
-        }
+        Entry::Word(entry) => vec![Note {
+            id: entry.headword.clone(),
+            part_number: None,
+            kanji: html_from_headword(entry),
+            content: html_from_part(&entry.part, None),
+        }],
     }
 }
 
-/// JSON with one object per card, in the format generate.py expects.
-pub fn json_from_entries(entries: &[Entry]) -> String {
-    let mut notes = Vec::new();
-    for entry in entries {
-        notes.extend(json_from_entry(entry));
-    }
-    format!("[{}]", notes.join(","))
+/// The notes of all entries, in study order.
+pub fn notes_from_entries(entries: &[Entry]) -> Vec<Note> {
+    entries.iter().flat_map(notes_from_entry).collect()
 }

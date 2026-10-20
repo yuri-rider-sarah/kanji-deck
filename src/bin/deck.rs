@@ -1,12 +1,12 @@
-//! Generates the Anki deck from the dictionary. With `--json`, prints the card data
-//! instead of passing it to generate.py.
+//! Generates the Anki deck from the dictionary, written to `target/kanji.apkg`.
 //!
 //! Also checks that serializing the parsed dictionary gives back the same file.
 //! If it doesn't, the serialized version is saved for comparison.
 
 use kanji::{deck, dict, parser};
-use std::io::{ErrorKind, Write};
-use std::process::{Command, ExitCode, Stdio};
+use std::io::ErrorKind;
+use std::process::ExitCode;
+use std::time::SystemTime;
 
 fn main() -> ExitCode {
     let text = match std::fs::read_to_string("dictionary") {
@@ -23,7 +23,7 @@ fn main() -> ExitCode {
             for warning in deck::check(&entries) {
                 eprintln!("Warning: {warning}");
             }
-            return output(&deck::json_from_entries(&entries));
+            return write_package(&entries);
         }
         Err(errors) => errors,
     };
@@ -54,16 +54,30 @@ fn check_serializer(text: &str, entries: &[dict::Entry]) {
     }
 }
 
-fn output(json: &str) -> ExitCode {
-    if std::env::args().any(|arg| arg == "--json") {
-        print!("{json}");
-        return ExitCode::SUCCESS;
+/// Writes the entries as an Anki package to `target/kanji.apkg`, with the styling
+/// and the font from `assets`.
+fn write_package(entries: &[dict::Entry]) -> ExitCode {
+    const CSS_PATH: &str = "assets/style.css";
+    const FONT_PATH: &str = "assets/_NotoSansJP.ttf";
+    const PACKAGE_PATH: &str = "target/kanji.apkg";
+    let css = match std::fs::read_to_string(CSS_PATH) {
+        Ok(css) => css,
+        Err(e) => {
+            eprintln!("Can't read {CSS_PATH}: {e}");
+            return ExitCode::FAILURE;
+        }
+    };
+    let font = match std::fs::read(FONT_PATH) {
+        Ok(font) => font,
+        Err(e) => {
+            eprintln!("Can't read {FONT_PATH}: {e}");
+            return ExitCode::FAILURE;
+        }
+    };
+    let package = deck::apkg_from_entries(entries, &css, &font, SystemTime::now());
+    if let Err(e) = std::fs::write(PACKAGE_PATH, package) {
+        eprintln!("Can't write {PACKAGE_PATH}: {e}");
+        return ExitCode::FAILURE;
     }
-    let mut child =
-        Command::new("./generate.py").stdin(Stdio::piped()).spawn().expect("can't run generate.py");
-    child.stdin.take().unwrap().write_all(json.as_bytes()).expect("can't write to generate.py");
-    match child.wait() {
-        Ok(status) if status.success() => ExitCode::SUCCESS,
-        _ => ExitCode::FAILURE,
-    }
+    ExitCode::SUCCESS
 }
