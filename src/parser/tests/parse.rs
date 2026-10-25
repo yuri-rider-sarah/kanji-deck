@@ -15,7 +15,7 @@ fn render(node: &Node) -> String {
 
 /// The top-level records, rendered as `a(b c)` and separated by `; `.
 fn read_str(text: &str) -> String {
-    let args = parse(text).unwrap_or_else(|e| panic!("{e}"));
+    let args = parse(text).unwrap();
     args.nodes.iter().map(render).collect::<Vec<_>>().join("; ")
 }
 
@@ -24,7 +24,9 @@ fn error(text: &str) -> String {
         Ok(args) => {
             panic!("no error, got {}", args.nodes.iter().map(render).collect::<Vec<_>>().join("; "))
         }
-        Err(e) => e.to_string(),
+        Err(e) => {
+            format!("{}:{}: {}", e.line, e.column.expect("parser errors have a column"), e.message)
+        }
     }
 }
 

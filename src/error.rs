@@ -1,7 +1,6 @@
-//! Errors in a file, with a position to report them at.
+//! Errors in a text, with a position to report them at. The executables add the file's path.
 
 use crate::parser::Pos;
-use std::fmt;
 
 #[derive(Debug, Clone)]
 pub struct Error {
@@ -23,15 +22,6 @@ impl Error {
 
     pub fn unexpected_node(pos: Pos, head: &str) -> Error {
         Error::new(pos, format!("unexpected {head}"))
-    }
-}
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self.column {
-            Some(column) => write!(f, "{}:{column}: {}", self.line, self.message),
-            None => write!(f, "{}: {}", self.line, self.message),
-        }
     }
 }
 
