@@ -87,10 +87,11 @@ fn check_kanji(
                 errors
                     .push(Error::at_line(reading.line, "#regular is only allowed in word entries"));
             }
-            // Check that the example spelling and all variants are written with the kanji.
-            // The other spellings may be in kana.
+            // Check that the example spelling, all variants and the canonical spellings
+            // are written with the kanji. The other spellings may be in kana.
             let examples = std::iter::once(reading.spelling.described())
-                .chain(reading.variants.iter().map(|v| v.word.as_str()));
+                .chain(reading.variants.iter().map(|v| v.spelling.word.as_str()))
+                .chain(canonical_spellings(reading));
             for word in examples {
                 if !word.contains(kanji) {
                     errors.push(Error::at_line(
@@ -187,7 +188,7 @@ fn check_word<'a>(
         }
     }
     for reading in entry.part.readings() {
-        for word in unique_words(reading) {
+        for word in unique_words(reading).into_iter().chain(canonical_spellings(reading)) {
             for c in word.chars() {
                 // Check that every kanji in the word has already been introduced.
                 // Kanji that no entry introduces are reported by `check_reading`.
@@ -233,17 +234,72 @@ fn check_reading<K: CheckKana>(
     if reading.definition.trim().is_empty() {
         errors.push(Error::at_line(line, "empty definition"));
     }
-    let kana = reading.kana.joined();
+    check_spelling(&reading.spelling, line, errors);
+    check_words_and_kana(
+        &unique_words(reading),
+        &reading.kana,
+        reading_type,
+        reading.regular,
+        line,
+        all_kanji,
+        errors,
+    );
+    for variant in &reading.variants {
+        // Check that either the reading and all its variants have a canonical spelling,
+        // or none of them do.
+        match (&reading.canonical, &variant.canonical_spelling) {
+            (Some(_), None) => errors.push(Error::at_line(
+                line,
+                format!(
+                    "variant {} has no canonical spelling, but its reading has one",
+                    variant.spelling.word
+                ),
+            )),
+            (None, Some(_)) => errors.push(Error::at_line(
+                line,
+                format!(
+                    "variant {} has a canonical spelling, but its reading doesn't",
+                    variant.spelling.word
+                ),
+            )),
+            (Some(_), Some(_)) | (None, None) => (),
+        }
+    }
+    if let Some(canonical) = &reading.canonical {
+        check_written_with_kanji(&canonical.spelling, "canonical", line, errors);
+        check_words_and_kana(
+            &canonical_spellings(reading),
+            &canonical.kana,
+            reading_type,
+            reading.regular,
+            line,
+            all_kanji,
+            errors,
+        );
+    }
+}
+
+/// Checks the kana of a reading at `line` of the given type, and the words read with it:
+/// the reading's own spellings, or its canonical ones with the canonical kana.
+fn check_words_and_kana<K: CheckKana>(
+    words: &[&str],
+    kana: &K,
+    reading_type: ReadingType,
+    regular: bool,
+    line: usize,
+    all_kanji: &HashMap<char, IntroducedBy>,
+    errors: &mut Vec<Error>,
+) {
+    let joined_kana = kana.joined();
     // Check that the kana is in the right script for the type of reading.
-    if !reading.kana.kana_fits(reading_type, reading.regular) {
+    if !kana.kana_fits(reading_type, regular) {
         errors.push(Error::at_line(
             line,
-            format!("{kana} is not valid kana for {reading_type} {}", K::KIND_OF_READINGS),
+            format!("{joined_kana} is not valid kana for {reading_type} {}", K::KIND_OF_READINGS),
         ));
     }
-    check_spelling(&reading.spelling, line, errors);
-    let kana_in_hiragana = katakana_to_hiragana(&kana);
-    for word in unique_words(reading) {
+    let kana_in_hiragana = katakana_to_hiragana(&joined_kana);
+    for &word in words {
         // Check that the word isn't empty and is made up only of Japanese characters.
         if word.is_empty() {
             errors.push(Error::at_line(line, "empty word"));
@@ -261,8 +317,26 @@ fn check_reading<K: CheckKana>(
         }
         // Check that the kana at the start and end of the word matches the reading.
         if !hiragana_matches(&katakana_to_hiragana(word), &kana_in_hiragana) {
-            errors.push(Error::at_line(line, format!("{word} doesn't match its reading {kana}")));
+            errors.push(Error::at_line(
+                line,
+                format!("{word} doesn't match its reading {joined_kana}"),
+            ));
         }
+    }
+}
+
+/// Checks that a spelling of the named kind (example, kanji, canonical) is written with kanji.
+fn check_written_with_kanji(
+    word: &str,
+    kind_of_spelling: &str,
+    line: usize,
+    errors: &mut Vec<Error>,
+) {
+    if !has_kanji(word) {
+        errors.push(Error::at_line(
+            line,
+            format!("{kind_of_spelling} spelling {word} contains no kanji"),
+        ));
     }
 }
 
@@ -274,21 +348,9 @@ fn check_spelling(spelling: &Spelling, line: usize, errors: &mut Vec<Error>) {
     if distinct_words.len() < words.len() {
         errors.push(Error::at_line(line, "spelling contains a repeated word"));
     }
-    // Check that the example spelling is written with kanji.
-    if !has_kanji(spelling.described()) {
-        errors.push(Error::at_line(
-            line,
-            format!("example spelling {} contains no kanji", spelling.described()),
-        ));
-    }
+    check_written_with_kanji(spelling.described(), "example", line, errors);
     if let Spelling::SecondaryKanji { main_kanji, described, .. } = spelling {
-        // Check that the main kanji spelling is written with kanji.
-        if !has_kanji(&main_kanji.word) {
-            errors.push(Error::at_line(
-                line,
-                format!("kanji spelling {} contains no kanji", main_kanji.word),
-            ));
-        }
+        check_written_with_kanji(&main_kanji.word, "kanji", line, errors);
         // Check that the example spelling isn't more common than the main kanji spelling.
         if described.freq > main_kanji.freq {
             errors.push(Error::at_line(
@@ -361,12 +423,27 @@ fn hiragana_matches(word: &str, kana: &str) -> bool {
 /// All spellings in a reading including variants, without repetitions.
 fn unique_words<K>(reading: &Reading<K>) -> Vec<&str> {
     let mut words = Vec::new();
-    for word in
-        reading.spelling.words().into_iter().chain(reading.variants.iter().map(|v| v.word.as_str()))
+    for word in reading
+        .spelling
+        .words()
+        .into_iter()
+        .chain(reading.variants.iter().map(|v| v.spelling.word.as_str()))
     {
         if !words.contains(&word) {
             words.push(word);
         }
     }
     words
+}
+
+/// The canonical spellings of a reading and its variants, empty if it has none.
+fn canonical_spellings<K>(reading: &Reading<K>) -> Vec<&str> {
+    let variant_canonical_spellings =
+        reading.variants.iter().filter_map(|variant| variant.canonical_spelling.as_deref());
+    reading
+        .canonical
+        .iter()
+        .map(|canonical| canonical.spelling.as_str())
+        .chain(variant_canonical_spellings)
+        .collect()
 }

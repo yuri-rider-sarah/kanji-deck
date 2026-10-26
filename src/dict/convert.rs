@@ -122,8 +122,36 @@ fn parse_reading<K: ParseKana>(args: &mut Args) -> Result<Reading<K>> {
         spelling: args.take_one(parse_spelling)?,
         kana: args.take_one(K::parse_kana)?,
         definition: args.take_string()?,
-        variants: args.take_many_by_name("variant", |args| args.take_one(freq_word))?,
+        canonical: args.take_optional_by_name("canonical", parse_canonical)?,
+        variants: args.take_many_by_name("variant", parse_variant)?,
+        part_of_speech: args.take_optional_by_name("part-of-speech", parse_part_of_speech)?,
     })
+}
+
+/// Parses the canonical spelling and kana of a reading, `canonical SPELLING KANA`.
+fn parse_canonical<K: ParseKana>(args: &mut Args) -> Result<Canonical<K>> {
+    Ok(Canonical { spelling: args.take_string()?, kana: args.take_one(K::parse_kana)? })
+}
+
+/// Parses a variant, `variant FREQ:W`, with an optional `canonical SPELLING` child.
+fn parse_variant(args: &mut Args) -> Result<Variant> {
+    Ok(Variant {
+        spelling: args.take_one(freq_word)?,
+        canonical_spelling: args.take_optional_by_name("canonical", |args| args.take_string())?,
+    })
+}
+
+/// Parses the part of speech of a reading, `part-of-speech P`.
+fn parse_part_of_speech(args: &mut Args) -> Result<PartOfSpeech> {
+    let name = args.take_string()?;
+    match name.as_str() {
+        "verb-ichidan" => Ok(PartOfSpeech::IchidanVerb),
+        "verb-godan" => Ok(PartOfSpeech::GodanVerb),
+        "adjective" => Ok(PartOfSpeech::Adjective),
+        "other" => Ok(PartOfSpeech::Other),
+        "noun" => Ok(PartOfSpeech::Noun),
+        _ => Err(Error::new(args.pos(), format!("unknown part of speech: {name}"))),
+    }
 }
 
 /// Kana of a reading, parsed differently for kanji and word entries.

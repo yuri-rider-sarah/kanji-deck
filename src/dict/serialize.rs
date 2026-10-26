@@ -70,8 +70,33 @@ fn serialize_reading<K: SerializeKana>(lines: &mut Vec<String>, reading: &Readin
         reading.kana.serialize_kana(),
         reading.definition
     ));
+    if let Some(canonical) = &reading.canonical {
+        lines.push(indented!(
+            3,
+            "canonical {} {}",
+            canonical.spelling,
+            canonical.kana.serialize_kana()
+        ));
+    }
     for variant in &reading.variants {
-        lines.push(indented!(3, "variant {}", serialize_freq_word(variant)));
+        lines.push(indented!(3, "variant {}", serialize_freq_word(&variant.spelling)));
+        if let Some(canonical_spelling) = &variant.canonical_spelling {
+            lines.push(indented!(4, "canonical {canonical_spelling}"));
+        }
+    }
+    if let Some(part_of_speech) = reading.part_of_speech {
+        lines.push(indented!(3, "part-of-speech {}", serialize_part_of_speech(part_of_speech)));
+    }
+}
+
+/// The name of a part of speech in `part-of-speech P`.
+fn serialize_part_of_speech(part_of_speech: PartOfSpeech) -> &'static str {
+    match part_of_speech {
+        PartOfSpeech::IchidanVerb => "verb-ichidan",
+        PartOfSpeech::GodanVerb => "verb-godan",
+        PartOfSpeech::Adjective => "adjective",
+        PartOfSpeech::Other => "other",
+        PartOfSpeech::Noun => "noun",
     }
 }
 

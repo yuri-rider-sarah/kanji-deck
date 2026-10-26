@@ -146,6 +146,31 @@ impl ReadingKana for UnsplitKana {
     }
 }
 
+/// The spelling and kana that decomposition uses for a reading instead of its example,
+/// for examples where the provided word would give the wrong reading.
+#[derive(Debug, Clone)]
+pub struct Canonical<K> {
+    pub spelling: String,
+    pub kana: K,
+}
+
+/// A less common spelling of the example word of a reading.
+#[derive(Debug, Clone)]
+pub struct Variant {
+    pub spelling: FreqWord,
+    pub canonical_spelling: Option<String>,
+}
+
+/// The part of speech of a reading's example word, overriding the one extracted from another source.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PartOfSpeech {
+    IchidanVerb,
+    GodanVerb,
+    Adjective,
+    Other,
+    Noun,
+}
+
 /// A specific example of a kanji or word reading, with the kana `K` dependent
 /// on the kind of entry it's in.
 #[derive(Debug, Clone)]
@@ -156,7 +181,9 @@ pub struct Reading<K> {
     pub spelling: Spelling,
     pub kana: K,
     pub definition: String,
-    pub variants: Vec<FreqWord>,
+    pub canonical: Option<Canonical<K>>,
+    pub variants: Vec<Variant>,
+    pub part_of_speech: Option<PartOfSpeech>,
 }
 
 /// A group of related reading examples.
