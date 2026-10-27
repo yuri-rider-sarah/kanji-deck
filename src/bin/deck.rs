@@ -23,12 +23,8 @@ fn run() -> Result<(), Vec<FileError>> {
         .map_err(|error| FileError::io(DICTIONARY_PATH, FileAction::Read, error))?;
     let nodes =
         parser::parse(&text).map_err(|error| FileError::contents(DICTIONARY_PATH, error))?;
-    let entries = dict::load(nodes).map_err(|errors| {
-        errors
-            .into_iter()
-            .map(|error| FileError::contents(DICTIONARY_PATH, error))
-            .collect::<Vec<_>>()
-    })?;
+    let entries =
+        dict::load(nodes).map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
     check_serializer(&text, &entries);
     for warning in deck::check(&entries) {
         report_warning(&FileError::contents(DICTIONARY_PATH, warning));

@@ -80,7 +80,7 @@ fn serialize_reading<K: SerializeKana>(lines: &mut Vec<String>, reading: &Readin
     }
     for variant in &reading.variants {
         lines.push(indented!(3, "variant {}", serialize_freq_word(&variant.spelling)));
-        if let Some(canonical_spelling) = &variant.canonical_spelling {
+        if let Some(canonical_spelling) = &variant.canonical {
             lines.push(indented!(4, "canonical {canonical_spelling}"));
         }
     }

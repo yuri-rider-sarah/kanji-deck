@@ -244,10 +244,15 @@ fn check_reading<K: CheckKana>(
         all_kanji,
         errors,
     );
+    // Check that only kun readings have variants, as other readings have no okurigana
+    // that variants could differ in.
+    if reading_type != ReadingType::Kun && !reading.variants.is_empty() {
+        errors.push(Error::at_line(line, "only kun readings can have variants"));
+    }
     for variant in &reading.variants {
         // Check that either the reading and all its variants have a canonical spelling,
         // or none of them do.
-        match (&reading.canonical, &variant.canonical_spelling) {
+        match (&reading.canonical, &variant.canonical) {
             (Some(_), None) => errors.push(Error::at_line(
                 line,
                 format!(
@@ -439,7 +444,7 @@ fn unique_words<K>(reading: &Reading<K>) -> Vec<&str> {
 /// The canonical spellings of a reading and its variants, empty if it has none.
 fn canonical_spellings<K>(reading: &Reading<K>) -> Vec<&str> {
     let variant_canonical_spellings =
-        reading.variants.iter().filter_map(|variant| variant.canonical_spelling.as_deref());
+        reading.variants.iter().filter_map(|variant| variant.canonical.as_deref());
     reading
         .canonical
         .iter()

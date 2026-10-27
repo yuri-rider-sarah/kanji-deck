@@ -137,7 +137,7 @@ fn parse_canonical<K: ParseKana>(args: &mut Args) -> Result<Canonical<K>> {
 fn parse_variant(args: &mut Args) -> Result<Variant> {
     Ok(Variant {
         spelling: args.take_one(freq_word)?,
-        canonical_spelling: args.take_optional_by_name("canonical", |args| args.take_string())?,
+        canonical: args.take_optional_by_name("canonical", |args| args.take_string())?,
     })
 }
 

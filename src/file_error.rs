@@ -36,6 +36,11 @@ impl FileError {
         FileError::Contents { path, error }
     }
 
+    /// The errors a module found in the contents of a file, one for each.
+    pub fn contents_errors(path: &'static str, errors: Vec<Error>) -> Vec<FileError> {
+        errors.into_iter().map(|error| FileError::contents(path, error)).collect()
+    }
+
     /// A problem with a file as a whole.
     pub fn whole_file(path: &'static str, message: impl Into<String>) -> FileError {
         FileError::WholeFile { path, message: message.into() }

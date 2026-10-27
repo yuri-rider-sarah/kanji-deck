@@ -1,6 +1,7 @@
 //! Reads the lexicon of UniDic (`lex.csv`): the words to decompose, and the parts of speech
 //! that decomposition treats differently from the rest.
 
+use crate::decompose::{PartOfSpeech, Word};
 use crate::error::{Error, Result};
 use crate::japanese::katakana_to_hiragana;
 use std::collections::HashMap;
@@ -8,21 +9,6 @@ use std::collections::hash_map::Entry;
 
 /// The number of fields on each line of the lexicon.
 const FIELD_COUNT: usize = 33;
-
-/// A word from the lexicon: its spelling, and its kana converted to hiragana.
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub struct Word {
-    pub spelling: String,
-    pub kana: String,
-}
-
-/// A part of speech whose okurigana decomposition handles differently from the rest.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum PartOfSpeech {
-    IchidanVerb,
-    GodanVerb,
-    Adjective,
-}
 
 /// The part of speech of a word according to one or more of its rows in the lexicon.
 /// Verbs other than ichidan and godan (サ変, カ変 and classical verbs) are kept apart

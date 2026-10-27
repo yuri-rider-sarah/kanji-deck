@@ -1,4 +1,5 @@
 pub mod deck;
+pub mod decompose;
 pub mod dict;
 pub mod error;
 pub mod file_error;

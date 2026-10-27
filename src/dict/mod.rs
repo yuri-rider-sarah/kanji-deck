@@ -158,7 +158,18 @@ pub struct Canonical<K> {
 #[derive(Debug, Clone)]
 pub struct Variant {
     pub spelling: FreqWord,
-    pub canonical_spelling: Option<String>,
+    pub canonical: Option<String>,
+}
+
+impl Variant {
+    /// The spelling that decomposition uses: the canonical spelling if given,
+    /// otherwise the variant's own.
+    pub fn canonical_spelling(&self) -> &str {
+        match &self.canonical {
+            Some(canonical) => canonical,
+            None => &self.spelling.word,
+        }
+    }
 }
 
 /// The part of speech of a reading's example word, overriding the one extracted from another source.
@@ -184,6 +195,26 @@ pub struct Reading<K> {
     pub canonical: Option<Canonical<K>>,
     pub variants: Vec<Variant>,
     pub part_of_speech: Option<PartOfSpeech>,
+}
+
+impl<K> Reading<K> {
+    /// The spelling that decomposition uses: the canonical spelling if given,
+    /// otherwise the example spelling.
+    pub fn canonical_spelling(&self) -> &str {
+        match &self.canonical {
+            Some(canonical) => &canonical.spelling,
+            None => self.spelling.described(),
+        }
+    }
+
+    /// The kana that decomposition uses: the canonical kana if given,
+    /// otherwise the reading's own.
+    pub fn canonical_kana(&self) -> &K {
+        match &self.canonical {
+            Some(canonical) => &canonical.kana,
+            None => &self.kana,
+        }
+    }
 }
 
 /// A group of related reading examples.

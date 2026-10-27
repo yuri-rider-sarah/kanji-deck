@@ -89,6 +89,7 @@ kanji 十
     kun-group
         reading #core | pri-spell 十日 | *とお*か || ten days
         reading | pri-spell 十人十色 | じゅうにん*と*いろ || to each their own
+            canonical 十色 *と*いろ
     kun-group
         reading | pri-spell 三十路 | み*そ*じ || age thirty
 kanji 百
@@ -3590,6 +3591,7 @@ kanji 怖
     kun-group
         reading | pri-spell 怖じる | *お*じる || to be scared
         reading | pri-kanji-spell おずおず rare:怖ず怖ず | *お*ずおず || timidly
+            canonical 怖ず *お*ず
 kanji 婚
     on-group
         reading #core | pri-spell 結婚 | ケッ*コン* || marriage
@@ -7912,7 +7914,7 @@ kanji 坊
         reading #core | pri-spell 坊主 | *ボウ*ズ || Buddhist priest
         reading #core | pri-spell 坊や | *ボウ*ヤ || boy
         reading | pri-spell 坊ちゃん | *ボッ*チャン || son
-            variant common:坊っちゃん
+        reading | sec-spell 坊ちゃん common:坊っちゃん | *ボ*ッチャン || son
         reading | pri-spell 坊様 | *ボン*サマ || Buddhist priest
 word 坊主
     on-group
@@ -12862,7 +12864,9 @@ kanji 忌
         reading #core | pri-spell 忌まわしい | *い*まわしい || detestable
     kun-group
         reading #core | pri-spell 忌々しい | *いま*いましい || annoying
+            canonical 忌 *いま*
             variant rare:忌ま忌ましい
+                canonical 忌ま
 kanji 貯
     on-group
         reading #core | pri-spell 貯金 | *チョ*キン || saving money
