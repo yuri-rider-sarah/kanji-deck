@@ -1,11 +1,13 @@
-//! Prints the readings extracted from the dictionary for decomposition, one
-//! `spelling<TAB>kana<TAB>type` line each, with the parts of speech from UniDic's lexicon.
-//!
-//! This will become the check of which words the dictionary's readings don't cover.
+//! Prints the words from UniDic's lexicon that can't be decomposed into the readings of the
+//! dictionary, one `spelling kana` line each. Words without kanji, or with kanji or other
+//! characters that the readings can't cover, are left out.
 
-use kanji::decompose::{self, OkuriganaStart, ReadingType};
+use kanji::decompose;
+use kanji::dict::Entry;
 use kanji::file_error::{FileAction, FileError, report_errors};
+use kanji::japanese::{is_japanese, is_kanji};
 use kanji::{dict, parser, unidic};
+use std::collections::HashSet;
 use std::process::ExitCode;
 
 /// The dictionary, relative to the repo root.
@@ -15,7 +17,7 @@ fn main() -> ExitCode {
     report_errors(run())
 }
 
-/// Reads the dictionary and the lexicon, and prints the readings extracted from the dictionary.
+/// Reads the dictionary and the lexicon, and prints the words that can't be decomposed.
 fn run() -> Result<(), Vec<FileError>> {
     const LEXICON_PATH: &str = "data/unidic/lex.csv";
     let text = std::fs::read_to_string(DICTIONARY_PATH)
@@ -26,58 +28,48 @@ fn run() -> Result<(), Vec<FileError>> {
         dict::load(nodes).map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
     let lexicon = std::fs::read_to_string(LEXICON_PATH)
         .map_err(|error| FileError::io(LEXICON_PATH, FileAction::Read, error))?;
-    let (_words, parts_of_speech) =
+    let (words, parts_of_speech) =
         unidic::read_lexicon(&lexicon).map_err(|error| FileError::contents(LEXICON_PATH, error))?;
     let readings = decompose::extract_readings(&entries, &parts_of_speech)
         .map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
-    for reading in &readings {
-        println!(
-            "{}\t{}\t{}",
-            reading.spelling,
-            reading.kana,
-            description_from_reading_type(reading.reading_type)
-        );
+    let known_kanji: HashSet<char> = entries
+        .iter()
+        .flat_map(|entry| match entry {
+            Entry::Kanji(entry) => std::slice::from_ref(&entry.kanji),
+            Entry::Word(entry) => entry.introduced_kanji.as_slice(),
+        })
+        .copied()
+        .collect();
+    let reading_index = decompose::index_readings(&readings);
+    for word in &words {
+        if is_word_to_decompose(&word.spelling, &known_kanji)
+            && !decompose::can_decompose_word(word, &reading_index)
+        {
+            println!("{} {}", word.spelling, word.kana);
+        }
     }
     Ok(())
 }
 
-/// The type of a reading as shown in the list, with how its okurigana starts
-/// for kun readings with okurigana (`kun .k`).
-fn description_from_reading_type(reading_type: ReadingType) -> String {
-    match reading_type {
-        ReadingType::On => "on".to_string(),
-        ReadingType::BareKun => "kun".to_string(),
-        ReadingType::KunAdjective => "kun adjective".to_string(),
-        ReadingType::KunWithOkurigana(okurigana_start) => {
-            format!("kun .{}", name_from_okurigana_start(okurigana_start))
+/// Whether a word is one to decompose: it has a kanji, all its kanji are introduced in the
+/// dictionary, and it has no characters other than kanji, kana, ヶ, ヵ and 々 after a kanji.
+fn is_word_to_decompose(spelling: &str, known_kanji: &HashSet<char>) -> bool {
+    let mut has_kanji = false;
+    let mut previous_c = None;
+    for c in spelling.chars() {
+        if is_kanji(c) {
+            if !known_kanji.contains(&c) {
+                return false;
+            }
+            has_kanji = true;
+        } else if c == '々' {
+            if !previous_c.is_some_and(is_kanji) {
+                return false;
+            }
+        } else if !is_japanese(c) {
+            return false;
         }
-        ReadingType::Foreign => "foreign".to_string(),
+        previous_c = Some(c);
     }
-}
-
-/// How okurigana starts, as a consonant in romaji, or the kana itself where it has no
-/// consonant of its own.
-fn name_from_okurigana_start(okurigana_start: OkuriganaStart) -> &'static str {
-    match okurigana_start {
-        OkuriganaStart::K => "k",
-        OkuriganaStart::S => "s",
-        OkuriganaStart::T => "t",
-        OkuriganaStart::N => "n",
-        OkuriganaStart::H => "h",
-        OkuriganaStart::M => "m",
-        OkuriganaStart::Y => "y",
-        OkuriganaStart::R => "r",
-        OkuriganaStart::W => "w",
-        OkuriganaStart::G => "g",
-        OkuriganaStart::Z => "z",
-        OkuriganaStart::D => "d",
-        OkuriganaStart::B => "b",
-        OkuriganaStart::P => "p",
-        OkuriganaStart::A => "あ",
-        OkuriganaStart::I => "い",
-        OkuriganaStart::E => "え",
-        OkuriganaStart::O => "お",
-        OkuriganaStart::SmallTsu => "っ",
-        OkuriganaStart::MoraicN => "ん",
-    }
+    has_kanji
 }

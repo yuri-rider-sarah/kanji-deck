@@ -359,35 +359,6 @@ fn godan_continuative_kana(kana: &str) -> Option<String> {
     Some(format!("{}{continuative_last}", chars.as_str()))
 }
 
-/// How okurigana starting with a hiragana character starts, or `None` for kana
-/// that okurigana can't start with.
-fn okurigana_start_from_kana(c: char) -> Option<OkuriganaStart> {
-    let okurigana_start = match c {
-        'か' | 'き' | 'く' | 'け' | 'こ' => OkuriganaStart::K,
-        'が' | 'ぎ' | 'ぐ' | 'げ' | 'ご' => OkuriganaStart::G,
-        'さ' | 'し' | 'す' | 'せ' | 'そ' => OkuriganaStart::S,
-        'ざ' | 'じ' | 'ず' | 'ぜ' | 'ぞ' => OkuriganaStart::Z,
-        'た' | 'ち' | 'つ' | 'て' | 'と' => OkuriganaStart::T,
-        'だ' | 'ぢ' | 'づ' | 'で' | 'ど' => OkuriganaStart::D,
-        'な' | 'に' | 'ぬ' | 'ね' | 'の' => OkuriganaStart::N,
-        'は' | 'ひ' | 'ふ' | 'へ' | 'ほ' => OkuriganaStart::H,
-        'ば' | 'び' | 'ぶ' | 'べ' | 'ぼ' => OkuriganaStart::B,
-        'ぱ' | 'ぴ' | 'ぷ' | 'ぺ' | 'ぽ' => OkuriganaStart::P,
-        'ま' | 'み' | 'む' | 'め' | 'も' => OkuriganaStart::M,
-        'や' | 'ゆ' | 'よ' => OkuriganaStart::Y,
-        'ら' | 'り' | 'る' | 'れ' | 'ろ' => OkuriganaStart::R,
-        'う' | 'わ' => OkuriganaStart::W,
-        'あ' => OkuriganaStart::A,
-        'い' => OkuriganaStart::I,
-        'え' => OkuriganaStart::E,
-        'お' => OkuriganaStart::O,
-        'っ' => OkuriganaStart::SmallTsu,
-        'ん' => OkuriganaStart::MoraicN,
-        _ => return None,
-    };
-    Some(okurigana_start)
-}
-
 /// The part of speech given in the dictionary, or `None` for other parts of speech.
 fn part_of_speech_from_dictionary(part_of_speech: dict::PartOfSpeech) -> Option<PartOfSpeech> {
     match part_of_speech {
