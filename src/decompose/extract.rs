@@ -317,8 +317,10 @@ fn readings_from_kun_splits<K>(
 }
 
 /// The readings from one split spelling of a kun reading at `line` with the given part of
-/// speech: a reading with how the okurigana starts (or a bare or adjective reading), and for
-/// ichidan and godan verbs, a bare reading for the continuative form (e.g. 受ける うける gives 受 うけ).
+/// speech: a reading with how the okurigana starts, or a bare reading if there's no okurigana.
+/// For the stem of an i-adjective whose okurigana is just い, a bare reading.
+/// For ichidan and godan verbs, adds a bare reading for the continuative form
+/// (e.g. 受ける うける gives 受 うけ).
 fn readings_from_kun_split(
     split: &KunSplit,
     part_of_speech: Option<PartOfSpeech>,
@@ -336,7 +338,7 @@ fn readings_from_kun_split(
         None => return Ok(vec![reading_with_type(ReadingType::BareKun)]),
     };
     if part_of_speech == Some(PartOfSpeech::Adjective) && split.okurigana == "い" {
-        return Ok(vec![reading_with_type(ReadingType::KunAdjective)]);
+        return Ok(vec![reading_with_type(ReadingType::BareKun)]);
     }
     let Some(okurigana_start) = okurigana_start_from_kana(first_okurigana) else {
         return Err(Error::at_line(

@@ -136,13 +136,6 @@ fn match_reading(kana: &mut WordKana, reading: &Reading, next_spelling_char: Opt
             KanaChanges { rendaku: false, handakuten: true, gemination: true },
         ),
         ReadingType::BareKun => match_kana(kana, &reading.kana, kun_changes),
-        ReadingType::KunAdjective => match next_spelling_char {
-            // The stem is followed by a kanji, the end of the word, or い, く or み.
-            Some(c) if (is_hiragana(c) || is_katakana(c)) && !matches!(c, 'い' | 'く' | 'み') => {
-                false
-            }
-            Some(_) | None => match_kana(kana, &reading.kana, kun_changes),
-        },
         ReadingType::KunWithOkurigana(okurigana_start) => match next_spelling_char {
             Some(next_spelling_char) => {
                 match_kana(kana, &reading.kana, kun_changes)

@@ -39,8 +39,6 @@ pub enum ReadingType {
     On,
     /// A kun reading without okurigana.
     BareKun,
-    /// The stem of an i-adjective whose okurigana is just い.
-    KunAdjective,
     /// A kun reading followed by okurigana that starts in the given way.
     KunWithOkurigana(OkuriganaStart),
     /// A borrowing from a European language.
