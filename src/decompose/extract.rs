@@ -94,11 +94,11 @@ fn readings_from_word_reading(
     parts_of_speech: &HashMap<Word, PartOfSpeech>,
 ) -> Result<Vec<Reading>> {
     match reading_type {
-        dict::ReadingType::On | dict::ReadingType::Asian => {
+        dict::ReadingType::On => {
             let (spelling, kana) = non_kun_spelling_and_kana_from_word(reading)?;
             Ok(vec![on_reading(spelling, kana)])
         }
-        dict::ReadingType::European => {
+        dict::ReadingType::Asian | dict::ReadingType::European => {
             let (spelling, kana) = non_kun_spelling_and_kana_from_word(reading)?;
             Ok(vec![foreign_reading(spelling, kana)])
         }
@@ -146,7 +146,7 @@ fn non_kun_spelling_and_kana_from_word(
     Ok((spelling.to_string(), kana.to_string()))
 }
 
-/// An on reading, which also covers recent Asian borrowings in word entries.
+/// An on reading.
 fn on_reading(spelling: String, kana: String) -> Reading {
     Reading {
         spelling,
