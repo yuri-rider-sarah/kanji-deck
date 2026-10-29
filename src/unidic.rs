@@ -3,7 +3,7 @@
 
 use crate::decompose::{PartOfSpeech, Word};
 use crate::error::{Error, Result};
-use crate::japanese::katakana_to_hiragana_in_str;
+use crate::japanese::{is_katakana, katakana_to_hiragana_in_str};
 use std::collections::HashMap;
 use std::collections::hash_map::Entry;
 
@@ -118,13 +118,15 @@ fn read_row(record: &csv::StringRecord, line_number: usize) -> Result<Row<'_>> {
 }
 
 /// Whether a row is a word to decompose. Excludes proper nouns, inflected forms,
-/// rows for rendaku and other sound changes, and spellings in historical kana usage.
+/// rows for rendaku and other sound changes, spellings in historical kana usage,
+/// and rows whose kana isn't only katakana (`*` for unknown kana, or ・ between words).
 fn is_word_to_decompose(row: &Row) -> bool {
     row.pos2 != "固有名詞"
         && matches!(row.conjugation_form, "*" | "終止形-一般" | "ク語法")
         && matches!(row.initial_form, "*" | "基本形")
         && matches!(row.final_form, "*" | "基本形")
         && row.kana == row.modern_kana
+        && row.kana.chars().all(is_katakana)
 }
 
 /// The part of speech of a row. Verb-like and adjective-like suffixes (兼ねる, 易い)
