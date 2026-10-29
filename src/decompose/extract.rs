@@ -76,12 +76,7 @@ fn readings_from_kanji_reading(
 ) -> Result<Vec<Reading>> {
     match reading_type {
         dict::ReadingType::On => Ok(vec![on_reading_from_kanji(reading, kanji)]),
-        dict::ReadingType::Asian => Ok(vec![Reading {
-            spelling: kanji.to_string(),
-            kana: katakana_to_hiragana(&reading.canonical_kana().mid),
-            reading_type: ReadingType::On,
-        }]),
-        dict::ReadingType::European => Ok(vec![Reading {
+        dict::ReadingType::Asian | dict::ReadingType::European => Ok(vec![Reading {
             spelling: kanji.to_string(),
             kana: katakana_to_hiragana(&reading.canonical_kana().mid),
             reading_type: ReadingType::Foreign,
