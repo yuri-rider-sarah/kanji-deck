@@ -21,7 +21,8 @@ pub enum PartOfSpeech {
     Adjective,
 }
 
-/// A reading used in word decomposition.
+/// A reading used in word decomposition, with the changes its kana may undergo in a word
+/// and the okurigana that has to follow it.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Reading {
     /// What the reading is written with: a kanji for readings of kanji entries, and the
@@ -29,20 +30,15 @@ pub struct Reading {
     pub spelling: String,
     /// The kana of the reading in hiragana, without the okurigana of kun readings.
     pub kana: String,
-    pub reading_type: ReadingType,
-}
-
-/// The type of a reading, which determines where in a word it may occur.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub enum ReadingType {
-    /// An on reading, including recent Asian borrowings.
-    On,
-    /// A kun reading without okurigana.
-    BareKun,
-    /// A kun reading followed by okurigana that starts in the given way.
-    KunWithOkurigana(OkuriganaStart),
-    /// A borrowing from a European language.
-    Foreign,
+    /// Whether the first kana may take a dakuten when the reading isn't at the start of a word.
+    pub rendaku: bool,
+    /// Whether the first kana may take a handakuten after っ or ん.
+    pub handakuten: bool,
+    /// Whether the last kana may become っ before some kana.
+    pub gemination: bool,
+    /// How the okurigana that has to follow the reading starts, or `None` if anything
+    /// may follow it, including the end of the word.
+    pub okurigana_start: Option<OkuriganaStart>,
 }
 
 /// How the okurigana after a kun reading starts: mostly the consonant of its first kana,

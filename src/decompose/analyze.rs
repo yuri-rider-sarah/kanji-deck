@@ -38,13 +38,6 @@ impl WordKana<'_> {
     }
 }
 
-/// The changes to a reading's kana that may occur for a given type of reading.
-struct KanaChanges {
-    rendaku: bool,
-    handakuten: bool,
-    gemination: bool,
-}
-
 /// Indexes the readings that words are to be decomposed into by grouping them
 /// by the first character.
 pub fn index_readings(readings: &[Reading]) -> ReadingIndex<'_> {
@@ -64,8 +57,7 @@ pub fn index_readings(readings: &[Reading]) -> ReadingIndex<'_> {
     ReadingIndex { readings_by_first_char }
 }
 
-/// Whether a word can be decomposed into the indexed readings, following the rules for
-/// each type of reading.
+/// Whether a word can be decomposed into the indexed readings.
 pub fn can_decompose_word(word: &Word, reading_index: &ReadingIndex) -> bool {
     let Some(spelling) = normalize_spelling(&word.spelling) else {
         return false;
@@ -121,40 +113,16 @@ fn can_decompose(
             return false;
         };
         let mut kana_rest = kana.clone();
-        match_reading(&mut kana_rest, reading.reading, spelling_rest.chars().next())
+        match_reading(&mut kana_rest, reading.reading)
+            && okurigana_fits(reading.reading.okurigana_start, spelling_rest.chars().next())
             && can_decompose(spelling_rest.chars(), kana_rest, readings_by_first_char)
     })
 }
 
-/// Try to match a reading at the start of the given kana, advancing past it.
-fn match_reading(kana: &mut WordKana, reading: &Reading, next_spelling_char: Option<char>) -> bool {
-    let kun_changes = KanaChanges { rendaku: true, handakuten: false, gemination: false };
-    match reading.reading_type {
-        ReadingType::On => match_kana(
-            kana,
-            &reading.kana,
-            KanaChanges { rendaku: false, handakuten: true, gemination: true },
-        ),
-        ReadingType::BareKun => match_kana(kana, &reading.kana, kun_changes),
-        ReadingType::KunWithOkurigana(okurigana_start) => match next_spelling_char {
-            Some(next_spelling_char) => {
-                match_kana(kana, &reading.kana, kun_changes)
-                    && okurigana_fits(okurigana_start, next_spelling_char)
-            }
-            None => false,
-        },
-        ReadingType::Foreign => match_kana(
-            kana,
-            &reading.kana,
-            KanaChanges { rendaku: false, handakuten: false, gemination: false },
-        ),
-    }
-}
-
-/// Try to match a reading's kana at the start of the given kana, possibly allowing
-/// certain regular changes.
-fn match_kana(word_kana: &mut WordKana, reading_kana: &str, changes: KanaChanges) -> bool {
-    let mut reading_kana = reading_kana.chars();
+/// Try to match a reading's kana at the start of the given kana with the changes
+/// the reading allows, advancing past it.
+fn match_reading(word_kana: &mut WordKana, reading: &Reading) -> bool {
+    let mut reading_kana = reading.kana.chars();
     let Some(first_reading_char) = reading_kana.next() else {
         return true;
     };
@@ -163,10 +131,10 @@ fn match_kana(word_kana: &mut WordKana, reading_kana: &str, changes: KanaChanges
         return false;
     };
     let first_kana_matches = first_word_kana_char == first_reading_char
-        || (changes.rendaku
+        || (reading.rendaku
             && previous_kana.is_some()
             && add_dakuten(first_reading_char) == Some(first_word_kana_char))
-        || (changes.handakuten
+        || (reading.handakuten
             && matches!(previous_kana, Some('っ' | 'ん'))
             && add_handakuten(first_reading_char) == Some(first_word_kana_char));
     if !first_kana_matches {
@@ -177,7 +145,7 @@ fn match_kana(word_kana: &mut WordKana, reading_kana: &str, changes: KanaChanges
             return false;
         };
         let kana_matches = word_kana_char == reading_char
-            || (changes.gemination
+            || (reading.gemination
                 && reading_kana.as_str().is_empty()
                 && word_kana_char == 'っ'
                 && geminates_before(reading_char, word_kana.peek()));
@@ -188,7 +156,7 @@ fn match_kana(word_kana: &mut WordKana, reading_kana: &str, changes: KanaChanges
     true
 }
 
-/// Whether the last kana of an on reading may become っ before `next_kana`.
+/// Whether the last kana of a reading may become っ before `next_kana`.
 fn geminates_before(reading_kana: char, next_kana: Option<char>) -> bool {
     let next_start = next_kana.and_then(okurigana_start_from_kana);
     match reading_kana {
@@ -201,12 +169,19 @@ fn geminates_before(reading_kana: char, next_kana: Option<char>) -> bool {
     }
 }
 
-/// Whether the given character can begin okurigana of a given start type.
+/// Whether the character after a reading in a word's spelling (`None` at the end of the word)
+/// fits the okurigana that has to follow the reading, if any.
 /// い, え, and お have their own `OkuriganaStart` values, but they can also
 /// be treated as if starting with 'w'.
-fn okurigana_fits(okurigana_start: OkuriganaStart, c: char) -> bool {
-    okurigana_start_from_kana(c) == Some(okurigana_start)
-        || (okurigana_start == OkuriganaStart::W && matches!(c, 'い' | 'え' | 'お'))
+fn okurigana_fits(okurigana_start: Option<OkuriganaStart>, c: Option<char>) -> bool {
+    match (okurigana_start, c) {
+        (None, _) => true,
+        (Some(okurigana_start), Some(c)) => {
+            okurigana_start_from_kana(c) == Some(okurigana_start)
+                || (okurigana_start == OkuriganaStart::W && matches!(c, 'い' | 'え' | 'お'))
+        }
+        (Some(_), None) => false,
+    }
 }
 
 /// Adds a dakuten to a hiragana character. `None` if there's no corresponding character.

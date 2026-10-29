@@ -76,11 +76,10 @@ fn readings_from_kanji_reading(
 ) -> Result<Vec<Reading>> {
     match reading_type {
         dict::ReadingType::On => Ok(vec![on_reading_from_kanji(reading, kanji)]),
-        dict::ReadingType::Asian | dict::ReadingType::European => Ok(vec![Reading {
-            spelling: kanji.to_string(),
-            kana: katakana_to_hiragana(&reading.canonical_kana().mid),
-            reading_type: ReadingType::Foreign,
-        }]),
+        dict::ReadingType::Asian | dict::ReadingType::European => Ok(vec![foreign_reading(
+            kanji.to_string(),
+            katakana_to_hiragana(&reading.canonical_kana().mid),
+        )]),
         dict::ReadingType::Kun => {
             let (reading_split, variant_splits) = kun_splits_from_kanji_reading(reading, kanji)?;
             readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)
@@ -96,10 +95,12 @@ fn readings_from_word_reading(
 ) -> Result<Vec<Reading>> {
     match reading_type {
         dict::ReadingType::On | dict::ReadingType::Asian => {
-            Ok(vec![non_kun_reading_from_word(reading, ReadingType::On)?])
+            let (spelling, kana) = non_kun_spelling_and_kana_from_word(reading)?;
+            Ok(vec![on_reading(spelling, kana)])
         }
         dict::ReadingType::European => {
-            Ok(vec![non_kun_reading_from_word(reading, ReadingType::Foreign)?])
+            let (spelling, kana) = non_kun_spelling_and_kana_from_word(reading)?;
+            Ok(vec![foreign_reading(spelling, kana)])
         }
         dict::ReadingType::Kun => {
             let (reading_split, variant_splits) = kun_splits_from_word_reading(reading)?;
@@ -118,7 +119,7 @@ fn on_reading_from_kanji(reading: &dict::Reading<SplitKana>, kanji: char) -> Rea
     } else {
         kanji_kana
     };
-    Reading { spelling: kanji.to_string(), kana, reading_type: ReadingType::On }
+    on_reading(kanji.to_string(), kana)
 }
 
 /// Removes the handakuten from the first character of hiragana, if it has one.
@@ -136,14 +137,42 @@ fn remove_initial_handakuten(kana: &str) -> String {
     format!("{first_char}{}", chars.as_str())
 }
 
-/// The reading of a word from an on, Asian or European reading of its entry.
-fn non_kun_reading_from_word(
+/// The spelling and kana of a word's reading from an on, Asian or European reading of its entry.
+fn non_kun_spelling_and_kana_from_word(
     reading: &dict::Reading<UnsplitKana>,
-    reading_type: ReadingType,
-) -> Result<Reading> {
+) -> Result<(String, String)> {
     let kana = katakana_to_hiragana(&reading.canonical_kana().joined());
     let (spelling, kana) = strip_initial_kana(reading.canonical_spelling(), &kana, reading.line)?;
-    Ok(Reading { spelling: spelling.to_string(), kana: kana.to_string(), reading_type })
+    Ok((spelling.to_string(), kana.to_string()))
+}
+
+/// An on reading, which also covers recent Asian borrowings in word entries.
+fn on_reading(spelling: String, kana: String) -> Reading {
+    Reading {
+        spelling,
+        kana,
+        rendaku: false,
+        handakuten: true,
+        gemination: true,
+        okurigana_start: None,
+    }
+}
+
+/// A reading of a borrowing, whose kana doesn't change in words.
+fn foreign_reading(spelling: String, kana: String) -> Reading {
+    Reading {
+        spelling,
+        kana,
+        rendaku: false,
+        handakuten: false,
+        gemination: false,
+        okurigana_start: None,
+    }
+}
+
+/// A kun reading, followed by okurigana starting in the given way, or by anything if `None`.
+fn kun_reading(spelling: String, kana: String, okurigana_start: Option<OkuriganaStart>) -> Reading {
+    Reading { spelling, kana, rendaku: true, handakuten: false, gemination: false, okurigana_start }
 }
 
 /// Splits the spelling of a kun reading of `kanji`, and those of its variants.
@@ -312,10 +341,9 @@ fn readings_from_kun_splits<K>(
 }
 
 /// The readings from one split spelling of a kun reading at `line` with the given part of
-/// speech: a reading with how the okurigana starts, or a bare reading if there's no okurigana.
-/// For the stem of an i-adjective whose okurigana is just い, a bare reading.
-/// For ichidan and godan verbs, adds a bare reading for the continuative form
-/// (e.g. 受ける うける gives 受 うけ).
+/// speech: a reading with okurigana starting like the split's, or with no okurigana
+/// if the split doesn't have any or if it's the い of an i-adjective. For ichidan and godan verbs,
+/// adds a reading with no okurigana for the continuative form (e.g. 受ける うける gives 受 うけ).
 fn readings_from_kun_split(
     split: &KunSplit,
     part_of_speech: Option<PartOfSpeech>,
@@ -323,17 +351,14 @@ fn readings_from_kun_split(
 ) -> Result<Vec<Reading>> {
     let (main_spelling, main_kana) =
         strip_initial_kana(&split.main_spelling, &split.main_kana, line)?;
-    let reading_with_type = |reading_type| Reading {
-        spelling: main_spelling.to_string(),
-        kana: main_kana.to_string(),
-        reading_type,
-    };
     let first_okurigana = match split.okurigana.chars().next() {
         Some(c) => c,
-        None => return Ok(vec![reading_with_type(ReadingType::BareKun)]),
+        None => {
+            return Ok(vec![kun_reading(main_spelling.to_string(), main_kana.to_string(), None)]);
+        }
     };
     if part_of_speech == Some(PartOfSpeech::Adjective) && split.okurigana == "い" {
-        return Ok(vec![reading_with_type(ReadingType::BareKun)]);
+        return Ok(vec![kun_reading(main_spelling.to_string(), main_kana.to_string(), None)]);
     }
     let Some(okurigana_start) = okurigana_start_from_kana(first_okurigana) else {
         return Err(Error::at_line(
@@ -344,7 +369,8 @@ fn readings_from_kun_split(
             ),
         ));
     };
-    let mut readings = vec![reading_with_type(ReadingType::KunWithOkurigana(okurigana_start))];
+    let mut readings =
+        vec![kun_reading(main_spelling.to_string(), main_kana.to_string(), Some(okurigana_start))];
     let kana_with_okurigana = main_kana.to_string() + &split.okurigana;
     let continuative_kana = match part_of_speech {
         Some(PartOfSpeech::IchidanVerb) => match kana_with_okurigana.strip_suffix('る') {
@@ -370,11 +396,7 @@ fn readings_from_kun_split(
         Some(PartOfSpeech::Adjective) | None => None,
     };
     if let Some(continuative_kana) = continuative_kana {
-        readings.push(Reading {
-            spelling: main_spelling.to_string(),
-            kana: continuative_kana,
-            reading_type: ReadingType::BareKun,
-        });
+        readings.push(kun_reading(main_spelling.to_string(), continuative_kana, None));
     }
     Ok(readings)
 }
