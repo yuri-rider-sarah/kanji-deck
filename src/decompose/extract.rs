@@ -75,12 +75,17 @@ fn readings_from_kanji_reading(
     parts_of_speech: &HashMap<Word, PartOfSpeech>,
 ) -> Result<Vec<Reading>> {
     match reading_type {
-        dict::ReadingType::On | dict::ReadingType::Asian => {
-            Ok(vec![non_kun_reading_from_kanji(reading, kanji, ReadingType::On)])
-        }
-        dict::ReadingType::European => {
-            Ok(vec![non_kun_reading_from_kanji(reading, kanji, ReadingType::Foreign)])
-        }
+        dict::ReadingType::On => Ok(vec![on_reading_from_kanji(reading, kanji)]),
+        dict::ReadingType::Asian => Ok(vec![Reading {
+            spelling: kanji.to_string(),
+            kana: katakana_to_hiragana(&reading.canonical_kana().mid),
+            reading_type: ReadingType::On,
+        }]),
+        dict::ReadingType::European => Ok(vec![Reading {
+            spelling: kanji.to_string(),
+            kana: katakana_to_hiragana(&reading.canonical_kana().mid),
+            reading_type: ReadingType::Foreign,
+        }]),
         dict::ReadingType::Kun => {
             let (reading_split, variant_splits) = kun_splits_from_kanji_reading(reading, kanji)?;
             readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)
@@ -108,17 +113,32 @@ fn readings_from_word_reading(
     }
 }
 
-/// The reading of a kanji from an on, Asian or European reading of its entry.
-fn non_kun_reading_from_kanji(
-    reading: &dict::Reading<SplitKana>,
-    kanji: char,
-    reading_type: ReadingType,
-) -> Reading {
-    Reading {
-        spelling: kanji.to_string(),
-        kana: katakana_to_hiragana(&reading.canonical_kana().mid),
-        reading_type,
-    }
+/// The reading of a kanji from an on reading of its entry.
+fn on_reading_from_kanji(reading: &dict::Reading<SplitKana>, kanji: char) -> Reading {
+    let example_kana = reading.canonical_kana();
+    let kanji_kana = katakana_to_hiragana(&example_kana.mid);
+    let kana_before = katakana_to_hiragana(&example_kana.pre);
+    let kana = if kana_before.ends_with(['ん', 'っ']) {
+        remove_initial_handakuten(&kanji_kana)
+    } else {
+        kanji_kana
+    };
+    Reading { spelling: kanji.to_string(), kana, reading_type: ReadingType::On }
+}
+
+/// Removes the handakuten from the first character of hiragana, if it has one.
+fn remove_initial_handakuten(kana: &str) -> String {
+    let mut chars = kana.chars();
+    let first_char = match chars.next() {
+        Some('ぱ') => 'は',
+        Some('ぴ') => 'ひ',
+        Some('ぷ') => 'ふ',
+        Some('ぺ') => 'へ',
+        Some('ぽ') => 'ほ',
+        Some(c) => c,
+        None => return String::new(),
+    };
+    format!("{first_char}{}", chars.as_str())
 }
 
 /// The reading of a word from an on, Asian or European reading of its entry.
