@@ -40,14 +40,18 @@ pub fn is_japanese(c: char) -> bool {
     is_kanji(c) || is_hiragana(c) || is_katakana(c) || matches!(c, '々' | 'ヵ' | 'ヶ')
 }
 
-/// Converts katakana to hiragana, leaving other characters unchanged.
+/// Converts a katakana character to hiragana, leaving other characters unchanged.
 /// Does not convert ヶ and ヵ.
-pub fn katakana_to_hiragana(text: &str) -> String {
-    text.chars()
+pub fn katakana_to_hiragana(c: char) -> char {
+    match c {
         // The katakana unicode range is exactly 0x60 after the hiragana range.
-        .map(|c| match c {
-            'ァ'..='ヴ' => char::from_u32(c as u32 - 0x60).unwrap(),
-            c => c,
-        })
-        .collect()
+        'ァ'..='ヴ' => char::from_u32(c as u32 - 0x60).unwrap(),
+        c => c,
+    }
+}
+
+/// Converts katakana in a string to hiragana, leaving other characters unchanged.
+/// Does not convert ヶ and ヵ.
+pub fn katakana_to_hiragana_in_str(text: &str) -> String {
+    text.chars().map(katakana_to_hiragana).collect()
 }

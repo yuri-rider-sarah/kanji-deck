@@ -70,7 +70,7 @@ pub fn can_decompose_word(word: &Word, reading_index: &ReadingIndex) -> bool {
 /// with the kanji before it. `None` if a 々 doesn't come after a kanji.
 fn normalize_spelling(spelling: &str) -> Option<String> {
     let mut normalized_spelling = String::new();
-    for c in katakana_to_hiragana(spelling).chars() {
+    for c in spelling.chars().map(katakana_to_hiragana) {
         if c == '々' {
             let previous = normalized_spelling.chars().next_back().filter(|&c| is_kanji(c))?;
             normalized_spelling.push(previous);

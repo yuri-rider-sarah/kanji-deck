@@ -78,7 +78,7 @@ fn readings_from_kanji_reading(
         dict::ReadingType::On => Ok(vec![on_reading_from_kanji(reading, kanji)]),
         dict::ReadingType::Asian | dict::ReadingType::European => Ok(vec![foreign_reading(
             kanji.to_string(),
-            katakana_to_hiragana(&reading.canonical_kana().mid),
+            katakana_to_hiragana_in_str(&reading.canonical_kana().mid),
         )]),
         dict::ReadingType::Kun => {
             let (reading_split, variant_splits) = kun_splits_from_kanji_reading(reading, kanji)?;
@@ -112,8 +112,8 @@ fn readings_from_word_reading(
 /// The reading of a kanji from an on reading of its entry.
 fn on_reading_from_kanji(reading: &dict::Reading<SplitKana>, kanji: char) -> Reading {
     let example_kana = reading.canonical_kana();
-    let kanji_kana = katakana_to_hiragana(&example_kana.mid);
-    let kana_before = katakana_to_hiragana(&example_kana.pre);
+    let kanji_kana = katakana_to_hiragana_in_str(&example_kana.mid);
+    let kana_before = katakana_to_hiragana_in_str(&example_kana.pre);
     let kana = if kana_before.ends_with(['ん', 'っ']) {
         remove_initial_handakuten(&kanji_kana)
     } else {
@@ -141,7 +141,7 @@ fn remove_initial_handakuten(kana: &str) -> String {
 fn non_kun_spelling_and_kana_from_word(
     reading: &dict::Reading<UnsplitKana>,
 ) -> Result<(String, String)> {
-    let kana = katakana_to_hiragana(&reading.canonical_kana().joined());
+    let kana = katakana_to_hiragana_in_str(&reading.canonical_kana().joined());
     let (spelling, kana) = strip_initial_kana(reading.canonical_spelling(), &kana, reading.line)?;
     Ok((spelling.to_string(), kana.to_string()))
 }
@@ -212,7 +212,7 @@ fn kun_splits_from_word_reading(
 ) -> Result<(KunSplit, Vec<KunSplit>)> {
     let spelling = reading.canonical_spelling();
     let (main_spelling, okurigana) = split_okurigana_from_end(spelling, reading.line)?;
-    let kana = katakana_to_hiragana(&reading.canonical_kana().joined());
+    let kana = katakana_to_hiragana_in_str(&reading.canonical_kana().joined());
     let Some(main_kana) = kana.strip_suffix(&okurigana) else {
         return Err(Error::at_line(
             reading.line,
@@ -270,8 +270,12 @@ fn okurigana_after_kanji(word: &str, kanji: char, line: usize) -> Result<String>
     if after_kanji.contains(kanji) {
         return Err(Error::at_line(line, format!("{word} contains {kanji} more than once")));
     }
-    let okurigana: String = after_kanji.chars().take_while(|&c| is_okurigana_char(c)).collect();
-    Ok(katakana_to_hiragana(&okurigana))
+    let okurigana = after_kanji
+        .chars()
+        .take_while(|&c| is_okurigana_char(c))
+        .map(katakana_to_hiragana)
+        .collect();
+    Ok(okurigana)
 }
 
 /// Splits a word into the part before the kana at its end, and that kana converted to
@@ -281,7 +285,7 @@ fn split_okurigana_from_end(word: &str, line: usize) -> Result<(String, String)>
     if main_spelling.is_empty() {
         return Err(Error::at_line(line, format!("{word} is written only in kana")));
     }
-    let okurigana = katakana_to_hiragana(&word[main_spelling.len()..]);
+    let okurigana = katakana_to_hiragana_in_str(&word[main_spelling.len()..]);
     Ok((main_spelling.to_string(), okurigana))
 }
 
@@ -296,7 +300,8 @@ fn strip_initial_kana<'a>(
     if main_spelling.is_empty() {
         return Err(Error::at_line(line, format!("{spelling} is written only in kana")));
     }
-    let initial_kana = katakana_to_hiragana(&spelling[..spelling.len() - main_spelling.len()]);
+    let initial_kana =
+        katakana_to_hiragana_in_str(&spelling[..spelling.len() - main_spelling.len()]);
     match kana.strip_prefix(initial_kana.as_str()) {
         Some(main_kana) => Ok((main_spelling, main_kana)),
         None => Err(Error::at_line(

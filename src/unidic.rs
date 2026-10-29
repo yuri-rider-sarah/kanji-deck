@@ -3,7 +3,7 @@
 
 use crate::decompose::{PartOfSpeech, Word};
 use crate::error::{Error, Result};
-use crate::japanese::katakana_to_hiragana;
+use crate::japanese::katakana_to_hiragana_in_str;
 use std::collections::HashMap;
 use std::collections::hash_map::Entry;
 
@@ -71,8 +71,10 @@ pub fn read_lexicon(text: &str) -> Result<(Vec<Word>, HashMap<Word, PartOfSpeech
         if !is_word_to_decompose(&row) {
             continue;
         }
-        let word =
-            Word { spelling: row.spelling.to_string(), kana: katakana_to_hiragana(row.kana) };
+        let word = Word {
+            spelling: row.spelling.to_string(),
+            kana: katakana_to_hiragana_in_str(row.kana),
+        };
         let row_part_of_speech = row_part_of_speech(&row);
         match lexicon_parts_of_speech.entry(word) {
             Entry::Vacant(entry) => {

@@ -303,7 +303,7 @@ fn check_words_and_kana<K: CheckKana>(
             format!("{joined_kana} is not valid kana for {reading_type} {}", K::KIND_OF_READINGS),
         ));
     }
-    let kana_in_hiragana = katakana_to_hiragana(&joined_kana);
+    let kana_in_hiragana = katakana_to_hiragana_in_str(&joined_kana);
     for &word in words {
         // Check that the word isn't empty and is made up only of Japanese characters.
         if word.is_empty() {
@@ -321,7 +321,7 @@ fn check_words_and_kana<K: CheckKana>(
             }
         }
         // Check that the kana at the start and end of the word matches the reading.
-        if !hiragana_matches(&katakana_to_hiragana(word), &kana_in_hiragana) {
+        if !hiragana_matches(&katakana_to_hiragana_in_str(word), &kana_in_hiragana) {
             errors.push(Error::at_line(
                 line,
                 format!("{word} doesn't match its reading {joined_kana}"),
