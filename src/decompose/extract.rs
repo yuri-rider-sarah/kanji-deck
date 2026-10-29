@@ -96,10 +96,10 @@ fn readings_from_word_reading(
 ) -> Result<Vec<Reading>> {
     match reading_type {
         dict::ReadingType::On | dict::ReadingType::Asian => {
-            Ok(vec![non_kun_reading_from_word(reading, ReadingType::On)])
+            Ok(vec![non_kun_reading_from_word(reading, ReadingType::On)?])
         }
         dict::ReadingType::European => {
-            Ok(vec![non_kun_reading_from_word(reading, ReadingType::Foreign)])
+            Ok(vec![non_kun_reading_from_word(reading, ReadingType::Foreign)?])
         }
         dict::ReadingType::Kun => {
             let (reading_split, variant_splits) = kun_splits_from_word_reading(reading)?;
@@ -125,12 +125,10 @@ fn non_kun_reading_from_kanji(
 fn non_kun_reading_from_word(
     reading: &dict::Reading<UnsplitKana>,
     reading_type: ReadingType,
-) -> Reading {
-    Reading {
-        spelling: reading.canonical_spelling().to_string(),
-        kana: katakana_to_hiragana(&reading.canonical_kana().joined()),
-        reading_type,
-    }
+) -> Result<Reading> {
+    let kana = katakana_to_hiragana(&reading.canonical_kana().joined());
+    let (spelling, kana) = strip_initial_kana(reading.canonical_spelling(), &kana, reading.line)?;
+    Ok(Reading { spelling: spelling.to_string(), kana: kana.to_string(), reading_type })
 }
 
 /// Splits the spelling of a kun reading of `kanji`, and those of its variants.
@@ -243,6 +241,29 @@ fn split_okurigana_from_end(word: &str, line: usize) -> Result<(String, String)>
     Ok((main_spelling.to_string(), okurigana))
 }
 
+/// Removes the kana at the start of a word's spelling from the spelling and its kana, as words
+/// match kana in their spelling before trying readings (お洒落 gives 洒落 しゃれ).
+fn strip_initial_kana<'a>(
+    spelling: &'a str,
+    kana: &'a str,
+    line: usize,
+) -> Result<(&'a str, &'a str)> {
+    let main_spelling = spelling.trim_start_matches(|c| is_hiragana(c) || is_katakana(c));
+    if main_spelling.is_empty() {
+        return Err(Error::at_line(line, format!("{spelling} is written only in kana")));
+    }
+    let initial_kana = katakana_to_hiragana(&spelling[..spelling.len() - main_spelling.len()]);
+    match kana.strip_prefix(initial_kana.as_str()) {
+        Some(main_kana) => Ok((main_spelling, main_kana)),
+        None => Err(Error::at_line(
+            line,
+            format!(
+                "kana {initial_kana} at the start of {spelling} isn't the start of its kana {kana}"
+            ),
+        )),
+    }
+}
+
 /// Whether a character can be part of okurigana: hiragana or katakana other than を,
 /// which in modern Japanese is only used as a particle.
 fn is_okurigana_char(c: char) -> bool {
@@ -283,9 +304,11 @@ fn readings_from_kun_split(
     part_of_speech: Option<PartOfSpeech>,
     line: usize,
 ) -> Result<Vec<Reading>> {
+    let (main_spelling, main_kana) =
+        strip_initial_kana(&split.main_spelling, &split.main_kana, line)?;
     let reading_with_type = |reading_type| Reading {
-        spelling: split.main_spelling.clone(),
-        kana: split.main_kana.clone(),
+        spelling: main_spelling.to_string(),
+        kana: main_kana.to_string(),
         reading_type,
     };
     let first_okurigana = match split.okurigana.chars().next() {
@@ -305,7 +328,7 @@ fn readings_from_kun_split(
         ));
     };
     let mut readings = vec![reading_with_type(ReadingType::KunWithOkurigana(okurigana_start))];
-    let kana_with_okurigana = split.main_kana.clone() + &split.okurigana;
+    let kana_with_okurigana = main_kana.to_string() + &split.okurigana;
     let continuative_kana = match part_of_speech {
         Some(PartOfSpeech::IchidanVerb) => match kana_with_okurigana.strip_suffix('る') {
             Some(stem) => Some(stem.to_string()),
@@ -331,7 +354,7 @@ fn readings_from_kun_split(
     };
     if let Some(continuative_kana) = continuative_kana {
         readings.push(Reading {
-            spelling: split.main_spelling.clone(),
+            spelling: main_spelling.to_string(),
             kana: continuative_kana,
             reading_type: ReadingType::BareKun,
         });
