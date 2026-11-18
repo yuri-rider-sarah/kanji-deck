@@ -181,20 +181,25 @@ fn kun_splits_from_kanji_reading(
     reading: &dict::Reading<SplitKana>,
     kanji: char,
 ) -> Result<(KunSplit, Vec<KunSplit>)> {
-    let okurigana = okurigana_after_kanji(reading.canonical_spelling(), kanji, reading.line)?;
+    let kana_after_kanji =
+        find_kana_after_kanji(reading.canonical_spelling(), kanji, reading.line)?;
+    let main_kana = reading.canonical_kana().mid.clone();
+    let reading_kana = main_kana.clone() + &kana_after_kanji;
     let reading_split = KunSplit {
         main_spelling: kanji.to_string(),
-        main_kana: reading.canonical_kana().mid.clone(),
-        okurigana,
+        main_kana,
+        okurigana: okurigana_from_kana_after_kanji(&kana_after_kanji),
     };
     let variant_splits = reading
         .variants
         .iter()
         .map(|variant| {
             let variant_spelling = variant.canonical_spelling();
-            let variant_okurigana = okurigana_after_kanji(variant_spelling, kanji, reading.line)?;
+            let variant_kana_after_kanji =
+                find_kana_after_kanji(variant_spelling, kanji, reading.line)?;
+            let variant_okurigana = okurigana_from_kana_after_kanji(&variant_kana_after_kanji);
             variant_split(
-                &reading_split,
+                &reading_kana,
                 kanji.to_string(),
                 variant_okurigana,
                 variant_spelling,
@@ -220,6 +225,7 @@ fn kun_splits_from_word_reading(
         ));
     };
     let reading_split = KunSplit { main_spelling, main_kana: main_kana.to_string(), okurigana };
+    let reading_kana = reading_split.main_kana.clone() + &reading_split.okurigana;
     let variant_splits = reading
         .variants
         .iter()
@@ -228,7 +234,7 @@ fn kun_splits_from_word_reading(
             let (variant_main_spelling, variant_okurigana) =
                 split_okurigana_from_end(variant_spelling, reading.line)?;
             variant_split(
-                &reading_split,
+                &reading_kana,
                 variant_main_spelling,
                 variant_okurigana,
                 variant_spelling,
@@ -239,17 +245,16 @@ fn kun_splits_from_word_reading(
     Ok((reading_split, variant_splits))
 }
 
-/// Splits the spelling of a variant of a reading with the split `reading_split`, given the
-/// variant's main spelling and okurigana. The okurigana of the variant has to be the end of
-/// the reading's main kana and okurigana, and the rest of them is the variant's main kana.
+/// Splits the spelling of a variant of a reading whose kana from the start of its main part
+/// is `reading_kana`, given the variant's main spelling and okurigana. The okurigana of
+/// the variant has to be the end of that kana, and the rest of it is the variant's main kana.
 fn variant_split(
-    reading_split: &KunSplit,
+    reading_kana: &str,
     main_spelling: String,
     okurigana: String,
     variant_spelling: &str,
     line: usize,
 ) -> Result<KunSplit> {
-    let reading_kana = reading_split.main_kana.clone() + &reading_split.okurigana;
     match reading_kana.strip_suffix(&okurigana) {
         Some(main_kana) => {
             Ok(KunSplit { main_spelling, main_kana: main_kana.to_string(), okurigana })
@@ -261,21 +266,26 @@ fn variant_split(
     }
 }
 
-/// The kana directly after `kanji` in a word, converted to hiragana. Fails if the kanji
-/// isn't in the word exactly once, as it's then unclear where the okurigana is.
-fn okurigana_after_kanji(word: &str, kanji: char, line: usize) -> Result<String> {
+/// The kana directly after `kanji` in a word, converted to hiragana. Fails if the
+/// kanji isn't in the word exactly once, as it's then unclear where the okurigana is.
+fn find_kana_after_kanji(word: &str, kanji: char, line: usize) -> Result<String> {
     let Some((_, after_kanji)) = word.split_once(kanji) else {
         return Err(Error::at_line(line, format!("{word} doesn't contain {kanji}")));
     };
     if after_kanji.contains(kanji) {
         return Err(Error::at_line(line, format!("{word} contains {kanji} more than once")));
     }
-    let okurigana = after_kanji
+    let kana = after_kanji
         .chars()
-        .take_while(|&c| is_okurigana_char(c))
+        .take_while(|&c| is_hiragana(c) || is_katakana(c))
         .map(katakana_to_hiragana)
         .collect();
-    Ok(okurigana)
+    Ok(kana)
+}
+
+/// The okurigana at the start of the kana after a kanji.
+fn okurigana_from_kana_after_kanji(kana_after_kanji: &str) -> String {
+    kana_after_kanji.chars().take_while(|&c| is_okurigana_char(c)).collect()
 }
 
 /// Splits a word into the part before the kana at its end, and that kana converted to
@@ -314,9 +324,10 @@ fn strip_initial_kana<'a>(
 }
 
 /// Whether a character can be part of okurigana: hiragana or katakana other than を,
-/// which in modern Japanese is only used as a particle.
+/// which in modern Japanese is only used as a particle, and ぢ and づ, which can only start
+/// the second part of a compound.
 fn is_okurigana_char(c: char) -> bool {
-    (is_hiragana(c) || is_katakana(c)) && !matches!(c, 'を' | 'ヲ')
+    (is_hiragana(c) || is_katakana(c)) && !matches!(c, 'を' | 'ヲ' | 'ぢ' | 'ヂ' | 'づ' | 'ヅ')
 }
 
 /// The readings from the split spellings of a kun reading and its variants. The part of

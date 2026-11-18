@@ -5,10 +5,11 @@ use crate::japanese::*;
 use std::collections::HashMap;
 use std::str::Chars;
 
-/// A reading along with its normalized spelling.
+/// A reading along with its normalized spelling and kana.
 struct NormalizedReading<'a> {
     reading: &'a Reading,
     spelling: String,
+    kana: String,
 }
 
 /// The readings that words are decomposed into, indexed for matching them.
@@ -49,10 +50,12 @@ pub fn index_readings(readings: &[Reading]) -> ReadingIndex<'_> {
         let Some(first_char) = spelling.chars().next() else {
             continue;
         };
-        readings_by_first_char
-            .entry(first_char)
-            .or_default()
-            .push(NormalizedReading { spelling, reading });
+        let kana = normalize_kana(&reading.kana);
+        readings_by_first_char.entry(first_char).or_default().push(NormalizedReading {
+            reading,
+            spelling,
+            kana,
+        });
     }
     ReadingIndex { readings_by_first_char }
 }
@@ -62,23 +65,38 @@ pub fn can_decompose_word(word: &Word, reading_index: &ReadingIndex) -> bool {
     let Some(spelling) = normalize_spelling(&word.spelling) else {
         return false;
     };
-    let kana = WordKana { rest: word.kana.chars(), previous: None };
-    can_decompose(spelling.chars(), kana, &reading_index.readings_by_first_char)
+    let kana = normalize_kana(&word.kana);
+    let word_kana = WordKana { rest: kana.chars(), previous: None };
+    can_decompose(spelling.chars(), word_kana, &reading_index.readings_by_first_char)
 }
 
-/// Normalizes a spelling by converting katakana to hiragana and replacing each 々
-/// with the kanji before it. `None` if a 々 doesn't come after a kanji.
+/// Normalizes a spelling by converting katakana to hiragana, merging the yotsugana,
+/// and replacing each 々 with the kanji before it. `None` if a 々 doesn't come after a kanji.
 fn normalize_spelling(spelling: &str) -> Option<String> {
     let mut normalized_spelling = String::new();
-    for c in spelling.chars().map(katakana_to_hiragana) {
+    for c in spelling.chars() {
         if c == '々' {
             let previous = normalized_spelling.chars().next_back().filter(|&c| is_kanji(c))?;
             normalized_spelling.push(previous);
         } else {
-            normalized_spelling.push(c);
+            normalized_spelling.push(merge_yotsugana(katakana_to_hiragana(c)));
         }
     }
     Some(normalized_spelling)
+}
+
+/// Normalizes hiragana by merging the yotsugana.
+fn normalize_kana(kana: &str) -> String {
+    kana.chars().map(merge_yotsugana).collect()
+}
+
+/// Replaces ぢ with じ and づ with ず.
+fn merge_yotsugana(c: char) -> char {
+    match c {
+        'ぢ' => 'じ',
+        'づ' => 'ず',
+        c => c,
+    }
 }
 
 /// Whether the rest of a word's normalized spelling and the rest of its kana can be decomposed
@@ -113,7 +131,7 @@ fn can_decompose(
             return false;
         };
         let mut kana_rest = kana.clone();
-        match_reading(&mut kana_rest, reading.reading)
+        match_reading(&mut kana_rest, reading)
             && okurigana_fits(reading.reading.okurigana_start, spelling_rest.chars().next())
             && can_decompose(spelling_rest.chars(), kana_rest, readings_by_first_char)
     })
@@ -121,8 +139,9 @@ fn can_decompose(
 
 /// Try to match a reading's kana at the start of the given kana with the changes
 /// the reading allows, advancing past it.
-fn match_reading(word_kana: &mut WordKana, reading: &Reading) -> bool {
-    let mut reading_kana = reading.kana.chars();
+fn match_reading(word_kana: &mut WordKana, normalized_reading: &NormalizedReading) -> bool {
+    let reading = normalized_reading.reading;
+    let mut reading_kana = normalized_reading.kana.chars();
     let Some(first_reading_char) = reading_kana.next() else {
         return true;
     };
@@ -184,7 +203,8 @@ fn okurigana_fits(okurigana_start: Option<OkuriganaStart>, c: Option<char>) -> b
     }
 }
 
-/// Adds a dakuten to a hiragana character. `None` if there's no corresponding character.
+/// Adds a dakuten to a hiragana character, giving じ and ず for ち and つ, as decomposition
+/// merges the yotsugana. `None` if there's no corresponding character.
 fn add_dakuten(c: char) -> Option<char> {
     let with_dakuten = match c {
         'か' => 'が',
@@ -198,8 +218,8 @@ fn add_dakuten(c: char) -> Option<char> {
         'せ' => 'ぜ',
         'そ' => 'ぞ',
         'た' => 'だ',
-        'ち' => 'ぢ',
-        'つ' => 'づ',
+        'ち' => 'じ',
+        'つ' => 'ず',
         'て' => 'で',
         'と' => 'ど',
         'は' => 'ば',

@@ -79,7 +79,7 @@ fn okurigana_start_from_kana(c: char) -> Option<OkuriganaStart> {
         'さ' | 'し' | 'す' | 'せ' | 'そ' => OkuriganaStart::S,
         'ざ' | 'じ' | 'ず' | 'ぜ' | 'ぞ' => OkuriganaStart::Z,
         'た' | 'ち' | 'つ' | 'て' | 'と' => OkuriganaStart::T,
-        'だ' | 'ぢ' | 'づ' | 'で' | 'ど' => OkuriganaStart::D,
+        'だ' | 'で' | 'ど' => OkuriganaStart::D,
         'な' | 'に' | 'ぬ' | 'ね' | 'の' => OkuriganaStart::N,
         'は' | 'ひ' | 'ふ' | 'へ' | 'ほ' => OkuriganaStart::H,
         'ば' | 'び' | 'ぶ' | 'べ' | 'ぼ' => OkuriganaStart::B,
