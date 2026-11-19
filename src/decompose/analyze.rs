@@ -23,6 +23,8 @@ pub struct ReadingIndex<'a> {
 struct WordKana<'a> {
     rest: Chars<'a>,
     previous: Option<char>,
+    /// Whether the word is a suffix.
+    is_suffix: bool,
 }
 
 impl WordKana<'_> {
@@ -60,13 +62,14 @@ pub fn index_readings(readings: &[Reading]) -> ReadingIndex<'_> {
     ReadingIndex { readings_by_first_char }
 }
 
-/// Whether a word can be decomposed into the indexed readings.
-pub fn can_decompose_word(word: &Word, reading_index: &ReadingIndex) -> bool {
+/// Whether a word can be decomposed into the indexed readings. Suffixes (`is_suffix`) can
+/// have rendaku and handakuten at their start, as they follow another word.
+pub fn can_decompose_word(word: &Word, is_suffix: bool, reading_index: &ReadingIndex) -> bool {
     let Some(spelling) = normalize_spelling(&word.spelling) else {
         return false;
     };
     let kana = normalize_kana(&word.kana);
-    let word_kana = WordKana { rest: kana.chars(), previous: None };
+    let word_kana = WordKana { rest: kana.chars(), previous: None, is_suffix };
     can_decompose(spelling.chars(), word_kana, &reading_index.readings_by_first_char)
 }
 
@@ -146,15 +149,16 @@ fn match_reading(word_kana: &mut WordKana, normalized_reading: &NormalizedReadin
         return true;
     };
     let previous_kana = word_kana.previous;
+    let is_suffix_start = previous_kana.is_none() && word_kana.is_suffix;
     let Some(first_word_kana_char) = word_kana.next() else {
         return false;
     };
     let first_kana_matches = first_word_kana_char == first_reading_char
         || (reading.rendaku
-            && previous_kana.is_some()
+            && (previous_kana.is_some() || is_suffix_start)
             && add_dakuten(first_reading_char) == Some(first_word_kana_char))
         || (reading.handakuten
-            && matches!(previous_kana, Some('っ' | 'ん'))
+            && (matches!(previous_kana, Some('っ' | 'ん')) || is_suffix_start)
             && add_handakuten(first_reading_char) == Some(first_word_kana_char));
     if !first_kana_matches {
         return false;

@@ -4,8 +4,20 @@
 use crate::decompose::{PartOfSpeech, Word};
 use crate::error::{Error, Result};
 use crate::japanese::{is_katakana, katakana_to_hiragana_in_str};
-use std::collections::HashMap;
 use std::collections::hash_map::Entry;
+use std::collections::{HashMap, HashSet};
+
+/// What decomposition needs from the lexicon.
+pub struct Lexicon {
+    /// Every word to decompose, in the order of the file.
+    pub words: Vec<Word>,
+    /// The words that are suffixes (接尾辞). A word is a suffix if any of its rows is one.
+    pub suffixes: HashSet<Word>,
+    /// The parts of speech of the words that are ichidan, godan, kuru or suru verbs,
+    /// or adjectives. Words whose rows conflict are left out, like words of other parts
+    /// of speech.
+    pub parts_of_speech: HashMap<Word, PartOfSpeech>,
+}
 
 /// The number of fields on each line of the lexicon.
 const FIELD_COUNT: usize = 33;
@@ -51,16 +63,14 @@ struct Row<'a> {
     modern_kana: &'a str,
 }
 
-/// Reads the lexicon, returning every word to decompose in the order of the file, and the
-/// parts of speech of the words that are ichidan, godan, kuru or suru verbs, or adjectives.
-/// Words whose rows conflict are left out of the parts of speech, like words of other parts
-/// of speech.
-/// Words are spelling and kana pairs, so a spelling read in two ways gives two words.
-pub fn read_lexicon(text: &str) -> Result<(Vec<Word>, HashMap<Word, PartOfSpeech>)> {
+/// Reads the lexicon. Words are spelling and kana pairs, so a spelling read in two ways
+/// gives two words.
+pub fn read_lexicon(text: &str) -> Result<Lexicon> {
     let mut reader =
         csv::ReaderBuilder::new().has_headers(false).flexible(true).from_reader(text.as_bytes());
     let mut record = csv::StringRecord::new();
     let mut words = Vec::new();
+    let mut suffixes = HashSet::new();
     let mut lexicon_parts_of_speech = HashMap::new();
     loop {
         // The line the next record starts on.
@@ -78,6 +88,9 @@ pub fn read_lexicon(text: &str) -> Result<(Vec<Word>, HashMap<Word, PartOfSpeech
             spelling: row.spelling.to_string(),
             kana: katakana_to_hiragana_in_str(row.kana),
         };
+        if row.pos1 == "接尾辞" {
+            suffixes.insert(word.clone());
+        }
         let row_part_of_speech = row_part_of_speech(&row);
         match lexicon_parts_of_speech.entry(word) {
             Entry::Vacant(entry) => {
@@ -96,7 +109,7 @@ pub fn read_lexicon(text: &str) -> Result<(Vec<Word>, HashMap<Word, PartOfSpeech
                 .map(|part_of_speech| (word, part_of_speech))
         })
         .collect();
-    Ok((words, parts_of_speech))
+    Ok(Lexicon { words, suffixes, parts_of_speech })
 }
 
 /// Reads the fields of a record of the lexicon that decomposition needs.

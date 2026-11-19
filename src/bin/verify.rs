@@ -26,11 +26,11 @@ fn run() -> Result<(), Vec<FileError>> {
         parser::parse(&text).map_err(|error| FileError::contents(DICTIONARY_PATH, error))?;
     let entries =
         dict::load(nodes).map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
-    let lexicon = std::fs::read_to_string(LEXICON_PATH)
+    let lexicon_text = std::fs::read_to_string(LEXICON_PATH)
         .map_err(|error| FileError::io(LEXICON_PATH, FileAction::Read, error))?;
-    let (words, parts_of_speech) =
-        unidic::read_lexicon(&lexicon).map_err(|error| FileError::contents(LEXICON_PATH, error))?;
-    let readings = decompose::extract_readings(&entries, &parts_of_speech)
+    let lexicon = unidic::read_lexicon(&lexicon_text)
+        .map_err(|error| FileError::contents(LEXICON_PATH, error))?;
+    let readings = decompose::extract_readings(&entries, &lexicon.parts_of_speech)
         .map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
     let known_kanji: HashSet<char> = entries
         .iter()
@@ -41,9 +41,10 @@ fn run() -> Result<(), Vec<FileError>> {
         .copied()
         .collect();
     let reading_index = decompose::index_readings(&readings);
-    for word in &words {
+    for word in &lexicon.words {
+        let is_suffix = lexicon.suffixes.contains(word);
         if is_word_to_decompose(&word.spelling, &known_kanji)
-            && !decompose::can_decompose_word(word, &reading_index)
+            && !decompose::can_decompose_word(word, is_suffix, &reading_index)
         {
             println!("{} {}", word.spelling, word.kana);
         }
