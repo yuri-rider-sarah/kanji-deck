@@ -884,7 +884,9 @@ kanji 自
         reading #core | pri-spell 自ら | *みずか*ら || oneself
     kun-group
         reading | pri-spell 自ずと | *おの*ずと || on its own
+            canonical 自ず *おの*ず
             variant rare:自と
+                canonical 自
 kanji 笑
     on-group
         reading #core | pri-spell 苦笑 | ク*ショウ* || bitter smile
@@ -915,6 +917,7 @@ kanji 様
     kun-group
         reading #core | pri-spell 様々 | *さま*ざま || various
         reading | pri-kanji-spell ざまはない common:様はない | *ざま*はない || unsightly
+            canonical 様 *ざま*
 kanji 話
     on-group
         reading #core | pri-spell 会話 | カイ*ワ* || conversation
@@ -924,7 +927,7 @@ kanji 話
 word 四方山話
     kun-group
         reading #core | pri-spell 四方山話 | よもやまばなし || talk about various topics
-            canonical 四方山 よもやま
+            canonical 四方 よも
 kanji 入
     on-group
         reading #core | pri-spell 入場 | *ニュウ*ジョウ || entry
@@ -992,6 +995,7 @@ kanji 当
         reading #core | pri-spell 当てる | *あ*てる || to hit (tr.)
     kun-group
         reading | pri-kanji-spell まさに rare:当に | *まさ*に || really should
+            canonical 当 *まさ*
 kanji 体
     on-group
         reading #core | pri-spell 具体 | グ*タイ* || concreteness
@@ -1028,6 +1032,7 @@ kanji 全
     kun-group
         reading #core | pri-kanji-spell まったく common:全く | *まった*く || completely
         reading | pri-spell 全うする | *まっと*うする || to accomplish
+            canonical 全う *まっと*う
         reading | pri-kanji-spell まったい common:全い | *まった*い || complete
 kanji 知
     on-group
@@ -1070,6 +1075,7 @@ kanji 彼
         reading #core | pri-spell 彼 | *かれ* || he
         reading | pri-kanji-spell かの rare:彼の | *か*の || that
         reading | pri-kanji-spell 何もかも rare:何も彼も | なにも*か*も || about everything
+            canonical 彼 *か*
     kun-group
         reading | pri-kanji-spell そこかしこ rare:其処彼処 | そこ*かし*こ || here and there
     kun-group
@@ -1441,6 +1447,7 @@ kanji 好
 word 好事家
     on-group
         reading #core | pri-spell 好事家 | コウズカ || person with strange or refined taste
+            canonical 好事 コウズ
 kanji 考
     on-group
         reading #core | pri-spell 思考 | シ*コウ* || thinking
@@ -1862,6 +1869,7 @@ kanji 代
 word 身代金
     kun-group
         reading #core | pri-spell 身代金 | みのしろきん || ransom
+            canonical 身代 みのしろ
 word 月代
     kun-group
         reading #core | pri-spell 月代 | さかやき || shaved top part of the head (historical)
@@ -2059,6 +2067,7 @@ kanji 直 part:1
 kanji 直 part:2
     kun-group
         reading | pri-spell 直ちに | *ただ*ちに || at once
+            canonical 直ち *ただ*ち
     kun-group
         reading | pri-kanji-spell すぐ rare:直ぐ | *す*ぐ || immediately
             variant rare:直
@@ -2082,6 +2091,7 @@ kanji 父
         reading #core | pri-spell 父 | *ちち* || father
     kun-group
         reading #core | pri-spell 父さん | *とう*さん || father
+            canonical 父 *とう*
 word 小父さん
     kun-group
         reading #core | pri-spell 小父さん | おじさん || old man
@@ -2342,6 +2352,7 @@ kanji 母
         reading #core | pri-spell 母 | *はは* || mother
     kun-group
         reading #core | pri-spell 母さん | *かあ*さん || mother
+            canonical 母 *かあ*
     kun-group
         reading | pri-spell 母屋 | *おも*や || main building of a manor
 word 小母さん
@@ -2830,9 +2841,11 @@ word 他愛ない
 word 他人事
     kun-group
         reading #core | pri-spell 他人事 | ひとごと || other people's affairs
+            canonical 他人 ひと
 word 他人様
     kun-group
         reading #core | sec-spell 人様 common:他人様 | ひとさま || other people
+            canonical 他人 ひと
 kanji 県
     on-group
         reading #core | pri-spell 県 | *ケン* || prefecture
@@ -3199,6 +3212,7 @@ kanji 加
         reading #core | pri-spell 加える | *くわ*える || to add
         reading #core | pri-spell 加わる | *くわ*わる || to be added
         reading | pri-spell 加うるに | *くわ*うるに || besides
+            canonical 加うる *くわ*うる
 kanji 転
     on-group
         reading #core | pri-spell 回転 | カイ*テン* || rotation
@@ -3412,6 +3426,7 @@ kanji 位
 word 三位一体
     on-group
         reading #core | pri-spell 三位一体 | サンミイッタイ || Holy Trinity
+            canonical 三位 サンミ
 kanji 備
     on-group
         reading #core | pri-spell 設備 | セツ*ビ* || equipment
@@ -3420,6 +3435,7 @@ kanji 備
         reading #core | pri-spell 備わる | *そな*わる || to be equipped
     kun-group
         reading | sec-kanji-spell つぶさに common:具に rare:備に | *つぶさ*に || in detail
+            canonical 備 *つぶさ*
 kanji 説
     on-group
         reading #core | pri-spell 説明 | *セツ*メイ || explanation
@@ -4606,6 +4622,7 @@ kanji 未
     kun-group
         reading #core | pri-kanji-spell まだ rare:未だ | *ま*だ || still
         reading #core | pri-spell 未だに | *いま*だに || still
+            canonical 未だ *いま*だ
     kun-group
         reading | pri-spell 未 | *ひつじ* || Sheep (Zodiac)
 word 未通女
@@ -4805,6 +4822,7 @@ word 土産
 word 道産子
     on-group
         reading #core | pri-spell 道産子 | ドサンコ || horse native to Hokkaido; person native to Hokkaido
+            canonical 道産 ドサン
 word 産土神
     kun-group
         reading #core | pri-spell 産土神 | うぶすながみ || birthplace's guardian deity (Shinto)
@@ -4815,7 +4833,9 @@ kanji 徒
         reading #core | pri-spell 生徒 | セイ*ト* || student
     kun-group
         reading | pri-kanji-spell いたずらに common:徒に | *いたずら*に || in vain
+            canonical 徒 *いたずら*
             variant common:徒らに
+                canonical 徒ら
     kun-group
         reading | pri-spell 徒 | *あだ* || vain
     kun-group
@@ -5401,6 +5421,7 @@ kanji 具
         reading | sec-spell 備わる rare:具わる | *そな*わる || to be equipped
     kun-group
         reading | pri-kanji-spell つぶさに common:具に | *つぶさ*に || in detail
+            canonical 具 *つぶさ*
 kanji 逆
     on-group
         reading #core | pri-spell 逆 | *ギャク* || reverse
@@ -5469,6 +5490,7 @@ kanji 政
 word 太政官
     on-group
         reading #core | pri-spell 太政官 | ダイジョウカン || Daijōkan (office) (historical)
+            canonical 太政 ダイジョウ
 word 政所
     kun-group
         reading #core | pri-spell 政所 | まんどころ || mandokoro (official) (historical)
@@ -5633,6 +5655,7 @@ kanji 更
         reading #core | pri-spell 変更 | ヘン*コウ* || change
     kun-group
         reading #core | pri-kanji-spell さらに common:更に | *さら*に || moreover
+            canonical 更 *さら*
         reading | pri-spell 更地 | *さら*ち || empty lot
     kun-group
         reading #core | pri-spell 更ける | *ふ*ける || to get late
@@ -5815,6 +5838,7 @@ kanji 将
         reading | pri-spell 中将 | チュウ*ジョウ* || lieutenant general
     kun-group
         reading | pri-kanji-spell まさに rare:将に | *まさ*に || just about to
+            canonical 将 *まさ*
 word 女将
     kun-group
         reading #core | pri-spell 女将 | おかみ || proprietress (of a traditional inn or restaurant)
@@ -6250,6 +6274,7 @@ kanji 伸
     kun-group
         reading | pri-spell 伸す | *の*す || to extend
         reading | pri-kanji-spell のるかそるか common:伸るか反るか | *の*るかそるか || all or nothing
+            canonical 伸る *の*る
 kanji 刺
     on-group
         reading #core | pri-spell 刺繍 | *シ*シュウ || embroidery
@@ -6498,6 +6523,7 @@ kanji 妙
         reading #core | pri-spell 絶妙 | ゼツ*ミョウ* || exquisite
     kun-group
         reading | pri-spell 妙なる | *たえ*なる || exquisite
+            canonical 妙 *たえ*
 kanji 狙
     on-group
         reading #core | pri-spell 狙撃 | *ソ*ゲキ || sniping
@@ -6572,6 +6598,7 @@ kanji 晴
 word 五月晴れ
     kun-group
         reading #core | pri-spell 五月晴れ | さつきばれ || fine weather in May
+            canonical 五月 さつき
 word 天晴れ
     kun-group
         reading #core | pri-kanji-spell あっぱれ common:天晴れ | あっぱれ || splendid
@@ -6771,6 +6798,7 @@ kanji 互
         reading #core | pri-spell 互い | *たが*い || each other
     kun-group
         reading | pri-spell 互に | *かたみ*に || mutually (archaic)
+            canonical 互 *かたみ*
 kanji 率
     on-group
         reading #core | pri-spell 比率 | ヒ*リツ* || ratio
@@ -7060,6 +7088,7 @@ kanji 奇
         reading #core | pri-spell 奇妙 | *キ*ミョウ || strange
     kun-group
         reading | pri-spell 奇しくも | *く*しくも || strangely
+            canonical 奇しく *く*しく
 word 数寄
     on-group
         reading #core | pri-spell 数寄 | スキ || refined taste
@@ -7188,6 +7217,7 @@ kanji 固
         reading | pri-spell 固める | *かた*める || to harden
     kun-group
         reading | sec-kanji-spell もとより common:元より rare:固より | *もと*より || from the beginning
+            canonical 固 *もと*
 kanji 緊
     on-group
         reading #core | pri-spell 緊張 | *キン*チョウ || tension
@@ -7736,6 +7766,7 @@ word 雪崩れる
 word 済し崩し的に
     kun-group
         reading #core | pri-kanji-spell なし崩し的に rare:済し崩し的に | なしくずしてきに || gradually (e.g. of destruction)
+            canonical 済し崩し なしくずし
 kanji 各
     on-group
         reading #core | pri-spell 各地 | *カク*チ || every place
@@ -8070,7 +8101,9 @@ kanji 既
         reading #core | pri-spell 既存 | *キ*ソン || existing
     kun-group
         reading #core | pri-kanji-spell すでに common:既に | *すで*に || already
+            canonical 既 *すで*
         reading | sec-kanji-spell すんでのところで common:寸でのところで rare:既の所で | *すんで*のところで || almost, barely
+            canonical 既 *すんで*
 kanji 訪
     on-group
         reading #core | pri-spell 訪問 | *ホウ*モン || visit
@@ -8220,6 +8253,7 @@ kanji 省
 word 刑部省
     on-group
         reading #core | pri-spell 刑部省 | ギョウブショウ || Ministry of Justice (historical)
+            canonical 刑部 ギョウブ
 kanji 秒
     on-group
         reading #core | pri-spell 秒 | *ビョウ* || second
@@ -8438,6 +8472,7 @@ kanji 儀
 word お内儀さん
     kun-group
         reading #core | pri-kanji-spell おかみさん common:お内儀さん | おかみさん || missus
+            canonical お内儀 おかみ
 kanji 威
     on-group
         reading #core | pri-spell 威力 | *イ*リョク || power
@@ -8881,6 +8916,7 @@ kanji 倉
 word 校倉造
     kun-group
         reading #core | pri-spell 校倉造 | あぜくらづくり || ancient architectural style using interlocked triangular logs
+            canonical 校倉 あぜくら
 kanji 狂
     on-group
         reading #core | pri-spell 狂気 | *キョウ*キ || madness
@@ -9134,6 +9170,7 @@ kanji 巡
         reading #core | pri-spell 巡らす | *めぐ*らす || to enclose
     kun-group
         reading | pri-spell お巡りさん | お*まわ*りさん || police officer
+            canonical お巡り お*まわ*り
 kanji 祝
     on-group
         reading #core | pri-spell 祝日 | *シュク*ジツ || public holiday
@@ -9417,6 +9454,7 @@ kanji 延
         reading #core | sec-spell 伸ばす common:延ばす | *の*ばす || to extend, to postpone
     kun-group
         reading | pri-kanji-spell ひいては rare:延いては | *ひ*いては || and by extension
+            canonical 延いて *ひ*いて
 kanji 栄
     on-group
         reading #core | pri-spell 繁栄 | ハン*エイ* || prosperity
@@ -9550,10 +9588,12 @@ kanji 祖
 word 祖父さん
     kun-group
         reading #core | pri-kanji-spell じいさん common:祖父さん | じいさん || grandfather
+            canonical 祖父 じい
         reading #regular | pri-spell 祖父 | ソフ || grandfather
 word 祖母さん
     kun-group
         reading #core | pri-kanji-spell ばあさん common:祖母さん | ばあさん || grandmother
+            canonical 祖母 ばあ
         reading #regular | pri-spell 祖母 | ソボ || grandmother
 kanji 嫁
     on-group
@@ -9925,6 +9965,7 @@ kanji 煙
         reading | pri-spell 煙る | *けむ*る || to smoke
         reading | pri-spell 煙い | *けむ*い || smoky
         reading | pri-spell 煙に巻く | *けむ*にまく || to confuse
+            canonical 煙 *けむ*
 word 煙管
     asian-group
         reading #core | pri-spell 煙管 | キセル || kiseru (smoking pipe)
@@ -10892,6 +10933,7 @@ kanji 農
 word 加農砲
     european-group
         reading #core | pri-kanji-spell カノン砲 rare:加農砲 | カノンホウ || cannon
+            canonical 加農 カノン
 kanji 忠
     on-group
         reading #core | pri-spell 忠実 | *チュウ*ジツ || faithful
@@ -12471,6 +12513,7 @@ kanji 妄
         reading | pri-spell 妄説 | *ボウ*セツ || fallacy
     kun-group
         reading | pri-kanji-spell みだりに rare:妄りに | *みだ*りに || without reason, indiscriminately
+            canonical 妄り *みだ*り
 kanji 揉
     kun-group
         reading #core | pri-spell 揉む | *も*む || to knead, to rub
@@ -12662,7 +12705,9 @@ kanji 徐
         reading #core | pri-spell 徐々に | *ジョ*ジョニ || gradually, slowly
     kun-group
         reading | pri-kanji-spell おもむろに common:徐に | *おもむろ*に || slowly; abruptly (nonstandard)
+            canonical 徐 *おもむろ*
             variant rare:徐ろに
+                canonical 徐ろ
 kanji 罠
     kun-group
         reading #core | pri-spell 罠 | *わな* || trap
@@ -13894,6 +13939,7 @@ kanji 兎
     kun-group
         reading #core | pri-spell 兎 | *うさぎ* || rabbit
         reading | pri-spell 兎の毛 | *う*のけ || slight amount
+            canonical 兎 *う*
 kanji 萌
     on-group
         reading #core | pri-spell 萌芽 | *ホウ*ガ || sprout
@@ -13975,6 +14021,7 @@ kanji 偏
         reading #core | pri-spell 偏る | *かたよ*る || to lean
     kun-group
         reading | pri-kanji-spell ひとえに common:偏に | *ひとえ*に || solely
+            canonical 偏 *ひとえ*
 kanji 兆
     on-group
         reading #core | pri-spell 兆候 | *チョウ*コウ || sign, omen
@@ -14126,6 +14173,7 @@ word 付喪神
     kun-group
         reading #core | pri-spell 付喪神 | つくもがみ || tsukumogami (spirit)
         reading | sec-spell 付喪神 common:九十九神 | つくもがみ || tsukumogami (spirit)
+            canonical 九十九 つくも
 kanji 捻
     on-group
         reading #core | pri-spell 捻挫 | *ネン*ザ || sprain
@@ -14293,6 +14341,7 @@ kanji 疾
     kun-group
         reading | pri-spell 疾く | *と*く || quickly
         reading | pri-kanji-spell とうに rare:疾うに | *と*うに || long ago
+            canonical 疾う *と*う
     kun-group
         reading | sec-kanji-spell やましい common:疚しい rare:疾しい | *やま*しい || feeling guilty
 word 疾風
@@ -14690,6 +14739,7 @@ kanji 頻
         reading #core | pri-spell 頻繁 | *ヒン*パン || frequent
     kun-group
         reading | pri-kanji-spell しきりに common:頻りに | *しき*りに || incessantly
+            canonical 頻り *しき*り
 kanji 仇
     on-group
         reading #core | pri-spell 仇敵 | *キュウ*テキ || enemy
@@ -15194,6 +15244,7 @@ kanji 紐
 word 真田紐
     kun-group
         reading #core | pri-spell 真田紐 | さなだひも || braided cord
+            canonical 真田 さなだ
 kanji 辻
     kun-group
         reading #core | pri-spell 辻 | *つじ* || crossroads
@@ -15445,6 +15496,7 @@ kanji 嘉
         reading #core | pri-spell 嘉納 | *カ*ノウ || accepting with pleasure
     kun-group
         reading #core | pri-spell 嘉する | *よみ*する || to praise
+            canonical 嘉 *よみ*
 kanji 枢
     on-group
         reading #core | pri-spell 中枢 | チュウ*スウ* || pivot
@@ -15930,6 +15982,7 @@ word 猪口
 word 猪牙舟
     kun-group
         reading #core | pri-spell 猪牙舟 | ちょきぶね || chokibune (boat)
+            canonical 猪牙 ちょき
 kanji 槽
     on-group
         reading #core | pri-spell 水槽 | スイ*ソウ* || water tank
@@ -16259,6 +16312,7 @@ kanji 姐
         reading #core | sec-spell 姉 rare:姐 | *あね* || elder sister
     kun-group
         reading #core | sec-spell 姉さん common:姐さん | *ねえ*さん || elder sister
+            canonical 姐 *ねえ*
 kanji 訟
     on-group
         reading #core | pri-spell 訴訟 | ソ*ショウ* || lawsuit
@@ -16943,6 +16997,7 @@ kanji 耶
 word 阿頼耶識
     on-group
         reading #core | pri-spell 阿頼耶識 | アラヤシキ || ālaya-vijñāna (basic consciousness in Buddhism)
+            canonical 阿頼耶 アラヤ
 kanji 循
     on-group
         reading #core | pri-spell 循環 | *ジュン*カン || circulation
@@ -17212,6 +17267,7 @@ kanji 楠
     kun-group
         reading #core | pri-spell 楠 | *くすのき* || camphor tree
         reading | sec-spell 楠 rare:楠の木 | *くす*のき || camphor tree
+            canonical 楠 *くす*
 kanji 墟
     on-group
         reading #core | pri-spell 廃墟 | ハイ*キョ* || ruins
@@ -17918,6 +17974,7 @@ kanji 弛
         reading #core | sec-spell 緩める rare:弛める | *ゆる*める || to loosen (tr.)
     kun-group
         reading | pri-kanji-spell たゆみない common:弛みない | *たゆ*みない || unceasing
+            canonical 弛み *たゆ*み
     kun-group
         reading | pri-kanji-spell 中だるみ common:中弛み | なか*だる*み || slump
 kanji 櫛
@@ -18003,6 +18060,7 @@ kanji 忽
         reading #core | pri-kanji-spell たちまち common:忽ち | *たちま*ち || instantly
     kun-group
         reading | pri-kanji-spell ゆるがせにする common:忽せにする | *ゆるが*せにする || to be negligent
+            canonical 忽せ *ゆるが*せ
 kanji 雁
     on-group
         reading #core | pri-spell 雁 | *ガン* || wild goose
@@ -18529,6 +18587,7 @@ kanji 濫
         reading #core | pri-spell 氾濫 | ハン*ラン* || overflow
     kun-group
         reading | sec-kanji-spell みだりに rare:妄りに rare:濫りに | *みだ*りに || without reason, indiscriminately
+            canonical 濫り *みだ*り
 kanji 棍
     on-group
         reading #core | pri-spell 棍棒 | *コン*ボウ || cudgel
@@ -19165,6 +19224,7 @@ kanji 悉
         reading #core | pri-kanji-spell ことごとく common:悉く | *ことごと*く || altogether
     kun-group
         reading | sec-kanji-spell つぶさに rare:備に rare:悉に | *つぶさ*に || in detail
+            canonical 悉 *つぶさ*
 word 菖蒲
     introduces 菖
     on-group
@@ -20442,6 +20502,7 @@ word 蟷螂
     introduces 蟷螂
     on-group
         reading #core | pri-spell 蟷螂の斧 | トウロウノオノ || reckless resistance against a stronger enemy
+            canonical 蟷螂 トウロウ
     kun-group
         reading | pri-kanji-spell カマキリ common:蟷螂 | かまきり || praying mantis
 kanji 佩
@@ -20630,6 +20691,7 @@ kanji 已
         reading | sec-kanji-spell やめる rare:止める rare:已める | *や*める || to stop (tr.)
     kun-group
         reading | sec-kanji-spell すでに common:既に rare:已に | *すで*に || already
+            canonical 已 *すで*
 kanji 溌
     on-group
         reading #core | pri-spell 溌剌 | *ハツ*ラツ || lively
@@ -20836,6 +20898,7 @@ kanji 竟
         reading #core | pri-spell 畢竟 | ヒッ*キョウ* || in the end
     kun-group
         reading | sec-kanji-spell ついに common:遂に rare:竟に | *つい*に || finally
+            canonical 竟 *つい*
 word 究竟
     on-group
         reading #core | pri-spell 究竟 | クッキョウ || in the end
@@ -23794,6 +23857,7 @@ kanji 筺
 kanji 蛻
     kun-group
         reading #core | pri-kanji-spell もぬけの殻 rare:蛻の殻 | *もぬけ*のから || completely empty
+            canonical 蛻 *もぬけ*
 kanji 閘
     on-group
         reading #core | pri-spell 閘門 | *コウ*モン || sluice gate
