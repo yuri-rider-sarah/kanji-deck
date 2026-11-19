@@ -122,7 +122,7 @@ impl WriteKana for UnsplitKana {
 /// the described reading.
 fn write_variants(
     w: &mut HtmlWriter,
-    variants: &[Variant],
+    variants: &[FreqWord],
     under_primary: bool,
     kanji: Option<char>,
 ) {
@@ -133,7 +133,7 @@ fn write_variants(
             if i > 0 {
                 w.add_text(", ");
             }
-            write_freq_word(w, &variant.spelling, kanji);
+            write_freq_word(w, variant, kanji);
         }
     };
     w.add_tag("tr", &["variant"], |w| {

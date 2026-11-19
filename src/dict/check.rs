@@ -90,7 +90,7 @@ fn check_kanji(
             // Check that the example spelling, all variants and the canonical spellings
             // are written with the kanji. The other spellings may be in kana.
             let examples = std::iter::once(reading.spelling.described())
-                .chain(reading.variants.iter().map(|v| v.spelling.word.as_str()))
+                .chain(reading.variants.iter().map(|v| v.word.as_str()))
                 .chain(canonical_spellings(reading));
             for word in examples {
                 if !word.contains(kanji) {
@@ -249,31 +249,14 @@ fn check_reading<K: CheckKana>(
     if reading_type != ReadingType::Kun && !reading.variants.is_empty() {
         errors.push(Error::at_line(line, "only kun readings can have variants"));
     }
-    for variant in &reading.variants {
-        // Check that either the reading and all its variants have a canonical spelling,
-        // or none of them do.
-        match (&reading.canonical, &variant.canonical) {
-            (Some(_), None) => errors.push(Error::at_line(
-                line,
-                format!(
-                    "variant {} has no canonical spelling, but its reading has one",
-                    variant.spelling.word
-                ),
-            )),
-            (None, Some(_)) => errors.push(Error::at_line(
-                line,
-                format!(
-                    "variant {} has a canonical spelling, but its reading doesn't",
-                    variant.spelling.word
-                ),
-            )),
-            (Some(_), Some(_)) | (None, None) => (),
-        }
-    }
-    if let Some(canonical) = &reading.canonical {
+    for canonical in &reading.canonicals {
         check_written_with_kanji(&canonical.spelling, "canonical", line, errors);
+        let words: Vec<&str> = std::iter::once(&canonical.spelling)
+            .chain(&canonical.variant_spellings)
+            .map(String::as_str)
+            .collect();
         check_words_and_kana(
-            &canonical_spellings(reading),
+            &words,
             &canonical.kana,
             reading_type,
             reading.regular,
@@ -428,11 +411,8 @@ fn hiragana_matches(word: &str, kana: &str) -> bool {
 /// All spellings in a reading including variants, without repetitions.
 fn unique_words<K>(reading: &Reading<K>) -> Vec<&str> {
     let mut words = Vec::new();
-    for word in reading
-        .spelling
-        .words()
-        .into_iter()
-        .chain(reading.variants.iter().map(|v| v.spelling.word.as_str()))
+    for word in
+        reading.spelling.words().into_iter().chain(reading.variants.iter().map(|v| v.word.as_str()))
     {
         if !words.contains(&word) {
             words.push(word);
@@ -443,12 +423,12 @@ fn unique_words<K>(reading: &Reading<K>) -> Vec<&str> {
 
 /// The canonical spellings of a reading and its variants, empty if it has none.
 fn canonical_spellings<K>(reading: &Reading<K>) -> Vec<&str> {
-    let variant_canonical_spellings =
-        reading.variants.iter().filter_map(|variant| variant.canonical.as_deref());
     reading
-        .canonical
+        .canonicals
         .iter()
-        .map(|canonical| canonical.spelling.as_str())
-        .chain(variant_canonical_spellings)
+        .flat_map(|canonical| {
+            std::iter::once(&canonical.spelling).chain(&canonical.variant_spellings)
+        })
+        .map(String::as_str)
         .collect()
 }

@@ -112,32 +112,72 @@ fn parse_group<K: ParseKana>(args: &mut Args) -> Result<ReadingGroup<K>> {
     args.take_many_by_name("reading", parse_reading)
 }
 
+/// A variant with its canonical spellings, as written in the file.
+struct ParsedVariant {
+    variant: FreqWord,
+    canonical_spellings: Vec<String>,
+}
+
 fn parse_reading<K: ParseKana>(args: &mut Args) -> Result<Reading<K>> {
+    let line = args.pos().line;
     let core = args.take_flag("#core");
     let regular = args.take_flag("#regular");
+    let spelling = args.take_one(parse_spelling)?;
+    let kana = args.take_one(K::parse_kana)?;
+    let definition = args.take_string()?;
+    let mut canonicals = args.take_many_by_name("canonical", parse_canonical)?;
+    let parsed_variants = args.take_many_by_name("variant", parse_variant)?;
+    let part_of_speech = args.take_optional_by_name("part-of-speech", parse_part_of_speech)?;
+    // Group the canonical spellings of the variants by the canonical form they belong to.
+    let mut variants = Vec::new();
+    for parsed_variant in parsed_variants {
+        let variant_spelling = &parsed_variant.variant.word;
+        if parsed_variant.canonical_spellings.len() != canonicals.len() {
+            return Err(Error::at_line(
+                line,
+                format!(
+                    "variant {variant_spelling} has {} canonical spellings, \
+                     while its reading has {}",
+                    parsed_variant.canonical_spellings.len(),
+                    canonicals.len()
+                ),
+            ));
+        }
+        for (canonical, canonical_spelling) in
+            canonicals.iter_mut().zip(parsed_variant.canonical_spellings)
+        {
+            canonical.variant_spellings.push(canonical_spelling);
+        }
+        variants.push(parsed_variant.variant);
+    }
     Ok(Reading {
-        line: args.pos().line,
+        line,
         core,
         regular,
-        spelling: args.take_one(parse_spelling)?,
-        kana: args.take_one(K::parse_kana)?,
-        definition: args.take_string()?,
-        canonical: args.take_optional_by_name("canonical", parse_canonical)?,
-        variants: args.take_many_by_name("variant", parse_variant)?,
-        part_of_speech: args.take_optional_by_name("part-of-speech", parse_part_of_speech)?,
+        spelling,
+        kana,
+        definition,
+        canonicals,
+        variants,
+        part_of_speech,
     })
 }
 
-/// Parses the canonical spelling and kana of a reading, `canonical SPELLING KANA`.
+/// Parses a canonical spelling and kana of a reading, `canonical SPELLING KANA`.
+/// The variant spellings are added once the variants are parsed.
 fn parse_canonical<K: ParseKana>(args: &mut Args) -> Result<Canonical<K>> {
-    Ok(Canonical { spelling: args.take_string()?, kana: args.take_one(K::parse_kana)? })
+    Ok(Canonical {
+        spelling: args.take_string()?,
+        kana: args.take_one(K::parse_kana)?,
+        variant_spellings: Vec::new(),
+    })
 }
 
-/// Parses a variant, `variant FREQ:W`, with an optional `canonical SPELLING` child.
-fn parse_variant(args: &mut Args) -> Result<Variant> {
-    Ok(Variant {
-        spelling: args.take_one(freq_word)?,
-        canonical: args.take_optional_by_name("canonical", |args| args.take_string())?,
+/// Parses a variant, `variant FREQ:W`, with `canonical SPELLING` children.
+fn parse_variant(args: &mut Args) -> Result<ParsedVariant> {
+    Ok(ParsedVariant {
+        variant: args.take_one(freq_word)?,
+        canonical_spellings: args.take_many_by_name("canonical", |args| args.take_string())?,
     })
 }
 

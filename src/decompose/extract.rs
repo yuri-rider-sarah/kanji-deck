@@ -1,7 +1,7 @@
 //! Extracts the readings that words are decomposed into from the entries of the dictionary.
 
 use super::*;
-use crate::dict::{self, Entry, ReadingKana, SplitKana, UnsplitKana};
+use crate::dict::{self, CanonicalForm, Entry, ReadingKana, SplitKana, UnsplitKana};
 use crate::error::{Error, Result};
 use crate::japanese::*;
 use std::collections::HashMap;
@@ -17,15 +17,16 @@ struct KunSplit {
     okurigana: String,
 }
 
-/// Extracts the readings of all entries, in the order of the dictionary. A reading can be
-/// extracted more than once, from different readings of the dictionary. Kun readings get
-/// their part of speech from the dictionary if it's given there, otherwise from
-/// `parts_of_speech`. Fails with all errors found.
+/// Extracts the readings of all entries, in the order of the dictionary, from the canonical
+/// forms of their readings. A reading can be extracted more than once, from different
+/// readings of the dictionary. Kun readings get their part of speech from the dictionary
+/// if it's given there, otherwise from `parts_of_speech`. Fails with all errors found.
 pub fn extract_readings(
     entries: &[Entry],
     parts_of_speech: &HashMap<Word, PartOfSpeech>,
 ) -> Result<Vec<Reading>, Vec<Error>> {
-    // The readings extracted from each reading of the dictionary, or the error for it.
+    // The readings extracted from each canonical form of a reading of the dictionary,
+    // or the error for it.
     let mut results = Vec::new();
     for entry in entries {
         match entry {
@@ -33,12 +34,15 @@ pub fn extract_readings(
                 for part in &entry.parts {
                     for reading_type in dict::ReadingType::ALL {
                         for reading in part[reading_type].iter().flatten() {
-                            results.push(readings_from_kanji_reading(
-                                reading,
-                                reading_type,
-                                entry.kanji,
-                                parts_of_speech,
-                            ));
+                            for form in reading.canonical_forms() {
+                                results.push(readings_from_kanji_reading(
+                                    reading,
+                                    form,
+                                    reading_type,
+                                    entry.kanji,
+                                    parts_of_speech,
+                                ));
+                            }
                         }
                     }
                 }
@@ -46,11 +50,14 @@ pub fn extract_readings(
             Entry::Word(entry) => {
                 for reading_type in dict::ReadingType::ALL {
                     for reading in entry.part[reading_type].iter().flatten() {
-                        results.push(readings_from_word_reading(
-                            reading,
-                            reading_type,
-                            parts_of_speech,
-                        ));
+                        for form in reading.canonical_forms() {
+                            results.push(readings_from_word_reading(
+                                reading,
+                                form,
+                                reading_type,
+                                parts_of_speech,
+                            ));
+                        }
                     }
                 }
             }
@@ -67,51 +74,53 @@ pub fn extract_readings(
     if errors.is_empty() { Ok(readings) } else { Err(errors) }
 }
 
-/// The readings from a reading of a kanji entry, of the given type.
+/// The readings from a canonical form of a reading of a kanji entry, of the given type.
 fn readings_from_kanji_reading(
     reading: &dict::Reading<SplitKana>,
+    form: CanonicalForm<SplitKana>,
     reading_type: dict::ReadingType,
     kanji: char,
     parts_of_speech: &HashMap<Word, PartOfSpeech>,
 ) -> Result<Vec<Reading>> {
     match reading_type {
-        dict::ReadingType::On => Ok(vec![on_reading_from_kanji(reading, kanji)]),
+        dict::ReadingType::On => Ok(vec![on_reading_from_kanji(form.kana, kanji)]),
         dict::ReadingType::Asian | dict::ReadingType::European => Ok(vec![foreign_reading(
             kanji.to_string(),
-            katakana_to_hiragana_in_str(&reading.canonical_kana().mid),
+            katakana_to_hiragana_in_str(&form.kana.mid),
         )]),
         dict::ReadingType::Kun => {
-            let (reading_split, variant_splits) = kun_splits_from_kanji_reading(reading, kanji)?;
+            let (reading_split, variant_splits) =
+                kun_splits_from_kanji_reading(form, kanji, reading.line)?;
             readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)
         }
     }
 }
 
-/// The readings from a reading of a word entry, of the given type.
+/// The readings from a canonical form of a reading of a word entry, of the given type.
 fn readings_from_word_reading(
     reading: &dict::Reading<UnsplitKana>,
+    form: CanonicalForm<UnsplitKana>,
     reading_type: dict::ReadingType,
     parts_of_speech: &HashMap<Word, PartOfSpeech>,
 ) -> Result<Vec<Reading>> {
     match reading_type {
         dict::ReadingType::On => {
-            let (spelling, kana) = non_kun_spelling_and_kana_from_word(reading)?;
+            let (spelling, kana) = non_kun_spelling_and_kana_from_word(form, reading.line)?;
             Ok(vec![on_reading(spelling, kana)])
         }
         dict::ReadingType::Asian | dict::ReadingType::European => {
-            let (spelling, kana) = non_kun_spelling_and_kana_from_word(reading)?;
+            let (spelling, kana) = non_kun_spelling_and_kana_from_word(form, reading.line)?;
             Ok(vec![foreign_reading(spelling, kana)])
         }
         dict::ReadingType::Kun => {
-            let (reading_split, variant_splits) = kun_splits_from_word_reading(reading)?;
+            let (reading_split, variant_splits) = kun_splits_from_word_reading(form, reading.line)?;
             readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)
         }
     }
 }
 
-/// The reading of a kanji from an on reading of its entry.
-fn on_reading_from_kanji(reading: &dict::Reading<SplitKana>, kanji: char) -> Reading {
-    let example_kana = reading.canonical_kana();
+/// The reading of a kanji from the kana of an on reading of its entry.
+fn on_reading_from_kanji(example_kana: &SplitKana, kanji: char) -> Reading {
     let kanji_kana = katakana_to_hiragana_in_str(&example_kana.mid);
     let kana_before = katakana_to_hiragana_in_str(&example_kana.pre);
     let kana = if kana_before.ends_with(['ん', 'っ']) {
@@ -137,12 +146,14 @@ fn remove_initial_handakuten(kana: &str) -> String {
     format!("{first_char}{}", chars.as_str())
 }
 
-/// The spelling and kana of a word's reading from an on, Asian or European reading of its entry.
+/// The spelling and kana of a word's reading from a canonical form of an on, Asian or European
+/// reading of its entry at `line`.
 fn non_kun_spelling_and_kana_from_word(
-    reading: &dict::Reading<UnsplitKana>,
+    form: CanonicalForm<UnsplitKana>,
+    line: usize,
 ) -> Result<(String, String)> {
-    let kana = katakana_to_hiragana_in_str(&reading.canonical_kana().joined());
-    let (spelling, kana) = strip_initial_kana(reading.canonical_spelling(), &kana, reading.line)?;
+    let kana = katakana_to_hiragana_in_str(&form.kana.joined());
+    let (spelling, kana) = strip_initial_kana(form.spelling, &kana, line)?;
     Ok((spelling.to_string(), kana.to_string()))
 }
 
@@ -175,70 +186,68 @@ fn kun_reading(spelling: String, kana: String, okurigana_start: Option<Okurigana
     Reading { spelling, kana, rendaku: true, handakuten: true, gemination: false, okurigana_start }
 }
 
-/// Splits the spelling of a kun reading of `kanji`, and those of its variants.
-/// The okurigana is the kana directly after the kanji.
+/// Splits the spelling of a canonical form of a kun reading of `kanji`, and those of its
+/// variants. The okurigana is the kana directly after the kanji.
 fn kun_splits_from_kanji_reading(
-    reading: &dict::Reading<SplitKana>,
+    form: CanonicalForm<SplitKana>,
     kanji: char,
+    line: usize,
 ) -> Result<(KunSplit, Vec<KunSplit>)> {
-    let kana_after_kanji =
-        find_kana_after_kanji(reading.canonical_spelling(), kanji, reading.line)?;
-    let main_kana = reading.canonical_kana().mid.clone();
+    let kana_after_kanji = find_kana_after_kanji(form.spelling, kanji, line)?;
+    let main_kana = form.kana.mid.clone();
     let reading_kana = main_kana.clone() + &kana_after_kanji;
     let reading_split = KunSplit {
         main_spelling: kanji.to_string(),
         main_kana,
         okurigana: okurigana_from_kana_after_kanji(&kana_after_kanji),
     };
-    let variant_splits = reading
-        .variants
+    let variant_splits = form
+        .variant_spellings
         .iter()
-        .map(|variant| {
-            let variant_spelling = variant.canonical_spelling();
-            let variant_kana_after_kanji =
-                find_kana_after_kanji(variant_spelling, kanji, reading.line)?;
+        .map(|&variant_spelling| {
+            let variant_kana_after_kanji = find_kana_after_kanji(variant_spelling, kanji, line)?;
             let variant_okurigana = okurigana_from_kana_after_kanji(&variant_kana_after_kanji);
             variant_split(
                 &reading_kana,
                 kanji.to_string(),
                 variant_okurigana,
                 variant_spelling,
-                reading.line,
+                line,
             )
         })
         .collect::<Result<_>>()?;
     Ok((reading_split, variant_splits))
 }
 
-/// Splits the spelling of a kun reading of a word, and those of its variants.
-/// The okurigana is all kana at the end of the spelling.
+/// Splits the spelling of a canonical form of a kun reading of a word, and those of its
+/// variants. The okurigana is all kana at the end of the spelling.
 fn kun_splits_from_word_reading(
-    reading: &dict::Reading<UnsplitKana>,
+    form: CanonicalForm<UnsplitKana>,
+    line: usize,
 ) -> Result<(KunSplit, Vec<KunSplit>)> {
-    let spelling = reading.canonical_spelling();
-    let (main_spelling, okurigana) = split_okurigana_from_end(spelling, reading.line)?;
-    let kana = katakana_to_hiragana_in_str(&reading.canonical_kana().joined());
+    let spelling = form.spelling;
+    let (main_spelling, okurigana) = split_okurigana_from_end(spelling, line)?;
+    let kana = katakana_to_hiragana_in_str(&form.kana.joined());
     let Some(main_kana) = kana.strip_suffix(&okurigana) else {
         return Err(Error::at_line(
-            reading.line,
+            line,
             format!("okurigana {okurigana} of {spelling} isn't the end of its kana {kana}"),
         ));
     };
     let reading_split = KunSplit { main_spelling, main_kana: main_kana.to_string(), okurigana };
     let reading_kana = reading_split.main_kana.clone() + &reading_split.okurigana;
-    let variant_splits = reading
-        .variants
+    let variant_splits = form
+        .variant_spellings
         .iter()
-        .map(|variant| {
-            let variant_spelling = variant.canonical_spelling();
+        .map(|&variant_spelling| {
             let (variant_main_spelling, variant_okurigana) =
-                split_okurigana_from_end(variant_spelling, reading.line)?;
+                split_okurigana_from_end(variant_spelling, line)?;
             variant_split(
                 &reading_kana,
                 variant_main_spelling,
                 variant_okurigana,
                 variant_spelling,
-                reading.line,
+                line,
             )
         })
         .collect::<Result<_>>()?;

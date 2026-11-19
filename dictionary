@@ -3081,6 +3081,8 @@ kanji 進
 word 二進も三進も
     on-group
         reading #core | pri-spell 二進も三進も | ニッチモサッチモ || in any way (unable to progress)
+            canonical 二進 ニッチ
+            canonical 三進 サッチ
 kanji 倒
     on-group
         reading #core | pri-spell 転倒 | テン*トウ* || falling down

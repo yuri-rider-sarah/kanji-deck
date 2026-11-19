@@ -70,7 +70,7 @@ fn serialize_reading<K: SerializeKana>(lines: &mut Vec<String>, reading: &Readin
         reading.kana.serialize_kana(),
         reading.definition
     ));
-    if let Some(canonical) = &reading.canonical {
+    for canonical in &reading.canonicals {
         lines.push(indented!(
             3,
             "canonical {} {}",
@@ -78,10 +78,10 @@ fn serialize_reading<K: SerializeKana>(lines: &mut Vec<String>, reading: &Readin
             canonical.kana.serialize_kana()
         ));
     }
-    for variant in &reading.variants {
-        lines.push(indented!(3, "variant {}", serialize_freq_word(&variant.spelling)));
-        if let Some(canonical_spelling) = &variant.canonical {
-            lines.push(indented!(4, "canonical {canonical_spelling}"));
+    for (variant_index, variant) in reading.variants.iter().enumerate() {
+        lines.push(indented!(3, "variant {}", serialize_freq_word(variant)));
+        for canonical in &reading.canonicals {
+            lines.push(indented!(4, "canonical {}", canonical.variant_spellings[variant_index]));
         }
     }
     if let Some(part_of_speech) = reading.part_of_speech {

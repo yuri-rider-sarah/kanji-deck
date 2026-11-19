@@ -146,30 +146,24 @@ impl ReadingKana for UnsplitKana {
     }
 }
 
-/// The spelling and kana that decomposition uses for a reading instead of its example,
+/// A spelling and kana that decomposition uses for a reading instead of its example,
 /// for examples where the provided word would give the wrong reading.
 #[derive(Debug, Clone)]
 pub struct Canonical<K> {
     pub spelling: String,
     pub kana: K,
+    /// The spellings used instead of the reading's variants, in the same order.
+    pub variant_spellings: Vec<String>,
 }
 
-/// A less common spelling of the example word of a reading.
+/// A spelling and kana that decomposition uses for a reading: a canonical one,
+/// or the example spelling with the reading's kana.
 #[derive(Debug, Clone)]
-pub struct Variant {
-    pub spelling: FreqWord,
-    pub canonical: Option<String>,
-}
-
-impl Variant {
-    /// The spelling that decomposition uses: the canonical spelling if given,
-    /// otherwise the variant's own.
-    pub fn canonical_spelling(&self) -> &str {
-        match &self.canonical {
-            Some(canonical) => canonical,
-            None => &self.spelling.word,
-        }
-    }
+pub struct CanonicalForm<'a, K> {
+    pub spelling: &'a str,
+    pub kana: &'a K,
+    /// The spellings used for the reading's variants.
+    pub variant_spellings: Vec<&'a str>,
 }
 
 /// The part of speech of a reading's example word, overriding the one extracted from another source.
@@ -192,27 +186,38 @@ pub struct Reading<K> {
     pub spelling: Spelling,
     pub kana: K,
     pub definition: String,
-    pub canonical: Option<Canonical<K>>,
-    pub variants: Vec<Variant>,
+    pub canonicals: Vec<Canonical<K>>,
+    pub variants: Vec<FreqWord>,
     pub part_of_speech: Option<PartOfSpeech>,
 }
 
 impl<K> Reading<K> {
-    /// The spelling that decomposition uses: the canonical spelling if given,
-    /// otherwise the example spelling.
-    pub fn canonical_spelling(&self) -> &str {
-        match &self.canonical {
-            Some(canonical) => &canonical.spelling,
-            None => self.spelling.described(),
-        }
-    }
-
-    /// The kana that decomposition uses: the canonical kana if given,
-    /// otherwise the reading's own.
-    pub fn canonical_kana(&self) -> &K {
-        match &self.canonical {
-            Some(canonical) => &canonical.kana,
-            None => &self.kana,
+    /// The spellings and kana that decomposition uses, each giving readings of its own:
+    /// the canonical ones if given, otherwise the example spelling with the reading's kana.
+    pub fn canonical_forms(&self) -> Vec<CanonicalForm<'_, K>> {
+        if self.canonicals.is_empty() {
+            vec![CanonicalForm {
+                spelling: self.spelling.described(),
+                kana: &self.kana,
+                variant_spellings: self
+                    .variants
+                    .iter()
+                    .map(|variant| variant.word.as_str())
+                    .collect(),
+            }]
+        } else {
+            self.canonicals
+                .iter()
+                .map(|canonical| CanonicalForm {
+                    spelling: &canonical.spelling,
+                    kana: &canonical.kana,
+                    variant_spellings: canonical
+                        .variant_spellings
+                        .iter()
+                        .map(String::as_str)
+                        .collect(),
+                })
+                .collect()
         }
     }
 }
