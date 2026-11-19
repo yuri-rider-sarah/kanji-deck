@@ -147,13 +147,14 @@ fn remove_initial_handakuten(kana: &str) -> String {
 }
 
 /// The spelling and kana of a word's reading from a canonical form of an on, Asian or European
-/// reading of its entry at `line`.
+/// reading of its entry at `line`, without the kana at the start and end of the spelling.
 fn non_kun_spelling_and_kana_from_word(
     form: CanonicalForm<UnsplitKana>,
     line: usize,
 ) -> Result<(String, String)> {
     let kana = katakana_to_hiragana_in_str(&form.kana.joined());
     let (spelling, kana) = strip_initial_kana(form.spelling, &kana, line)?;
+    let (spelling, kana) = strip_final_kana(spelling, kana, line)?;
     Ok((spelling.to_string(), kana.to_string()))
 }
 
@@ -328,6 +329,25 @@ fn strip_initial_kana<'a>(
             format!(
                 "kana {initial_kana} at the start of {spelling} isn't the start of its kana {kana}"
             ),
+        )),
+    }
+}
+
+/// Removes the kana at the end of a word's spelling from the spelling and its kana, as
+/// for on readings of kanji, so that the reading also matches in other words
+/// (可愛い gives 可愛 かわい, also found in 可愛らしい).
+fn strip_final_kana<'a>(
+    spelling: &'a str,
+    kana: &'a str,
+    line: usize,
+) -> Result<(&'a str, &'a str)> {
+    let main_spelling = spelling.trim_end_matches(|c| is_hiragana(c) || is_katakana(c));
+    let final_kana = katakana_to_hiragana_in_str(&spelling[main_spelling.len()..]);
+    match kana.strip_suffix(final_kana.as_str()) {
+        Some(main_kana) => Ok((main_spelling, main_kana)),
+        None => Err(Error::at_line(
+            line,
+            format!("kana {final_kana} at the end of {spelling} isn't the end of its kana {kana}"),
         )),
     }
 }
