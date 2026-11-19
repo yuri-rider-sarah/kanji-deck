@@ -194,20 +194,15 @@ fn kun_splits_from_kanji_reading(
     kanji: char,
     line: usize,
 ) -> Result<(KunSplit, Vec<KunSplit>)> {
-    let kana_after_kanji = find_kana_after_kanji(form.spelling, kanji, line)?;
+    let okurigana = find_kana_after_kanji(form.spelling, kanji, line)?;
     let main_kana = form.kana.mid.clone();
-    let reading_kana = main_kana.clone() + &kana_after_kanji;
-    let reading_split = KunSplit {
-        main_spelling: kanji.to_string(),
-        main_kana,
-        okurigana: okurigana_from_kana_after_kanji(&kana_after_kanji),
-    };
+    let reading_kana = main_kana.clone() + &okurigana;
+    let reading_split = KunSplit { main_spelling: kanji.to_string(), main_kana, okurigana };
     let variant_splits = form
         .variant_spellings
         .iter()
         .map(|&variant_spelling| {
-            let variant_kana_after_kanji = find_kana_after_kanji(variant_spelling, kanji, line)?;
-            let variant_okurigana = okurigana_from_kana_after_kanji(&variant_kana_after_kanji);
+            let variant_okurigana = find_kana_after_kanji(variant_spelling, kanji, line)?;
             variant_split(
                 &reading_kana,
                 kanji.to_string(),
@@ -293,15 +288,10 @@ fn find_kana_after_kanji(word: &str, kanji: char, line: usize) -> Result<String>
     Ok(kana)
 }
 
-/// The okurigana at the start of the kana after a kanji.
-fn okurigana_from_kana_after_kanji(kana_after_kanji: &str) -> String {
-    kana_after_kanji.chars().take_while(|&c| is_okurigana_char(c)).collect()
-}
-
 /// Splits a word into the part before the kana at its end, and that kana converted to
 /// hiragana. Fails if the word is only kana, as there's then nothing for the reading.
 fn split_okurigana_from_end(word: &str, line: usize) -> Result<(String, String)> {
-    let main_spelling = word.trim_end_matches(is_okurigana_char);
+    let main_spelling = word.trim_end_matches(|c| is_hiragana(c) || is_katakana(c));
     if main_spelling.is_empty() {
         return Err(Error::at_line(line, format!("{word} is written only in kana")));
     }
@@ -350,13 +340,6 @@ fn strip_final_kana<'a>(
             format!("kana {final_kana} at the end of {spelling} isn't the end of its kana {kana}"),
         )),
     }
-}
-
-/// Whether a character can be part of okurigana: hiragana or katakana other than を,
-/// which in modern Japanese is only used as a particle, and ぢ and づ, which can only start
-/// the second part of a compound.
-fn is_okurigana_char(c: char) -> bool {
-    (is_hiragana(c) || is_katakana(c)) && !matches!(c, 'を' | 'ヲ' | 'ぢ' | 'ヂ' | 'づ' | 'ヅ')
 }
 
 /// The readings from the split spellings of a kun reading and its variants. The part of

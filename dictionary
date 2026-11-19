@@ -332,8 +332,10 @@ kanji 頭
         reading #core | pri-spell 頭 | *あたま* || head
     kun-group
         reading | pri-spell 頭を振る | *かぶり*をふる || to shake one's head
+            canonical 頭 *かぶり*
     kun-group
         reading | pri-spell 頭を垂れる | *こうべ*をたれる || to hang one's head
+            canonical 頭 *こうべ*
     kun-group
         reading | pri-spell 頭文字 | *かしら*もじ || first letter
     kun-group
@@ -3309,6 +3311,7 @@ kanji 首
         reading #core | pri-spell 首 | *くび* || neck
     kun-group
         reading | sec-spell 頭を垂れる common:首を垂れる | *こうべ*をたれる || to hang one's head
+            canonical 首 *こうべ*
 kanji 構
     on-group
         reading #core | pri-spell 構造 | *コウ*ゾウ || structure
@@ -6372,12 +6375,14 @@ kanji 科
         reading | sec-spell 咎 common:科 | *とが* || error, sin
     kun-group
         reading | pri-kanji-spell しなを作る common:科を作る | *しな*をつくる || to act flirtatiously
+            canonical 科 *しな*
 kanji 基
     on-group
         reading #core | pri-spell 基本 | *キ*ホン || basis
     kun-group
         reading #core | pri-spell 基づく | *もと*づく || to be based on
-            variant common:基く
+            canonical 基 *もと*
+        reading | sec-spell 基づく common:基く | *もとづ*く || to be based on
         reading | sec-spell 元 rare:基 | *もと* || origin
 kanji 司
     on-group
@@ -15581,6 +15586,7 @@ kanji 踵
         reading #core | pri-spell 踵 | *かかと* || heel
     kun-group
         reading | pri-spell 踵を返す | *きびす*をかえす || to turn on one's heel
+            canonical 踵 *きびす*
 kanji 尿
     on-group
         reading #core | pri-spell 尿 | *ニョウ* || urine
@@ -19701,6 +19707,7 @@ kanji 臍
         reading #core | pri-kanji-spell へそ common:臍 | *へそ* || navel
     kun-group
         reading | pri-spell 臍を噛む | *ほぞ*をかむ || to regret bitterly
+            canonical 臍 *ほぞ*
 kanji 峨
     on-group
         reading #core | pri-spell 峨々 | *ガ*ガ || rugged (of mountains)

@@ -73,7 +73,9 @@ pub enum OkuriganaStart {
 }
 
 /// How okurigana starting with a hiragana character starts, or `None` for kana
-/// that okurigana can't start with.
+/// that okurigana can't start with: small kana other than っ,
+/// を, which in modern Japanese is only used as a particle,
+/// and ぢ and づ, which can only start the second part of a compound.
 fn okurigana_start_from_kana(c: char) -> Option<OkuriganaStart> {
     let okurigana_start = match c {
         'か' | 'き' | 'く' | 'け' | 'こ' => OkuriganaStart::K,
