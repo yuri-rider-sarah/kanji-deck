@@ -386,9 +386,10 @@ fn readings_from_kun_splits<K>(
 }
 
 /// The readings from one split spelling of a kun reading at `line` with the given part of
-/// speech: a reading with okurigana starting like the split's, or with no okurigana
-/// if the split doesn't have any or if it's the い of an i-adjective. For ichidan and godan verbs,
-/// adds a reading with no okurigana for the continuative form (e.g. 受ける うける gives 受 うけ).
+/// speech: a reading with okurigana starting like the split's, or with no okurigana if the
+/// split doesn't have any or if it's the い or しい of an adjective (涼しい gives 涼 すず).
+/// For ichidan and godan verbs, adds a reading with no okurigana for the continuative form
+/// (e.g. 受ける うける gives 受 うけ).
 fn readings_from_kun_split(
     split: &KunSplit,
     part_of_speech: Option<PartOfSpeech>,
@@ -402,7 +403,9 @@ fn readings_from_kun_split(
             return Ok(vec![kun_reading(main_spelling.to_string(), main_kana.to_string(), None)]);
         }
     };
-    if part_of_speech == Some(PartOfSpeech::Adjective) && split.okurigana == "い" {
+    if part_of_speech == Some(PartOfSpeech::Adjective)
+        && matches!(split.okurigana.as_str(), "い" | "しい")
+    {
         return Ok(vec![kun_reading(main_spelling.to_string(), main_kana.to_string(), None)]);
     }
     let Some(okurigana_start) = okurigana_start_from_kana(first_okurigana) else {
