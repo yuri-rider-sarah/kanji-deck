@@ -171,6 +171,8 @@ pub struct CanonicalForm<'a, K> {
 pub enum PartOfSpeech {
     IchidanVerb,
     GodanVerb,
+    KuruVerb,
+    SuruVerb,
     Adjective,
     Other,
     Noun,

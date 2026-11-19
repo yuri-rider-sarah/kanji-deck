@@ -388,8 +388,8 @@ fn readings_from_kun_splits<K>(
 /// The readings from one split spelling of a kun reading at `line` with the given part of
 /// speech: a reading with okurigana starting like the split's, or with no okurigana if the
 /// split doesn't have any or if it's the い or しい of an adjective (涼しい gives 涼 すず).
-/// For ichidan and godan verbs, adds a reading with no okurigana for the continuative form
-/// (e.g. 受ける うける gives 受 うけ).
+/// For ichidan and godan verbs, and for 来る and 為る, adds a reading with no okurigana for the
+/// continuative form (e.g. 受ける うける gives 受 うけ).
 fn readings_from_kun_split(
     split: &KunSplit,
     part_of_speech: Option<PartOfSpeech>,
@@ -441,7 +441,15 @@ fn readings_from_kun_split(
                 ));
             }
         },
-        Some(PartOfSpeech::Adjective) | None => None,
+        Some(PartOfSpeech::KuruVerb) if main_kana == "く" && split.okurigana == "る" => {
+            Some("き".to_string())
+        }
+        Some(PartOfSpeech::SuruVerb) if main_kana == "す" && split.okurigana == "る" => {
+            Some("し".to_string())
+        }
+        Some(PartOfSpeech::KuruVerb | PartOfSpeech::SuruVerb | PartOfSpeech::Adjective) | None => {
+            None
+        }
     };
     if let Some(continuative_kana) = continuative_kana {
         readings.push(kun_reading(main_spelling.to_string(), continuative_kana, None));
@@ -474,6 +482,8 @@ fn part_of_speech_from_dictionary(part_of_speech: dict::PartOfSpeech) -> Option<
     match part_of_speech {
         dict::PartOfSpeech::IchidanVerb => Some(PartOfSpeech::IchidanVerb),
         dict::PartOfSpeech::GodanVerb => Some(PartOfSpeech::GodanVerb),
+        dict::PartOfSpeech::KuruVerb => Some(PartOfSpeech::KuruVerb),
+        dict::PartOfSpeech::SuruVerb => Some(PartOfSpeech::SuruVerb),
         dict::PartOfSpeech::Adjective => Some(PartOfSpeech::Adjective),
         dict::PartOfSpeech::Other | dict::PartOfSpeech::Noun => None,
     }

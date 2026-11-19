@@ -187,6 +187,8 @@ fn parse_part_of_speech(args: &mut Args) -> Result<PartOfSpeech> {
     match name.as_str() {
         "verb-ichidan" => Ok(PartOfSpeech::IchidanVerb),
         "verb-godan" => Ok(PartOfSpeech::GodanVerb),
+        "verb-kuru" => Ok(PartOfSpeech::KuruVerb),
+        "verb-suru" => Ok(PartOfSpeech::SuruVerb),
         "adjective" => Ok(PartOfSpeech::Adjective),
         "other" => Ok(PartOfSpeech::Other),
         "noun" => Ok(PartOfSpeech::Noun),

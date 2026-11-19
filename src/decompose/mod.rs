@@ -18,6 +18,8 @@ pub struct Word {
 pub enum PartOfSpeech {
     IchidanVerb,
     GodanVerb,
+    KuruVerb,
+    SuruVerb,
     Adjective,
 }
 

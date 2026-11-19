@@ -94,6 +94,8 @@ fn serialize_part_of_speech(part_of_speech: PartOfSpeech) -> &'static str {
     match part_of_speech {
         PartOfSpeech::IchidanVerb => "verb-ichidan",
         PartOfSpeech::GodanVerb => "verb-godan",
+        PartOfSpeech::KuruVerb => "verb-kuru",
+        PartOfSpeech::SuruVerb => "verb-suru",
         PartOfSpeech::Adjective => "adjective",
         PartOfSpeech::Other => "other",
         PartOfSpeech::Noun => "noun",

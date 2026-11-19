@@ -11,13 +11,15 @@ use std::collections::hash_map::Entry;
 const FIELD_COUNT: usize = 33;
 
 /// The part of speech of a word according to one or more of its rows in the lexicon.
-/// Verbs other than ichidan and godan (サ変, カ変 and classical verbs) are kept apart
-/// from other parts of speech, as they give way to an ichidan or godan row of the same word.
+/// Other verbs (classical ones) are kept apart from other parts of speech, as they give way
+/// to a row of the same word with a verb type that has special handling.
 /// Conflicting is a value of its own, so that once rows conflict, later rows can't resolve it.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum LexiconPartOfSpeech {
     IchidanVerb,
     GodanVerb,
+    KuruVerb,
+    SuruVerb,
     OtherVerb,
     Adjective,
     Other,
@@ -50,8 +52,9 @@ struct Row<'a> {
 }
 
 /// Reads the lexicon, returning every word to decompose in the order of the file, and the
-/// parts of speech of the words that are ichidan or godan verbs, or adjectives. Words whose
-/// rows conflict are left out of the parts of speech, like words of other parts of speech.
+/// parts of speech of the words that are ichidan, godan, kuru or suru verbs, or adjectives.
+/// Words whose rows conflict are left out of the parts of speech, like words of other parts
+/// of speech.
 /// Words are spelling and kana pairs, so a spelling read in two ways gives two words.
 pub fn read_lexicon(text: &str) -> Result<(Vec<Word>, HashMap<Word, PartOfSpeech>)> {
     let mut reader =
@@ -144,6 +147,10 @@ fn row_part_of_speech(row: &Row) -> LexiconPartOfSpeech {
             LexiconPartOfSpeech::IchidanVerb
         } else if row.conjugation_type.starts_with("五段") {
             LexiconPartOfSpeech::GodanVerb
+        } else if row.conjugation_type == "カ行変格" {
+            LexiconPartOfSpeech::KuruVerb
+        } else if row.conjugation_type == "サ行変格" {
+            LexiconPartOfSpeech::SuruVerb
         } else {
             LexiconPartOfSpeech::OtherVerb
         }
@@ -155,9 +162,9 @@ fn row_part_of_speech(row: &Row) -> LexiconPartOfSpeech {
 }
 
 /// The part of speech of a word from the parts of speech of two sets of its rows.
-/// Other verbs give way to ichidan and godan verbs (e.g. 言う also has a classical 四段 row),
-/// and are the same as other parts of speech otherwise. The order rows are merged in
-/// doesn't matter.
+/// Other verbs give way to ichidan, godan, kuru and suru verbs (e.g. 言う also has
+/// a classical 四段 row), and are the same as other parts of speech otherwise.
+/// The order rows are merged in doesn't matter.
 fn merge_parts_of_speech(
     first: LexiconPartOfSpeech,
     second: LexiconPartOfSpeech,
@@ -166,10 +173,16 @@ fn merge_parts_of_speech(
         (first, second) if first == second => first,
         (
             LexiconPartOfSpeech::OtherVerb,
-            verb @ (LexiconPartOfSpeech::IchidanVerb | LexiconPartOfSpeech::GodanVerb),
+            verb @ (LexiconPartOfSpeech::IchidanVerb
+            | LexiconPartOfSpeech::GodanVerb
+            | LexiconPartOfSpeech::KuruVerb
+            | LexiconPartOfSpeech::SuruVerb),
         )
         | (
-            verb @ (LexiconPartOfSpeech::IchidanVerb | LexiconPartOfSpeech::GodanVerb),
+            verb @ (LexiconPartOfSpeech::IchidanVerb
+            | LexiconPartOfSpeech::GodanVerb
+            | LexiconPartOfSpeech::KuruVerb
+            | LexiconPartOfSpeech::SuruVerb),
             LexiconPartOfSpeech::OtherVerb,
         ) => verb,
         (LexiconPartOfSpeech::OtherVerb, LexiconPartOfSpeech::Other)
@@ -188,6 +201,8 @@ fn part_of_speech_from_lexicon(
     match lexicon_part_of_speech {
         LexiconPartOfSpeech::IchidanVerb => Some(PartOfSpeech::IchidanVerb),
         LexiconPartOfSpeech::GodanVerb => Some(PartOfSpeech::GodanVerb),
+        LexiconPartOfSpeech::KuruVerb => Some(PartOfSpeech::KuruVerb),
+        LexiconPartOfSpeech::SuruVerb => Some(PartOfSpeech::SuruVerb),
         LexiconPartOfSpeech::Adjective => Some(PartOfSpeech::Adjective),
         LexiconPartOfSpeech::OtherVerb
         | LexiconPartOfSpeech::Other
