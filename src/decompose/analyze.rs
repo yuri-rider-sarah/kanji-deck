@@ -70,7 +70,7 @@ pub fn can_decompose_word(word: &Word, is_suffix: bool, reading_index: &ReadingI
     };
     let kana = normalize_kana(&word.kana);
     let word_kana = WordKana { rest: kana.chars(), previous: None, is_suffix };
-    can_decompose(spelling.chars(), word_kana, &reading_index.readings_by_first_char)
+    can_decompose(spelling.chars(), word_kana, None, &reading_index.readings_by_first_char)
 }
 
 /// Normalizes a spelling by converting katakana to hiragana, merging the yotsugana,
@@ -103,10 +103,12 @@ fn merge_yotsugana(c: char) -> char {
 }
 
 /// Whether the rest of a word's normalized spelling and the rest of its kana can be decomposed
-/// into readings.
+/// into readings. `previous_reading` is the reading that the rest directly follows,
+/// `None` at the start of the word or after kana.
 fn can_decompose(
     mut spelling: Chars,
     mut kana: WordKana,
+    previous_reading: Option<&NormalizedReading>,
     readings_by_first_char: &HashMap<char, Vec<NormalizedReading>>,
 ) -> bool {
     let Some(first_char) = spelling.clone().next() else {
@@ -121,7 +123,7 @@ fn can_decompose(
         {
             spelling.next();
             kana.next();
-            return can_decompose(spelling, kana, readings_by_first_char);
+            return can_decompose(spelling, kana, None, readings_by_first_char);
         } else {
             return false;
         }
@@ -134,15 +136,24 @@ fn can_decompose(
             return false;
         };
         let mut kana_rest = kana.clone();
-        match_reading(&mut kana_rest, reading)
+        match_reading(&mut kana_rest, reading, previous_reading)
             && okurigana_fits(reading.reading.okurigana_start, spelling_rest.chars().next())
-            && can_decompose(spelling_rest.chars(), kana_rest, readings_by_first_char)
+            && can_decompose(
+                spelling_rest.chars(),
+                kana_rest,
+                Some(reading),
+                readings_by_first_char,
+            )
     })
 }
 
 /// Try to match a reading's kana at the start of the given kana with the changes
 /// the reading allows, advancing past it.
-fn match_reading(word_kana: &mut WordKana, normalized_reading: &NormalizedReading) -> bool {
+fn match_reading(
+    word_kana: &mut WordKana,
+    normalized_reading: &NormalizedReading,
+    previous_reading: Option<&NormalizedReading>,
+) -> bool {
     let reading = normalized_reading.reading;
     let mut reading_kana = normalized_reading.kana.chars();
     let Some(first_reading_char) = reading_kana.next() else {
@@ -153,10 +164,13 @@ fn match_reading(word_kana: &mut WordKana, normalized_reading: &NormalizedReadin
     let Some(first_word_kana_char) = word_kana.next() else {
         return false;
     };
+    let rendaku_allowed = match reading.rendaku {
+        Rendaku::Never => false,
+        Rendaku::Conditional => is_reduplicated_kanji(normalized_reading, previous_reading),
+        Rendaku::Full => previous_kana.is_some() || is_suffix_start,
+    };
     let first_kana_matches = first_word_kana_char == first_reading_char
-        || (reading.rendaku
-            && (previous_kana.is_some() || is_suffix_start)
-            && add_dakuten(first_reading_char) == Some(first_word_kana_char))
+        || (rendaku_allowed && add_dakuten(first_reading_char) == Some(first_word_kana_char))
         || (reading.handakuten
             && (matches!(previous_kana, Some('っ' | 'ん')) || is_suffix_start)
             && add_handakuten(first_reading_char) == Some(first_word_kana_char));
@@ -177,6 +191,19 @@ fn match_reading(word_kana: &mut WordKana, normalized_reading: &NormalizedReadin
         }
     }
     true
+}
+
+/// Whether a reading of a single kanji directly follows the same reading.
+fn is_reduplicated_kanji(
+    normalized_reading: &NormalizedReading,
+    previous_reading: Option<&NormalizedReading>,
+) -> bool {
+    let Some(previous_reading) = previous_reading else {
+        return false;
+    };
+    normalized_reading.spelling.chars().count() == 1
+        && previous_reading.spelling == normalized_reading.spelling
+        && previous_reading.kana == normalized_reading.kana
 }
 
 /// Whether the last kana of a reading may become っ before `next_kana`.

@@ -32,8 +32,8 @@ pub struct Reading {
     pub spelling: String,
     /// The kana of the reading in hiragana, without the okurigana of kun readings.
     pub kana: String,
-    /// Whether the first kana may take a dakuten when the reading isn't at the start of a word.
-    pub rendaku: bool,
+    /// When the first kana may take a dakuten.
+    pub rendaku: Rendaku,
     /// Whether the first kana may take a handakuten after っ or ん.
     pub handakuten: bool,
     /// Whether the last kana may become っ before some kana.
@@ -41,6 +41,17 @@ pub struct Reading {
     /// How the okurigana that has to follow the reading starts, or `None` if anything
     /// may follow it, including the end of the word.
     pub okurigana_start: Option<OkuriganaStart>,
+}
+
+/// When the first kana of a reading may take a dakuten (rendaku) in a word.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Rendaku {
+    Never,
+    /// Only in some contexts: for a reading of a single kanji, when it directly follows
+    /// the same reading, as in 種々 しゅじゅ.
+    Conditional,
+    /// Everywhere except at the start of a word.
+    Full,
 }
 
 /// How the okurigana after a kun reading starts: mostly the consonant of its first kana,

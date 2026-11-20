@@ -163,7 +163,7 @@ fn on_reading(spelling: String, kana: String) -> Reading {
     Reading {
         spelling,
         kana,
-        rendaku: false,
+        rendaku: Rendaku::Conditional,
         handakuten: true,
         gemination: true,
         okurigana_start: None,
@@ -175,7 +175,7 @@ fn foreign_reading(spelling: String, kana: String) -> Reading {
     Reading {
         spelling,
         kana,
-        rendaku: false,
+        rendaku: Rendaku::Never,
         handakuten: false,
         gemination: false,
         okurigana_start: None,
@@ -184,7 +184,14 @@ fn foreign_reading(spelling: String, kana: String) -> Reading {
 
 /// A kun reading, followed by okurigana starting in the given way, or by anything if `None`.
 fn kun_reading(spelling: String, kana: String, okurigana_start: Option<OkuriganaStart>) -> Reading {
-    Reading { spelling, kana, rendaku: true, handakuten: true, gemination: false, okurigana_start }
+    Reading {
+        spelling,
+        kana,
+        rendaku: Rendaku::Full,
+        handakuten: true,
+        gemination: false,
+        okurigana_start,
+    }
 }
 
 /// Splits the spelling of a canonical form of a kun reading of `kanji`, and those of its
