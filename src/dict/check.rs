@@ -251,6 +251,17 @@ fn check_word<'a>(
         }
     }
     for reading in entry.part.readings() {
+        for canonical in &reading.canonicals {
+            // Check that the canonical spelling has at least two kanji,
+            // as a single kanji with an irregular reading belongs in a kanji entry.
+            let spelling = &canonical.spelling;
+            if spelling.chars().filter(|&c| is_kanji(c)).count() < 2 {
+                errors.push(Error::at_line(
+                    reading.line,
+                    format!("canonical spelling {spelling} of a word has fewer than two kanji"),
+                ));
+            }
+        }
         for word in unique_words(reading).into_iter().chain(canonical_spellings(reading)) {
             for c in word.chars() {
                 // Check that every kanji in the word has already been introduced.
