@@ -1,6 +1,6 @@
 //! Parses text files into trees of nodes, without interpreting what they
-//! mean. The syntax is described in `read`. Callers go through the nodes with
-//! `Args`.
+//! mean. The syntax is described in `parse`. Callers go through the nodes
+//! with `Args`.
 
 mod lex;
 mod parse;
