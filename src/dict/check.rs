@@ -13,7 +13,8 @@ enum IntroducedBy {
     WordEntries,
 }
 
-pub fn check(entries: &[Entry]) -> Result<(), Vec<Error>> {
+pub fn check(dictionary: &Dictionary) -> Result<(), Vec<Error>> {
+    let entries = &dictionary.entries;
     let mut errors = Vec::new();
     // Every kanji with a kanji entry or introduced by a word entry.
     let mut all_kanji = HashMap::new();
@@ -54,6 +55,17 @@ pub fn check(entries: &[Entry]) -> Result<(), Vec<Error>> {
                 check_word(entry, &all_kanji, &known_kanji, &mut known_words, &mut errors);
             }
         }
+    }
+    // Rendaku suffixes checked so far, by spelling and kana.
+    let mut known_rendaku_suffixes = HashSet::new();
+    for suffix in &dictionary.rendaku_suffixes {
+        if !known_rendaku_suffixes.insert((&suffix.spelling, &suffix.kana)) {
+            errors.push(Error::at_line(
+                suffix.line,
+                format!("duplicate rendaku suffix {} {}", suffix.spelling, suffix.kana),
+            ));
+        }
+        check_rendaku_suffix(suffix, &all_kanji, &mut errors);
     }
     if errors.is_empty() { Ok(()) } else { Err(errors) }
 }
@@ -131,6 +143,57 @@ fn check_introduced_kanji(
                 format!("word {headword} introduces {kanji}, which has a kanji entry"),
             ));
         }
+    }
+}
+
+/// Checks a rendaku suffix. `all_kanji` has every kanji in the dictionary.
+fn check_rendaku_suffix(
+    suffix: &RendakuSuffix,
+    all_kanji: &HashMap<char, IntroducedBy>,
+    errors: &mut Vec<Error>,
+) {
+    let spelling = &suffix.spelling;
+    let kana = &suffix.kana;
+    // Check that the spelling is written only with kanji introduced in the dictionary.
+    for c in spelling.chars() {
+        if !is_kanji(c) {
+            errors.push(Error::at_line(
+                suffix.line,
+                format!("rendaku suffix {spelling} contains {c}, which isn't a kanji"),
+            ));
+        } else if !all_kanji.contains_key(&c) {
+            errors.push(Error::at_line(
+                suffix.line,
+                format!("rendaku suffix {spelling} contains {c}, which no entry introduces"),
+            ));
+        }
+    }
+    // Check that the kana is hiragana starting with a kana that rendaku can give.
+    if !kana.chars().all(is_hiragana) {
+        errors.push(Error::at_line(
+            suffix.line,
+            format!("kana {kana} of rendaku suffix {spelling} isn't all hiragana"),
+        ));
+    }
+    if !kana.chars().next().is_some_and(is_rendaku_kana) {
+        errors.push(Error::at_line(
+            suffix.line,
+            format!(
+                "kana {kana} of rendaku suffix {spelling} \
+                 doesn't start with a kana that rendaku gives"
+            ),
+        ));
+    }
+}
+
+/// Whether a hiragana character is one that rendaku can turn a kana into.
+fn is_rendaku_kana(c: char) -> bool {
+    match c {
+        'が' | 'ぎ' | 'ぐ' | 'げ' | 'ご' => true,
+        'ざ' | 'じ' | 'ず' | 'ぜ' | 'ぞ' => true,
+        'だ' | 'ぢ' | 'づ' | 'で' | 'ど' => true,
+        'ば' | 'び' | 'ぶ' | 'べ' | 'ぼ' => true,
+        _ => false,
     }
 }
 

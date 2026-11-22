@@ -233,6 +233,27 @@ impl Args {
         Ok(values)
     }
 
+    /// Takes all consecutive nodes named with one of the names in `parsers`, calling the
+    /// function paired with each node's name. Unlike the other methods, it goes on after
+    /// a node fails, so that the errors of all nodes are returned.
+    pub fn take_many_by_names_collecting_errors<T>(
+        &mut self,
+        parsers: &[(&str, fn(&mut Args) -> Result<T>)],
+    ) -> Result<Vec<T>, Vec<Error>> {
+        let mut values = Vec::new();
+        let mut errors = Vec::new();
+        while let Some(next_node) = self.nodes.front()
+            && let Some(&(_, parse)) = parsers.iter().find(|&&(name, _)| name == next_node.name)
+        {
+            let node = self.nodes.pop_front().expect("the next node exists");
+            match node.take(|_, args| parse(args)) {
+                Ok(value) => values.push(value),
+                Err(error) => errors.push(error),
+            }
+        }
+        if errors.is_empty() { Ok(values) } else { Err(errors) }
+    }
+
     pub fn pos(&self) -> Pos {
         self.pos
     }

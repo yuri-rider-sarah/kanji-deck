@@ -9,10 +9,20 @@ macro_rules! indented {
     };
 }
 
-pub fn serialize(entries: &[Entry]) -> String {
+pub fn serialize(dictionary: &Dictionary) -> String {
     let mut lines = Vec::new();
-    for entry in entries {
+    for entry in &dictionary.entries {
         serialize_entry(&mut lines, entry);
+    }
+    if !dictionary.rendaku_suffixes.is_empty() {
+        lines.push("rendaku-suffixes".to_string());
+        // Rendaku suffixes are sorted by kana.
+        let mut rendaku_suffixes: Vec<&RendakuSuffix> =
+            dictionary.rendaku_suffixes.iter().collect();
+        rendaku_suffixes.sort_by_key(|&suffix| (&suffix.kana, &suffix.spelling));
+        for suffix in rendaku_suffixes {
+            lines.push(indented!(1, "suffix {} {}", suffix.spelling, suffix.kana));
+        }
     }
     lines.join("\n") + "\n"
 }

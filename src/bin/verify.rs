@@ -24,15 +24,16 @@ fn run() -> Result<(), Vec<FileError>> {
         .map_err(|error| FileError::io(DICTIONARY_PATH, FileAction::Read, error))?;
     let nodes =
         parser::parse(&text).map_err(|error| FileError::contents(DICTIONARY_PATH, error))?;
-    let entries =
+    let dictionary =
         dict::load(nodes).map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
     let lexicon_text = std::fs::read_to_string(LEXICON_PATH)
         .map_err(|error| FileError::io(LEXICON_PATH, FileAction::Read, error))?;
     let lexicon = unidic::read_lexicon(&lexicon_text)
         .map_err(|error| FileError::contents(LEXICON_PATH, error))?;
-    let readings = decompose::extract_readings(&entries, &lexicon.parts_of_speech)
+    let readings = decompose::extract_readings(&dictionary.entries, &lexicon.parts_of_speech)
         .map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
-    let known_kanji: HashSet<char> = entries
+    let known_kanji: HashSet<char> = dictionary
+        .entries
         .iter()
         .flat_map(|entry| match entry {
             Entry::Kanji(entry) => std::slice::from_ref(&entry.kanji),
@@ -40,7 +41,12 @@ fn run() -> Result<(), Vec<FileError>> {
         })
         .copied()
         .collect();
-    let reading_index = decompose::index_readings(&readings);
+    let rendaku_suffixes: Vec<decompose::Word> = dictionary
+        .rendaku_suffixes
+        .into_iter()
+        .map(|suffix| decompose::Word { spelling: suffix.spelling, kana: suffix.kana })
+        .collect();
+    let reading_index = decompose::index_readings(&readings, &rendaku_suffixes);
     for word in &lexicon.words {
         let is_suffix = lexicon.suffixes.contains(word);
         if is_word_to_decompose(&word.spelling, &known_kanji)

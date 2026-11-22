@@ -150,3 +150,16 @@ fn args_leftover_and_missing() {
     let e = root.take_one(|_, args| args.take_string()).unwrap_err();
     assert_eq!(e.message, "expected more arguments");
 }
+
+#[test]
+fn args_many_by_names_collecting_errors() {
+    let mut root = parse("a x\nb\na x y\nb z\na x\nc").unwrap();
+    let parsers: [(&str, fn(&mut Args) -> Result<String>); 2] =
+        [("a", |args| args.take_string()), ("b", |_| Ok("b".to_string()))];
+    let errors = root.take_many_by_names_collecting_errors(&parsers).unwrap_err();
+    let messages: Vec<_> = errors.iter().map(|e| e.message.as_str()).collect();
+    assert_eq!(messages, ["unexpected y", "unexpected z"]);
+    assert_eq!(root.take_string().unwrap(), "c");
+    let mut root = parse("a x\nb\nc").unwrap();
+    assert_eq!(root.take_many_by_names_collecting_errors(&parsers).unwrap(), ["x", "b"]);
+}

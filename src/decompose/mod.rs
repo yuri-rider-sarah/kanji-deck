@@ -47,8 +47,8 @@ pub struct Reading {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Rendaku {
     Never,
-    /// Only in some contexts: for a reading of a single kanji, when it directly follows
-    /// the same reading, as in 種々 しゅじゅ.
+    /// Only in some contexts: at the start of a rendaku suffix, and for a kanji reading
+    /// that directly follows the same reading.
     Conditional,
     /// Everywhere except at the start of a word.
     Full,

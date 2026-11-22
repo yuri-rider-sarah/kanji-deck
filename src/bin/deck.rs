@@ -23,22 +23,22 @@ fn run() -> Result<(), Vec<FileError>> {
         .map_err(|error| FileError::io(DICTIONARY_PATH, FileAction::Read, error))?;
     let nodes =
         parser::parse(&text).map_err(|error| FileError::contents(DICTIONARY_PATH, error))?;
-    let entries =
+    let dictionary =
         dict::load(nodes).map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
-    check_serializer(&text, &entries);
-    for warning in deck::check(&entries) {
+    check_serializer(&text, &dictionary);
+    for warning in deck::check(&dictionary.entries) {
         report_warning(&FileError::contents(DICTIONARY_PATH, warning));
     }
-    write_package(&entries)?;
+    write_package(&dictionary.entries)?;
     Ok(())
 }
 
-/// Warns if the serialized entries differ from the original text,
+/// Warns if the serialized dictionary differs from the original text,
 /// saving them to `target/dictionary_serialized`.
 /// Otherwise removes that file if it's left over from a previous run.
-fn check_serializer(text: &str, entries: &[dict::Entry]) {
+fn check_serializer(text: &str, dictionary: &dict::Dictionary) {
     const PATH: &str = "target/dictionary_serialized";
-    let serialized = dict::serialize(entries);
+    let serialized = dict::serialize(dictionary);
     if serialized != text {
         report_warning(&FileError::whole_file(
             DICTIONARY_PATH,

@@ -14,10 +14,25 @@ use std::ops::Index;
 
 /// Reads the dictionary from the top-level nodes of its file, and checks its
 /// contents. Fails with all errors found.
-pub fn load(nodes: Args) -> Result<Vec<Entry>, Vec<Error>> {
-    let entries = convert::convert(nodes)?;
-    check::check(&entries)?;
-    Ok(entries)
+pub fn load(nodes: Args) -> Result<Dictionary, Vec<Error>> {
+    let dictionary = convert::convert(nodes)?;
+    check::check(&dictionary)?;
+    Ok(dictionary)
+}
+
+/// The contents of the dictionary file.
+#[derive(Debug, Clone)]
+pub struct Dictionary {
+    pub entries: Vec<Entry>,
+    pub rendaku_suffixes: Vec<RendakuSuffix>,
+}
+
+/// A suffix where rendaku is allowed, even if it wouldn't be normally allowed.
+#[derive(Debug, Clone)]
+pub struct RendakuSuffix {
+    pub line: usize,
+    pub spelling: String,
+    pub kana: String,
 }
 
 /// The relative frequency of a spelling.

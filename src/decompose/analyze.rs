@@ -12,10 +12,17 @@ struct NormalizedReading<'a> {
     kana: String,
 }
 
-/// The readings that words are decomposed into, indexed for matching them.
-/// They are grouped by the first character of their normalized spelling.
+/// A rendaku suffix, with its normalized spelling and kana after rendaku.
+struct NormalizedRendakuSuffix {
+    spelling: String,
+    kana: String,
+}
+
+/// The readings and rendaku suffixes that words are decomposed into, indexed for matching them.
+/// Both are grouped by the first character of their normalized spelling.
 pub struct ReadingIndex<'a> {
     readings_by_first_char: HashMap<char, Vec<NormalizedReading<'a>>>,
+    rendaku_suffixes_by_first_char: HashMap<char, Vec<NormalizedRendakuSuffix>>,
 }
 
 /// The kana of a word, read in order, remembering the last kana read (`None` at the start).
@@ -41,9 +48,9 @@ impl WordKana<'_> {
     }
 }
 
-/// Indexes the readings that words are to be decomposed into by grouping them
-/// by the first character.
-pub fn index_readings(readings: &[Reading]) -> ReadingIndex<'_> {
+/// Indexes the readings that words are to be decomposed into and the rendaku suffixes
+/// by grouping them by the first character.
+pub fn index_readings<'a>(readings: &'a [Reading], rendaku_suffixes: &[Word]) -> ReadingIndex<'a> {
     let mut readings_by_first_char: HashMap<char, Vec<NormalizedReading>> = HashMap::new();
     for reading in readings {
         let Some(spelling) = normalize_spelling(&reading.spelling) else {
@@ -59,7 +66,22 @@ pub fn index_readings(readings: &[Reading]) -> ReadingIndex<'_> {
             kana,
         });
     }
-    ReadingIndex { readings_by_first_char }
+    let mut rendaku_suffixes_by_first_char: HashMap<char, Vec<NormalizedRendakuSuffix>> =
+        HashMap::new();
+    for suffix in rendaku_suffixes {
+        let Some(spelling) = normalize_spelling(&suffix.spelling) else {
+            continue;
+        };
+        let Some(first_char) = spelling.chars().next() else {
+            continue;
+        };
+        let kana = normalize_kana(&suffix.kana);
+        rendaku_suffixes_by_first_char
+            .entry(first_char)
+            .or_default()
+            .push(NormalizedRendakuSuffix { spelling, kana });
+    }
+    ReadingIndex { readings_by_first_char, rendaku_suffixes_by_first_char }
 }
 
 /// Whether a word can be decomposed into the indexed readings. Suffixes (`is_suffix`) can
@@ -70,7 +92,7 @@ pub fn can_decompose_word(word: &Word, is_suffix: bool, reading_index: &ReadingI
     };
     let kana = normalize_kana(&word.kana);
     let word_kana = WordKana { rest: kana.chars(), previous: None, is_suffix };
-    can_decompose(spelling.chars(), word_kana, None, &reading_index.readings_by_first_char)
+    can_decompose(spelling.chars(), word_kana, None, reading_index)
 }
 
 /// Normalizes a spelling by converting katakana to hiragana, merging the yotsugana,
@@ -109,7 +131,7 @@ fn can_decompose(
     mut spelling: Chars,
     mut kana: WordKana,
     previous_reading: Option<&NormalizedReading>,
-    readings_by_first_char: &HashMap<char, Vec<NormalizedReading>>,
+    reading_index: &ReadingIndex,
 ) -> bool {
     let Some(first_char) = spelling.clone().next() else {
         return kana.peek().is_none();
@@ -123,36 +145,54 @@ fn can_decompose(
         {
             spelling.next();
             kana.next();
-            return can_decompose(spelling, kana, None, readings_by_first_char);
+            return can_decompose(spelling, kana, None, reading_index);
         } else {
             return false;
         }
     }
-    let Some(readings) = readings_by_first_char.get(&first_char) else {
+    let Some(readings) = reading_index.readings_by_first_char.get(&first_char) else {
         return false;
     };
+    let at_rendaku_suffix = starts_with_rendaku_suffix(&spelling, &kana, reading_index);
     readings.iter().any(|reading| {
         let Some(spelling_rest) = spelling.as_str().strip_prefix(reading.spelling.as_str()) else {
             return false;
         };
         let mut kana_rest = kana.clone();
-        match_reading(&mut kana_rest, reading, previous_reading)
+        match_reading(&mut kana_rest, reading, previous_reading, at_rendaku_suffix)
             && okurigana_fits(reading.reading.okurigana_start, spelling_rest.chars().next())
-            && can_decompose(
-                spelling_rest.chars(),
-                kana_rest,
-                Some(reading),
-                readings_by_first_char,
-            )
+            && can_decompose(spelling_rest.chars(), kana_rest, Some(reading), reading_index)
+    })
+}
+
+/// Whether the rest of a word's spelling and kana starts with a rendaku suffix,
+/// with the kana it has after rendaku.
+fn starts_with_rendaku_suffix(
+    spelling: &Chars,
+    kana: &WordKana,
+    reading_index: &ReadingIndex,
+) -> bool {
+    let Some(first_char) = spelling.clone().next() else {
+        return false;
+    };
+    let Some(rendaku_suffixes) = reading_index.rendaku_suffixes_by_first_char.get(&first_char)
+    else {
+        return false;
+    };
+    rendaku_suffixes.iter().any(|suffix| {
+        spelling.as_str().starts_with(suffix.spelling.as_str())
+            && kana.rest.as_str().starts_with(suffix.kana.as_str())
     })
 }
 
 /// Try to match a reading's kana at the start of the given kana with the changes
-/// the reading allows, advancing past it.
+/// the reading allows after `previous_reading`, advancing past it. At the start of a rendaku
+/// suffix (`at_rendaku_suffix`), readings with conditional rendaku may take it.
 fn match_reading(
     word_kana: &mut WordKana,
     normalized_reading: &NormalizedReading,
     previous_reading: Option<&NormalizedReading>,
+    at_rendaku_suffix: bool,
 ) -> bool {
     let reading = normalized_reading.reading;
     let mut reading_kana = normalized_reading.kana.chars();
@@ -166,9 +206,11 @@ fn match_reading(
     };
     let rendaku_allowed = match reading.rendaku {
         Rendaku::Never => false,
-        Rendaku::Conditional => is_reduplicated_kanji(normalized_reading, previous_reading),
-        Rendaku::Full => previous_kana.is_some() || is_suffix_start,
-    };
+        Rendaku::Conditional => {
+            is_reduplicated_kanji(normalized_reading, previous_reading) || at_rendaku_suffix
+        }
+        Rendaku::Full => true,
+    } && (previous_kana.is_some() || is_suffix_start);
     let first_kana_matches = first_word_kana_char == first_reading_char
         || (rendaku_allowed && add_dakuten(first_reading_char) == Some(first_word_kana_char))
         || (reading.handakuten

@@ -5,44 +5,92 @@
 use super::*;
 use crate::parser::Args;
 
-pub fn convert(mut root: Args) -> Result<Vec<Entry>, Vec<Error>> {
+/// A top-level node of the file that's an entry, or a part of a kanji entry.
+enum EntryNode {
+    KanjiPart { line: usize, kanji: char, part_no: Option<usize>, part: EntryPart<SplitKana> },
+    Word(WordEntry),
+}
+
+/// Converts the top-level nodes of the file into the dictionary. Fails with all errors found.
+pub fn convert(mut root: Args) -> Result<Dictionary, Vec<Error>> {
+    let mut errors = Vec::new();
+    let entry_nodes = match root.take_many_by_names_collecting_errors(&[
+        ("kanji", parse_kanji_part),
+        ("word", parse_word_entry),
+    ]) {
+        Ok(entry_nodes) => entry_nodes,
+        Err(node_errors) => {
+            errors.extend(node_errors);
+            Vec::new()
+        }
+    };
+    let entries = match entries_from_nodes(entry_nodes) {
+        Ok(entries) => entries,
+        Err(entry_errors) => {
+            errors.extend(entry_errors);
+            Vec::new()
+        }
+    };
+    let rendaku_suffixes = match root.take_optional_by_name("rendaku-suffixes", |args| {
+        args.take_many_by_name("suffix", parse_rendaku_suffix)
+    }) {
+        Ok(rendaku_suffixes) => rendaku_suffixes.unwrap_or_default(),
+        Err(error) => {
+            errors.push(error);
+            Vec::new()
+        }
+    };
+    // A node left here is unknown, or comes after the rendaku suffixes.
+    if let Err(error) = root.take_optional(|head, args| -> Result<()> {
+        Err(Error::unexpected_node(args.pos(), &head))
+    }) {
+        errors.push(error);
+    }
+    if errors.is_empty() { Ok(Dictionary { entries, rendaku_suffixes }) } else { Err(errors) }
+}
+
+/// Makes the entries from the entry nodes, adding each part of a kanji entry after the first
+/// to the entry before it.
+fn entries_from_nodes(entry_nodes: Vec<EntryNode>) -> Result<Vec<Entry>, Vec<Error>> {
     let mut entries = Vec::new();
     let mut errors = Vec::new();
+    // The part number of the last node, for merging kanji entries.
     let mut last_part_no = None;
-    loop {
-        let mut parse_entry = |head: String, args: &mut Args| {
-            let part_no = match head.as_str() {
-                "kanji" => parse_kanji_entry(args, &mut entries, last_part_no)?,
-                "word" => {
-                    entries.push(Entry::Word(parse_word_entry(args)?));
-                    // Word entries have no parts for a following entry to continue.
-                    None
+    for entry_node in entry_nodes {
+        match entry_node {
+            EntryNode::KanjiPart { line, kanji, part_no: part_no @ (None | Some(1)), part } => {
+                entries.push(Entry::Kanji(KanjiEntry { line, kanji, parts: vec![part] }));
+                last_part_no = part_no;
+            }
+            EntryNode::KanjiPart { line, kanji, part_no: Some(part_no), part } => {
+                match entries.last_mut() {
+                    Some(Entry::Kanji(last))
+                        if last.kanji == kanji && last_part_no == Some(part_no - 1) =>
+                    {
+                        last.parts.push(part);
+                        last_part_no = Some(part_no);
+                    }
+                    _ => {
+                        errors.push(Error::at_line(
+                            line,
+                            format!("part:{part_no} doesn't follow part:{}", part_no - 1),
+                        ));
+                        last_part_no = None;
+                    }
                 }
-                _ => return Err(Error::unexpected_node(args.pos(), &head)),
-            };
-            last_part_no = part_no;
-            Ok(())
-        };
-        match root.take_optional(&mut parse_entry) {
-            Ok(Some(())) => (),
-            Ok(None) => break,
-            Err(e) => {
+            }
+            EntryNode::Word(entry) => {
+                entries.push(Entry::Word(entry));
                 last_part_no = None;
-                errors.push(e);
             }
         }
     }
     if errors.is_empty() { Ok(entries) } else { Err(errors) }
 }
 
-/// Parses a part of a kanji entry, and adds it to `entries` as a new entry or
-/// as the next part of the last one, whose part number is `last_part_no`.
-/// Returns the part number of the new part.
-fn parse_kanji_entry(
-    args: &mut Args,
-    entries: &mut Vec<Entry>,
-    last_part_no: Option<usize>,
-) -> Result<Option<usize>> {
+/// Parses a part of a kanji entry, which may be the whole entry.
+fn parse_kanji_part(args: &mut Args) -> Result<EntryNode> {
+    let line = args.pos().line;
     let name = args.take_string()?;
     let mut chars = name.chars();
     let (Some(kanji), None) = (chars.next(), chars.next()) else {
@@ -50,40 +98,28 @@ fn parse_kanji_entry(
     };
     let part_no = parse_part_no(args)?;
     let part = parse_part(args)?;
-    match part_no {
-        None | Some(1) => {
-            entries.push(Entry::Kanji(KanjiEntry {
-                line: args.pos().line,
-                kanji,
-                parts: vec![part],
-            }));
-        }
-        Some(part_no) => match entries.last_mut() {
-            Some(Entry::Kanji(last))
-                if last.kanji == kanji && last_part_no == Some(part_no - 1) =>
-            {
-                last.parts.push(part);
-            }
-            _ => {
-                return Err(Error::new(
-                    args.pos(),
-                    format!("part:{part_no} doesn't follow part:{}", part_no - 1),
-                ));
-            }
-        },
-    }
-    Ok(part_no)
+    Ok(EntryNode::KanjiPart { line, kanji, part_no, part })
 }
 
 /// Parses a word entry, which unlike a kanji entry is never split into parts.
-fn parse_word_entry(args: &mut Args) -> Result<WordEntry> {
+fn parse_word_entry(args: &mut Args) -> Result<EntryNode> {
     let headword = args.take_string()?;
     let introduced_kanji =
         match args.take_optional_by_name("introduces", |args| args.take_string())? {
             Some(introduced_kanji) => introduced_kanji.chars().collect(),
             None => Vec::new(),
         };
-    Ok(WordEntry { line: args.pos().line, headword, introduced_kanji, part: parse_part(args)? })
+    let part = parse_part(args)?;
+    Ok(EntryNode::Word(WordEntry { line: args.pos().line, headword, introduced_kanji, part }))
+}
+
+/// Parses a rendaku suffix, `suffix SPELLING KANA`.
+fn parse_rendaku_suffix(args: &mut Args) -> Result<RendakuSuffix> {
+    Ok(RendakuSuffix {
+        line: args.pos().line,
+        spelling: args.take_string()?,
+        kana: args.take_string()?,
+    })
 }
 
 /// Parses the optional part number of an entry, `part:N` with N above 0.
