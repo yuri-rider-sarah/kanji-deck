@@ -73,6 +73,9 @@ fn serialize_reading<K: SerializeKana>(lines: &mut Vec<String>, reading: &Readin
     if reading.regular {
         head += " #regular";
     }
+    if reading.rendaku_after {
+        head += " #rendaku-after";
+    }
     lines.push(indented!(
         2,
         "{head} | {} | {} || {}",

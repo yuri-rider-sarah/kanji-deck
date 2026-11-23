@@ -38,6 +38,8 @@ pub struct Reading {
     pub handakuten: bool,
     /// Whether the last kana may become っ before some kana.
     pub gemination: bool,
+    /// Whether readings with conditional rendaku may take it directly after this one.
+    pub rendaku_after: bool,
     /// How the okurigana that has to follow the reading starts, or `None` if anything
     /// may follow it, including the end of the word.
     pub okurigana_start: Option<OkuriganaStart>,
@@ -47,8 +49,8 @@ pub struct Reading {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Rendaku {
     Never,
-    /// Only in some contexts: at the start of a rendaku suffix, and for a kanji reading
-    /// that directly follows the same reading.
+    /// Only in some contexts: at the start of a rendaku suffix, directly after a reading
+    /// marked as allowing it, and for a kanji reading that directly follows the same reading.
     Conditional,
     /// Everywhere except at the start of a word.
     Full,

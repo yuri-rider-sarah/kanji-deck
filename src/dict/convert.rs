@@ -152,6 +152,7 @@ fn parse_reading<K: ParseKana>(args: &mut Args) -> Result<Reading<K>> {
     let line = args.pos().line;
     let core = args.take_flag("#core");
     let regular = args.take_flag("#regular");
+    let rendaku_after = args.take_flag("#rendaku-after");
     let spelling = args.take_one(parse_spelling)?;
     let kana = args.take_one(K::parse_kana)?;
     let definition = args.take_string()?;
@@ -184,6 +185,7 @@ fn parse_reading<K: ParseKana>(args: &mut Args) -> Result<Reading<K>> {
         line,
         core,
         regular,
+        rendaku_after,
         spelling,
         kana,
         definition,

@@ -207,7 +207,9 @@ fn match_reading(
     let rendaku_allowed = match reading.rendaku {
         Rendaku::Never => false,
         Rendaku::Conditional => {
-            is_reduplicated_kanji(normalized_reading, previous_reading) || at_rendaku_suffix
+            is_reduplicated_kanji(normalized_reading, previous_reading)
+                || at_rendaku_suffix
+                || previous_reading.is_some_and(|previous| previous.reading.rendaku_after)
         }
         Rendaku::Full => true,
     } && (previous_kana.is_some() || is_suffix_start);

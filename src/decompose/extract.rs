@@ -82,18 +82,21 @@ fn readings_from_kanji_reading(
     kanji: char,
     parts_of_speech: &HashMap<Word, PartOfSpeech>,
 ) -> Result<Vec<Reading>> {
-    match reading_type {
-        dict::ReadingType::On => Ok(vec![on_reading_from_kanji(form.kana, kanji)]),
-        dict::ReadingType::Asian | dict::ReadingType::European => Ok(vec![foreign_reading(
-            kanji.to_string(),
-            katakana_to_hiragana_in_str(&form.kana.mid),
-        )]),
+    let mut readings = match reading_type {
+        dict::ReadingType::On => vec![on_reading_from_kanji(form.kana, kanji)],
+        dict::ReadingType::Asian | dict::ReadingType::European => {
+            vec![foreign_reading(kanji.to_string(), katakana_to_hiragana_in_str(&form.kana.mid))]
+        }
         dict::ReadingType::Kun => {
             let (reading_split, variant_splits) =
                 kun_splits_from_kanji_reading(form, kanji, reading.line)?;
-            readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)
+            readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)?
         }
+    };
+    for extracted_reading in &mut readings {
+        extracted_reading.rendaku_after = reading.rendaku_after;
     }
+    Ok(readings)
 }
 
 /// The readings from a canonical form of a reading of a word entry, of the given type.
@@ -103,20 +106,24 @@ fn readings_from_word_reading(
     reading_type: dict::ReadingType,
     parts_of_speech: &HashMap<Word, PartOfSpeech>,
 ) -> Result<Vec<Reading>> {
-    match reading_type {
+    let mut readings = match reading_type {
         dict::ReadingType::On => {
             let (spelling, kana) = non_kun_spelling_and_kana_from_word(form, reading.line)?;
-            Ok(vec![on_reading(spelling, kana)])
+            vec![on_reading(spelling, kana)]
         }
         dict::ReadingType::Asian | dict::ReadingType::European => {
             let (spelling, kana) = non_kun_spelling_and_kana_from_word(form, reading.line)?;
-            Ok(vec![foreign_reading(spelling, kana)])
+            vec![foreign_reading(spelling, kana)]
         }
         dict::ReadingType::Kun => {
             let (reading_split, variant_splits) = kun_splits_from_word_reading(form, reading.line)?;
-            readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)
+            readings_from_kun_splits(reading_split, variant_splits, reading, parts_of_speech)?
         }
+    };
+    for extracted_reading in &mut readings {
+        extracted_reading.rendaku_after = reading.rendaku_after;
     }
+    Ok(readings)
 }
 
 /// The reading of a kanji from the kana of an on reading of its entry.
@@ -166,6 +173,7 @@ fn on_reading(spelling: String, kana: String) -> Reading {
         rendaku: Rendaku::Conditional,
         handakuten: true,
         gemination: true,
+        rendaku_after: false,
         okurigana_start: None,
     }
 }
@@ -178,6 +186,7 @@ fn foreign_reading(spelling: String, kana: String) -> Reading {
         rendaku: Rendaku::Never,
         handakuten: false,
         gemination: false,
+        rendaku_after: false,
         okurigana_start: None,
     }
 }
@@ -190,6 +199,7 @@ fn kun_reading(spelling: String, kana: String, okurigana_start: Option<Okurigana
         rendaku: Rendaku::Full,
         handakuten: true,
         gemination: false,
+        rendaku_after: false,
         okurigana_start,
     }
 }

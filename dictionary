@@ -17,7 +17,7 @@ kanji 二
         reading | pri-spell 二日 | *ふつ*か || two days
 kanji 三
     on-group
-        reading #core | pri-spell 三 | *サン* || three
+        reading #core #rendaku-after | pri-spell 三 | *サン* || three
     kun-group
         reading #core | pri-spell 三つ | *みっ*つ || three
         reading | pri-spell 三つ | *み*つ || three (as prefix)
@@ -103,7 +103,7 @@ kanji 百
         reading | pri-spell 百 | *もも* || hundred (archaic)
 kanji 千
     on-group
-        reading #core | pri-spell 千 | *セン* || thousand
+        reading #core #rendaku-after | pri-spell 千 | *セン* || thousand
     kun-group
         reading | pri-spell 千切る | *ち*ぎる || to tear to pieces
 kanji 日
@@ -695,7 +695,7 @@ kanji 何
         reading | pri-spell 幾何学 | キ*カ*ガク || geometry
     kun-group
         reading #core | pri-spell 何 | *なに* || what
-        reading | pri-spell 何人 | *なん*にん || how many people
+        reading #rendaku-after | pri-spell 何人 | *なん*にん || how many people
     kun-group
         reading | pri-kanji-spell どこ rare:何処 | *ど*こ || where
     kun-group
@@ -3731,7 +3731,7 @@ kanji 殿
         reading | pri-spell 殿 | *しんがり* || rear guard
 kanji 万
     on-group
-        reading #core | pri-spell 万 | *マン* || ten thousand
+        reading #core #rendaku-after | pri-spell 万 | *マン* || ten thousand
     on-group
         reading #core | pri-spell 万全 | *バン*ゼン || perfection
     kun-group

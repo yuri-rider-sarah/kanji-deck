@@ -200,6 +200,7 @@ pub struct Reading<K> {
     pub line: usize,
     pub core: bool,
     pub regular: bool,
+    pub rendaku_after: bool,
     pub spelling: Spelling,
     pub kana: K,
     pub definition: String,
