@@ -19,10 +19,13 @@ impl Error {
     pub fn at_line(line: usize, message: impl Into<String>) -> Error {
         Error { line, column: None, message: message.into() }
     }
-
-    pub fn unexpected_node(pos: Pos, head: &str) -> Error {
-        Error::new(pos, format!("unexpected {head}"))
-    }
 }
 
 pub type Result<T, E = Error> = std::result::Result<T, E>;
+
+/// A single error as a list of errors, so `?` works on both.
+impl From<Error> for Vec<Error> {
+    fn from(error: Error) -> Vec<Error> {
+        vec![error]
+    }
+}

@@ -28,14 +28,30 @@ struct Node {
     args: Vec<Node>,
 }
 
-/// Parses the text into its top-level records.
-pub fn parse(text: &str) -> Result<Args> {
+/// Parses the text into its top-level records and calls `f` with the records in `Args`.
+/// If `f` returns without consuming all records, an unexpected node error is added.
+pub fn parse<T>(
+    text: &str,
+    f: impl FnOnce(&mut Args) -> Result<T, Vec<Error>>,
+) -> Result<T, Vec<Error>> {
     let mut tokens = tokenize(text);
     let mut nodes = VecDeque::new();
     while tokens.peek()? != &TokenKind::Eof {
         nodes.push_back(read_record(&mut tokens)?);
     }
-    Ok(Args { pos: Pos { line: 1, column: 1 }, nodes })
+    let mut args = Args { pos: Pos { line: 1, column: 1 }, nodes };
+    let result = f(&mut args);
+    let leftover_node_error =
+        args.nodes.front().map(|node| unexpected_node_error(node.pos, &node.name));
+    match (result, leftover_node_error) {
+        (Ok(result), None) => Ok(result),
+        (Ok(_), Some(leftover_node_error)) => Err(vec![leftover_node_error]),
+        (Err(errors), None) => Err(errors),
+        (Err(mut errors), Some(leftover_node_error)) => {
+            errors.push(leftover_node_error);
+            Err(errors)
+        }
+    }
 }
 
 /// An error saying a token wasn't expected.
@@ -53,6 +69,11 @@ fn unexpected_token_error(token: &Token) -> Error {
         TokenKind::Eof => "end of file",
     };
     Error::new(token.pos, format!("unexpected {kind_name}"))
+}
+
+/// An error saying a node with a given name wasn't expected.
+pub fn unexpected_node_error(pos: Pos, head: &str) -> Error {
+    Error::new(pos, format!("unexpected {head}"))
 }
 
 /// Takes the next token, which must be of the given kind.
@@ -164,7 +185,7 @@ impl Node {
         let mut args = Args { pos: self.pos, nodes: self.args.into() };
         let value = f(self.name, &mut args)?;
         match args.nodes.front() {
-            Some(node) => Err(Error::unexpected_node(node.pos, &node.name)),
+            Some(node) => Err(unexpected_node_error(node.pos, &node.name)),
             None => Ok(value),
         }
     }

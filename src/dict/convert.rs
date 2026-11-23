@@ -3,7 +3,7 @@
 //! Errors are collected per entry, so all broken entries are reported at once.
 
 use super::*;
-use crate::parser::Args;
+use crate::parser::{Args, unexpected_node_error};
 
 /// A top-level node of the file that's an entry, or a part of a kanji entry.
 enum EntryNode {
@@ -12,7 +12,7 @@ enum EntryNode {
 }
 
 /// Converts the top-level nodes of the file into the dictionary. Fails with all errors found.
-pub fn convert(mut root: Args) -> Result<Dictionary, Vec<Error>> {
+pub fn convert(root: &mut Args) -> Result<Dictionary, Vec<Error>> {
     let mut errors = Vec::new();
     let entry_nodes = match root.take_many_by_names_collecting_errors(&[
         ("kanji", parse_kanji_part),
@@ -40,12 +40,6 @@ pub fn convert(mut root: Args) -> Result<Dictionary, Vec<Error>> {
             Vec::new()
         }
     };
-    // A node left here is unknown, or comes after the rendaku suffixes.
-    if let Err(error) = root.take_optional(|head, args| -> Result<()> {
-        Err(Error::unexpected_node(args.pos(), &head))
-    }) {
-        errors.push(error);
-    }
     if errors.is_empty() { Ok(Dictionary { entries, rendaku_suffixes }) } else { Err(errors) }
 }
 
@@ -273,7 +267,7 @@ fn parse_spelling(head: String, args: &mut Args) -> Result<Spelling> {
             main_kanji: args.take_one(freq_word)?,
             described: args.take_one(freq_word)?,
         }),
-        _ => Err(Error::unexpected_node(args.pos(), &head)),
+        _ => Err(unexpected_node_error(args.pos(), &head)),
     }
 }
 
@@ -281,7 +275,7 @@ fn freq_word(head: String, args: &mut Args) -> Result<FreqWord> {
     let freq = match head.as_str() {
         "common" => Freq::Common,
         "rare" => Freq::Rare,
-        _ => return Err(Error::unexpected_node(args.pos(), &head)),
+        _ => return Err(unexpected_node_error(args.pos(), &head)),
     };
     Ok(FreqWord { freq, word: args.take_string()? })
 }

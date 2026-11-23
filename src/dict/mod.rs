@@ -14,7 +14,7 @@ use std::ops::Index;
 
 /// Reads the dictionary from the top-level nodes of its file, and checks its
 /// contents. Fails with all errors found.
-pub fn load(nodes: Args) -> Result<Dictionary, Vec<Error>> {
+pub fn load(nodes: &mut Args) -> Result<Dictionary, Vec<Error>> {
     let dictionary = convert::convert(nodes)?;
     check::check(&dictionary)?;
     Ok(dictionary)

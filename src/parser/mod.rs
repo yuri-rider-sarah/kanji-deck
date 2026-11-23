@@ -5,7 +5,7 @@
 mod lex;
 mod parse;
 
-pub use parse::{Args, parse};
+pub use parse::{Args, parse, unexpected_node_error};
 
 /// A position in a file. Both the line and the column are counted from 1, and
 /// the column is counted in characters.

@@ -21,10 +21,8 @@ fn main() -> ExitCode {
 fn run() -> Result<(), Vec<FileError>> {
     let text = std::fs::read_to_string(DICTIONARY_PATH)
         .map_err(|error| FileError::io(DICTIONARY_PATH, FileAction::Read, error))?;
-    let nodes =
-        parser::parse(&text).map_err(|error| FileError::contents(DICTIONARY_PATH, error))?;
-    let dictionary =
-        dict::load(nodes).map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
+    let dictionary = parser::parse(&text, dict::load)
+        .map_err(|errors| FileError::contents_errors(DICTIONARY_PATH, errors))?;
     check_serializer(&text, &dictionary);
     for warning in deck::check(&dictionary.entries) {
         report_warning(&FileError::contents(DICTIONARY_PATH, warning));
