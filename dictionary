@@ -289,8 +289,6 @@ kanji 手
         reading #core | pri-spell 手段 | *シュ*ダン || method
     on-group
         reading | pri-spell 上手 | ジョウ*ズ* || skillful
-    on-group
-        reading | pri-spell 千手観音 | セン*ジュ*カンノン || thousand-armed Kannon
     kun-group
         reading #core | pri-spell 手 | *て* || hand
         reading | pri-spell 手綱 | *た*づな || reins
@@ -902,7 +900,7 @@ kanji 方
     on-group
         reading #core | pri-spell 方 | *ホウ* || direction, side; method
     on-group
-        reading | pri-spell 三方 | サン*ボウ* || sanbō (offering stand)
+        reading | pri-spell 公方 | ク*ボウ* || public; shōgun (historical)
     kun-group
         reading #core | pri-spell 方 | *かた* || person (honorific); direction
     kun-group
@@ -1346,7 +1344,7 @@ kanji 身
     on-group
         reading #core | pri-spell 自身 | ジ*シン* || oneself
     on-group
-        reading | pri-spell 三身 | サン*ジン* || three bodies of the Buddha
+        reading | pri-spell 随身 | ズイ*ジン* || zuijin (historical Imperial bodyguard)
     kun-group
         reading #core | pri-spell 身 | *み* || body
 word 身体
@@ -1795,7 +1793,7 @@ kanji 界
         reading #core | pri-spell 世界 | セ*カイ* || world
         reading #core | pri-spell 限界 | ゲン*カイ* || limit
     on-group
-        reading | pri-spell 三界 | サン*ガイ* || three realms (Buddhism)
+        reading | pri-spell 苦界 | ク*ガイ* || world of suffering (Buddhism)
 kanji 以
     on-group
         reading #core | pri-spell 以上 | *イ*ジョウ || and more
@@ -3233,6 +3231,9 @@ word 七転八倒
 word 不見転
     kun-group
         reading #core | pri-spell 不見転 | みずてん || acting on an impulse
+word 転手
+    on-group
+        reading #core | pri-spell 転手 | テンジュ || tuning peg (on a biwa or shamisen)
 kanji 由
     on-group
         reading #core | pri-spell 理由 | リ*ユウ* || reason
@@ -7577,8 +7578,6 @@ kanji 織
 kanji 宝
     on-group
         reading #core | pri-spell 財宝 | ザイ*ホウ* || treasure
-    on-group
-        reading | pri-spell 三宝 | サン*ボウ* || Three Jewels (Buddhism)
     kun-group
         reading #core | pri-spell 宝 | *たから* || treasure
 kanji 午
